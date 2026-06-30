@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Get a Freight Quote — Stateside International Logistics | Landstar's</title>
+<meta name="description" content="Get an instant ocean & domestic freight estimate from Shanghai to your door. Container importing quotes from Landstar Agent Lewis Broome III." />
+<meta name="robots" content="index,follow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0a1f33;--ink-2:#46607a;--bg:#ffffff;--bg-soft:#f4f8fc;--line:#e2eaf2;
+    --navy:#081a2c;--navy-2:#0f2c47;--amber:#0e80d4;--amber-700:#0a5fa8;--green:#1f9d57;
+    --maxw:1120px;--radius:16px;--shadow-sm:0 4px 16px rgba(10,31,51,.06);--shadow:0 20px 50px rgba(10,31,51,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg-soft);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Archivo','Inter',sans-serif;letter-spacing:-.02em;line-height:1.1}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .accent{color:var(--amber)}
+  .ls-badge{display:inline-flex;align-items:center;gap:.6rem;background:#fff;border-radius:10px;padding:.5rem .8rem;box-shadow:0 6px 18px rgba(8,26,44,.18);border:1px solid rgba(10,31,51,.06)}
+  .ls-badge img{height:20px;width:auto;display:block}
+  .ls-badge .lbl{font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0a1f33;border-left:1px solid #dde5ee;padding-left:.6rem;line-height:1.2;text-align:left}
+  .ls-badge .lbl span{display:block;color:#46607a}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:1rem;border-radius:12px;padding:.95rem 1.6rem;cursor:pointer;border:none;transition:transform .14s,box-shadow .25s,background .2s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-amber{background:linear-gradient(180deg,var(--amber),var(--amber-700));color:#ffffff;box-shadow:0 10px 26px rgba(14,128,212,.35)}
+  .btn-amber:hover{box-shadow:0 16px 36px rgba(14,128,212,.5);transform:translateY(-2px)}
+  .btn-ghost-light{background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(255,255,255,.28)}
+  .btn-ghost-light:hover{background:rgba(255,255,255,.18)}
+  .btn-block{width:100%;justify-content:center}
+  .btn-lg{padding:1.1rem 1.8rem;font-size:1.06rem}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:.7rem}
+  .brand .mark{width:42px;height:42px;border-radius:11px;flex:none;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;color:#ffffff;font-family:'Archivo';font-weight:900;font-size:1rem;box-shadow:0 6px 16px rgba(14,128,212,.3)}
+  .brand-text small{display:block;font-weight:700;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-700)}
+  .brand-text b{font-family:'Archivo';font-size:1rem;font-weight:800;color:var(--ink)}
+  .nav-right{display:flex;align-items:center;gap:1.2rem}
+  .nav-back{color:var(--ink-2);font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:.4rem}
+  .nav-back:hover{color:var(--ink)}
+  .nav-phone{color:var(--ink);font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:.4rem}
+  @media(max-width:720px){.nav-back span,.nav-phone span{display:none}}
+
+  /* hero strip */
+  .qhero{background:radial-gradient(900px 500px at 80% -20%,#16395c,#081a2c);color:#fff;padding:54px 0 130px;text-align:center}
+  .qhero .kicker{color:var(--amber);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem}
+  .qhero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;margin:.6rem 0 .7rem}
+  .qhero p{color:#bcd0e4;font-size:1.12rem;max-width:54ch;margin:0 auto}
+
+  .panel-area{margin-top:-90px;padding-bottom:80px}
+  .quote-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+  @media(max-width:900px){.quote-grid{grid-template-columns:1fr}}
+
+  /* form panel */
+  .panel{background:#fff;border-radius:18px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line)}
+  .panel-head{background:var(--navy);color:#fff;padding:22px 28px;display:flex;align-items:center;gap:.8rem}
+  .panel-head .ic{width:38px;height:38px;border-radius:10px;background:rgba(14,128,212,.18);display:flex;align-items:center;justify-content:center;color:var(--amber);flex:none}
+  .panel-head h2{font-size:1.2rem}
+  .panel-head small{display:block;color:#9fbdd8;font-weight:600;font-size:.78rem;font-family:'Inter'}
+  .panel-body{padding:28px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-weight:700;font-size:.85rem;color:var(--ink);margin-bottom:.4rem}
+  .field input,.field select{width:100%;padding:.82rem .9rem;border:1.5px solid #d4dce6;border-radius:10px;font-size:1rem;font-family:inherit;color:var(--ink);background:#fff;transition:border-color .15s,box-shadow .15s}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(14,128,212,.15)}
+  .field .req{color:#d23b3b}
+  .row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  .check{display:flex;align-items:center;gap:.5rem;background:var(--bg-soft);border:1.5px solid #d4dce6;border-radius:9px;padding:.62rem .7rem;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink);user-select:none;transition:.15s}
+  .check:hover{border-color:var(--amber)}
+  .check input{width:18px;height:18px;accent-color:var(--amber);flex:none;cursor:pointer}
+  .check.on{background:rgba(14,128,212,.10);border-color:var(--amber)}
+  .field-note{font-size:.8rem;color:var(--ink-2);margin-top:.5rem}
+  .err{color:#d23b3b;font-size:.84rem;font-weight:600;margin-top:.5rem;display:none}
+
+  /* result */
+  .result{background:linear-gradient(180deg,var(--navy-2),var(--navy));border-radius:18px;padding:28px;color:#fff;box-shadow:var(--shadow);position:sticky;top:90px}
+  .result .placeholder{text-align:center;color:#9fbdd8;padding:36px 10px}
+  .result .placeholder .big{width:66px;height:66px;border-radius:16px;background:rgba(14,128,212,.12);display:flex;align-items:center;justify-content:center;color:var(--amber);margin:0 auto 18px}
+  .result h3{color:#fff;font-size:1.3rem}
+  .quote-out{display:none}
+  .lane{color:#9fbdd8;font-size:.92rem;margin:2px 0 18px}
+  .leg{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;margin-bottom:14px;background:rgba(0,0,0,.18)}
+  .leg-head{display:flex;align-items:center;gap:.6rem;margin-bottom:12px;color:#9fbdd8;font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:.76rem}
+  .leg-head svg{color:var(--amber)}
+  .leg-rows{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .leg-rows .lr span{font-size:.72rem;color:#7fa0bd;text-transform:uppercase;letter-spacing:.04em}
+  .leg-rows .lr b{display:block;font-size:1.15rem;font-family:'Archivo';color:#fff;margin-top:1px}
+  .total{background:linear-gradient(90deg,rgba(14,128,212,.18),rgba(14,128,212,.04));border:1px solid rgba(14,128,212,.4);border-radius:12px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;margin:6px 0 16px}
+  .total .lbl{font-weight:700;color:#fff;font-size:1.05rem}
+  .total .amt{font-family:'Archivo';font-weight:900;font-size:2rem;color:var(--amber)}
+  .disclaimer{font-size:.82rem;color:#7fa0bd;background:rgba(0,0,0,.2);border-radius:10px;padding:12px 14px}
+  .trust-row{display:flex;gap:1.4rem;flex-wrap:wrap;justify-content:center;margin-top:34px;color:var(--ink-2);font-weight:600;font-size:.9rem}
+  .trust-row span{display:flex;align-items:center;gap:.45rem}
+  .trust-row svg{color:var(--amber-700)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <div class="mark">SL</div>
+      <div class="brand-text"><small>Landstar's</small><b>Stateside International Logistics</b></div>
+    </a>
+    <div class="nav-right">
+      <a class="nav-back" href="index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> <span>Back to home</span></a>
+      <a class="nav-phone" href="tel:17064179097"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>(706) 417-9097</span></a>
+    </div>
+  </div>
+</header>
+
+<section class="qhero">
+  <div class="wrap">
+    <span class="kicker">Instant Estimate</span>
+    <h1>Get a Container Importing Quote</h1>
+    <p>Tell us the lane and the cargo. You'll get an instant ocean &amp; domestic estimate on screen, and a confirmed full quote from Agent LBR the same day.</p>
+    <div style="margin-top:22px"><span class="ls-badge"><img src="assets/landstar-logo.png" alt="Landstar"><span class="lbl">Authorized<span>Agent</span></span></span></div>
+  </div>
+</section>
+
+<div class="panel-area">
+  <div class="wrap">
+    <div class="quote-grid">
+      <!-- FORM -->
+      <div class="panel">
+        <div class="panel-head">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><h2>Freight Quote Request</h2><small>Shanghai → U.S. door delivery</small></div>
+        </div>
+        <div class="panel-body">
+          <form id="quoteForm" novalidate>
+            <div class="field">
+              <label for="origin">Origin Port (China / Asia)</label>
+              <select id="origin">
+                <option value="Shanghai — Yangshan Deep-Water">Shanghai — Yangshan Deep-Water</option>
+                <option value="Shanghai — Waigaoqiao">Shanghai — Waigaoqiao</option>
+                <option value="Shanghai — Wusongkou">Shanghai — Wusongkou</option>
+                <option value="Ningbo">Ningbo</option>
+                <option value="Shenzhen / Yantian">Shenzhen / Yantian</option>
+                <option value="Other Asian port">Other Asian port</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="usport">U.S. Port of Entry <span class="req">*</span></label>
+              <select id="usport">
+                <option value="" disabled selected>Select U.S. port…</option>
+                <optgroup label="East Coast">
+                  <option value="Charleston, SC">Charleston, SC</option>
+                  <option value="Savannah, GA">Savannah, GA</option>
+                  <option value="New York / Newark, NJ">New York / Newark, NJ</option>
+                  <option value="Miami, FL">Miami, FL</option>
+                </optgroup>
+                <optgroup label="Gulf"><option value="Houston, TX">Houston, TX</option></optgroup>
+                <optgroup label="West Coast">
+                  <option value="Long Beach, CA">Long Beach, CA</option>
+                  <option value="Oakland, CA">Oakland, CA</option>
+                  <option value="Seattle, WA">Seattle, WA</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="row-2">
+              <div class="field"><label for="zip">Delivery ZIP <span class="req">*</span></label><input id="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 29201" /></div>
+              <div class="field"><label for="container">Container</label><select id="container"><option value="20' Standard">20' Standard</option><option value="40' Standard">40' Standard</option><option value="40' High Cube">40' High Cube</option></select></div>
+            </div>
+            <div class="field"><label for="weight">Cargo Weight (lbs)</label><input id="weight" inputmode="numeric" placeholder="e.g. 25,000" /></div>
+            <div class="field">
+              <label>Special Requirements</label>
+              <div class="checks">
+                <label class="check"><input type="checkbox" id="hazmat"> Hazmat</label>
+                <label class="check"><input type="checkbox" id="pharma"> Pharma</label>
+                <label class="check"><input type="checkbox" id="reefer"> Refrigerated</label>
+                <label class="check"><input type="checkbox" id="gov"> Government</label>
+                <label class="check"><input type="checkbox" id="oversize"> Oversize / Heavy</label>
+              </div>
+            </div>
+            <hr style="border:none;border-top:1px solid #e3e9f0;margin:22px 0" />
+            <div class="row-2">
+              <div class="field"><label for="name">Your Name <span class="req">*</span></label><input id="name" placeholder="Full name" /></div>
+              <div class="field"><label for="company">Company</label><input id="company" placeholder="Company name" /></div>
+            </div>
+            <div class="row-2">
+              <div class="field"><label for="email">Email <span class="req">*</span></label><input id="email" type="email" placeholder="you@company.com" /></div>
+              <div class="field"><label for="phone">Phone</label><input id="phone" type="tel" placeholder="(___) ___-____" /></div>
+            </div>
+            <div class="err" id="formErr"></div>
+            <button type="submit" class="btn btn-amber btn-block btn-lg" style="margin-top:6px">Calculate &amp; Send Quote Request
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="field-note">Submitting opens your email to send the request directly to Agent LBR — nothing is stored on this site.</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="result" id="result">
+        <div class="placeholder" id="placeholder">
+          <div class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18M7 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Your estimate appears here</h3>
+          <p style="max-width:30ch;margin:.5rem auto 0">Fill in the lane and cargo, then calculate to see a live ocean &amp; domestic estimate.</p>
+        </div>
+        <div class="quote-out" id="quoteOut">
+          <h3>Quote Estimate</h3>
+          <p class="lane" id="laneLabel"></p>
+          <div class="leg">
+            <div class="leg-head"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 16s2-1 4-1 3 1 6 1 5-1 6-1M3 16l1.5-6h15L21 16" stroke-linejoin="round"/></svg> International Ocean</div>
+            <div class="leg-rows"><div class="lr"><span>Ocean Freight</span><b id="oceanCost">—</b></div><div class="lr"><span>Transit Time</span><b id="oceanTime">—</b></div></div>
+          </div>
+          <div class="leg">
+            <div class="leg-head"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 16V6h13v10M14 9h5l3 3v4h-8" stroke-linejoin="round"/></svg> Domestic Delivery</div>
+            <div class="leg-rows"><div class="lr"><span>Port → Door</span><b id="domCost">—</b></div><div class="lr"><span>Est. Distance</span><b id="domDist">—</b></div></div>
+          </div>
+          <div class="total"><span class="lbl">Estimated Total</span><span class="amt" id="totalAmt">—</span></div>
+          <p class="disclaimer">Planning estimate only. Final ocean and domestic rates are confirmed by Agent LBR (Landstar) based on exact cargo, port congestion, and dangerous-goods classification. No freight moves without written confirmation.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-row">
+      <img src="assets/landstar-logo.png" alt="Landstar" style="height:24px;width:auto" />
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linejoin="round"/></svg> Landstar Agent Since 2017</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-linejoin="round"/><path d="M12 9v4M12 17h.01" stroke-linecap="round"/></svg> Hazmat &amp; Pharma Certified</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-3" stroke-linejoin="round"/></svg> USDOT 241572 · MC 166960</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  document.querySelectorAll('.check input').forEach(function(cb){
+    cb.addEventListener('change',function(){ cb.closest('.check').classList.toggle('on',cb.checked); });
+  });
+
+  var portZip={'Charleston, SC':'29492','Savannah, GA':'31408','New York / Newark, NJ':'07114','Miami, FL':'33101','Houston, TX':'77029','Long Beach, CA':'90802','Oakland, CA':'94607','Seattle, WA':'98134'};
+  var westCoast=['Long Beach, CA','Oakland, CA','Seattle, WA'];
+  var eastCoast=['Charleston, SC','Savannah, GA','New York / Newark, NJ','Miami, FL'];
+
+  function oceanTransit(p){ if(westCoast.indexOf(p)!==-1)return'14–21 days'; if(eastCoast.indexOf(p)!==-1)return'28–42 days'; return'21–35 days'; }
+  // ZIP prefixes run ~006 (NE) to ~999 (West) over ~2,800 mi → ~3 mi/point; floor 35, cap 3000
+  function estMiles(pZip,dZip){ if(!pZip||!/^\d{5}$/.test(dZip))return 0; var gap=Math.abs(parseInt(pZip.slice(0,3),10)-parseInt(dZip.slice(0,3),10)); return Math.min(Math.max(gap*3,35),3000); }
+  function oceanCost(o){ var base=o.container.indexOf('40')!==-1?5200:4250; if(o.hazmat)base*=1.5; if(o.reefer||o.pharma)base*=1.3; if(o.oversize)base*=1.25; return Math.round(base/25)*25; }
+  function domCost(miles,o){ if(!miles)return 0; var rate=2.75; if(o.hazmat||o.reefer||o.pharma)rate=5.00; if(o.oversize)rate=Math.max(rate,4.25); if(o.gov)rate*=1.15; rate*=1.05; return Math.max(Math.round(miles*rate),450); }
+  function money(n){ return '$'+n.toLocaleString('en-US'); }
+
+  var form=document.getElementById('quoteForm'), errBox=document.getElementById('formErr');
+  function showErr(m){ errBox.textContent=m; errBox.style.display='block'; }
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); errBox.style.display='none';
+    var usport=document.getElementById('usport').value, zip=document.getElementById('zip').value.trim();
+    var name=document.getElementById('name').value.trim(), email=document.getElementById('email').value.trim();
+    if(!usport){ showErr('Please select a U.S. port of entry.'); return; }
+    if(!/^\d{5}$/.test(zip)){ showErr('Please enter a valid 5-digit delivery ZIP.'); return; }
+    if(!name){ showErr('Please enter your name.'); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr('Please enter a valid email address.'); return; }
+
+    var o={origin:document.getElementById('origin').value,usport:usport,zip:zip,container:document.getElementById('container').value,
+      weight:document.getElementById('weight').value.trim(),hazmat:document.getElementById('hazmat').checked,pharma:document.getElementById('pharma').checked,
+      reefer:document.getElementById('reefer').checked,gov:document.getElementById('gov').checked,oversize:document.getElementById('oversize').checked,
+      name:name,company:document.getElementById('company').value.trim(),email:email,phone:document.getElementById('phone').value.trim()};
+
+    var miles=estMiles(portZip[usport],zip), ocean=oceanCost(o), dom=domCost(miles,o), total=ocean+dom, transit=oceanTransit(usport);
+
+    document.getElementById('placeholder').style.display='none';
+    document.getElementById('quoteOut').style.display='block';
+    document.getElementById('laneLabel').textContent=o.origin+'  →  '+usport+'  →  '+zip;
+    document.getElementById('oceanCost').textContent=money(ocean);
+    document.getElementById('oceanTime').textContent=transit;
+    document.getElementById('domCost').textContent=money(dom);
+    document.getElementById('domDist').textContent='~'+miles.toLocaleString('en-US')+' mi';
+    document.getElementById('totalAmt').textContent=money(total);
+    document.getElementById('result').scrollIntoView({behavior:'smooth',block:'nearest'});
+
+    var specials=[]; if(o.hazmat)specials.push('Hazmat'); if(o.pharma)specials.push('Pharma'); if(o.reefer)specials.push('Refrigerated'); if(o.gov)specials.push('Government'); if(o.oversize)specials.push('Oversize/Heavy');
+    var body=
+'NEW FREIGHT QUOTE REQUEST — Stateside International Logistics\n'+
+'====================================================\n\n'+
+'LANE\n  Origin Port: '+o.origin+'\n  U.S. Port:   '+usport+'\n  Delivery ZIP: '+zip+'\n\n'+
+'CARGO\n  Container: '+o.container+'\n  Weight:    '+(o.weight||'Not specified')+' lbs\n  Special:   '+(specials.length?specials.join(', '):'None')+'\n\n'+
+'INSTANT ESTIMATE\n  Ocean Freight:    '+money(ocean)+'  ('+transit+')\n  Domestic Drayage: '+money(dom)+'  (~'+miles+' mi)\n  Estimated Total:  '+money(total)+'\n\n'+
+'CONTACT\n  Name:    '+o.name+'\n  Company: '+(o.company||'N/A')+'\n  Email:   '+o.email+'\n  Phone:   '+(o.phone||'N/A')+'\n\n'+
+'----------------------------------------------------\nSubmitted via LewisBroome.ME quote page. Estimate only — confirm final rate.';
+    var subject='Freight Quote — '+usport+' → '+zip+' ('+o.name+')';
+    window.location.href='mailto:lewis.broome@landstarmail.com?cc=lewisbroome@gmail.com&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>
