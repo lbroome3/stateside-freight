@@ -255,8 +255,8 @@
           <p class="status" id="dispatchStatus">Locating Landstar carriers…</p>
           <div class="dispatch-load" id="dispatchLoad"></div>
           <div class="connected-actions" id="connectedActions">
-            <button class="btn btn-amber btn-block btn-lg" id="chatBtn">Chat with Agent LBR now</button>
-            <a class="btn btn-ghost btn-block" href="tel:18033611303">Or call/text direct — (803) 361-1303</a>
+            <a class="btn btn-amber btn-block btn-lg" href="sms:+18033611303">Text Agent LBR now — (803) 361-1303</a>
+            <a class="btn btn-ghost btn-block" href="tel:18033611303">Or call direct — (803) 361-1303</a>
           </div>
         </div>
 
@@ -459,7 +459,6 @@ s0.parentNode.insertBefore(s1,s0);
       if(window.Tawk_API){
         if(Tawk_API.setAttributes)Tawk_API.setAttributes({'name':'Truck Request — '+lastLoad.pickup+' to '+lastLoad.dropoff,'load-pickup':lastLoad.pickup,'load-delivery':lastLoad.dropoff,'load-equipment':lastLoad.equipment,'load-miles':String(lastLoad.miles),'load-estimate':lastLoad.estimate,'load-weight':lastLoad.weight||'n/a','load-commodity':lastLoad.commodity||'n/a'},function(){});
         if(Tawk_API.addEvent)Tawk_API.addEvent('Requested Truck',{pickup:lastLoad.pickup,delivery:lastLoad.dropoff,equipment:lastLoad.equipment,miles:lastLoad.miles,estimate:lastLoad.estimate},function(){});
-        if(Tawk_API.maximize)Tawk_API.maximize();
       }
     }catch(e){}
   }
@@ -477,14 +476,13 @@ s0.parentNode.insertBefore(s1,s0);
       else{
         clearInterval(iv);
         $('dispatchTitle').textContent='You’re connected 🚛';
-        st.style.opacity=0; setTimeout(function(){st.textContent='Agent LBR & Gizmo are on your load. Start the chat to lock it in.';st.style.opacity=1;},250);
+        st.style.opacity=0; setTimeout(function(){st.textContent='Agent LBR is on your load. Text or call to lock it in.';st.style.opacity=1;},250);
         var r=$('radar'); if(r)r.style.opacity='.4';
         $('connectedActions').classList.add('show');
         openChat();
       }
     },1400);
   });
-  $('chatBtn').addEventListener('click',openChat);
 })();
 </script>
 </body>
