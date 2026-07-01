@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
+<script>document.documentElement.classList.remove('no-js');</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Stateside International Logistics — Landstar Freight | Shanghai to Your Door</title>
@@ -259,6 +260,29 @@
   .video-wrap{position:relative;max-width:920px;margin:0 auto;aspect-ratio:16/9;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);background:#000}
   .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
+  /* ocean lanes map */
+  .lanes-section{background:radial-gradient(1000px 560px at 50% -10%,#16395c,#081a2c);color:#fff}
+  .lanes-section .section-head h2{color:#fff}
+  .lanes-section .section-head p{color:#bcd0e4}
+  .map-wrap{max-width:1060px;margin:0 auto;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow);background:linear-gradient(180deg,#0c2740,#081a2c)}
+  .map-wrap svg{display:block;width:100%;height:auto}
+  .lane{fill:none;stroke:#2e9be0;stroke-width:2;stroke-dasharray:7 11;opacity:.5;animation:flow 1.1s linear infinite}
+  .lane.warm{stroke:#f5b45e;opacity:.6}
+  @keyframes flow{to{stroke-dashoffset:-18}}
+  .port-ring{fill:none;stroke:#2e9be0;stroke-width:1.5;opacity:.7}
+  .port-ring.pulse-r{animation:portpulse 3s ease-out infinite}
+  @keyframes portpulse{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.8);opacity:0}}
+  .port-dot{fill:#fff}
+  .port-label{fill:#cfe0f0;font:600 13px Inter,Arial,sans-serif}
+  .grp-label{fill:#8fb0cc;font:700 11px Inter,Arial,sans-serif;letter-spacing:1.4px}
+  .grp-days{fill:#f5b45e;font:700 11px Inter,Arial,sans-serif;letter-spacing:.5px}
+  .origin-dot{fill:#0e80d4;stroke:#fff;stroke-width:2.5}
+  .origin-label{fill:#fff;font:800 17px Archivo,Arial,sans-serif}
+  .origin-sub{fill:#9fbdd8;font:600 11px Inter,Arial,sans-serif;letter-spacing:1px}
+  .land{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.09);stroke-width:1}
+  /* no-JS: never leave content hidden */
+  .no-js .reveal{opacity:1;transform:none}
+
   /* safety / tech split */
   .split{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
   .split-visual{background:radial-gradient(700px 500px at 30% 20%,#16395c,#081a2c);border-radius:22px;min-height:380px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
@@ -477,6 +501,66 @@
       <div class="stat reveal d1"><b data-count="50" data-suffix="">0</b><span>U.S. states + Canada &amp; Mexico</span></div>
       <div class="stat reveal d2"><b data-count="100" data-suffix="+">0</b><span>Global ports served</span></div>
       <div class="stat reveal d3"><b>24/7</b><span>Dispatch &amp; emergency response</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OCEAN LANES MAP ============ -->
+<section class="block lanes-section" id="lanes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Direct Ocean Lanes</span>
+      <h2>Shanghai to your U.S. port.</h2>
+      <p>Container ships sailing from Shanghai to every major U.S. gateway — West Coast, Gulf, and East Coast.</p>
+    </div>
+    <div class="map-wrap reveal d1">
+      <svg viewBox="0 0 1060 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Container ship lanes from Shanghai to major U.S. ports">
+        <!-- faint landmasses -->
+        <path class="land" d="M40,150 C60,110 150,88 205,110 C270,132 305,165 292,215 C284,262 248,300 198,330 C150,358 78,350 54,300 C33,258 24,198 40,150 Z"/>
+        <path class="land" d="M645,110 C705,80 790,82 858,112 C935,144 995,182 972,252 C956,312 900,372 818,382 C742,392 672,352 652,292 C636,242 622,152 645,110 Z"/>
+        <!-- routes (Shanghai 270,235 -> ports) -->
+        <path id="rSeattle"   class="lane"      d="M270,235 Q460,90 665,150"/>
+        <path id="rOakland"   class="lane"      d="M270,235 Q460,120 655,205"/>
+        <path id="rLongBeach" class="lane warm" d="M270,235 Q470,150 678,248"/>
+        <path id="rHouston"   class="lane"      d="M270,235 Q540,150 790,342"/>
+        <path id="rNewYork"   class="lane"      d="M270,235 Q560,48 915,150"/>
+        <path id="rCharleston" class="lane warm" d="M270,235 Q575,70 935,235"/>
+        <path id="rSavannah"  class="lane"      d="M270,235 Q580,95 930,266"/>
+        <path id="rMiami"     class="lane"      d="M270,235 Q595,140 905,332"/>
+
+        <!-- group labels -->
+        <text class="grp-label" x="600" y="70" text-anchor="middle">WEST COAST</text>
+        <text class="grp-days"  x="600" y="86" text-anchor="middle">14–21 DAYS</text>
+        <text class="grp-label" x="880" y="66" text-anchor="middle">EAST COAST</text>
+        <text class="grp-days"  x="880" y="82" text-anchor="middle">28–42 DAYS</text>
+        <text class="grp-label" x="795" y="392" text-anchor="middle">GULF · 21–35 DAYS</text>
+
+        <!-- U.S. ports -->
+        <g>
+          <circle class="port-ring pulse-r" cx="665" cy="150" r="6" style="transform-box:fill-box;transform-origin:center"/><circle class="port-dot" cx="665" cy="150" r="4"/><text class="port-label" x="653" y="154" text-anchor="end">Seattle</text>
+          <circle class="port-dot" cx="655" cy="205" r="4"/><text class="port-label" x="643" y="209" text-anchor="end">Oakland</text>
+          <circle class="port-ring pulse-r" cx="678" cy="248" r="6" style="transform-box:fill-box;transform-origin:center"/><circle class="port-dot" cx="678" cy="248" r="4"/><text class="port-label" x="666" y="252" text-anchor="end">Long Beach</text>
+          <circle class="port-dot" cx="790" cy="342" r="4"/><text class="port-label" x="790" y="362" text-anchor="middle">Houston</text>
+          <circle class="port-dot" cx="915" cy="150" r="4"/><text class="port-label" x="927" y="154" text-anchor="start">New York</text>
+          <circle class="port-ring pulse-r" cx="935" cy="235" r="6" style="transform-box:fill-box;transform-origin:center"/><circle class="port-dot" cx="935" cy="235" r="4"/><text class="port-label" x="947" y="239" text-anchor="start">Charleston</text>
+          <circle class="port-dot" cx="930" cy="266" r="4"/><text class="port-label" x="942" y="278" text-anchor="start">Savannah</text>
+          <circle class="port-dot" cx="905" cy="332" r="4"/><text class="port-label" x="917" y="336" text-anchor="start">Miami</text>
+        </g>
+
+        <!-- Shanghai origin -->
+        <circle class="port-ring pulse-r" cx="270" cy="235" r="9" style="transform-box:fill-box;transform-origin:center"/>
+        <circle class="origin-dot" cx="270" cy="235" r="8"/>
+        <text class="origin-label" x="270" y="205" text-anchor="middle">SHANGHAI 🇨🇳</text>
+        <text class="origin-sub" x="270" y="222" text-anchor="middle">ORIGIN PORT</text>
+
+        <!-- moving container ships -->
+        <g><g transform="translate(0,0)"><path d="M-11,3 L11,3 L8,8 L-8,8 Z" fill="#e8f2fb"/><rect x="-9" y="-3" width="5" height="5" fill="#0e80d4"/><rect x="-3" y="-3" width="5" height="5" fill="#f5b45e"/><rect x="3" y="-3" width="5" height="5" fill="#2e9be0"/></g>
+          <animateMotion dur="9s" repeatCount="indefinite" rotate="auto"><mpath href="#rLongBeach"/></animateMotion></g>
+        <g><g transform="translate(0,0)"><path d="M-11,3 L11,3 L8,8 L-8,8 Z" fill="#e8f2fb"/><rect x="-9" y="-3" width="5" height="5" fill="#2e9be0"/><rect x="-3" y="-3" width="5" height="5" fill="#f5b45e"/><rect x="3" y="-3" width="5" height="5" fill="#0e80d4"/></g>
+          <animateMotion dur="12s" begin="1.5s" repeatCount="indefinite" rotate="auto"><mpath href="#rCharleston"/></animateMotion></g>
+        <g><g transform="translate(0,0)"><path d="M-9,2 L9,2 L7,7 L-7,7 Z" fill="#cfe0f0"/><rect x="-7" y="-2" width="4" height="4" fill="#f5b45e"/><rect x="-1" y="-2" width="4" height="4" fill="#2e9be0"/></g>
+          <animateMotion dur="11s" begin="3s" repeatCount="indefinite" rotate="auto"><mpath href="#rHouston"/></animateMotion></g>
+      </svg>
     </div>
   </div>
 </section>
@@ -737,11 +821,18 @@
   function onScroll(){ nav.classList.toggle('scrolled', window.scrollY>40); }
   onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
 
-  // reveal on scroll
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:.14});
-  document.querySelectorAll('.reveal').forEach(function(el){ if(!el.classList.contains('in')) io.observe(el); });
+  // reveal on scroll (with safety net so content never stays hidden)
+  var reveals=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    reveals.forEach(function(el){ if(!el.classList.contains('in')) io.observe(el); });
+    // failsafe: if anything is still hidden after 3.5s (e.g. observer never fired), show it
+    setTimeout(function(){ reveals.forEach(function(el){ if(!el.classList.contains('in')) el.classList.add('in'); }); }, 3500);
+  }
 
   // count-up stats
   function animateCount(el){
