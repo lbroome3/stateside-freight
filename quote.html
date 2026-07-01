@@ -108,12 +108,12 @@
   .trust-row svg{color:var(--amber-700)}
 
   /* live-chat launcher */
-  #chatWidget{position:fixed;right:22px;bottom:22px;z-index:200}
+  #chatWidget{position:fixed;left:22px;bottom:22px;z-index:200}
   .chat-fab{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(180deg,var(--amber),var(--amber-700));color:#fff;border:none;border-radius:999px;padding:.85rem 1.25rem;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 12px 30px rgba(14,128,212,.5);transition:transform .15s,box-shadow .2s}
   .chat-fab:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(14,128,212,.6)}
   .chat-fab svg{width:22px;height:22px}
   .chat-panel[hidden]{display:none}
-  .chat-panel{position:absolute;right:0;bottom:64px;width:322px;max-width:calc(100vw - 44px);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 24px 60px rgba(8,26,44,.4);border:1px solid #e2eaf2;animation:chatpop .18s ease}
+  .chat-panel{position:absolute;left:0;bottom:64px;width:322px;max-width:calc(100vw - 44px);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 24px 60px rgba(8,26,44,.4);border:1px solid #e2eaf2;animation:chatpop .18s ease}
   @keyframes chatpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   .chat-head{display:flex;align-items:center;gap:.7rem;background:#081a2c;color:#fff;padding:15px 18px}
   .chat-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:.82rem;color:#fff;flex:none}
@@ -357,5 +357,18 @@
 <script>
 (function(){var fab=document.getElementById('chatFab'),p=document.getElementById('chatPanel'),c=document.getElementById('chatClose');if(!fab)return;fab.addEventListener('click',function(){p.hidden=!p.hidden;});c.addEventListener('click',function(){p.hidden=true;});})();
 </script>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/521727297ca1334016000005/1hgs87qh8';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 </body>
 </html>
