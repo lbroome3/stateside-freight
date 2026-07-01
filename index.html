@@ -139,7 +139,14 @@
   .nav-cta{display:flex;align-items:center;gap:1rem}
   .nav-phone{color:#fff;font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:.45rem;transition:color .3s}
   header.nav.scrolled .nav-phone{color:var(--ink)}
-  @media(max-width:980px){.nav-links{display:none}.nav-phone span{display:none}}
+  .nav-toggle{display:none;background:none;border:none;color:#fff;cursor:pointer;padding:6px;line-height:0}
+  header.nav.scrolled .nav-toggle{color:var(--ink)}
+  .mobile-menu{position:fixed;top:76px;left:0;right:0;background:rgba(8,26,44,.98);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.1);padding:12px 24px 22px;flex-direction:column;gap:2px;z-index:99;box-shadow:0 24px 44px rgba(0,0,0,.45);display:flex}
+  .mobile-menu[hidden]{display:none}
+  .mobile-menu a{color:#e7edf5;font-weight:600;font-size:1.06rem;padding:.9rem .3rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .mobile-menu a.mm-cta{margin-top:14px;background:linear-gradient(180deg,var(--amber),var(--amber-700));color:#fff;text-align:center;border-radius:12px;border:none;font-weight:700;padding:1rem}
+  .mobile-menu a.mm-phone{color:var(--amber);border-bottom:none;text-align:center;margin-top:8px}
+  @media(max-width:980px){.nav-links{display:none}.nav-cta{display:none}.nav-toggle{display:inline-flex}}
 
   /* ---------- HERO ---------- */
   .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;overflow:hidden;background:radial-gradient(1200px 700px at 78% 8%,#16395c 0%,#0f2c47 38%,#081a2c 78%)}
@@ -402,6 +409,20 @@
       </a>
       <a class="btn btn-amber" href="quote.html">Get a Quote</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <a href="#services">Services</a>
+    <a href="#network">Network</a>
+    <a href="#safety">Safety &amp; Tech</a>
+    <a href="#about">About</a>
+    <a href="truckload.html">🚛 Request a Truck</a>
+    <a href="portal.html">Client Portal</a>
+    <a href="https://websphere.landstar.com/shipmgr/publictrack/search.xhtml" target="_blank" rel="noopener noreferrer">Track Freight</a>
+    <a class="mm-cta" href="quote.html">Get a Container Quote</a>
+    <a class="mm-phone" href="tel:17064179097">📞 (706) 417-9097</a>
   </div>
 </header>
 
@@ -843,6 +864,18 @@
   var nav=document.getElementById('nav');
   function onScroll(){ nav.classList.toggle('scrolled', window.scrollY>40); }
   onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  // mobile menu toggle
+  var navToggle=document.getElementById('navToggle'), mobileMenu=document.getElementById('mobileMenu');
+  if(navToggle&&mobileMenu){
+    navToggle.addEventListener('click',function(){
+      mobileMenu.hidden=!mobileMenu.hidden;
+      navToggle.setAttribute('aria-expanded',String(!mobileMenu.hidden));
+    });
+    Array.prototype.forEach.call(mobileMenu.querySelectorAll('a'),function(a){
+      a.addEventListener('click',function(){ mobileMenu.hidden=true; navToggle.setAttribute('aria-expanded','false'); });
+    });
+  }
 
   // reveal on scroll (with safety net so content never stays hidden)
   var reveals=document.querySelectorAll('.reveal');
