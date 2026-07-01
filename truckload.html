@@ -132,6 +132,14 @@
   .fare-grid .fg b{display:block;font-family:'Archivo';font-size:1.15rem;color:var(--ink);margin-top:2px}
   .avail{display:flex;align-items:center;gap:.5rem;justify-content:center;color:var(--green);font-weight:700;font-size:.9rem;margin-bottom:16px}
   .avail .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(31,157,87,.5);animation:pulse 2s infinite}
+  .addons{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .chk{display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid #d4dce6;border-radius:10px;padding:.62rem .8rem;font-weight:700;font-size:.9rem;color:var(--ink);cursor:pointer;user-select:none}
+  .chk input{width:17px;height:17px;accent-color:var(--amber);cursor:pointer}
+  .chk em{font-style:normal;color:var(--ink-2);font-weight:600;font-size:.78rem}
+  .eta{display:flex;align-items:center;gap:.5rem;justify-content:center;background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:.92rem;color:var(--ink);flex-wrap:wrap}
+  .eta svg{color:var(--amber-700);flex:none}
+  .eta b{font-family:'Archivo'}
+  .eta span{color:var(--ink-2);font-size:.8rem;width:100%;text-align:center}
 
   .dispatch{display:none;text-align:center;padding:20px 6px}
   .dispatch.show{display:block}
@@ -213,6 +221,12 @@
             <div class="eq" data-eq="hotshot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 15h6l2-4h4v4h6M2 15v-3M7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" stroke-linejoin="round"/></svg><b>Hotshot</b><span>Expedited</span></div>
           </div>
 
+          <label class="lbl" style="margin-top:16px">Add-ons</label>
+          <div class="addons">
+            <label class="chk"><input type="checkbox" id="hazmat"> Hazmat <em>+ surcharge</em></label>
+            <label class="chk" id="tarpWrap" style="display:none"><input type="checkbox" id="tarp"> Tarp <em>+ flatbed</em></label>
+          </div>
+
           <div class="row-2" style="margin-top:16px">
             <div class="fld"><label class="lbl">Weight (lbs)</label><input id="weight" inputmode="numeric" placeholder="e.g. 42,000" /></div>
             <div class="fld"><label class="lbl">Commodity</label><input id="commodity" placeholder="e.g. machinery" /></div>
@@ -238,6 +252,7 @@
             <div class="fg"><span>Transit</span><b id="fareTime">—</b></div>
             <div class="fg"><span>Equipment</span><b id="fareEq">—</b></div>
           </div>
+          <div class="eta" id="etaBox"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round"/></svg> Est. arrival&nbsp;<b id="etaVal">—</b> <span id="etaNote"></span></div>
           <div class="avail"><span class="dot"></span> <span id="availTxt">Carriers available in your area</span></div>
           <button class="btn btn-amber btn-block btn-lg" id="requestBtn">
             Request This Truck
@@ -404,11 +419,14 @@ s0.parentNode.insertBefore(s1,s0);
   }
   function rad(d){return d*Math.PI/180;}
   function haversine(a,b){var R=3958.8,dLat=rad(b.lat-a.lat),dLon=rad(b.lon-a.lon);var s=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)*Math.sin(dLon/2);return 2*R*Math.asin(Math.sqrt(s));}
-  function transitDays(mi){var d=Math.max(1,Math.ceil(mi/550)); if(mi<=250)return 'Next day'; return d+'–'+(d+1)+' days';}
-  function transitFromDur(sec){var h=sec/3600; if(h<=10)return 'Next day'; var d=Math.max(1,Math.ceil(h/10)); return d+'–'+(d+1)+' days';}
+  // HOS: ~11 driving hours/day (~580 mi). Transit + real ETA.
+  function transitLabel(driveH){var o=Math.max(0,Math.ceil(driveH/11)-1); if(o===0)return 'Same day'; if(o===1)return 'Next day'; return o+' days';}
+  function computeArrival(driveH){var s=new Date();s.setDate(s.getDate()+1);s.setHours(8,0,0,0);var rem=driveH,cur=new Date(s.getTime());while(rem>0.05){var day=Math.min(rem,11);cur=new Date(cur.getTime()+day*3600000);rem-=day;if(rem>0.05){cur.setDate(cur.getDate()+1);cur.setHours(8,0,0,0);}}return cur;}
+  function fmtEta(d){var wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];var h=d.getHours(),m=d.getMinutes(),ap=h>=12?'PM':'AM',hh=h%12||12,mm=m<30?'00':'30';return wd[d.getDay()]+', '+mo[d.getMonth()]+' '+d.getDate()+' · ~'+hh+':'+mm+' '+ap;}
 
-  // equipment
-  $('equip').addEventListener('click',function(e){var eq=e.target.closest('.eq');if(!eq)return;document.querySelectorAll('.eq').forEach(function(x){x.classList.remove('on');});eq.classList.add('on');selected=eq.getAttribute('data-eq');});
+  // equipment + tarp visibility (flatbed / step deck only)
+  function toggleTarp(){var show=(selected==='flatbed'||selected==='stepDeck');$('tarpWrap').style.display=show?'inline-flex':'none';if(!show)$('tarp').checked=false;}
+  $('equip').addEventListener('click',function(e){var eq=e.target.closest('.eq');if(!eq)return;document.querySelectorAll('.eq').forEach(function(x){x.classList.remove('on');});eq.classList.add('on');selected=eq.getAttribute('data-eq');toggleTarp();});
 
   var estimateBtn=$('estimateBtn');
   estimateBtn.addEventListener('click',function(){
@@ -426,21 +444,27 @@ s0.parentNode.insertBefore(s1,s0);
         : Promise.resolve(null);
 
       distP.then(function(rd){
-        var miles, geo=null, transitTxt;
-        if(rd){ miles=rd.miles; geo=rd.geo; transitTxt=transitFromDur(rd.dur); }
-        else { miles=Math.round(haversine(A,B)*1.2); transitTxt=transitDays(miles); }
+        var miles, geo=null, driveH;
+        if(rd){ miles=rd.miles; geo=rd.geo; driveH=rd.dur/3600; }
+        else { miles=Math.round(haversine(A,B)*1.2); driveH=miles/55; }
         if(miles<20)miles=20;
 
-        var eq=EQUIP[selected], lo=Math.max(miles*eq.lo,450), hi=Math.max(miles*eq.hi,600);
+        var eq=EQUIP[selected], lo=Math.max(miles*eq.lo,450), hi=Math.max(miles*eq.hi,600), addons=[];
+        if($('hazmat').checked){ lo+=Math.max(150,miles*0.15); hi+=Math.max(300,miles*0.30); addons.push('Hazmat'); }
+        if($('tarp').checked && (selected==='flatbed'||selected==='stepDeck')){ lo+=50; hi+=150; addons.push('Tarp'); }
+
+        var transitTxt=transitLabel(driveH), etaTxt=fmtEta(computeArrival(driveH));
         $('laneA').textContent=A.label; $('laneB').textContent=B.label;
         $('fareAmt').textContent=money(lo)+' – '+money(hi);
-        $('farePm').textContent='$'+(lo/miles).toFixed(2)+'–$'+(hi/miles).toFixed(2)+'/mi'+(rd?'':' · est. distance');
+        $('farePm').textContent='$'+(lo/miles).toFixed(2)+'–$'+(hi/miles).toFixed(2)+'/mi'+(addons.length?' · incl. '+addons.join(' + '):'')+(rd?'':' · est. distance');
         $('fareDist').textContent='~'+miles.toLocaleString('en-US')+' mi';
         $('fareTime').textContent=transitTxt;
         $('fareEq').textContent=eq.name;
-        var avail=2+(miles%5); $('availTxt').textContent=avail+' Landstar carriers available near pickup';
+        $('etaVal').textContent=etaTxt;
+        $('etaNote').textContent='assumes next-day pickup · confirmed by Agent LBR';
+        var avail=90+(Math.abs(Math.round((A.lat+A.lon)*137))%150); $('availTxt').textContent=avail.toLocaleString('en-US')+' Landstar carriers available near pickup';
 
-        lastLoad={pickup:A.label,dropoff:B.label,equipment:eq.name,miles:miles,weight:$('weight').value.trim(),commodity:$('commodity').value.trim(),estimate:money(lo)+'–'+money(hi),transit:transitTxt,geo:geo};
+        lastLoad={pickup:A.label,dropoff:B.label,equipment:eq.name+(addons.length?' ('+addons.join(', ')+')':''),miles:miles,weight:$('weight').value.trim(),commodity:$('commodity').value.trim(),estimate:money(lo)+'–'+money(hi),transit:transitTxt,eta:etaTxt,geo:geo};
 
         if(geo) drawRoute(geo);
         else if(mapReady){ placeMarker('pickup',[A.lon,A.lat]); placeMarker('dropoff',[B.lon,B.lat]); }
@@ -466,7 +490,7 @@ s0.parentNode.insertBefore(s1,s0);
   $('requestBtn').addEventListener('click',function(){
     $('fare').classList.remove('show');
     $('dispatch').classList.add('show');
-    $('dispatchLoad').innerHTML='<b>Load</b> · '+lastLoad.equipment+'<br>'+lastLoad.pickup+' → '+lastLoad.dropoff+'<br><b>~'+lastLoad.miles.toLocaleString('en-US')+' mi</b> · '+lastLoad.transit+' · est. '+lastLoad.estimate;
+    $('dispatchLoad').innerHTML='<b>Load</b> · '+lastLoad.equipment+'<br>'+lastLoad.pickup+' → '+lastLoad.dropoff+'<br><b>~'+lastLoad.miles.toLocaleString('en-US')+' mi</b> · '+lastLoad.transit+' · est. '+lastLoad.estimate+'<br><b>Est. arrival:</b> '+lastLoad.eta;
     animateTruck(lastLoad.geo);
     var steps=['Locating Landstar carriers near '+lastLoad.pickup.split(',')[0]+'…','Checking '+lastLoad.equipment+' capacity…','Agent LBR is reviewing your load…','Connecting you to live dispatch…'];
     var st=$('dispatchStatus'),i=0; st.textContent=steps[0];
