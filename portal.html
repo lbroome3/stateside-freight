@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Client Portal — Track, Documents &amp; Account Setup | Stateside International Logistics</title>
+<meta name="description" content="Client portal for Landstar's Stateside International Logistics — track your freight, send load documents, and set up your shipping account with Agent LBR." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://www.lewisbroome.com/portal.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0a1f33;--ink-2:#46607a;--bg:#ffffff;--bg-soft:#f4f8fc;--line:#e2eaf2;
+    --navy:#081a2c;--navy-2:#0f2c47;--amber:#0e80d4;--amber-700:#0a5fa8;--green:#1f9d57;
+    --maxw:1000px;--radius:16px;--shadow-sm:0 4px 16px rgba(10,31,51,.06);--shadow:0 20px 50px rgba(10,31,51,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg-soft);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Archivo','Inter',sans-serif;letter-spacing:-.02em;line-height:1.1}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-weight:700;font-size:1rem;border-radius:12px;padding:.95rem 1.6rem;cursor:pointer;border:none;transition:transform .14s,box-shadow .25s,background .2s;white-space:nowrap;text-align:center}
+  .btn:active{transform:translateY(1px)}
+  .btn-amber{background:linear-gradient(180deg,var(--amber),var(--amber-700));color:#fff;box-shadow:0 10px 26px rgba(14,128,212,.35)}
+  .btn-amber:hover{box-shadow:0 16px 36px rgba(14,128,212,.5);transform:translateY(-2px)}
+  .btn-block{width:100%}
+  .btn-lg{padding:1.1rem 1.8rem;font-size:1.06rem}
+  .btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--amber)}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:.7rem}
+  .brand .mark{width:42px;height:42px;border-radius:11px;flex:none;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Archivo';font-weight:900;font-size:1rem;box-shadow:0 6px 16px rgba(14,128,212,.3)}
+  .brand-text small{display:block;font-weight:700;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-700)}
+  .brand-text b{font-family:'Archivo';font-size:1rem;font-weight:800;color:var(--ink)}
+  .nav-right{display:flex;align-items:center;gap:1.2rem}
+  .nav-back{color:var(--ink-2);font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:.4rem}
+  .nav-back:hover{color:var(--ink)}
+  .nav-phone{color:var(--ink);font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:.4rem}
+  @media(max-width:720px){.nav-back span,.nav-phone span{display:none}}
+
+  .phero{background:radial-gradient(900px 500px at 80% -20%,#16395c,#081a2c);color:#fff;padding:52px 0 110px;text-align:center}
+  .phero .kicker{color:var(--amber);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem}
+  .phero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;margin:.6rem 0 .7rem}
+  .phero p{color:#bcd0e4;font-size:1.12rem;max-width:56ch;margin:0 auto}
+
+  .stage{margin-top:-70px;padding-bottom:80px}
+
+  /* quick action tiles */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+  .tile{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 20px;box-shadow:var(--shadow-sm);text-align:center;transition:transform .16s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column;align-items:center}
+  .tile:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(14,128,212,.4)}
+  .tile .ic{width:52px;height:52px;border-radius:13px;background:rgba(14,128,212,.1);color:var(--amber-700);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .tile h3{font-size:1.12rem;margin-bottom:.35rem}
+  .tile p{color:var(--ink-2);font-size:.9rem;margin-bottom:16px;flex:1}
+  .tile .btn{width:100%}
+  @media(max-width:760px){.tiles{grid-template-columns:1fr}}
+
+  .panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:24px}
+  .panel-head{background:var(--navy);color:#fff;padding:20px 26px;display:flex;align-items:center;gap:.8rem}
+  .panel-head .ic{width:38px;height:38px;border-radius:10px;background:rgba(14,128,212,.18);display:flex;align-items:center;justify-content:center;color:var(--amber);flex:none}
+  .panel-head h2{font-size:1.2rem}
+  .panel-head small{display:block;color:#9fbdd8;font-weight:600;font-size:.78rem;font-family:'Inter'}
+  .panel-body{padding:26px}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid-3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
+  .fld{margin-bottom:16px}
+  .fld label{display:block;font-weight:700;font-size:.85rem;color:var(--ink);margin-bottom:.4rem}
+  .fld .req{color:#d23b3b}
+  .fld input,.fld select,.fld textarea{width:100%;padding:.82rem .9rem;border:1.5px solid #d4dce6;border-radius:10px;font-size:1rem;font-family:inherit;color:var(--ink);background:#fff;transition:border-color .15s,box-shadow .15s}
+  .fld textarea{min-height:88px;resize:vertical}
+  .fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(14,128,212,.15)}
+  .err{color:#d23b3b;font-size:.85rem;font-weight:600;margin:2px 0 12px;display:none}
+  .fine{font-size:.8rem;color:var(--ink-2);text-align:center;margin-top:12px}
+  .note{background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.9rem;color:var(--ink-2);margin-top:4px}
+  .note b{color:var(--ink)}
+  @media(max-width:640px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+  .trust-row{display:flex;gap:1.3rem;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:18px;color:var(--ink-2);font-weight:600;font-size:.88rem}
+  .trust-row img{height:22px;width:auto}
+  .trust-row span{display:flex;align-items:center;gap:.4rem}
+  .trust-row svg{color:var(--amber-700)}
+
+  /* live-chat launcher */
+  #chatWidget{position:fixed;left:22px;bottom:22px;z-index:200}
+  .chat-fab{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(180deg,var(--amber),var(--amber-700));color:#fff;border:none;border-radius:999px;padding:.85rem 1.25rem;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 12px 30px rgba(14,128,212,.5);transition:transform .15s,box-shadow .2s}
+  .chat-fab:hover{transform:translateY(-2px)}
+  .chat-fab svg{width:22px;height:22px}
+  .chat-panel[hidden]{display:none}
+  .chat-panel{position:absolute;left:0;bottom:64px;width:322px;max-width:calc(100vw - 44px);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 24px 60px rgba(8,26,44,.4);border:1px solid #e2eaf2}
+  .chat-head{display:flex;align-items:center;gap:.7rem;background:#081a2c;color:#fff;padding:15px 18px}
+  .chat-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:.82rem;color:#fff;flex:none}
+  .chat-head b{display:block;font-size:.98rem}.chat-head span{font-size:.76rem;color:#9fbdd8}
+  .chat-close{margin-left:auto;background:none;border:none;color:#9fbdd8;font-size:1.5rem;line-height:1;cursor:pointer;padding:0 4px}
+  .chat-body{padding:16px;display:grid;gap:9px}
+  .chat-opt{display:flex;align-items:center;gap:.6rem;padding:.78rem .9rem;border-radius:11px;font-weight:700;font-size:.94rem;text-decoration:none;border:1.5px solid #e2eaf2;color:#0a1f33}
+  .chat-opt svg{width:18px;height:18px;flex:none}
+  .chat-opt.primary{background:var(--amber);color:#fff;border-color:var(--amber)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <div class="mark">SL</div>
+      <div class="brand-text"><small>Landstar's</small><b>Stateside International Logistics</b></div>
+    </a>
+    <div class="nav-right">
+      <a class="nav-back" href="index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> <span>Back to home</span></a>
+      <a class="nav-phone" href="tel:17064179097"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>(706) 417-9097</span></a>
+    </div>
+  </div>
+</header>
+
+<section class="phero">
+  <div class="wrap">
+    <span class="kicker">Client Portal</span>
+    <h1>Track, share &amp; set up — one place.</h1>
+    <p>Track your freight in real time, send us your load documents, and open your account with Agent LBR to start shipping.</p>
+  </div>
+</section>
+
+<div class="stage">
+  <div class="wrap">
+
+    <!-- quick actions -->
+    <div class="tiles">
+      <div class="tile">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg></div>
+        <h3>Track Freight</h3>
+        <p>Live shipment status from the Landstar network — enter your Landstar / BOL / PRO number.</p>
+        <a class="btn btn-amber" href="https://websphere.landstar.com/shipmgr/publictrack/search.xhtml" target="_blank" rel="noopener noreferrer">Track a Shipment</a>
+      </div>
+      <div class="tile">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6M9 13h6M9 17h6" stroke-linecap="round"/></svg></div>
+        <h3>Send Documents</h3>
+        <p>Rate confirmations, BOLs, PODs, insurance certs — email them straight to Agent LBR.</p>
+        <a class="btn btn-ghost" href="mailto:lewis.broome@landstarmail.com?subject=Load%20Documents%20%E2%80%94%20Stateside&amp;body=Attach%20your%20documents%20(rate%20con%2C%20BOL%2C%20POD%2C%20insurance)%20to%20this%20email.%0A%0ACompany%3A%20%0AReference%2FLoad%20%23%3A%20">Email Documents</a>
+      </div>
+      <div class="tile">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke-linecap="round"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6" stroke-linecap="round"/></svg></div>
+        <h3>Start an Account</h3>
+        <p>New customer? Send your company details and we'll get you set up to ship.</p>
+        <a class="btn btn-amber" href="#account">Set Up Account</a>
+      </div>
+    </div>
+
+    <!-- account setup form -->
+    <div class="panel" id="account">
+      <div class="panel-head">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5" stroke-linejoin="round"/></svg></div>
+        <div><h2>Start Your Account</h2><small>New customer setup · direct to Agent LBR</small></div>
+      </div>
+      <div class="panel-body">
+        <form id="acctForm" novalidate>
+          <div class="grid-2">
+            <div class="fld"><label>Business / Company Name <span class="req">*</span></label><input id="company" placeholder="Company, Inc." /></div>
+            <div class="fld"><label>Company Website</label><input id="website" placeholder="https://" /></div>
+          </div>
+          <div class="grid-2">
+            <div class="fld"><label>Contact Person <span class="req">*</span></label><input id="contact" placeholder="Full name" /></div>
+            <div class="fld"><label>Title / Role</label><input id="title" placeholder="e.g. Logistics Manager" /></div>
+          </div>
+          <div class="grid-2">
+            <div class="fld"><label>Contact Email <span class="req">*</span></label><input id="email" type="email" placeholder="you@company.com" /></div>
+            <div class="fld"><label>Contact Phone <span class="req">*</span></label><input id="phone" type="tel" placeholder="(___) ___-____" /></div>
+          </div>
+
+          <div class="fld"><label>Physical Address <span class="req">*</span></label><input id="street" placeholder="Street address" /></div>
+          <div class="grid-3">
+            <div class="fld"><label>City <span class="req">*</span></label><input id="city" placeholder="City" /></div>
+            <div class="fld"><label>State <span class="req">*</span></label><input id="state" placeholder="ST" /></div>
+            <div class="fld"><label>ZIP <span class="req">*</span></label><input id="zip" placeholder="ZIP" /></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="fld"><label>Type of Freight / Commodity</label><input id="commodity" placeholder="e.g. machinery, retail goods, fireworks" /></div>
+            <div class="fld"><label>Equipment Needed</label>
+              <select id="equipment">
+                <option value="">Select…</option>
+                <option>Dry Van</option><option>Reefer</option><option>Flatbed</option><option>Step Deck</option>
+                <option>Heavy Haul / Oversized</option><option>Hotshot</option><option>LTL</option>
+                <option>Ocean / Container (Import)</option><option>Air Freight</option><option>Multiple / Not sure</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="fld"><label>Typical Lanes (origin → destination)</label><input id="lanes" placeholder="e.g. Shanghai → Atlanta, GA" /></div>
+            <div class="fld"><label>Estimated Monthly Volume</label><input id="volume" placeholder="e.g. 4 loads / month" /></div>
+          </div>
+          <div class="fld"><label>Anything else we should know?</label><textarea id="notes" placeholder="Special requirements, timelines, references, etc."></textarea></div>
+
+          <div class="err" id="err"></div>
+          <button type="submit" class="btn btn-amber btn-block btn-lg">Submit Account Setup
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <p class="fine">Submitting opens your email to send the details to Agent LBR — nothing is stored on this site.</p>
+        </form>
+      </div>
+    </div>
+
+    <!-- documents -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-linejoin="round"/></svg></div>
+        <div><h2>Documents</h2><small>Send or request load paperwork</small></div>
+      </div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <a class="btn btn-amber btn-block" href="mailto:lewis.broome@landstarmail.com?subject=Load%20Documents%20%E2%80%94%20Stateside&amp;body=Attach%20your%20documents%20(rate%20con%2C%20BOL%2C%20POD%2C%20insurance)%20to%20this%20email.%0A%0ACompany%3A%20%0AReference%2FLoad%20%23%3A%20">Send Load Documents</a>
+          <a class="btn btn-ghost btn-block" href="mailto:lewis.broome@landstarmail.com?subject=Document%20Request%20%E2%80%94%20Stateside&amp;body=Please%20send%20me%20the%20following%20documents%3A%0A%0ACompany%3A%20%0AReference%2FLoad%20%23%3A%20%0ADocuments%20needed%20(POD%2C%20invoice%2C%20rate%20con%2C%20etc.)%3A%20">Request Documents</a>
+        </div>
+        <div class="note" style="margin-top:16px">📎 <b>To attach files:</b> the buttons above open a pre-filled email to Agent LBR — just attach your rate cons, BOLs, PODs, or insurance certs and hit send. <b>Need a secure upload portal instead?</b> Ask Agent LBR and we'll set one up.</div>
+      </div>
+    </div>
+
+    <div class="trust-row">
+      <img src="assets/landstar-logo.png" alt="Landstar" />
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linejoin="round"/></svg> USDOT 241572 · MC 166960 · Brokerage 178439</span>
+      <span>2902 Hwy 17 S, Atlantic Beach, SC 29582</span>
+    </div>
+  </div>
+</div>
+
+<!-- Floating live-chat launcher -->
+<div id="chatWidget">
+  <div class="chat-panel" id="chatPanel" hidden>
+    <div class="chat-head">
+      <div class="chat-avatar">LBR</div>
+      <div><b>Chat with Agent LBR</b><span>Usually replies in minutes</span></div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="chat-body">
+      <p style="font-size:.9rem;color:#46607a;margin:0 2px 4px">👋 Setting up an account or need a hand? Reach me directly:</p>
+      <a class="chat-opt primary" href="sms:+18033611303"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linejoin="round"/></svg> Text us — (803) 361-1303</a>
+      <a class="chat-opt" href="tel:+18033611303"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call now — (803) 361-1303</a>
+      <a class="chat-opt" href="mailto:lewis.broome@landstarmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Email Agent LBR</a>
+    </div>
+  </div>
+  <button class="chat-fab" id="chatFab" aria-label="Open chat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linejoin="round"/></svg>
+    <span>Chat with us</span>
+  </button>
+</div>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/521727297ca1334016000005/1hgs87qh8';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+<script>
+(function(){
+  "use strict";
+  var fab=document.getElementById('chatFab'),cp=document.getElementById('chatPanel'),cc=document.getElementById('chatClose');
+  if(fab){fab.addEventListener('click',function(){cp.hidden=!cp.hidden;});cc.addEventListener('click',function(){cp.hidden=true;});}
+
+  function v(id){return document.getElementById(id).value.trim();}
+  var form=document.getElementById('acctForm'), errBox=document.getElementById('err');
+  function showErr(m){errBox.textContent=m;errBox.style.display='block';}
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); errBox.style.display='none';
+    var req={company:'Business name',contact:'Contact person',email:'Email',phone:'Phone',street:'Street address',city:'City',state:'State',zip:'ZIP'};
+    for(var k in req){ if(!v(k)){ showErr('Please fill in: '+req[k]+'.'); document.getElementById(k).focus(); return; } }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))){ showErr('Please enter a valid email address.'); return; }
+
+    var body=
+'NEW ACCOUNT SETUP — Stateside International Logistics\n'+
+'====================================================\n\n'+
+'COMPANY\n'+
+'  Business Name: '+v('company')+'\n'+
+'  Website:       '+(v('website')||'N/A')+'\n\n'+
+'CONTACT\n'+
+'  Name:  '+v('contact')+'\n'+
+'  Title: '+(v('title')||'N/A')+'\n'+
+'  Email: '+v('email')+'\n'+
+'  Phone: '+v('phone')+'\n\n'+
+'PHYSICAL ADDRESS\n'+
+'  '+v('street')+'\n'+
+'  '+v('city')+', '+v('state')+' '+v('zip')+'\n\n'+
+'FREIGHT PROFILE\n'+
+'  Commodity: '+(v('commodity')||'N/A')+'\n'+
+'  Equipment: '+(v('equipment')||'N/A')+'\n'+
+'  Lanes:     '+(v('lanes')||'N/A')+'\n'+
+'  Volume:    '+(v('volume')||'N/A')+'\n\n'+
+'NOTES\n  '+(v('notes')||'None')+'\n\n'+
+'----------------------------------------------------\n'+
+'Submitted via LewisBroome.ME client portal.';
+    var subject='New Account Setup — '+v('company');
+    window.location.href='mailto:lewis.broome@landstarmail.com?cc=lewisbroome@gmail.com&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>
