@@ -5,17 +5,19 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Request a Truck — Instant Freight Dispatch | Landstar's Stateside International Logistics</title>
-<meta name="description" content="Request a truck in seconds — dry van, flatbed, reefer, step deck, hotshot, or heavy haul. Instant distance, transit time, and rate range, then live dispatch with Landstar Agent LBR." />
+<meta name="description" content="Request a truck in seconds — dry van, flatbed, reefer, step deck, hotshot, or heavy haul. Live map, real distance & transit time, then live dispatch with Landstar Agent LBR." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="https://www.lewisbroome.com/truckload.html" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Request a Truck — Instant Freight Dispatch" />
-<meta property="og:description" content="Uber-style truck request: instant distance, transit time & rate, then live dispatch with Agent LBR." />
+<meta property="og:description" content="Live route map, real distance & transit, then live dispatch with Agent LBR." />
 <meta property="og:url" content="https://www.lewisbroome.com/truckload.html" />
 <meta property="og:image" content="https://www.lewisbroome.com/assets/landstar-logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.js"></script>
 <style>
   :root{
     --ink:#0a1f33;--ink-2:#46607a;--bg:#ffffff;--bg-soft:#f4f8fc;--line:#e2eaf2;
@@ -38,7 +40,6 @@
   .btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
   .btn-ghost:hover{border-color:var(--amber)}
 
-  /* nav */
   header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
   .brand{display:flex;align-items:center;gap:.7rem}
@@ -60,14 +61,27 @@
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}70%{box-shadow:0 0 0 10px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
 
   .stage{margin-top:-80px;padding-bottom:80px}
-  .card{background:#fff;border-radius:20px;box-shadow:var(--shadow);border:1px solid var(--line);max-width:560px;margin:0 auto;overflow:hidden}
+  .card{background:#fff;border-radius:20px;box-shadow:var(--shadow);border:1px solid var(--line);max-width:580px;margin:0 auto;overflow:hidden}
   .card-head{background:var(--navy);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:.7rem}
   .card-head .ic{width:36px;height:36px;border-radius:9px;background:rgba(14,128,212,.22);display:flex;align-items:center;justify-content:center;color:var(--amber);flex:none}
   .card-head h2{font-size:1.15rem}
   .card-head small{display:block;color:#9fbdd8;font-weight:600;font-size:.78rem;font-family:'Inter'}
   .card-body{padding:24px}
 
-  /* uber-style locations */
+  /* futuristic map */
+  #routeMap{height:290px;border-radius:14px;overflow:hidden;margin-bottom:18px;border:1px solid rgba(14,128,212,.35);position:relative;background:#081524;box-shadow:0 0 0 1px rgba(14,128,212,.15),0 14px 40px rgba(8,26,44,.35)}
+  #routeMap.hidden{display:none}
+  #routeMap.empty::after{content:"◎ Enter pickup & delivery to plot your route";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#5b86b3;font-size:.86rem;font-weight:600;text-align:center;padding:20px;pointer-events:none;z-index:1;letter-spacing:.02em}
+  .mapboxgl-ctrl-logo{opacity:.55}
+  .mk{width:14px;height:14px;border-radius:50%;position:relative}
+  .mk::after{content:"";position:absolute;inset:-7px;border-radius:50%;animation:mkp 2s infinite}
+  .mk.a{background:#22c55e;box-shadow:0 0 12px #22c55e}
+  .mk.a::after{border:2px solid #22c55e}
+  .mk.b{background:var(--amber);box-shadow:0 0 14px var(--amber)}
+  .mk.b::after{border:2px solid var(--amber)}
+  @keyframes mkp{0%{transform:scale(.5);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+  .truck-mk{font-size:24px;line-height:1;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6))}
+
   .loc{position:relative;padding-left:30px;margin-bottom:16px}
   .loc::before{content:"";position:absolute;left:9px;top:14px;width:2px;height:44px;background:var(--line)}
   .loc .row{position:relative;margin-bottom:12px}
@@ -81,7 +95,6 @@
   .fld input:focus,.fld select:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(14,128,212,.15)}
   .lbl{font-weight:700;font-size:.85rem;color:var(--ink);margin-bottom:.4rem;display:block}
 
-  /* address autocomplete */
   .ac-list{position:absolute;top:calc(100% + 5px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 44px rgba(10,31,51,.18);z-index:30;overflow:hidden;display:none;max-height:250px;overflow-y:auto}
   .ac-list.show{display:block}
   .ac-item{display:flex;align-items:center;gap:.6rem;padding:.72rem .85rem;cursor:pointer;font-size:.93rem;color:var(--ink);border-bottom:1px solid var(--bg-soft);line-height:1.25}
@@ -90,7 +103,6 @@
   .ac-item svg{width:16px;height:16px;color:var(--amber-700);flex:none}
   .ac-empty{padding:.72rem .85rem;color:var(--ink-2);font-size:.88rem}
 
-  /* equipment picker */
   .equip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:6px 0 4px}
   .eq{border:1.5px solid #d4dce6;border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.15s;background:#fff}
   .eq:hover{border-color:var(--amber)}
@@ -105,7 +117,6 @@
   .err{color:#d23b3b;font-size:.85rem;font-weight:600;margin:2px 0 12px;display:none}
   .fine{font-size:.78rem;color:var(--ink-2);text-align:center;margin-top:12px}
 
-  /* fare result */
   .fare{display:none}
   .fare.show{display:block;animation:pop .3s ease}
   @keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -122,15 +133,14 @@
   .avail{display:flex;align-items:center;gap:.5rem;justify-content:center;color:var(--green);font-weight:700;font-size:.9rem;margin-bottom:16px}
   .avail .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(31,157,87,.5);animation:pulse 2s infinite}
 
-  /* dispatch */
   .dispatch{display:none;text-align:center;padding:20px 6px}
   .dispatch.show{display:block}
-  .radar{position:relative;width:180px;height:180px;margin:6px auto 22px}
+  .radar{position:relative;width:150px;height:150px;margin:6px auto 18px}
   .radar .ring{position:absolute;inset:0;margin:auto;border:2px solid rgba(14,128,212,.3);border-radius:50%;animation:radar 2.4s ease-out infinite}
   .radar .ring:nth-child(2){animation-delay:.8s}.radar .ring:nth-child(3){animation-delay:1.6s}
-  @keyframes radar{0%{width:40px;height:40px;opacity:.9}100%{width:180px;height:180px;opacity:0}}
-  .radar .core{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 0 40px rgba(14,128,212,.5)}
-  .radar .core svg{width:32px;height:32px}
+  @keyframes radar{0%{width:40px;height:40px;opacity:.9}100%{width:150px;height:150px;opacity:0}}
+  .radar .core{position:absolute;inset:0;margin:auto;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 0 40px rgba(14,128,212,.5)}
+  .radar .core svg{width:30px;height:30px}
   .dispatch h3{font-size:1.4rem;color:var(--ink);margin-bottom:6px}
   .dispatch .status{color:var(--ink-2);font-size:1rem;min-height:1.5em;transition:opacity .3s}
   .dispatch-load{background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:18px auto 0;max-width:400px;text-align:left;font-size:.9rem;color:var(--ink)}
@@ -163,7 +173,7 @@
   <div class="wrap">
     <span class="kicker">Instant Freight Dispatch</span>
     <h1>Request a Truck</h1>
-    <p>Dry van, flatbed, reefer, step deck, hotshot, or heavy haul — get instant distance, transit time, and a rate range, then connect live to Agent LBR to book.</p>
+    <p>Dry van, flatbed, reefer, step deck, hotshot, or heavy haul — live route map, real distance &amp; transit, then connect straight to Agent LBR to book.</p>
     <div class="live-pill"><span class="dot"></span> Landstar dispatch online now</div>
   </div>
 </section>
@@ -177,7 +187,8 @@
       </div>
       <div class="card-body">
 
-        <!-- STEP 1: request form -->
+        <div id="routeMap" class="empty"></div>
+
         <div id="form">
           <div class="loc">
             <div class="row">
@@ -215,7 +226,6 @@
           <p class="fine">Free · no obligation · Agent LBR confirms the final rate</p>
         </div>
 
-        <!-- STEP 2: fare -->
         <div class="fare" id="fare">
           <div class="fare-lane"><span id="laneA"></span> <span class="arw">→</span> <span id="laneB"></span></div>
           <div class="fare-price">
@@ -236,7 +246,6 @@
           <button class="btn btn-ghost btn-block" id="editBtn" style="margin-top:8px">Edit details</button>
         </div>
 
-        <!-- STEP 3: dispatch -->
         <div class="dispatch" id="dispatch">
           <div class="radar" id="radar">
             <div class="ring"></div><div class="ring"></div><div class="ring"></div>
@@ -280,211 +289,202 @@ s0.parentNode.insertBefore(s1,s0);
 <script>
 (function(){
   "use strict";
+
+  var MAPBOX_TOKEN='pk.eyJ1IjoibGJyb29vbWUiLCJhIjoiY21idWN4enVjMGR3ZjJrcHZ5aTByNmE4byJ9.L8GmGvxGt1v8ZEf2Z8krxg';
+  var USE_MB=/^pk\./.test(MAPBOX_TOKEN);
+
   var EQUIP={
-    dryVan:{name:'Dry Van',lo:2.00,hi:2.75},
-    reefer:{name:'Reefer',lo:2.50,hi:3.25},
-    flatbed:{name:'Flatbed',lo:2.75,hi:3.50},
-    stepDeck:{name:'Step Deck',lo:3.00,hi:3.90},
-    heavy:{name:'Heavy Haul',lo:4.00,hi:7.00},
-    hotshot:{name:'Hotshot',lo:1.50,hi:2.50}
+    dryVan:{name:'Dry Van',lo:2.00,hi:2.75}, reefer:{name:'Reefer',lo:2.50,hi:3.25},
+    flatbed:{name:'Flatbed',lo:2.75,hi:3.50}, stepDeck:{name:'Step Deck',lo:3.00,hi:3.90},
+    heavy:{name:'Heavy Haul',lo:4.00,hi:7.00}, hotshot:{name:'Hotshot',lo:1.50,hi:2.50}
   };
-  var selected='dryVan';
-  var lastLoad=null;
-  var sel={pickup:null,dropoff:null}; // coords locked in from autocomplete
+  var selected='dryVan', lastLoad=null, sel={pickup:null,dropoff:null};
+  var map=null,mapReady=false,mkA=null,mkB=null,truckMk=null;
 
-  // equipment selection
-  document.getElementById('equip').addEventListener('click',function(e){
-    var eq=e.target.closest('.eq'); if(!eq)return;
-    document.querySelectorAll('.eq').forEach(function(x){x.classList.remove('on');});
-    eq.classList.add('on'); selected=eq.getAttribute('data-eq');
-  });
-
+  function $(id){return document.getElementById(id);}
   function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
-  function showErr(m){var e=document.getElementById('err');e.textContent=m;e.style.display='block';}
-  function clearErr(){document.getElementById('err').style.display='none';}
+  function showErr(m){var e=$('err');e.textContent=m;e.style.display='block';}
+  function clearErr(){$('err').style.display='none';}
+  function hideMap(){var el=$('routeMap');if(el)el.classList.add('hidden');}
 
-  function rad(d){return d*Math.PI/180;}
-  function haversine(a,b){
-    var R=3958.8, dLat=rad(b.lat-a.lat), dLon=rad(b.lon-a.lon);
-    var s=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)*Math.sin(dLon/2);
-    return 2*R*Math.asin(Math.sqrt(s));
+  // ---------- MAP ----------
+  if(USE_MB && typeof mapboxgl!=='undefined'){
+    try{
+      mapboxgl.accessToken=MAPBOX_TOKEN;
+      map=new mapboxgl.Map({container:'routeMap',style:'mapbox://styles/mapbox/dark-v11',center:[-95,39],zoom:3.1,pitch:40,bearing:-14,attributionControl:true,cooperativeGestures:true});
+      map.on('load',function(){ mapReady=true; $('routeMap').classList.remove('hidden'); var r=$('radar'); if(r)r.style.display='none'; map.resize(); });
+      map.on('error',function(){});
+      setTimeout(function(){ if(!mapReady) hideMap(); },8000);
+    }catch(e){ USE_MB=false; hideMap(); }
+  } else { hideMap(); }
+
+  function placeMarker(key,lnglat){
+    if(!mapReady) return;
+    var el=document.createElement('div'); el.className='mk '+(key==='pickup'?'a':'b');
+    if(key==='pickup'){ if(mkA)mkA.remove(); mkA=new mapboxgl.Marker({element:el}).setLngLat(lnglat).addTo(map); }
+    else { if(mkB)mkB.remove(); mkB=new mapboxgl.Marker({element:el}).setLngLat(lnglat).addTo(map); }
+    $('routeMap').classList.remove('empty');
+    if(sel.pickup&&sel.dropoff){ fitTo([[sel.pickup.lon,sel.pickup.lat],[sel.dropoff.lon,sel.dropoff.lat]]); }
+    else { map.flyTo({center:lnglat,zoom:6,pitch:45,duration:1100}); }
   }
-  function geocode(q){
-    var zip=q.match(/^\s*(\d{5})\s*$/);
-    if(zip){
-      return fetch('https://api.zippopotam.us/us/'+zip[1])
-        .then(function(r){return r.ok?r.json():null;})
-        .then(function(j){ if(j&&j.places&&j.places[0]){var pl=j.places[0];return {lat:parseFloat(pl.latitude),lon:parseFloat(pl.longitude),label:pl['place name']+', '+pl['state abbreviation']};} return null; })
-        .catch(function(){return null;});
+  function fitTo(coords){
+    var b=new mapboxgl.LngLatBounds(coords[0],coords[0]); coords.forEach(function(c){b.extend(c);});
+    map.fitBounds(b,{padding:60,duration:1400,pitch:48,bearing:-12});
+  }
+  function drawRoute(geo){
+    if(!mapReady||!geo) return;
+    var data={type:'Feature',properties:{},geometry:geo};
+    if(map.getSource('route')){ map.getSource('route').setData(data); }
+    else{
+      map.addSource('route',{type:'geojson',data:data});
+      map.addLayer({id:'route-glow',type:'line',source:'route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#0e80d4','line-width':13,'line-blur':8,'line-opacity':.55}});
+      map.addLayer({id:'route-core',type:'line',source:'route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#7cc7ff','line-width':3,'line-opacity':.95}});
     }
-    return fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us,ca,mx&q='+encodeURIComponent(q),{headers:{'Accept':'application/json'}})
-      .then(function(r){return r.json();})
-      .then(function(j){ if(j&&j[0])return {lat:parseFloat(j[0].lat),lon:parseFloat(j[0].lon),label:j[0].display_name}; return null; })
-      .catch(function(){return null;});
+    var cs=geo.coordinates, b=new mapboxgl.LngLatBounds(cs[0],cs[0]); cs.forEach(function(c){b.extend(c);});
+    map.fitBounds(b,{padding:{top:50,bottom:50,left:50,right:50},duration:1500,pitch:50,bearing:-10});
+    $('routeMap').classList.remove('empty');
   }
-  // fallback: rough miles from 5-digit ZIP prefixes
-  function zipFallback(a,b){
-    var za=(a.match(/\b\d{5}\b/)||[])[0], zb=(b.match(/\b\d{5}\b/)||[])[0];
-    if(za&&zb){var gap=Math.abs(parseInt(za.slice(0,3),10)-parseInt(zb.slice(0,3),10));return Math.min(Math.max(gap*11,60),3200);}
-    return 0;
-  }
-  function niceLabel(raw,full){
-    if(!full) return raw;
-    var p=full.split(',').map(function(s){return s.trim();});
-    var city=p[0];
-    if(/^\d{5}$/.test(city) && p.length>=2) city=p[1]; // zip result -> use city name
-    if(p.length>=3) return city+', '+p[p.length-2]; // City, State
-    if(p.length===2) return city+', '+p[1];
-    return city;
+  function animateTruck(geo){
+    if(!mapReady||!geo||!geo.coordinates||!geo.coordinates.length) return;
+    var cs=geo.coordinates, total=cs.length;
+    var el=document.createElement('div'); el.className='truck-mk'; el.textContent='🚚';
+    if(truckMk)truckMk.remove();
+    truckMk=new mapboxgl.Marker({element:el}).setLngLat(cs[0]).addTo(map);
+    var start=null,dur=5200;
+    function step(ts){ if(!start)start=ts; var p=Math.min((ts-start)/dur,1); var idx=Math.min(total-1,Math.floor(p*(total-1))); truckMk.setLngLat(cs[idx]); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
   }
 
-  // ---- live address autocomplete (Photon / OSM, free, no key) ----
+  // ---------- geocoding ----------
+  function mbLabel(f){ return String(f.place_name||f.text||'').replace(/, United States$/,''); }
+  function mbGeocode(q){
+    return fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/'+encodeURIComponent(q)+'.json?access_token='+MAPBOX_TOKEN+'&autocomplete=true&country=us,ca,mx&types=place,locality,postcode,address,district,region,neighborhood&limit=6')
+      .then(function(r){return r.json();}).then(function(j){return (j&&j.features)||[];}).catch(function(){return [];});
+  }
   function acLabel(p){
-    var main=p.name||p.city||p.street||p.county||'';
-    var bits=[];
-    if(p.city && p.city!==main) bits.push(p.city);
-    if(p.state) bits.push(p.state);
-    if(p.countrycode && p.countrycode!=='US') bits.push(p.countrycode);
-    return bits.length? main+', '+bits.join(', ') : main;
+    var main=p.name||p.city||p.street||p.county||'', bits=[];
+    if(p.city&&p.city!==main)bits.push(p.city); if(p.state)bits.push(p.state);
+    if(p.countrycode&&p.countrycode!=='US')bits.push(p.countrycode);
+    return bits.length? main+', '+bits.join(', '):main;
+  }
+  function acItems(q){
+    if(USE_MB) return mbGeocode(q).then(function(fs){return fs.map(function(f){return {label:mbLabel(f),lat:f.center[1],lon:f.center[0]};});});
+    return fetch('https://photon.komoot.io/api/?limit=6&lang=en&q='+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(j){
+      return (((j&&j.features)||[]).filter(function(f){var c=f.properties.countrycode;return !c||['US','CA','MX'].indexOf(c)!==-1;})).map(function(f){return {label:acLabel(f.properties),lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0]};});
+    }).catch(function(){return [];});
   }
   function acSearch(q,list,input,key){
-    fetch('https://photon.komoot.io/api/?limit=6&lang=en&q='+encodeURIComponent(q))
-      .then(function(r){return r.json();})
-      .then(function(j){
-        var feats=((j&&j.features)||[]).filter(function(f){var c=f.properties.countrycode;return !c||['US','CA','MX'].indexOf(c)!==-1;});
-        if(!feats.length){ list.innerHTML='<div class="ac-empty">No matches — try "City, ST" or a ZIP</div>'; list.classList.add('show'); return; }
-        list.innerHTML=feats.slice(0,6).map(function(f){
-          var p=f.properties,co=f.geometry.coordinates,label=acLabel(p);
-          return '<div class="ac-item" data-lat="'+co[1]+'" data-lon="'+co[0]+'" data-label="'+label.replace(/"/g,'')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>'+label+'</div>';
-        }).join('');
-        list.classList.add('show');
-        Array.prototype.forEach.call(list.querySelectorAll('.ac-item'),function(it){
-          it.addEventListener('mousedown',function(e){
-            e.preventDefault(); // fire before blur
-            input.value=it.getAttribute('data-label');
-            sel[key]={lat:parseFloat(it.getAttribute('data-lat')),lon:parseFloat(it.getAttribute('data-lon')),label:it.getAttribute('data-label')};
-            list.classList.remove('show'); list.innerHTML='';
-          });
+    acItems(q).then(function(items){
+      if(!items.length){ list.innerHTML='<div class="ac-empty">No matches — try "City, ST" or a ZIP</div>'; list.classList.add('show'); return; }
+      list.innerHTML=items.slice(0,6).map(function(it){
+        return '<div class="ac-item" data-lat="'+it.lat+'" data-lon="'+it.lon+'" data-label="'+String(it.label).replace(/"/g,'')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>'+it.label+'</div>';
+      }).join('');
+      list.classList.add('show');
+      Array.prototype.forEach.call(list.querySelectorAll('.ac-item'),function(el){
+        el.addEventListener('mousedown',function(e){ e.preventDefault();
+          var lat=parseFloat(el.getAttribute('data-lat')),lon=parseFloat(el.getAttribute('data-lon')),label=el.getAttribute('data-label');
+          input.value=label; sel[key]={lat:lat,lon:lon,label:label}; list.classList.remove('show'); list.innerHTML='';
+          placeMarker(key,[lon,lat]);
         });
-      }).catch(function(){ list.classList.remove('show'); });
+      });
+    });
   }
   function buildAC(inputId,listId,key){
-    var input=document.getElementById(inputId),list=document.getElementById(listId),t=null;
-    input.addEventListener('input',function(){
-      sel[key]=null; // typing invalidates a prior pick
-      var q=input.value.trim();
-      clearTimeout(t);
-      if(q.length<3){ list.classList.remove('show'); return; }
-      t=setTimeout(function(){ acSearch(q,list,input,key); },230);
-    });
+    var input=$(inputId),list=$(listId),t=null;
+    input.addEventListener('input',function(){ sel[key]=null; var q=input.value.trim(); clearTimeout(t); if(q.length<3){list.classList.remove('show');return;} t=setTimeout(function(){acSearch(q,list,input,key);},230); });
     input.addEventListener('blur',function(){ setTimeout(function(){list.classList.remove('show');},180); });
-    input.addEventListener('focus',function(){ if(list.children.length) list.classList.add('show'); });
+    input.addEventListener('focus',function(){ if(list.children.length)list.classList.add('show'); });
   }
   buildAC('pickup','acPickup','pickup');
   buildAC('dropoff','acDropoff','dropoff');
-  function transit(mi){
-    var d=Math.max(1,Math.ceil(mi/550));
-    if(mi<=250) return 'Next day';
-    return d+'–'+(d+1)+' days';
-  }
 
-  var estimateBtn=document.getElementById('estimateBtn');
+  function resolveCoord(text,key){
+    if(sel[key]) return Promise.resolve(sel[key]);
+    return acItems(text).then(function(items){ if(items[0])return {lat:items[0].lat,lon:items[0].lon,label:items[0].label}; return null; });
+  }
+  function rad(d){return d*Math.PI/180;}
+  function haversine(a,b){var R=3958.8,dLat=rad(b.lat-a.lat),dLon=rad(b.lon-a.lon);var s=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)*Math.sin(dLon/2);return 2*R*Math.asin(Math.sqrt(s));}
+  function transitDays(mi){var d=Math.max(1,Math.ceil(mi/550)); if(mi<=250)return 'Next day'; return d+'–'+(d+1)+' days';}
+  function transitFromDur(sec){var h=sec/3600; if(h<=10)return 'Next day'; var d=Math.max(1,Math.ceil(h/10)); return d+'–'+(d+1)+' days';}
+
+  // equipment
+  $('equip').addEventListener('click',function(e){var eq=e.target.closest('.eq');if(!eq)return;document.querySelectorAll('.eq').forEach(function(x){x.classList.remove('on');});eq.classList.add('on');selected=eq.getAttribute('data-eq');});
+
+  var estimateBtn=$('estimateBtn');
   estimateBtn.addEventListener('click',function(){
     clearErr();
-    var pu=document.getElementById('pickup').value.trim();
-    var dr=document.getElementById('dropoff').value.trim();
+    var pu=$('pickup').value.trim(), dr=$('dropoff').value.trim();
     if(!pu){showErr('Enter a pickup location.');return;}
     if(!dr){showErr('Enter a delivery location.');return;}
-
     estimateBtn.disabled=true; estimateBtn.textContent='Calculating…';
-    var pA=sel.pickup?Promise.resolve(sel.pickup):geocode(pu);
-    var pB=sel.dropoff?Promise.resolve(sel.dropoff):geocode(dr);
-    Promise.all([pA,pB]).then(function(res){
-      var A=res[0], B=res[1], miles=0, approx=false;
-      if(A&&B){ miles=Math.round(haversine(A,B)*1.2); }
-      if(!miles){ miles=zipFallback(pu,dr); approx=true; }
-      if(!miles){ miles=800; approx=true; }
-      if(miles<25) miles=25;
 
-      var eq=EQUIP[selected];
-      var lo=Math.max(miles*eq.lo,450), hi=Math.max(miles*eq.hi,600);
-      var pmLo=(lo/miles), pmHi=(hi/miles);
-      var laneA=A?niceLabel(pu,A.label):pu, laneB=B?niceLabel(dr,B.label):dr;
+    Promise.all([resolveCoord(pu,'pickup'),resolveCoord(dr,'dropoff')]).then(function(res){
+      var A=res[0],B=res[1];
+      if(!A||!B){ showErr('Couldn’t find one of those locations — try "City, ST" or a ZIP.'); estimateBtn.disabled=false; estimateBtn.innerHTML='Get Instant Estimate'; return; }
+      var distP = USE_MB
+        ? fetch('https://api.mapbox.com/directions/v5/mapbox/driving/'+A.lon+','+A.lat+';'+B.lon+','+B.lat+'?access_token='+MAPBOX_TOKEN+'&geometries=geojson&overview=full').then(function(r){return r.json();}).then(function(j){var rt=j&&j.routes&&j.routes[0]; return rt?{miles:Math.round(rt.distance/1609.34),dur:rt.duration,geo:rt.geometry}:null;}).catch(function(){return null;})
+        : Promise.resolve(null);
 
-      document.getElementById('laneA').textContent=laneA;
-      document.getElementById('laneB').textContent=laneB;
-      document.getElementById('fareAmt').textContent=money(lo)+' – '+money(hi);
-      document.getElementById('farePm').textContent='$'+pmLo.toFixed(2)+'–$'+pmHi.toFixed(2)+'/mi'+(approx?' · approx. distance':'');
-      document.getElementById('fareDist').textContent='~'+miles.toLocaleString('en-US')+' mi';
-      document.getElementById('fareTime').textContent=transit(miles);
-      document.getElementById('fareEq').textContent=eq.name;
-      var avail=2+(miles%5);
-      document.getElementById('availTxt').textContent=avail+' Landstar carriers available near pickup';
+      distP.then(function(rd){
+        var miles, geo=null, transitTxt;
+        if(rd){ miles=rd.miles; geo=rd.geo; transitTxt=transitFromDur(rd.dur); }
+        else { miles=Math.round(haversine(A,B)*1.2); transitTxt=transitDays(miles); }
+        if(miles<20)miles=20;
 
-      lastLoad={pickup:laneA,dropoff:laneB,equipment:eq.name,miles:miles,
-        weight:document.getElementById('weight').value.trim(),commodity:document.getElementById('commodity').value.trim(),
-        estimate:money(lo)+'–'+money(hi),transit:transit(miles)};
+        var eq=EQUIP[selected], lo=Math.max(miles*eq.lo,450), hi=Math.max(miles*eq.hi,600);
+        $('laneA').textContent=A.label; $('laneB').textContent=B.label;
+        $('fareAmt').textContent=money(lo)+' – '+money(hi);
+        $('farePm').textContent='$'+(lo/miles).toFixed(2)+'–$'+(hi/miles).toFixed(2)+'/mi'+(rd?'':' · est. distance');
+        $('fareDist').textContent='~'+miles.toLocaleString('en-US')+' mi';
+        $('fareTime').textContent=transitTxt;
+        $('fareEq').textContent=eq.name;
+        var avail=2+(miles%5); $('availTxt').textContent=avail+' Landstar carriers available near pickup';
 
-      document.getElementById('form').style.display='none';
-      var fare=document.getElementById('fare'); fare.classList.add('show');
-      estimateBtn.disabled=false; estimateBtn.innerHTML='Get Instant Estimate';
+        lastLoad={pickup:A.label,dropoff:B.label,equipment:eq.name,miles:miles,weight:$('weight').value.trim(),commodity:$('commodity').value.trim(),estimate:money(lo)+'–'+money(hi),transit:transitTxt,geo:geo};
+
+        if(geo) drawRoute(geo);
+        else if(mapReady){ placeMarker('pickup',[A.lon,A.lat]); placeMarker('dropoff',[B.lon,B.lat]); }
+
+        $('form').style.display='none';
+        $('fare').classList.add('show');
+        estimateBtn.disabled=false; estimateBtn.innerHTML='Get Instant Estimate';
+      });
     });
   });
 
-  document.getElementById('editBtn').addEventListener('click',function(){
-    document.getElementById('fare').classList.remove('show');
-    document.getElementById('form').style.display='block';
-  });
+  $('editBtn').addEventListener('click',function(){ $('fare').classList.remove('show'); $('form').style.display='block'; });
 
-  // dispatch + handoff to live chat
   function openChat(){
     try{
       if(window.Tawk_API){
-        if(Tawk_API.setAttributes){Tawk_API.setAttributes({
-          'name':'Truck Request — '+lastLoad.pickup+' to '+lastLoad.dropoff,
-          'load-pickup':lastLoad.pickup,'load-delivery':lastLoad.dropoff,
-          'load-equipment':lastLoad.equipment,'load-miles':String(lastLoad.miles),
-          'load-estimate':lastLoad.estimate,'load-weight':lastLoad.weight||'n/a','load-commodity':lastLoad.commodity||'n/a'
-        },function(){});}
-        if(Tawk_API.addEvent){Tawk_API.addEvent('Requested Truck',{
-          pickup:lastLoad.pickup,delivery:lastLoad.dropoff,equipment:lastLoad.equipment,
-          miles:lastLoad.miles,estimate:lastLoad.estimate},function(){});}
-        if(Tawk_API.maximize){Tawk_API.maximize();}
+        if(Tawk_API.setAttributes)Tawk_API.setAttributes({'name':'Truck Request — '+lastLoad.pickup+' to '+lastLoad.dropoff,'load-pickup':lastLoad.pickup,'load-delivery':lastLoad.dropoff,'load-equipment':lastLoad.equipment,'load-miles':String(lastLoad.miles),'load-estimate':lastLoad.estimate,'load-weight':lastLoad.weight||'n/a','load-commodity':lastLoad.commodity||'n/a'},function(){});
+        if(Tawk_API.addEvent)Tawk_API.addEvent('Requested Truck',{pickup:lastLoad.pickup,delivery:lastLoad.dropoff,equipment:lastLoad.equipment,miles:lastLoad.miles,estimate:lastLoad.estimate},function(){});
+        if(Tawk_API.maximize)Tawk_API.maximize();
       }
     }catch(e){}
   }
 
-  document.getElementById('requestBtn').addEventListener('click',function(){
-    document.getElementById('fare').classList.remove('show');
-    var d=document.getElementById('dispatch'); d.classList.add('show');
-    document.getElementById('dispatchLoad').innerHTML=
-      '<b>Load</b> · '+lastLoad.equipment+'<br>'+lastLoad.pickup+' → '+lastLoad.dropoff+
-      '<br><b>~'+lastLoad.miles.toLocaleString('en-US')+' mi</b> · '+lastLoad.transit+' · est. '+lastLoad.estimate;
-
-    var steps=[
-      'Locating Landstar carriers near '+lastLoad.pickup.split(',')[0]+'…',
-      'Checking '+lastLoad.equipment+' capacity…',
-      'Agent LBR is reviewing your load…',
-      'Connecting you to live dispatch…'
-    ];
-    var st=document.getElementById('dispatchStatus'), i=0;
-    st.textContent=steps[0];
+  $('requestBtn').addEventListener('click',function(){
+    $('fare').classList.remove('show');
+    $('dispatch').classList.add('show');
+    $('dispatchLoad').innerHTML='<b>Load</b> · '+lastLoad.equipment+'<br>'+lastLoad.pickup+' → '+lastLoad.dropoff+'<br><b>~'+lastLoad.miles.toLocaleString('en-US')+' mi</b> · '+lastLoad.transit+' · est. '+lastLoad.estimate;
+    animateTruck(lastLoad.geo);
+    var steps=['Locating Landstar carriers near '+lastLoad.pickup.split(',')[0]+'…','Checking '+lastLoad.equipment+' capacity…','Agent LBR is reviewing your load…','Connecting you to live dispatch…'];
+    var st=$('dispatchStatus'),i=0; st.textContent=steps[0];
     var iv=setInterval(function(){
       i++;
       if(i<steps.length){ st.style.opacity=0; setTimeout(function(){st.textContent=steps[i];st.style.opacity=1;},250); }
       else{
         clearInterval(iv);
-        document.getElementById('dispatchTitle').textContent='You’re connected 🚛';
-        st.style.opacity=0;
-        setTimeout(function(){ st.textContent='Agent LBR & Gizmo are on your load. Start the chat to lock it in.'; st.style.opacity=1; },250);
-        document.getElementById('radar').style.opacity='.4';
-        document.getElementById('connectedActions').classList.add('show');
+        $('dispatchTitle').textContent='You’re connected 🚛';
+        st.style.opacity=0; setTimeout(function(){st.textContent='Agent LBR & Gizmo are on your load. Start the chat to lock it in.';st.style.opacity=1;},250);
+        var r=$('radar'); if(r)r.style.opacity='.4';
+        $('connectedActions').classList.add('show');
         openChat();
       }
     },1400);
   });
-
-  document.getElementById('chatBtn').addEventListener('click',openChat);
+  $('chatBtn').addEventListener('click',openChat);
 })();
 </script>
 </body>
