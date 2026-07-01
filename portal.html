@@ -269,6 +269,9 @@ s0.parentNode.insertBefore(s1,s0);
   var fab=document.getElementById('chatFab'),cp=document.getElementById('chatPanel'),cc=document.getElementById('chatClose');
   if(fab){fab.addEventListener('click',function(){cp.hidden=!cp.hidden;});cc.addEventListener('click',function(){cp.hidden=true;});}
 
+  var SB_LEAD='https://fgglqweohdhamapunofy.supabase.co/functions/v1/web-lead-capture';
+  var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnZ2xxd2VvaGRoYW1hcHVub2Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwOTM3MjYsImV4cCI6MjA3NzY2OTcyNn0.sJDjgE9NlSlkGhUaTWjMWUtovtuAJ4zn6qM7h6EuyB8';
+  function pushLead(p){ try{ fetch(SB_LEAD,{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify(p)}).catch(function(){}); }catch(e){} }
   function v(id){return document.getElementById(id).value.trim();}
   var form=document.getElementById('acctForm'), errBox=document.getElementById('err');
   function showErr(m){errBox.textContent=m;errBox.style.display='block';}
@@ -302,6 +305,7 @@ s0.parentNode.insertBefore(s1,s0);
 '----------------------------------------------------\n'+
 'Submitted via LewisBroome.ME client portal.';
     var subject='New Account Setup — '+v('company');
+    pushLead({company_name:v('company'),contact_name:v('contact'),email:v('email'),phone:v('phone'),city:v('city'),state:v('state'),commodity:v('commodity'),hazmat:/hazmat/i.test(v('commodity')),source:'Account Setup (Website)',notes:'Website: '+(v('website')||'N/A')+'\nTitle: '+(v('title')||'N/A')+'\nEquipment: '+(v('equipment')||'N/A')+'\nLanes: '+(v('lanes')||'N/A')+'\nVolume: '+(v('volume')||'N/A')+'\nNotes: '+(v('notes')||'None')});
     window.location.href='mailto:lewis.broome@landstarmail.com?cc=lewisbroome@gmail.com&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
   });
 })();

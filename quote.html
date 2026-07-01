@@ -263,6 +263,9 @@
 <script>
 (function(){
   "use strict";
+  var SB_LEAD='https://fgglqweohdhamapunofy.supabase.co/functions/v1/web-lead-capture';
+  var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnZ2xxd2VvaGRoYW1hcHVub2Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwOTM3MjYsImV4cCI6MjA3NzY2OTcyNn0.sJDjgE9NlSlkGhUaTWjMWUtovtuAJ4zn6qM7h6EuyB8';
+  function pushLead(p){ try{ fetch(SB_LEAD,{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify(p)}).catch(function(){}); }catch(e){} }
   document.querySelectorAll('.check input').forEach(function(cb){
     cb.addEventListener('change',function(){ cb.closest('.check').classList.toggle('on',cb.checked); });
   });
@@ -317,6 +320,7 @@
 'CONTACT\n  Name:    '+o.name+'\n  Company: '+(o.company||'N/A')+'\n  Email:   '+o.email+'\n  Phone:   '+(o.phone||'N/A')+'\n\n'+
 '----------------------------------------------------\nSubmitted via LewisBroome.ME quote page. Estimate only — confirm final rate.';
     var subject='Freight Quote — '+usport+' → '+zip+' ('+o.name+')';
+    pushLead({company_name:o.company||o.name,contact_name:o.name,email:o.email,phone:o.phone,hazmat:o.hazmat,commodity:o.pharma?'Pharma import':(o.hazmat?'Hazmat import':'Ocean container import'),source:'Container Quote (Website)',quote_link:'https://www.lewisbroome.com/quote.html',notes:'Ocean container quote\nLane: '+o.origin+' → '+usport+' → '+zip+'\nContainer: '+o.container+', '+(o.weight||'?')+' lbs\nSpecial: '+(specials.length?specials.join(', '):'None')+'\nEstimate: ocean '+money(ocean)+' + domestic '+money(dom)+' = '+money(total)});
     window.location.href='mailto:lewis.broome@landstarmail.com?cc=lewisbroome@gmail.com&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
   });
 })();
