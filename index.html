@@ -283,6 +283,28 @@
   /* no-JS: never leave content hidden */
   .no-js .reveal{opacity:1;transform:none}
 
+  /* live-chat launcher */
+  #chatWidget{position:fixed;right:22px;bottom:22px;z-index:200}
+  .chat-fab{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(180deg,var(--amber),var(--amber-700));color:#fff;border:none;border-radius:999px;padding:.85rem 1.25rem;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 12px 30px rgba(14,128,212,.5);transition:transform .15s,box-shadow .2s}
+  .chat-fab:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(14,128,212,.6)}
+  .chat-fab svg{width:22px;height:22px}
+  .chat-panel[hidden]{display:none}
+  .chat-panel{position:absolute;right:0;bottom:64px;width:322px;max-width:calc(100vw - 44px);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 24px 60px rgba(8,26,44,.4);border:1px solid #e2eaf2;animation:chatpop .18s ease}
+  @keyframes chatpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .chat-head{display:flex;align-items:center;gap:.7rem;background:#081a2c;color:#fff;padding:15px 18px}
+  .chat-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:.82rem;color:#fff;flex:none}
+  .chat-head b{display:block;font-size:.98rem}
+  .chat-head span{font-size:.76rem;color:#9fbdd8}
+  .chat-head span::before{content:"●";color:#4ade80;margin-right:5px}
+  .chat-close{margin-left:auto;background:none;border:none;color:#9fbdd8;font-size:1.5rem;line-height:1;cursor:pointer;padding:0 4px}
+  .chat-body{padding:16px;display:grid;gap:9px}
+  .chat-greeting{font-size:.9rem;color:#46607a;margin:0 2px 4px}
+  .chat-opt{display:flex;align-items:center;gap:.6rem;padding:.78rem .9rem;border-radius:11px;font-weight:700;font-size:.94rem;text-decoration:none;border:1.5px solid #e2eaf2;color:#0a1f33;transition:.15s}
+  .chat-opt svg{width:18px;height:18px;flex:none}
+  .chat-opt:hover{border-color:var(--amber);background:#f4f8fc}
+  .chat-opt.primary{background:var(--amber);color:#fff;border-color:var(--amber)}
+  .chat-opt.primary:hover{background:var(--amber-700);color:#fff}
+
   /* safety / tech split */
   .split{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
   .split-visual{background:radial-gradient(700px 500px at 30% 20%,#16395c,#081a2c);border-radius:22px;min-height:380px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
@@ -867,6 +889,42 @@
     track.innerHTML=html+html; // duplicate for -50% loop
   }
 })();
+</script>
+<!-- Floating live-chat launcher -->
+<div id="chatWidget">
+  <div class="chat-panel" id="chatPanel" hidden>
+    <div class="chat-head">
+      <div class="chat-avatar">LBR</div>
+      <div><b>Chat with Agent LBR</b><span>Usually replies in minutes</span></div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="chat-body">
+      <p class="chat-greeting">👋 Need a freight quote or have a question? Reach me directly:</p>
+      <a class="chat-opt primary" href="sms:+18033611303">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linejoin="round"/></svg>
+        Text us — (803) 361-1303
+      </a>
+      <a class="chat-opt" href="https://wa.me/18033611303" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20z"/><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1l-.8 1c-.2.2-.3.2-.5.1-1-.5-1.7-.9-2.4-2-.2-.3.2-.3.5-1 .1-.1 0-.3 0-.4l-.9-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.9.9-.9 2.1 0 3.4 1 1.3 2.1 2.6 4 3.4 1.6.7 2 .6 2.4.5.5-.1 1.7-.7 1.8-1.3.1-.4.1-.7 0-.8 0-.1-.2-.2-.5-.3z"/></svg>
+        WhatsApp
+      </a>
+      <a class="chat-opt" href="tel:+18033611303">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call now — (803) 361-1303
+      </a>
+      <a class="chat-opt" href="quote.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Get a container quote
+      </a>
+    </div>
+  </div>
+  <button class="chat-fab" id="chatFab" aria-label="Open chat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linejoin="round"/></svg>
+    <span>Chat with us</span>
+  </button>
+</div>
+<script>
+(function(){var fab=document.getElementById('chatFab'),p=document.getElementById('chatPanel'),c=document.getElementById('chatClose');if(!fab)return;fab.addEventListener('click',function(){p.hidden=!p.hidden;});c.addEventListener('click',function(){p.hidden=true;});})();
 </script>
 </body>
 </html>
