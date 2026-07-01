@@ -81,6 +81,15 @@
   .fld input:focus,.fld select:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(14,128,212,.15)}
   .lbl{font-weight:700;font-size:.85rem;color:var(--ink);margin-bottom:.4rem;display:block}
 
+  /* address autocomplete */
+  .ac-list{position:absolute;top:calc(100% + 5px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 44px rgba(10,31,51,.18);z-index:30;overflow:hidden;display:none;max-height:250px;overflow-y:auto}
+  .ac-list.show{display:block}
+  .ac-item{display:flex;align-items:center;gap:.6rem;padding:.72rem .85rem;cursor:pointer;font-size:.93rem;color:var(--ink);border-bottom:1px solid var(--bg-soft);line-height:1.25}
+  .ac-item:last-child{border-bottom:none}
+  .ac-item:hover,.ac-item.active{background:var(--bg-soft)}
+  .ac-item svg{width:16px;height:16px;color:var(--amber-700);flex:none}
+  .ac-empty{padding:.72rem .85rem;color:var(--ink-2);font-size:.88rem}
+
   /* equipment picker */
   .equip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:6px 0 4px}
   .eq{border:1.5px solid #d4dce6;border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.15s;background:#fff}
@@ -174,10 +183,12 @@
             <div class="row">
               <div class="pin a"><i></i></div>
               <input id="pickup" placeholder="Pickup — city, ST or ZIP" autocomplete="off" />
+              <div class="ac-list" id="acPickup"></div>
             </div>
             <div class="row">
               <div class="pin b"><i></i></div>
               <input id="dropoff" placeholder="Delivery — city, ST or ZIP" autocomplete="off" />
+              <div class="ac-list" id="acDropoff"></div>
             </div>
           </div>
 
@@ -279,6 +290,7 @@ s0.parentNode.insertBefore(s1,s0);
   };
   var selected='dryVan';
   var lastLoad=null;
+  var sel={pickup:null,dropoff:null}; // coords locked in from autocomplete
 
   // equipment selection
   document.getElementById('equip').addEventListener('click',function(e){
@@ -325,6 +337,51 @@ s0.parentNode.insertBefore(s1,s0);
     if(p.length===2) return city+', '+p[1];
     return city;
   }
+
+  // ---- live address autocomplete (Photon / OSM, free, no key) ----
+  function acLabel(p){
+    var main=p.name||p.city||p.street||p.county||'';
+    var bits=[];
+    if(p.city && p.city!==main) bits.push(p.city);
+    if(p.state) bits.push(p.state);
+    if(p.countrycode && p.countrycode!=='US') bits.push(p.countrycode);
+    return bits.length? main+', '+bits.join(', ') : main;
+  }
+  function acSearch(q,list,input,key){
+    fetch('https://photon.komoot.io/api/?limit=6&lang=en&q='+encodeURIComponent(q))
+      .then(function(r){return r.json();})
+      .then(function(j){
+        var feats=((j&&j.features)||[]).filter(function(f){var c=f.properties.countrycode;return !c||['US','CA','MX'].indexOf(c)!==-1;});
+        if(!feats.length){ list.innerHTML='<div class="ac-empty">No matches — try "City, ST" or a ZIP</div>'; list.classList.add('show'); return; }
+        list.innerHTML=feats.slice(0,6).map(function(f){
+          var p=f.properties,co=f.geometry.coordinates,label=acLabel(p);
+          return '<div class="ac-item" data-lat="'+co[1]+'" data-lon="'+co[0]+'" data-label="'+label.replace(/"/g,'')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>'+label+'</div>';
+        }).join('');
+        list.classList.add('show');
+        Array.prototype.forEach.call(list.querySelectorAll('.ac-item'),function(it){
+          it.addEventListener('mousedown',function(e){
+            e.preventDefault(); // fire before blur
+            input.value=it.getAttribute('data-label');
+            sel[key]={lat:parseFloat(it.getAttribute('data-lat')),lon:parseFloat(it.getAttribute('data-lon')),label:it.getAttribute('data-label')};
+            list.classList.remove('show'); list.innerHTML='';
+          });
+        });
+      }).catch(function(){ list.classList.remove('show'); });
+  }
+  function buildAC(inputId,listId,key){
+    var input=document.getElementById(inputId),list=document.getElementById(listId),t=null;
+    input.addEventListener('input',function(){
+      sel[key]=null; // typing invalidates a prior pick
+      var q=input.value.trim();
+      clearTimeout(t);
+      if(q.length<3){ list.classList.remove('show'); return; }
+      t=setTimeout(function(){ acSearch(q,list,input,key); },230);
+    });
+    input.addEventListener('blur',function(){ setTimeout(function(){list.classList.remove('show');},180); });
+    input.addEventListener('focus',function(){ if(list.children.length) list.classList.add('show'); });
+  }
+  buildAC('pickup','acPickup','pickup');
+  buildAC('dropoff','acDropoff','dropoff');
   function transit(mi){
     var d=Math.max(1,Math.ceil(mi/550));
     if(mi<=250) return 'Next day';
@@ -340,7 +397,9 @@ s0.parentNode.insertBefore(s1,s0);
     if(!dr){showErr('Enter a delivery location.');return;}
 
     estimateBtn.disabled=true; estimateBtn.textContent='Calculating…';
-    Promise.all([geocode(pu),geocode(dr)]).then(function(res){
+    var pA=sel.pickup?Promise.resolve(sel.pickup):geocode(pu);
+    var pB=sel.dropoff?Promise.resolve(sel.dropoff):geocode(dr);
+    Promise.all([pA,pB]).then(function(res){
       var A=res[0], B=res[1], miles=0, approx=false;
       if(A&&B){ miles=Math.round(haversine(A,B)*1.2); }
       if(!miles){ miles=zipFallback(pu,dr); approx=true; }
