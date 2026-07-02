@@ -126,6 +126,7 @@
   .fare-price .lbl{font-size:.8rem;color:#9fbdd8;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
   .fare-price .amt{font-family:'Archivo';font-weight:900;font-size:2.4rem;margin:4px 0}
   .fare-price .pm{font-size:.85rem;color:#bcd0e4}
+  .fuel-note{text-align:center;font-size:.8rem;color:var(--ink-2);margin:-4px 0 16px;line-height:1.45}
   .fare-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px}
   .fare-grid .fg{background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
   .fare-grid .fg span{font-size:.7rem;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;font-weight:700}
@@ -309,6 +310,7 @@
             <div class="amt" id="fareAmt">—</div>
             <div class="pm" id="farePm"></div>
           </div>
+          <p class="fuel-note">⛽ Includes a fuel surcharge that updates weekly — your final number is locked in by Agent LBR.</p>
           <div class="fare-grid">
             <div class="fg"><span>Distance</span><b id="fareDist">—</b></div>
             <div class="fg"><span>Transit</span><b id="fareTime">—</b></div>
@@ -500,8 +502,10 @@
   function rad(d){return d*Math.PI/180;}
   function haversine(a,b){var R=3958.8,dLat=rad(b.lat-a.lat),dLon=rad(b.lon-a.lon);var s=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)*Math.sin(dLon/2);return 2*R*Math.asin(Math.sqrt(s));}
   // HOS: ~11 driving hours/day (~580 mi). Transit + real ETA.
-  function transitLabel(driveH){var o=Math.max(0,Math.ceil(driveH/11)-1); if(o===0)return 'Same day'; if(o===1)return 'Next day'; return o+' days';}
-  function computeArrival(driveH){var s=new Date();s.setDate(s.getDate()+1);s.setHours(8,0,0,0);var rem=driveH,cur=new Date(s.getTime());while(rem>0.05){var day=Math.min(rem,11);cur=new Date(cur.getTime()+day*3600000);rem-=day;if(rem>0.05){cur.setDate(cur.getDate()+1);cur.setHours(8,0,0,0);}}return cur;}
+  // One solo driver covers ~650 mi in a legal 11-hr day (HOS). Transit is mileage-based, not raw drive-hours.
+  var MI_PER_DAY=650, AVG_MPH=59;
+  function transitLabel(miles){ if(miles<=350) return 'Same day'; var days=Math.ceil(miles/MI_PER_DAY); return days<=1 ? 'Next day' : days+' days'; }
+  function computeArrival(miles){var cur=new Date();cur.setDate(cur.getDate()+1);cur.setHours(8,0,0,0);var rem=miles;while(rem>0.5){var day=Math.min(rem,MI_PER_DAY);cur=new Date(cur.getTime()+(day/AVG_MPH)*3600000);rem-=day;if(rem>0.5){cur.setDate(cur.getDate()+1);cur.setHours(8,0,0,0);}}return cur;}
   function fmtEta(d){var wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];var h=d.getHours(),m=d.getMinutes(),ap=h>=12?'PM':'AM',hh=h%12||12,mm=m<30?'00':'30';return wd[d.getDay()]+', '+mo[d.getMonth()]+' '+d.getDate()+' · ~'+hh+':'+mm+' '+ap;}
 
   // equipment UI: tarp for flatbed/step deck, heavy-haul panel for heavy haul
@@ -530,13 +534,16 @@
         : Promise.resolve(null);
 
       distP.then(function(rd){
-        var miles, geo=null, driveH;
-        if(rd){ miles=rd.miles; geo=rd.geo; driveH=rd.dur/3600; }
-        else { miles=Math.round(haversine(A,B)*1.2); driveH=miles/55; }
+        var miles, geo=null;
+        if(rd){ miles=rd.miles; geo=rd.geo; }
+        else { miles=Math.round(haversine(A,B)*1.2); }
         if(miles<20)miles=20;
 
-        var eq=EQUIP[selected], lo=Math.max(miles*eq.lo,450), hi=Math.max(miles*eq.hi,600), addons=[], hhDims='';
-        if($('hazmat').checked){ lo+=Math.max(150,miles*0.15); hi+=Math.max(300,miles*0.30); addons.push('Hazmat'); }
+        // Rate floors (Agent LBR pricing): never quote under $3.00/mi; Hazmat is a $4.00/mi minimum; every load min $750.
+        var eq=EQUIP[selected], addons=[], hhDims='';
+        var loPm=Math.max(eq.lo,3.00), hiPm=Math.max(eq.hi,3.25);
+        if($('hazmat').checked){ loPm=Math.max(loPm,4.00); hiPm=Math.max(hiPm,4.50); addons.push('Hazmat'); }
+        var lo=miles*loPm, hi=miles*hiPm;
         if($('tarp').checked && (selected==='flatbed'||selected==='stepDeck')){ lo+=50; hi+=150; addons.push('Tarp'); }
         if(selected==='heavy'){
           hhDims=$('hhDims').value.trim();
@@ -549,10 +556,14 @@
           if($('hhTarp').checked){ lo+=75; hi+=200; addons.push('Tarp'); }
         }
 
-        var transitTxt=transitLabel(driveH), etaTxt=fmtEta(computeArrival(driveH));
+        // Every load carries a $750 minimum.
+        var minLoad = lo < 750;
+        lo=Math.max(lo,750); hi=Math.max(hi,950);
+
+        var transitTxt=transitLabel(miles), etaTxt=fmtEta(computeArrival(miles));
         $('laneA').textContent=A.label; $('laneB').textContent=B.label;
         $('fareAmt').textContent=money(lo)+' – '+money(hi);
-        $('farePm').textContent='$'+(lo/miles).toFixed(2)+'–$'+(hi/miles).toFixed(2)+'/mi'+(addons.length?' · incl. '+addons.join(' + '):'')+(rd?'':' · est. distance');
+        $('farePm').textContent=(minLoad?'$750 load minimum':'$'+(lo/miles).toFixed(2)+'–$'+(hi/miles).toFixed(2)+'/mi')+(addons.length?' · incl. '+addons.join(' + '):'')+(rd?'':' · est. distance');
         $('fareDist').textContent='~'+miles.toLocaleString('en-US')+' mi';
         $('fareTime').textContent=transitTxt;
         $('fareEq').textContent=eq.name;
