@@ -156,8 +156,24 @@
   .dispatch .status{color:var(--ink-2);font-size:1rem;min-height:1.5em;transition:opacity .3s}
   .dispatch-load{background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:18px auto 0;max-width:400px;text-align:left;font-size:.9rem;color:var(--ink)}
   .dispatch-load b{color:var(--amber-700)}
-  .connected-actions{display:none;gap:.7rem;flex-direction:column;max-width:400px;margin:18px auto 0}
+  .secure-acct{display:none;max-width:440px;margin:20px auto 0;text-align:center;background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:16px;padding:22px 20px;color:#fff}
+  .secure-acct.show{display:block;animation:pop .3s ease}
+  .secure-acct h4{font-size:1.15rem;margin:0 0 4px}
+  .sa-sub{font-size:.88rem;color:#bcd0e4;margin:0 0 16px;line-height:1.45}
+  .sa-row{display:flex;gap:10px;margin-bottom:10px}
+  .sa-row input{flex:1;width:100%;padding:.8rem .85rem;border:1.5px solid rgba(255,255,255,.18);border-radius:10px;font-size:1rem;font-family:inherit;color:#fff;background:rgba(255,255,255,.08)}
+  .sa-row input::placeholder{color:#9fbdd8}
+  .sa-row input:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(14,128,212,.25);background:rgba(255,255,255,.12)}
+  .secure-acct .err{color:#ffb4b4;font-size:.85rem;text-align:left;margin:2px 0 8px;display:none}
+  .secure-acct .err.show{display:block}
+  .secure-acct .fine{color:#9fbdd8;margin-top:10px}
+  .sa-success{display:none}
+  .sa-success.show{display:block;animation:pop .3s ease}
+  .sa-check{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;font-size:1.9rem;line-height:56px;margin:0 auto 12px;font-weight:900}
+  .sa-success p{color:#cfe0f0;font-size:.92rem;line-height:1.5;margin:0}
+  .connected-actions{display:none;gap:.7rem;flex-direction:column;max-width:440px;margin:16px auto 0}
   .connected-actions.show{display:flex}
+  .ca-or{color:var(--ink-2);font-size:.85rem;font-weight:600;margin:0 0 -2px}
 
   .trust-row{display:flex;gap:1.3rem;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:30px;color:var(--ink-2);font-weight:600;font-size:.88rem}
   .trust-row img{height:22px;width:auto}
@@ -315,7 +331,32 @@
           <h3 id="dispatchTitle">Dispatching your load…</h3>
           <p class="status" id="dispatchStatus">Locating Landstar carriers…</p>
           <div class="dispatch-load" id="dispatchLoad"></div>
+
+          <div class="secure-acct" id="secureAcct">
+            <h4>🔒 Secure this truck — create your free account</h4>
+            <p class="sa-sub">One quick step locks Agent LBR on this load and lets you track it in your portal.</p>
+            <div class="sa-form" id="saForm">
+              <div class="sa-row">
+                <input id="saName" placeholder="Full name *" autocomplete="name" />
+                <input id="saCompany" placeholder="Company (optional)" autocomplete="organization" />
+              </div>
+              <div class="sa-row">
+                <input id="saEmail" type="email" placeholder="Email *" autocomplete="email" />
+                <input id="saPhone" type="tel" placeholder="Mobile phone *" autocomplete="tel" />
+              </div>
+              <div class="err" id="saErr"></div>
+              <button class="btn btn-amber btn-block btn-lg" id="saSubmit">Create Account &amp; Secure This Truck</button>
+              <p class="fine">Free · no obligation · Agent LBR personally confirms the load</p>
+            </div>
+            <div class="sa-success" id="saSuccess">
+              <div class="sa-check">✓</div>
+              <h4>Truck secured! 🎉</h4>
+              <p id="saSuccessMsg">Your account is set up and this load is on Agent LBR's board. He'll text or call you shortly to confirm pickup.</p>
+            </div>
+          </div>
+
           <div class="connected-actions" id="connectedActions">
+            <p class="ca-or">Prefer to talk first?</p>
             <a class="btn btn-amber btn-block btn-lg" href="sms:+18033611303">Text Agent LBR now — (803) 361-1303</a>
             <a class="btn btn-ghost btn-block" href="tel:18033611303">Or call direct — (803) 361-1303</a>
           </div>
@@ -349,6 +390,11 @@
   };
   var selected='dryVan', lastLoad=null, sel={pickup:null,dropoff:null};
   var map=null,mapReady=false,mkA=null,mkB=null,truckMk=null;
+
+  // CRM lead push (same edge function as quote/portal)
+  var SB_LEAD='https://fgglqweohdhamapunofy.supabase.co/functions/v1/web-lead-capture';
+  var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnZ2xxd2VvaGRoYW1hcHVub2Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwOTM3MjYsImV4cCI6MjA3NzY2OTcyNn0.sJDjgE9NlSlkGhUaTWjMWUtovtuAJ4zn6qM7h6EuyB8';
+  function pushLead(p){ return fetch(SB_LEAD,{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify(p)}).then(function(r){return r.ok;}).catch(function(){return false;}); }
 
   function $(id){return document.getElementById(id);}
   function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
@@ -555,12 +601,54 @@
       else{
         clearInterval(iv);
         $('dispatchTitle').textContent='You’re connected 🚛';
-        st.style.opacity=0; setTimeout(function(){st.textContent='Agent LBR is on your load. Text or call to lock it in.';st.style.opacity=1;},250);
+        st.style.opacity=0; setTimeout(function(){st.textContent='Agent LBR is on your load. Create your account to secure it.';st.style.opacity=1;},250);
         var r=$('radar'); if(r)r.style.opacity='.4';
+        $('secureAcct').classList.add('show');
         $('connectedActions').classList.add('show');
         openChat();
       }
     },1400);
+  });
+
+  // Create account → push the load into the CRM as a lead, then confirm
+  $('saSubmit').addEventListener('click',function(){
+    var name=$('saName').value.trim(), company=$('saCompany').value.trim(), email=$('saEmail').value.trim(), phone=$('saPhone').value.trim();
+    var err=$('saErr');
+    function bad(m){err.textContent=m;err.classList.add('show');}
+    err.classList.remove('show');
+    if(!name){return bad('Please enter your name.');}
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){return bad('Please enter a valid email.');}
+    if(phone.replace(/\D/g,'').length<10){return bad('Please enter a valid mobile number.');}
+
+    var btn=$('saSubmit'); btn.disabled=true; btn.textContent='Securing your truck…';
+    var L=lastLoad||{};
+    var notes='TRUCK REQUEST via website\n'
+      +'Lane: '+(L.pickup||'?')+' → '+(L.dropoff||'?')+'\n'
+      +'Equipment: '+(L.equipment||'?')+(L.dims?'\nDimensions: '+L.dims:'')+'\n'
+      +'Distance: ~'+(L.miles||'?')+' mi · '+(L.transit||'?')+'\n'
+      +'Estimate: '+(L.estimate||'?')+'\n'
+      +'Est. arrival: '+(L.eta||'?')+'\n'
+      +'Weight: '+(L.weight||'n/a')+'\n'
+      +'Contact: '+name+(company?' ('+company+')':'')+' · '+phone+' · '+email;
+    var payload={
+      company_name: company||name,
+      contact_name: name,
+      email: email,
+      phone: phone,
+      commodity: L.commodity||'General / palletized freight',
+      hazmat: /hazmat/i.test(L.commodity||'') || /hazmat/i.test(L.equipment||''),
+      source: 'Request a Truck (Website)',
+      notes: notes
+    };
+    pushLead(payload).then(function(ok){
+      $('saForm').style.display='none';
+      if(!ok){
+        $('saSuccessMsg').textContent='Your request is in and this load is on Agent LBR’s board — he’ll text or call you shortly. (Backup email opened just in case.)';
+        var body=encodeURIComponent(notes);
+        try{window.location.href='mailto:lewis.broome@landstarmail.com?cc=lewisbroome@gmail.com&subject='+encodeURIComponent('Truck Request — '+(L.pickup||'')+' to '+(L.dropoff||''))+'&body='+body;}catch(e){}
+      }
+      $('saSuccess').classList.add('show');
+    });
   });
 })();
 </script>
