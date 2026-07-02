@@ -79,18 +79,29 @@
   .mk.a::after{border:2px solid #22c55e}
   .mk.b{background:var(--amber);box-shadow:0 0 14px var(--amber)}
   .mk.b::after{border:2px solid var(--amber)}
+  .mk.s{background:#7cc7ff;box-shadow:0 0 12px #7cc7ff}
+  .mk.s::after{border:2px solid #7cc7ff}
   @keyframes mkp{0%{transform:scale(.5);opacity:.9}100%{transform:scale(2.4);opacity:0}}
   .truck-mk{font-size:24px;line-height:1;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6))}
 
-  .loc{position:relative;padding-left:30px;margin-bottom:16px}
-  .loc::before{content:"";position:absolute;left:9px;top:14px;width:2px;height:44px;background:var(--line)}
+  .loc{position:relative;padding-left:30px;margin-bottom:14px}
+  .loc::before{content:"";position:absolute;left:9px;top:18px;bottom:18px;width:2px;background:var(--line)}
   .loc .row{position:relative;margin-bottom:12px}
   .loc .row:last-child{margin-bottom:0}
-  .loc .pin{position:absolute;left:-30px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .loc .pin{position:absolute;left:-30px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff}
   .loc .pin.a{background:rgba(31,157,87,.15)}
   .loc .pin.a i{width:9px;height:9px;border-radius:50%;background:var(--green)}
   .loc .pin.b{background:rgba(14,128,212,.15)}
   .loc .pin.b i{width:9px;height:9px;border-radius:2px;background:var(--amber)}
+  .loc .pin.s{background:rgba(91,134,179,.18)}
+  .loc .pin.s i{width:8px;height:8px;border-radius:50%;background:#5b86b3}
+  .loc .row input{width:100%;padding:.85rem .9rem;border:1.5px solid #d4dce6;border-radius:11px;font-size:1rem;font-family:inherit;color:var(--ink);background:#fff;transition:border-color .15s,box-shadow .15s}
+  .loc .row input:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(14,128,212,.15)}
+  .loc .row[data-type=stop] input{padding-right:40px}
+  .loc .row .stop-x{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:none;background:none;color:var(--ink-2);font-size:22px;line-height:1;cursor:pointer;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0}
+  .loc .row .stop-x:hover{background:var(--bg-soft);color:#c0392b}
+  .add-stop{display:inline-flex;align-items:center;gap:.4rem;background:none;border:1.5px dashed #b9c6d6;color:var(--amber-700);font-weight:700;font-size:.9rem;padding:.6rem .9rem;border-radius:10px;cursor:pointer;margin:0 0 16px}
+  .add-stop:hover{border-color:var(--amber);background:var(--bg-soft)}
   .fld input,.fld select{width:100%;padding:.85rem .9rem;border:1.5px solid #d4dce6;border-radius:11px;font-size:1rem;font-family:inherit;color:var(--ink);background:#fff;transition:border-color .15s,box-shadow .15s}
   .fld input:focus,.fld select:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(14,128,212,.15)}
   .lbl{font-weight:700;font-size:.85rem;color:var(--ink);margin-bottom:.4rem;display:block}
@@ -218,18 +229,11 @@
         <div id="routeMap" class="empty"></div>
 
         <div id="form">
-          <div class="loc">
-            <div class="row">
-              <div class="pin a"><i></i></div>
-              <input id="pickup" placeholder="Pickup — city, ST or ZIP" autocomplete="off" />
-              <div class="ac-list" id="acPickup"></div>
-            </div>
-            <div class="row">
-              <div class="pin b"><i></i></div>
-              <input id="dropoff" placeholder="Delivery — city, ST or ZIP" autocomplete="off" />
-              <div class="ac-list" id="acDropoff"></div>
-            </div>
-          </div>
+          <div class="loc" id="loc"></div>
+          <button type="button" class="add-stop" id="addStop">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            Add a stop / extra pickup
+          </button>
 
           <label class="lbl">Equipment</label>
           <div class="equip" id="equip">
@@ -285,6 +289,7 @@
                 <option>Pharmaceuticals</option>
                 <option>Chemicals</option>
                 <option>Hazardous materials (Hazmat)</option>
+                <option>Fireworks / pyrotechnics (Hazmat)</option>
                 <option>Agricultural / produce</option>
                 <option>Retail / consumer goods</option>
                 <option>Paper / packaging</option>
@@ -390,8 +395,9 @@
     flatbed:{name:'Flatbed',lo:2.75,hi:3.50}, stepDeck:{name:'Step Deck',lo:3.00,hi:3.90},
     heavy:{name:'Heavy Haul',lo:4.00,hi:7.00}, hotshot:{name:'Hotshot',lo:1.50,hi:2.50}
   };
-  var selected='dryVan', lastLoad=null, sel={pickup:null,dropoff:null};
-  var map=null,mapReady=false,mkA=null,mkB=null,truckMk=null;
+  var selected='dryVan', lastLoad=null;
+  var stopSeq=0, stops=[]; // ordered: [pickup, ...extra stops, delivery]; each {id,type,data,marker}
+  var map=null,mapReady=false,truckMk=null;
 
   // CRM lead push (same edge function as quote/portal)
   var SB_LEAD='https://fgglqweohdhamapunofy.supabase.co/functions/v1/web-lead-capture';
@@ -415,14 +421,15 @@
     }catch(e){ USE_MB=false; hideMap(); }
   } else { hideMap(); }
 
-  function placeMarker(key,lnglat){
-    if(!mapReady) return;
-    var el=document.createElement('div'); el.className='mk '+(key==='pickup'?'a':'b');
-    if(key==='pickup'){ if(mkA)mkA.remove(); mkA=new mapboxgl.Marker({element:el}).setLngLat(lnglat).addTo(map); }
-    else { if(mkB)mkB.remove(); mkB=new mapboxgl.Marker({element:el}).setLngLat(lnglat).addTo(map); }
+  function markerClass(type){ return type==='pickup'?'a':(type==='delivery'?'b':'s'); }
+  function placeStopMarker(stop){
+    if(!mapReady||!stop.data) return;
+    if(stop.marker) stop.marker.remove();
+    var el=document.createElement('div'); el.className='mk '+markerClass(stop.type);
+    stop.marker=new mapboxgl.Marker({element:el}).setLngLat([stop.data.lon,stop.data.lat]).addTo(map);
     $('routeMap').classList.remove('empty');
-    if(sel.pickup&&sel.dropoff){ fitTo([[sel.pickup.lon,sel.pickup.lat],[sel.dropoff.lon,sel.dropoff.lat]]); }
-    else { map.flyTo({center:lnglat,zoom:6,pitch:45,duration:1100}); }
+    var pts=stops.filter(function(s){return s.data;}).map(function(s){return [s.data.lon,s.data.lat];});
+    if(pts.length>=2) fitTo(pts); else if(pts.length===1) map.flyTo({center:pts[0],zoom:6,pitch:45,duration:1100});
   }
   function fitTo(coords){
     var b=new mapboxgl.LngLatBounds(coords[0],coords[0]); coords.forEach(function(c){b.extend(c);});
@@ -470,7 +477,7 @@
       return (((j&&j.features)||[]).filter(function(f){var c=f.properties.countrycode;return !c||['US','CA','MX'].indexOf(c)!==-1;})).map(function(f){return {label:acLabel(f.properties),lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0]};});
     }).catch(function(){return [];});
   }
-  function acSearch(q,list,input,key){
+  function acSearch(q,list,input,stop){
     acItems(q).then(function(items){
       if(!items.length){ list.innerHTML='<div class="ac-empty">No matches — try "City, ST" or a ZIP</div>'; list.classList.add('show'); return; }
       list.innerHTML=items.slice(0,6).map(function(it){
@@ -480,25 +487,58 @@
       Array.prototype.forEach.call(list.querySelectorAll('.ac-item'),function(el){
         el.addEventListener('mousedown',function(e){ e.preventDefault();
           var lat=parseFloat(el.getAttribute('data-lat')),lon=parseFloat(el.getAttribute('data-lon')),label=el.getAttribute('data-label');
-          input.value=label; sel[key]={lat:lat,lon:lon,label:label}; list.classList.remove('show'); list.innerHTML='';
-          placeMarker(key,[lon,lat]);
+          input.value=label; stop.data={lat:lat,lon:lon,label:label}; list.classList.remove('show'); list.innerHTML='';
+          placeStopMarker(stop);
         });
       });
     });
   }
-  function buildAC(inputId,listId,key){
-    var input=$(inputId),list=$(listId),t=null;
-    input.addEventListener('input',function(){ sel[key]=null; var q=input.value.trim(); clearTimeout(t); if(q.length<3){list.classList.remove('show');return;} t=setTimeout(function(){acSearch(q,list,input,key);},230); });
+  function bindAC(stop){
+    var input=$('stop-'+stop.id),list=$('ac-'+stop.id),t=null;
+    input.addEventListener('input',function(){ stop.data=null; var q=input.value.trim(); clearTimeout(t); if(q.length<3){list.classList.remove('show');return;} t=setTimeout(function(){acSearch(q,list,input,stop);},230); });
     input.addEventListener('blur',function(){ setTimeout(function(){list.classList.remove('show');},180); });
     input.addEventListener('focus',function(){ if(list.children.length)list.classList.add('show'); });
   }
-  buildAC('pickup','acPickup','pickup');
-  buildAC('dropoff','acDropoff','dropoff');
-
-  function resolveCoord(text,key){
-    if(sel[key]) return Promise.resolve(sel[key]);
+  function resolveStop(stop){
+    if(stop.data) return Promise.resolve(stop.data);
+    var text=$('stop-'+stop.id).value.trim(); if(!text) return Promise.resolve(null);
     return acItems(text).then(function(items){ if(items[0])return {lat:items[0].lat,lon:items[0].lon,label:items[0].label}; return null; });
   }
+
+  // ---------- multi-stop rows ----------
+  function makeStop(type){ return {id:++stopSeq, type:type, data:null, marker:null}; }
+  function stopRowHTML(stop){
+    var pin=markerClass(stop.type);
+    var ph=stop.type==='pickup'?'Pickup — city, ST or ZIP':(stop.type==='delivery'?'Delivery — city, ST or ZIP':'Extra stop / pickup — city, ST or ZIP');
+    return '<div class="pin '+pin+'"><i></i></div>'+
+      '<input id="stop-'+stop.id+'" placeholder="'+ph+'" autocomplete="off" />'+
+      '<div class="ac-list" id="ac-'+stop.id+'"></div>'+
+      (stop.type==='stop'?'<button type="button" class="stop-x" data-id="'+stop.id+'" aria-label="Remove stop">&times;</button>':'');
+  }
+  function insertStopRow(stop, beforeEl){
+    var row=document.createElement('div'); row.className='row'; row.setAttribute('data-type',stop.type); row.setAttribute('data-id',stop.id);
+    row.innerHTML=stopRowHTML(stop);
+    if(beforeEl) $('loc').insertBefore(row,beforeEl); else $('loc').appendChild(row);
+    bindAC(stop);
+  }
+  function addStop(){
+    var deliveryStop=stops[stops.length-1];
+    var deliveryRow=$('loc').querySelector('.row[data-id="'+deliveryStop.id+'"]');
+    var stop=makeStop('stop');
+    stops.splice(stops.length-1,0,stop);
+    insertStopRow(stop, deliveryRow);
+    $('stop-'+stop.id).focus();
+  }
+  function removeStop(id){
+    var idx=-1; for(var i=0;i<stops.length;i++){ if(stops[i].id===id){idx=i;break;} }
+    if(idx<0) return;
+    if(stops[idx].marker) stops[idx].marker.remove();
+    var row=$('loc').querySelector('.row[data-id="'+id+'"]'); if(row)row.remove();
+    stops.splice(idx,1);
+  }
+  $('loc').addEventListener('click',function(e){ var b=e.target.closest('.stop-x'); if(b) removeStop(parseInt(b.getAttribute('data-id'),10)); });
+  $('addStop').addEventListener('click',addStop);
+  (function(){ var p=makeStop('pickup'), d=makeStop('delivery'); stops.push(p,d); insertStopRow(p); insertStopRow(d); })();
   function rad(d){return d*Math.PI/180;}
   function haversine(a,b){var R=3958.8,dLat=rad(b.lat-a.lat),dLon=rad(b.lon-a.lon);var s=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)*Math.sin(dLon/2);return 2*R*Math.asin(Math.sqrt(s));}
   // HOS: ~11 driving hours/day (~580 mi). Transit + real ETA.
@@ -507,6 +547,8 @@
   function transitLabel(miles){ if(miles<=350) return 'Same day'; var days=Math.ceil(miles/MI_PER_DAY); return days<=1 ? 'Next day' : days+' days'; }
   function computeArrival(miles){var cur=new Date();cur.setDate(cur.getDate()+1);cur.setHours(8,0,0,0);var rem=miles;while(rem>0.5){var day=Math.min(rem,MI_PER_DAY);cur=new Date(cur.getTime()+(day/AVG_MPH)*3600000);rem-=day;if(rem>0.5){cur.setDate(cur.getDate()+1);cur.setHours(8,0,0,0);}}return cur;}
   function fmtEta(d){var wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];var h=d.getHours(),m=d.getMinutes(),ap=h>=12?'PM':'AM',hh=h%12||12,mm=m<30?'00':'30';return wd[d.getDay()]+', '+mo[d.getMonth()]+' '+d.getDate()+' · ~'+hh+':'+mm+' '+ap;}
+  // Fireworks (Class 1 explosives) spike around the fireworks holidays — rate surges in-season.
+  function fireworksHoliday(){ var d=new Date(), m=d.getMonth()+1, day=d.getDate(); if((m===6&&day>=10)||(m===7&&day<=6))return 'July 4th'; if((m===12&&day>=20)||(m===1&&day<=2))return 'New Year'; return ''; }
 
   // equipment UI: tarp for flatbed/step deck, heavy-haul panel for heavy haul
   function updateEquipUI(){
@@ -521,28 +563,37 @@
   var estimateBtn=$('estimateBtn');
   estimateBtn.addEventListener('click',function(){
     clearErr();
-    var pu=$('pickup').value.trim(), dr=$('dropoff').value.trim();
-    if(!pu){showErr('Enter a pickup location.');return;}
-    if(!dr){showErr('Enter a delivery location.');return;}
+    var pickupStop=stops[0], deliveryStop=stops[stops.length-1];
+    if(!$('stop-'+pickupStop.id).value.trim()){showErr('Enter a pickup location.');return;}
+    if(!$('stop-'+deliveryStop.id).value.trim()){showErr('Enter a delivery location.');return;}
+    if(stops.some(function(s){return s.type==='stop' && !$('stop-'+s.id).value.trim();})){showErr('Fill in or remove the empty stop.');return;}
     estimateBtn.disabled=true; estimateBtn.textContent='Calculating…';
 
-    Promise.all([resolveCoord(pu,'pickup'),resolveCoord(dr,'dropoff')]).then(function(res){
-      var A=res[0],B=res[1];
-      if(!A||!B){ showErr('Couldn’t find one of those locations — try "City, ST" or a ZIP.'); estimateBtn.disabled=false; estimateBtn.innerHTML='Get Instant Estimate'; return; }
+    Promise.all(stops.map(resolveStop)).then(function(res){
+      if(res.some(function(x){return !x;})){ showErr('Couldn’t find one of those locations — try "City, ST" or a ZIP.'); estimateBtn.disabled=false; estimateBtn.innerHTML='Get Instant Estimate'; return; }
+      stops.forEach(function(s,i){ s.data=res[i]; });
+      var A=res[0], B=res[res.length-1];
+      var midLabels=res.slice(1,res.length-1).map(function(c){return c.label;});
+      var extraStops=stops.length-2;
+      var coordStr=res.map(function(c){return c.lon+','+c.lat;}).join(';');
       var distP = USE_MB
-        ? fetch('https://api.mapbox.com/directions/v5/mapbox/driving/'+A.lon+','+A.lat+';'+B.lon+','+B.lat+'?access_token='+MAPBOX_TOKEN+'&geometries=geojson&overview=full').then(function(r){return r.json();}).then(function(j){var rt=j&&j.routes&&j.routes[0]; return rt?{miles:Math.round(rt.distance/1609.34),dur:rt.duration,geo:rt.geometry}:null;}).catch(function(){return null;})
+        ? fetch('https://api.mapbox.com/directions/v5/mapbox/driving/'+coordStr+'?access_token='+MAPBOX_TOKEN+'&geometries=geojson&overview=full').then(function(r){return r.json();}).then(function(j){var rt=j&&j.routes&&j.routes[0]; return rt?{miles:Math.round(rt.distance/1609.34),dur:rt.duration,geo:rt.geometry}:null;}).catch(function(){return null;})
         : Promise.resolve(null);
 
       distP.then(function(rd){
         var miles, geo=null;
         if(rd){ miles=rd.miles; geo=rd.geo; }
-        else { miles=Math.round(haversine(A,B)*1.2); }
+        else { miles=0; for(var i=0;i<res.length-1;i++){ miles+=haversine(res[i],res[i+1]); } miles=Math.round(miles*1.2); }
         if(miles<20)miles=20;
 
-        // Rate floors (Agent LBR pricing): never quote under $3.00/mi; Hazmat is a $4.00/mi minimum; every load min $750.
+        // Rate floors (Agent LBR pricing): never quote under $3.00/mi; Hazmat/Fireworks = $4.00/mi minimum; fireworks surge in-season; every load min $750; +$50 per extra stop.
         var eq=EQUIP[selected], addons=[], hhDims='';
+        var commodity=$('commodity').value;
+        var isFireworks=/firework|pyrotechnic/i.test(commodity);
+        var hazmat=$('hazmat').checked || isFireworks;
         var loPm=Math.max(eq.lo,3.00), hiPm=Math.max(eq.hi,3.25);
-        if($('hazmat').checked){ loPm=Math.max(loPm,4.00); hiPm=Math.max(hiPm,4.50); addons.push('Hazmat'); }
+        if(hazmat){ loPm=Math.max(loPm,4.00); hiPm=Math.max(hiPm,4.50); addons.push(isFireworks?'Fireworks · Hazmat':'Hazmat'); }
+        if(isFireworks){ var hol=fireworksHoliday(); if(hol){ loPm*=1.5; hiPm*=1.5; addons.push(hol+' surge'); } }
         var lo=miles*loPm, hi=miles*hiPm;
         if($('tarp').checked && (selected==='flatbed'||selected==='stepDeck')){ lo+=50; hi+=150; addons.push('Tarp'); }
         if(selected==='heavy'){
@@ -555,6 +606,9 @@
           if($('hhSurvey').checked){ lo+=350; hi+=1500; addons.push('Route survey'); }
           if($('hhTarp').checked){ lo+=75; hi+=200; addons.push('Tarp'); }
         }
+
+        // Extra stops: +$50 each.
+        if(extraStops>0){ lo+=50*extraStops; hi+=50*extraStops; addons.push(extraStops+' extra stop'+(extraStops>1?'s':'')+' (+$50 ea)'); }
 
         // Every load carries a $750 minimum.
         var minLoad = lo < 750;
@@ -576,10 +630,10 @@
           : 90+(Math.abs(Math.round((A.lat+A.lon)*137))%150);
         $('availTxt').textContent=avail.toLocaleString('en-US')+' Landstar '+(selected==='heavy'?'heavy-haul specialists':'carriers')+' available near pickup';
 
-        lastLoad={pickup:A.label,dropoff:B.label,equipment:eq.name+(addons.length?' ('+addons.join(', ')+')':''),miles:miles,weight:$('weight').value.trim(),commodity:$('commodity').value,dims:hhDims,estimate:money(lo)+'–'+money(hi),transit:transitTxt,eta:etaTxt,geo:geo};
+        lastLoad={pickup:A.label,dropoff:B.label,stops:midLabels,equipment:eq.name+(addons.length?' ('+addons.join(', ')+')':''),miles:miles,weight:$('weight').value.trim(),commodity:$('commodity').value,dims:hhDims,estimate:money(lo)+'–'+money(hi),transit:transitTxt,eta:etaTxt,geo:geo};
 
+        stops.forEach(function(s){ if(s.data) placeStopMarker(s); });
         if(geo) drawRoute(geo);
-        else if(mapReady){ placeMarker('pickup',[A.lon,A.lat]); placeMarker('dropoff',[B.lon,B.lat]); }
 
         $('form').style.display='none';
         $('fare').classList.add('show');
@@ -593,7 +647,7 @@
   function openChat(){
     try{
       if(window.Tawk_API){
-        if(Tawk_API.setAttributes)Tawk_API.setAttributes({'name':'Truck Request — '+lastLoad.pickup+' to '+lastLoad.dropoff,'load-pickup':lastLoad.pickup,'load-delivery':lastLoad.dropoff,'load-equipment':lastLoad.equipment,'load-miles':String(lastLoad.miles),'load-estimate':lastLoad.estimate,'load-weight':lastLoad.weight||'n/a','load-commodity':lastLoad.commodity||'n/a','load-dimensions':lastLoad.dims||'n/a'},function(){});
+        if(Tawk_API.setAttributes)Tawk_API.setAttributes({'name':'Truck Request — '+lastLoad.pickup+' to '+lastLoad.dropoff,'load-pickup':lastLoad.pickup,'load-delivery':lastLoad.dropoff,'load-stops':(lastLoad.stops&&lastLoad.stops.length?lastLoad.stops.join(' | '):'none'),'load-equipment':lastLoad.equipment,'load-miles':String(lastLoad.miles),'load-estimate':lastLoad.estimate,'load-weight':lastLoad.weight||'n/a','load-commodity':lastLoad.commodity||'n/a','load-dimensions':lastLoad.dims||'n/a'},function(){});
         if(Tawk_API.addEvent)Tawk_API.addEvent('Requested Truck',{pickup:lastLoad.pickup,delivery:lastLoad.dropoff,equipment:lastLoad.equipment,miles:lastLoad.miles,estimate:lastLoad.estimate},function(){});
       }
     }catch(e){}
@@ -602,7 +656,8 @@
   $('requestBtn').addEventListener('click',function(){
     $('fare').classList.remove('show');
     $('dispatch').classList.add('show');
-    $('dispatchLoad').innerHTML='<b>Load</b> · '+lastLoad.equipment+(lastLoad.dims?' · '+lastLoad.dims:'')+'<br>'+lastLoad.pickup+' → '+lastLoad.dropoff+'<br><b>~'+lastLoad.miles.toLocaleString('en-US')+' mi</b> · '+lastLoad.transit+' · est. '+lastLoad.estimate+'<br><b>Est. arrival:</b> '+lastLoad.eta;
+    var laneStr=lastLoad.pickup+((lastLoad.stops&&lastLoad.stops.length)?' → '+lastLoad.stops.join(' → '):'')+' → '+lastLoad.dropoff;
+    $('dispatchLoad').innerHTML='<b>Load</b> · '+lastLoad.equipment+(lastLoad.dims?' · '+lastLoad.dims:'')+'<br>'+laneStr+'<br><b>~'+lastLoad.miles.toLocaleString('en-US')+' mi</b> · '+lastLoad.transit+' · est. '+lastLoad.estimate+'<br><b>Est. arrival:</b> '+lastLoad.eta;
     animateTruck(lastLoad.geo);
     var steps=['Locating Landstar carriers near '+lastLoad.pickup.split(',')[0]+'…','Checking '+lastLoad.equipment+' capacity…','Agent LBR is reviewing your load…','Connecting you to live dispatch…'];
     var st=$('dispatchStatus'),i=0; st.textContent=steps[0];
@@ -634,7 +689,7 @@
     var btn=$('saSubmit'); btn.disabled=true; btn.textContent='Securing your truck…';
     var L=lastLoad||{};
     var notes='TRUCK REQUEST via website\n'
-      +'Lane: '+(L.pickup||'?')+' → '+(L.dropoff||'?')+'\n'
+      +'Lane: '+(L.pickup||'?')+((L.stops&&L.stops.length)?' → '+L.stops.join(' → '):'')+' → '+(L.dropoff||'?')+'\n'
       +'Equipment: '+(L.equipment||'?')+(L.dims?'\nDimensions: '+L.dims:'')+'\n'
       +'Distance: ~'+(L.miles||'?')+' mi · '+(L.transit||'?')+'\n'
       +'Estimate: '+(L.estimate||'?')+'\n'
