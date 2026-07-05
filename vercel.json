@@ -1,0 +1,16 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "trueshipping.us" }],
+      "destination": "https://www.lewisbroome.com/quote.html",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.trueshipping.us" }],
+      "destination": "https://www.lewisbroome.com/quote.html",
+      "permanent": true
+    }
+  ]
+}
