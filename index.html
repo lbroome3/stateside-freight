@@ -161,6 +161,56 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 @keyframes drop{0%{opacity:0;top:5px}35%{opacity:1}100%{opacity:0;top:20px}}
 
 /* ============================================================
+   02 — THE TRAP (the old way)
+   ============================================================ */
+#s02 .trap-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+@media(max-width:900px){#s02 .trap-grid{grid-template-columns:1fr}}
+.chain{display:flex;flex-direction:column;gap:0;position:relative;padding-left:6px}
+.chain-item{display:flex;gap:18px;align-items:flex-start;position:relative;padding-bottom:26px}
+.chain-item::before{content:'';position:absolute;left:21px;top:46px;bottom:0;width:2px;background:repeating-linear-gradient(to bottom,var(--line) 0 6px,transparent 6px 12px)}
+.chain-item:last-child::before{display:none}
+.chain-ico{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;flex:none;font-size:1.15rem}
+.chain-body b{display:block;font-family:'Archivo';font-weight:800;font-size:1.02rem;margin-bottom:2px}
+.chain-body span{font-size:.92rem;color:var(--ink-2)}
+.chain-item.bad .chain-ico{border-color:#f3c7c7;background:#fdf3f3}
+.chain-item.bad .chain-body b{color:#b03a3a}
+.wait-card{background:var(--navy);color:#fff;border-radius:var(--radius);padding:clamp(26px,3.5vw,42px);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.wait-card::before{content:'';position:absolute;inset:0;background:radial-gradient(500px 260px at 85% 10%,rgba(14,128,212,.25),transparent 60%)}
+.wait-card>*{position:relative}
+.wait-card .big{font-family:'Archivo';font-weight:900;font-size:clamp(3rem,6vw,4.6rem);line-height:1;color:#fff}
+.wait-card .big em{font-style:normal;color:var(--amber)}
+.wait-card p{color:rgba(255,255,255,.72);margin-top:12px;font-size:1rem;max-width:34ch}
+.wait-card .stamp{display:inline-block;margin-top:22px;font-size:.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#ff9c9c;border:1.5px dashed rgba(255,120,120,.5);padding:7px 14px;border-radius:8px;transform:rotate(-2deg)}
+
+/* ============================================================
+   03 — WHAT A SHIPPER NEEDS (4-item grid)
+   ============================================================ */
+.need-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2.2vw,26px);margin-top:44px}
+@media(max-width:760px){.need-grid{grid-template-columns:1fr}}
+.need{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(24px,2.8vw,36px);box-shadow:var(--shadow-sm);position:relative;transition:transform .3s,box-shadow .3s}
+.need:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.need .k{font-family:'Archivo';font-weight:900;font-size:.82rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:14px;display:block}
+.need .ico{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(14,128,212,.12),rgba(31,111,178,.08));display:flex;align-items:center;justify-content:center;margin-bottom:18px;color:var(--amber)}
+.need h3{font-size:1.28rem;font-weight:800;margin-bottom:8px}
+.need p{font-size:.96rem;color:var(--ink-2)}
+
+/* ============================================================
+   04 — THE REAL JOB (dark, Landstar network)
+   ============================================================ */
+#s04 .split{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+@media(max-width:900px){#s04 .split{grid-template-columns:1fr}}
+#s04 .quotebar{border-left:3px solid var(--amber);padding:6px 0 6px 22px;margin:28px 0;font-size:1.12rem;color:rgba(255,255,255,.88);font-weight:600;max-width:44ch}
+.net-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.net-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:24px 22px;backdrop-filter:blur(6px)}
+.net-stat b{display:block;font-family:'Archivo';font-weight:900;font-size:clamp(1.9rem,3.4vw,2.7rem);color:#fff;line-height:1.05}
+.net-stat b i{font-style:normal;color:var(--amber)}
+.net-stat span{font-size:.85rem;color:rgba(255,255,255,.6);font-weight:600}
+.agent-line{display:flex;align-items:center;gap:16px;margin-top:30px}
+.agent-line .av{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;font-family:'Archivo';font-weight:900;color:#fff;flex:none;box-shadow:0 8px 20px rgba(14,128,212,.4)}
+.agent-line b{display:block;color:#fff;font-size:.98rem}
+.agent-line span{font-size:.82rem;color:rgba(255,255,255,.6)}
+
+/* ============================================================
    WALKTHROUGH PLAYER (floating pill + captions)
    ============================================================ */
 .player{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(140px);z-index:80;display:flex;align-items:center;gap:4px;background:rgba(8,26,44,.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 10px;box-shadow:var(--shadow-lg);color:#fff;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
@@ -222,6 +272,72 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
     </div>
   </div>
   <div class="scroll-cue" aria-hidden="true"><div class="wheel"></div>scroll</div>
+</section>
+
+<!-- ============ 02 · THE TRAP ============ -->
+<section class="step soft" id="s02" data-narr="Here's the old way. You call a broker. The broker calls carriers. Somebody emails a spreadsheet. Two days later you get a number — maybe. And you still don't know if a truck is actually available.">
+  <span class="ghost" aria-hidden="true">02</span>
+  <div class="wrap">
+    <span class="eyebrow"><span class="n">02</span> The old way</span>
+    <h2 class="reveal">One load. Five middlemen. Zero answers.</h2>
+    <div class="trap-grid">
+      <div>
+        <p class="lede reveal d1" style="margin-bottom:34px">Shippers cobble together brokers, email chains, and guesswork just to move a single load. Every hop adds hours — and nobody on the chain can tell you if a truck is even available until someone calls you back.</p>
+        <div class="chain">
+          <div class="chain-item reveal d1"><span class="chain-ico">📞</span><div class="chain-body"><b>You call a broker</b><span>Leave a voicemail. Wait.</span></div></div>
+          <div class="chain-item reveal d2"><span class="chain-ico">🔁</span><div class="chain-body"><b>The broker calls carriers</b><span>Phone tag, load boards, "let me check."</span></div></div>
+          <div class="chain-item reveal d3"><span class="chain-ico">📧</span><div class="chain-body"><b>Someone emails a spreadsheet</b><span>Rates from last quarter. No fuel, no accessorials.</span></div></div>
+          <div class="chain-item bad reveal d4"><span class="chain-ico">⏳</span><div class="chain-body"><b>You're still waiting</b><span>Is there even a truck? Nobody knows yet.</span></div></div>
+        </div>
+      </div>
+      <div class="wait-card reveal d2">
+        <div class="big">2<em> days</em></div>
+        <p>The typical wait for a "we'll get back to you" freight quote — before you can even decide anything.</p>
+        <span class="stamp">Quote pending…</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · WHAT A SHIPPER NEEDS ============ -->
+<section class="step" id="s03" data-narr="What you actually need is simple. One: an instant quote with real pricing. Two: the right mode — truckload, container, or drayage, your choice. Three: a truck you can trust, backed by Landstar's network. And four: real-time dispatch and tracking, so you always know where your freight is.">
+  <span class="ghost" aria-hidden="true">03</span>
+  <div class="wrap">
+    <span class="eyebrow"><span class="n">03</span> What a shipper actually needs</span>
+    <h2 class="reveal">Four things. That's the whole list.</h2>
+    <p class="lede reveal d1">Strip away the middlemen and freight comes down to this:</p>
+    <div class="need-grid">
+      <div class="need reveal d1"><span class="k">№ 1</span><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span><h3>An instant quote</h3><p>Real pricing on screen in under a minute — not "we'll get back to you."</p></div>
+      <div class="need reveal d2"><span class="k">№ 2</span><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 4v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><h3>The right mode</h3><p>Truckload, container, or drayage — their choice, priced side by side.</p></div>
+      <div class="need reveal d3"><span class="k">№ 3</span><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><h3>A truck they can trust</h3><p>Backed by Landstar's nationwide capacity and safety network.</p></div>
+      <div class="need reveal d4"><span class="k">№ 4</span><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><h3>Real-time dispatch &amp; tracking</h3><p>Know where the freight is — without calling anyone to ask.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · THE REAL JOB ============ -->
+<section class="step dark" id="s04" data-narr="Here's the thing. The quote was never the hard part. Moving freight reliably is. Landstar already solved capacity and safety — decades of network, coast to coast and cross-border. Stateside puts that network one click away, with one direct agent instead of a chain of middlemen.">
+  <span class="ghost" aria-hidden="true">04</span>
+  <div class="wrap">
+    <span class="eyebrow"><span class="n">04</span> Why the old way is the wrong job</span>
+    <div class="split">
+      <div>
+        <h2 class="reveal">The quote was never the hard part.</h2>
+        <p class="lede reveal d1">Moving freight reliably is. Capacity, safety, insurance, cross-border paperwork — that's the real job, and it's already been solved at network scale.</p>
+        <div class="quotebar reveal d2">Stateside Freight + Landstar is the network that already cracked capacity and safety — so the shipper doesn't have to.</div>
+        <div class="agent-line reveal d3">
+          <span class="av">LB</span>
+          <div><b>Lewis Broome III — your one direct agent</b><span>Authorized Independent Agent for Landstar System, Inc.</span></div>
+        </div>
+      </div>
+      <div class="net-stats">
+        <div class="net-stat reveal d1"><b>9<i>+</i></b><span>Years as a Landstar agent</span></div>
+        <div class="net-stat reveal d2"><b>50</b><span>U.S. states + Canada &amp; Mexico</span></div>
+        <div class="net-stat reveal d3"><b>100<i>+</i></b><span>Global ports served</span></div>
+        <div class="net-stat reveal d4"><b>24<i>/</i>7</b><span>Dispatch &amp; emergency response</span></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 </main>
