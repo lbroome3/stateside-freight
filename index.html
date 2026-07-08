@@ -747,17 +747,21 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
   function caption(t){captions.textContent=t||'';captions.classList.toggle('show',!!t&&playing);}
   function clearTimer(){if(timer){clearTimeout(timer);timer=null}}
 
+  /* pacing — beat between one stop finishing and the next beginning,
+     and how long the silent timer lingers so the reader can absorb */
+  var GAP=2000;                 /* pause between sections */
   function speakFallback(text,next){
     if(synth){
       synth.cancel();
       var u=new SpeechSynthesisUtterance(text);
-      if(voice)u.voice=voice;u.rate=1.02;u.pitch=1;
+      if(voice)u.voice=voice;u.rate=0.94;u.pitch=1;  /* slower, calmer */
       u.onend=next;u.onerror=next;
-      setTimeout(function(){if(playing)synth.speak(u)},200);
+      setTimeout(function(){if(playing)synth.speak(u)},250);
       /* safety net if onend never fires */
-      timer=setTimeout(next,Math.max(6000,text.length*75));
+      timer=setTimeout(next,Math.max(7000,text.length*88));
     }else{
-      timer=setTimeout(next,Math.max(5200,text.length*62));
+      /* no speech at all — hold each section long enough to read it */
+      timer=setTimeout(next,Math.max(6800,text.length*82));
     }
   }
   function playStop(i){
@@ -768,7 +772,7 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
     clearTimer();
     var advanced=false;
     var next=function(){if(advanced||!playing)return;advanced=true;
-      if(auto){timer=setTimeout(function(){playStop(idx+1)},700)}else{caption('')}};
+      if(auto){timer=setTimeout(function(){playStop(idx+1)},GAP)}else{caption('')}};
     /* recorded voiceover first; Web Speech only if the clip is missing */
     vo.onended=next;
     vo.onerror=function(){if(playing&&!advanced)speakFallback(text,next)};
