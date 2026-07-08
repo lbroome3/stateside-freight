@@ -740,7 +740,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
         <a href="tel:17064179097">(706) 417-9097</a>
         <a href="mailto:lewis.broome@landstarmail.com">lewis.broome@landstarmail.com</a>
       </nav>
-      <p class="foot-legal">Lewis Broome III, <b>Director of Autonomous Freight</b> — Stateside International Logistics, an AI-powered freight agency and <b>Authorized Independent Agent</b> for Landstar System, Inc. Ocean, air, truckload, hazmat, pharma &amp; project cargo — Shanghai to your door. <a href="home-classic.html">Classic site</a></p>
+      <p class="foot-legal">Lewis Broome III, <b>Director of Autonomous Freight</b> — Stateside International Logistics, an AI-powered freight agency and <b>Authorized Independent Agent</b> for Landstar System, Inc. Ocean, air, truckload, hazmat, pharma &amp; project cargo — Shanghai to your door. <a href="home-classic.html">More information</a></p>
     </div>
   </footer>
 </section>
@@ -841,6 +841,19 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   function caption(t){captions.textContent=t||'';captions.classList.toggle('show',!!t&&playing);}
   function clearTimer(){if(timer){clearTimeout(timer);timer=null}}
 
+  /* keep the phone screen awake while the walkthrough is playing hands-free */
+  var wakeLock=null;
+  function requestWake(){
+    try{if('wakeLock' in navigator){navigator.wakeLock.request('screen').then(function(w){wakeLock=w;}).catch(function(){});}}catch(e){}
+  }
+  function releaseWake(){
+    try{if(wakeLock){wakeLock.release().catch(function(){});wakeLock=null;}}catch(e){}
+  }
+  document.addEventListener('visibilitychange',function(){
+    /* the OS drops the lock when the tab is hidden — re-take it on return */
+    if(document.visibilityState==='visible'&&playing)requestWake();
+  });
+
   /* ---- pacing ----
      GAP  = quiet beat between one section and the next
      dwell(text) = how long to hold a section when there's NO audio
@@ -901,10 +914,11 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   function play(fromStart){
     setPP(true);
     document.body.classList.add('vo-playing');
+    requestWake();
     playStop(fromStart?0:idx);
   }
   function pause(){
-    setPP(false);clearTimer();
+    setPP(false);clearTimer();releaseWake();
     vo.onended=null;vo.onerror=null;vo.onplaying=null;
     try{vo.pause();vo.currentTime=0;}catch(e){}
     if(synth){try{synth.cancel();}catch(e){}}
