@@ -712,18 +712,29 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 
   /* ---- narration / autoplay ----
      Every [data-narr] element is a narration stop, in DOM order.
-     Voiceover = Web Speech API (Safari-first voice pick). If TTS is
-     unavailable, walkthrough still auto-advances on a timer. */
+     Voiceover priority:
+       1. Recorded audio at assets/vo/<sectionId>.mp3 (neural TTS or
+          Lewis's own voice — see scripts/make-voiceover.sh)
+       2. Web Speech API fallback (best installed voice)
+       3. Silent timer fallback (auto-advance still works) */
   var stops=[].slice.call(document.querySelectorAll('[data-narr]'));
   var player=$('player'), captions=$('captions'), ppBtn=$('ppBtn'), ppIcon=$('ppIcon'), ppTxt=$('ppTxt'), autoTgl=$('autoTgl'), stopBtn=$('stopBtn');
   var playing=false, idx=0, auto=true, timer=null, synth=window.speechSynthesis||null, voice=null;
 
+  /* single reusable audio element — one user-gesture unlock covers every
+     clip on iOS Safari (fresh Audio() per clip would get blocked) */
+  var VO='assets/vo/', vo=new Audio();
+  vo.preload='auto';
+
   function pickVoice(){
     if(!synth)return;
     var vs=synth.getVoices();if(!vs.length)return;
-    voice=vs.find(function(v){return v.name==='Samantha'})||
-          vs.find(function(v){return /en[-_]US/i.test(v.lang)&&/female|Samantha|Ava|Allison/i.test(v.name)})||
-          vs.find(function(v){return /en[-_]US/i.test(v.lang)})||vs[0];
+    var us=vs.filter(function(v){return /en[-_]US/i.test(v.lang)});
+    voice=us.find(function(v){return /premium/i.test(v.name)})||
+          us.find(function(v){return /enhanced/i.test(v.name)})||
+          us.find(function(v){return /siri/i.test(v.name)})||
+          us.find(function(v){return /Ava|Zoe|Allison|Samantha|Nicky|Joelle/i.test(v.name)})||
+          us[0]||vs[0];
   }
   if(synth){pickVoice();synth.onvoiceschanged=pickVoice;}
 
@@ -736,6 +747,19 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
   function caption(t){captions.textContent=t||'';captions.classList.toggle('show',!!t&&playing);}
   function clearTimer(){if(timer){clearTimeout(timer);timer=null}}
 
+  function speakFallback(text,next){
+    if(synth){
+      synth.cancel();
+      var u=new SpeechSynthesisUtterance(text);
+      if(voice)u.voice=voice;u.rate=1.02;u.pitch=1;
+      u.onend=next;u.onerror=next;
+      setTimeout(function(){if(playing)synth.speak(u)},200);
+      /* safety net if onend never fires */
+      timer=setTimeout(next,Math.max(6000,text.length*75));
+    }else{
+      timer=setTimeout(next,Math.max(5200,text.length*62));
+    }
+  }
   function playStop(i){
     if(i>=stops.length){stop();return}
     idx=i;var el=stops[i],text=el.getAttribute('data-narr');
@@ -745,18 +769,17 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
     var advanced=false;
     var next=function(){if(advanced||!playing)return;advanced=true;
       if(auto){timer=setTimeout(function(){playStop(idx+1)},700)}else{caption('')}};
-    if(synth){
-      synth.cancel();
-      var u=new SpeechSynthesisUtterance(text);
-      if(voice)u.voice=voice;u.rate=1.02;u.pitch=1;
-      u.onend=next;u.onerror=next;
-      /* slight delay so the scroll lands before speech starts */
-      setTimeout(function(){if(playing)synth.speak(u)},450);
-      /* safety net if onend never fires */
-      timer=setTimeout(next,Math.max(6000,text.length*75));
-    }else{
-      timer=setTimeout(next,Math.max(5200,text.length*62));
-    }
+    /* recorded voiceover first; Web Speech only if the clip is missing */
+    vo.onended=next;
+    vo.onerror=function(){if(playing&&!advanced)speakFallback(text,next)};
+    vo.src=VO+el.id+'.mp3';
+    /* slight delay so the scroll lands before speech starts */
+    setTimeout(function(){
+      if(!playing||advanced)return;
+      vo.play().catch(function(){if(playing&&!advanced)speakFallback(text,next)});
+    },450);
+    /* outer safety net: clip stalled / never fired an event */
+    timer=setTimeout(next,Math.max(12000,text.length*95));
   }
   function play(fromStart){
     setPP(true);
@@ -764,6 +787,8 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
   }
   function pause(){
     setPP(false);clearTimer();
+    vo.onended=null;vo.onerror=null;
+    try{vo.pause();vo.currentTime=0;}catch(e){}
     if(synth)synth.cancel();
     caption('');
   }
