@@ -314,6 +314,40 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 .c-actions .ca.pri{background:var(--navy);color:#fff;border-color:var(--navy)}
 
 /* ============================================================
+   06 — THE PAYOFF + footer
+   ============================================================ */
+#s06{flex-direction:column;justify-content:center;padding-bottom:0}
+#s06 .wrap{text-align:center;display:flex;flex-direction:column;align-items:center}
+#s06 h2{max-width:22ch;margin-left:auto;margin-right:auto;font-size:clamp(2.3rem,5.6vw,4.2rem)}
+#s06 h2 em{font-style:normal;background:linear-gradient(120deg,#4db2f2,var(--amber));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#s06 .lede{margin:0 auto 42px}
+#s06 .eyebrow{justify-content:center}
+#s06 .eyebrow::after{display:none}
+.payoff-ticks{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;margin-bottom:40px}
+.payoff-ticks span{display:inline-flex;align-items:center;gap:8px;font-size:.92rem;font-weight:700;color:rgba(255,255,255,.85)}
+.payoff-ticks svg{color:var(--green);flex:none}
+.payoff-ctas{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.btn-solid{display:inline-flex;align-items:center;gap:11px;background:linear-gradient(135deg,var(--amber),var(--amber-700));color:#fff;font-weight:800;font-size:1.05rem;padding:17px 34px;border-radius:999px;box-shadow:0 14px 34px rgba(14,128,212,.45);transition:transform .25s,box-shadow .25s}
+.btn-solid:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(14,128,212,.55)}
+.btn-solid.green{background:linear-gradient(135deg,var(--green),#157a42);box-shadow:0 14px 34px rgba(31,157,87,.4)}
+.btn-solid.green:hover{box-shadow:0 20px 44px rgba(31,157,87,.5)}
+.replay{margin-top:26px;display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);font-weight:700;font-size:.88rem;transition:color .25s}
+.replay:hover{color:#fff}
+
+/* footer */
+.foot{width:100%;margin-top:70px;border-top:1px solid rgba(255,255,255,.1);padding:34px clamp(20px,5vw,60px) 110px;position:relative;z-index:2}
+.foot-in{max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:22px 40px;align-items:center;justify-content:space-between}
+.foot-brand{display:flex;align-items:center;gap:11px}
+.foot-brand .mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Archivo';font-weight:900;font-size:.85rem}
+.foot-brand b{font-family:'Archivo';font-weight:800;font-size:1rem;color:#fff;display:block;line-height:1.2}
+.foot-brand span{font-size:.68rem;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:.86rem;font-weight:700}
+.foot-links a{color:rgba(255,255,255,.65);transition:color .25s}
+.foot-links a:hover{color:#fff}
+.foot-legal{width:100%;font-size:.74rem;color:rgba(255,255,255,.42);line-height:1.6}
+.foot-legal a{color:rgba(255,255,255,.6)}
+
+/* ============================================================
    WALKTHROUGH PLAYER (floating pill + captions)
    ============================================================ */
 .player{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(140px);z-index:80;display:flex;align-items:center;gap:4px;background:rgba(8,26,44,.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 10px;box-shadow:var(--shadow-lg);color:#fff;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
@@ -592,6 +626,42 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
   </div>
 </section>
 
+<!-- ============ 06 · THE PAYOFF ============ -->
+<section class="step dark" id="s06" data-narr="End to end. Transparent. Backed by Landstar. No phone tag, no guessing — just a truck, dispatched and tracked. Get your quote now, or request a truck. It takes less than a minute.">
+  <span class="ghost" aria-hidden="true">06</span>
+  <div class="wrap">
+    <span class="eyebrow"><span class="n">06</span> The payoff</span>
+    <h2 class="reveal">End-to-end. Transparent. <em>Backed by Landstar.</em></h2>
+    <p class="lede reveal d1">No phone tag. No guessing. Instant pricing, one-click dispatch, and a truck you can watch roll toward your dock.</p>
+    <div class="payoff-ticks reveal d2">
+      <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Instant quote</span>
+      <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Truckload · container · drayage</span>
+      <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Real-time dispatch &amp; tracking</span>
+      <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> One direct agent</span>
+    </div>
+    <div class="payoff-ctas reveal d3">
+      <a class="btn-solid" href="quote.html">Get a quote <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a class="btn-solid green" href="truckload.html">Request a truck 🚛</a>
+    </div>
+    <button class="replay reveal d4" id="replayBtn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Replay the walkthrough</button>
+  </div>
+
+  <!-- footer -->
+  <footer class="foot">
+    <div class="foot-in">
+      <div class="foot-brand"><span class="mark">SL</span><div><b>STATESIDE</b><span>International Logistics</span></div></div>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="quote.html">Get a quote</a>
+        <a href="truckload.html">Request a truck</a>
+        <a href="portal.html">Client portal</a>
+        <a href="tel:17064179097">(706) 417-9097</a>
+        <a href="mailto:lewis.broome@landstarmail.com">lewis.broome@landstarmail.com</a>
+      </nav>
+      <p class="foot-legal"><b>Authorized Independent Agent</b> for Landstar System, Inc. — Lewis Broome III, Stateside International Logistics. Ocean, air, truckload, hazmat, pharma &amp; project cargo — Shanghai to your door. <a href="home-classic.html">Classic site</a></p>
+    </div>
+  </footer>
+</section>
+
 </main>
 
 <!-- ============ WALKTHROUGH PLAYER ============ -->
@@ -706,6 +776,8 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
   autoTgl.addEventListener('click',function(){auto=!auto;autoTgl.setAttribute('aria-checked',String(auto))});
   var heroPlay=$('heroPlay');
   if(heroPlay)heroPlay.addEventListener('click',function(){play(true)});
+  var replayBtn=$('replayBtn');
+  if(replayBtn)replayBtn.addEventListener('click',function(){play(true)});
 
   /* manual scroll while playing = user takes the wheel → pause narration */
   ['wheel','touchmove'].forEach(function(ev){
