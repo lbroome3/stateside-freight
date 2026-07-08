@@ -214,7 +214,9 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 /* ---- branded Landstar truck (credibility) ---- */
 .truck-band{position:relative;margin-top:46px;height:200px;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.09)}
 /* real photo, when present, covers the animated fallback beneath */
-.truck-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:4;display:block}
+.truck-band.has-photo{height:min(360px,46vh)}
+.truck-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 54%;z-index:4;display:block}
+@media(max-width:600px){.truck-band.has-photo{height:230px}}
 .truck-band .photo-cap{position:absolute;left:16px;bottom:14px;z-index:5;display:flex;align-items:center;gap:9px;background:rgba(8,26,44,.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 14px 7px 8px;font-size:.78rem;font-weight:700;color:#fff}
 .truck-band .photo-cap img{width:24px;height:24px;background:#fff;border-radius:6px;padding:2px;flex:none}
 .truck-band:not(.has-photo) .photo-cap{display:none}
