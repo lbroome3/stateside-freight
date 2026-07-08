@@ -211,6 +211,109 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 .agent-line span{font-size:.82rem;color:rgba(255,255,255,.6)}
 
 /* ============================================================
+   05 — WHAT YOUR CUSTOMER SEES (centerpiece)
+   ============================================================ */
+#s05.step{min-height:72svh}
+#s05 h2{max-width:20ch}
+.flowstep{min-height:96svh}
+.flowstep .fs-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,4.5vw,64px);align-items:center}
+.flowstep.flip .fs-grid{grid-template-columns:1.15fr .85fr}
+.flowstep.flip .fs-copy{order:2}
+@media(max-width:900px){.flowstep .fs-grid,.flowstep.flip .fs-grid{grid-template-columns:1fr}.flowstep.flip .fs-copy{order:0}}
+.fs-copy .stepno{display:inline-flex;align-items:baseline;gap:8px;font-family:'Archivo';font-weight:900;color:var(--amber);font-size:.85rem;letter-spacing:2px;margin-bottom:16px}
+.fs-copy .stepno b{font-size:1.6rem;letter-spacing:0}
+.fs-copy h3{font-size:clamp(1.6rem,3.2vw,2.4rem);font-weight:900;margin-bottom:14px;max-width:18ch}
+.fs-copy p{color:var(--ink-2);font-size:1.02rem;max-width:44ch}
+.fs-copy .fs-link{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-weight:800;font-size:.95rem;color:var(--amber)}
+.fs-copy .fs-link:hover{text-decoration:underline}
+
+/* mock browser shell */
+.mock{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.mock-head{display:flex;align-items:center;gap:10px;padding:11px 16px;background:var(--bg-soft);border-bottom:1px solid var(--line)}
+.mock-head .dots{display:flex;gap:6px}
+.mock-head .dots i{width:10px;height:10px;border-radius:50%;background:#dbe5ee}
+.mock-head .dots i:first-child{background:#f4a9a3}.mock-head .dots i:nth-child(2){background:#f6d78e}.mock-head .dots i:nth-child(3){background:#a8dcb6}
+.mock-head .url{flex:1;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:.72rem;color:var(--ink-2);padding:5px 14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock-body{padding:clamp(18px,2.6vw,30px)}
+.mock-brandline{display:flex;align-items:center;gap:9px;margin-bottom:18px}
+.mock-brandline .mk{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--amber),var(--amber-700));color:#fff;font-family:'Archivo';font-weight:900;font-size:.6rem;display:flex;align-items:center;justify-content:center}
+.mock-brandline b{font-family:'Archivo';font-size:.82rem;font-weight:800}
+.mock-brandline span{font-size:.6rem;font-weight:700;letter-spacing:1.2px;color:var(--ink-2);text-transform:uppercase}
+
+/* step 1: quote form */
+.mform{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mform .full{grid-column:1/-1}
+.mfield label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-2);margin-bottom:5px}
+.mfield .val{border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;font-size:.92rem;font-weight:600;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mfield .val.hot{border-color:var(--amber);box-shadow:0 0 0 3px rgba(14,128,212,.12)}
+.mfield .val .caret{width:2px;height:16px;background:var(--amber);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.mfield .val svg{color:var(--ink-2);flex:none}
+.mbtn{grid-column:1/-1;background:linear-gradient(135deg,var(--amber),var(--amber-700));color:#fff;text-align:center;font-weight:800;font-size:.98rem;padding:14px;border-radius:12px;box-shadow:0 10px 24px rgba(14,128,212,.35);margin-top:4px}
+.mnote{grid-column:1/-1;text-align:center;font-size:.74rem;color:var(--ink-2);margin-top:2px}
+
+/* step 2: mode cards */
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:640px){.modes{grid-template-columns:1fr}}
+.mode{border:1.5px solid var(--line);border-radius:14px;padding:18px 16px;position:relative;transition:border-color .3s}
+.mode.pick{border-color:var(--amber);box-shadow:0 0 0 3px rgba(14,128,212,.12)}
+.mode .tag{position:absolute;top:-9px;left:14px;background:var(--amber);color:#fff;font-size:.58rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.mode .m-ico{font-size:1.3rem;margin-bottom:8px}
+.mode h4{font-family:'Archivo';font-size:.95rem;font-weight:800;margin-bottom:2px}
+.mode .m-sub{font-size:.7rem;color:var(--ink-2);font-weight:600;margin-bottom:12px}
+.mode .m-price{font-family:'Archivo';font-weight:900;font-size:1.25rem;color:var(--ink)}
+.mode .m-per{font-size:.68rem;color:var(--ink-2);font-weight:600}
+.mode .m-eta{display:inline-block;margin-top:10px;font-size:.66rem;font-weight:800;color:var(--green);background:rgba(31,157,87,.1);padding:3px 10px;border-radius:999px}
+.modes-note{text-align:center;font-size:.76rem;color:var(--ink-2);margin-top:14px;font-weight:600}
+
+/* step 3: dispatch */
+.dispatch{display:flex;flex-direction:column;gap:14px}
+.dispatch .sel{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1.5px solid var(--amber);border-radius:14px;padding:16px 18px;box-shadow:0 0 0 3px rgba(14,128,212,.1)}
+.dispatch .sel b{font-family:'Archivo';font-size:.98rem}
+.dispatch .sel span{font-size:.76rem;color:var(--ink-2);font-weight:600;display:block}
+.dispatch .sel .price{font-family:'Archivo';font-weight:900;font-size:1.3rem;color:var(--ink);text-align:right}
+.dbtn{background:linear-gradient(135deg,var(--green),#157a42);color:#fff;text-align:center;font-weight:800;font-size:1.02rem;padding:16px;border-radius:12px;box-shadow:0 12px 26px rgba(31,157,87,.35);display:flex;align-items:center;justify-content:center;gap:10px}
+.dbtn .ring{width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.7);animation:pulse 1.8s infinite}
+.dispatch .dnote{display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--ink-2);font-weight:600;justify-content:center}
+.dispatch .dnote i{width:7px;height:7px;border-radius:50%;background:var(--green);flex:none;animation:blink 1.4s steps(1) infinite}
+
+/* step 4: tracking */
+.track .t-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.track .t-carrier{display:flex;align-items:center;gap:11px}
+.track .t-carrier .tk{width:38px;height:38px;border-radius:10px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;flex:none}
+.track .t-carrier b{font-size:.9rem;display:block;line-height:1.3}
+.track .t-carrier span{font-size:.72rem;color:var(--ink-2);font-weight:600}
+.track .t-eta{background:rgba(31,157,87,.1);color:var(--green);font-weight:800;font-size:.78rem;padding:7px 14px;border-radius:999px}
+.t-route{position:relative;height:8px;border-radius:999px;background:var(--bg-soft);border:1px solid var(--line);margin:8px 0 6px}
+.t-route .t-fill{position:absolute;left:0;top:-1px;bottom:-1px;width:62%;border-radius:999px;background:linear-gradient(90deg,var(--amber),var(--blue))}
+.t-route .t-truck{position:absolute;left:62%;top:50%;transform:translate(-50%,-58%);font-size:1.15rem;filter:drop-shadow(0 3px 6px rgba(10,31,51,.25))}
+.t-cities{display:flex;justify-content:space-between;font-size:.72rem;font-weight:700;color:var(--ink-2);margin-bottom:18px}
+.t-feed{display:flex;flex-direction:column;gap:0}
+.t-ev{display:flex;gap:12px;align-items:flex-start;position:relative;padding-bottom:14px}
+.t-ev::before{content:'';position:absolute;left:7px;top:18px;bottom:0;width:2px;background:var(--line)}
+.t-ev:last-child::before{display:none}
+.t-ev .td{width:16px;height:16px;border-radius:50%;border:3px solid var(--green);background:#fff;flex:none;margin-top:3px}
+.t-ev.live .td{border-color:var(--amber);box-shadow:0 0 0 0 rgba(14,128,212,.5);animation:pulse 2s infinite}
+.t-ev b{font-size:.85rem;display:block;line-height:1.35}
+.t-ev span{font-size:.72rem;color:var(--ink-2);font-weight:600}
+
+/* step 5: confirmation */
+.confirm .c-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.confirm .c-check{width:44px;height:44px;border-radius:50%;background:rgba(31,157,87,.12);color:var(--green);display:flex;align-items:center;justify-content:center;flex:none}
+.confirm .c-head b{font-family:'Archivo';font-size:1.05rem;display:block}
+.confirm .c-head span{font-size:.76rem;color:var(--ink-2);font-weight:600}
+.c-rows{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.c-row{display:flex;justify-content:space-between;gap:14px;padding:12px 18px;font-size:.88rem;border-bottom:1px solid var(--line);background:#fff}
+.c-row:nth-child(even){background:var(--bg-soft)}
+.c-row:last-child{border-bottom:none}
+.c-row span{color:var(--ink-2);font-weight:600}
+.c-row b{font-weight:800;text-align:right}
+.c-row.total b{font-family:'Archivo';font-size:1.1rem;color:var(--amber)}
+.c-actions{display:flex;gap:10px}
+.c-actions .ca{flex:1;text-align:center;font-weight:800;font-size:.86rem;padding:12px;border-radius:11px;border:1.5px solid var(--line);color:var(--ink)}
+.c-actions .ca.pri{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ============================================================
    WALKTHROUGH PLAYER (floating pill + captions)
    ============================================================ */
 .player{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(140px);z-index:80;display:flex;align-items:center;gap:4px;background:rgba(8,26,44,.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 10px;box-shadow:var(--shadow-lg);color:#fff;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
@@ -340,6 +443,155 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
   </div>
 </section>
 
+<!-- ============ 05 · WHAT YOUR CUSTOMER SEES ============ -->
+<section class="step soft" id="s05" data-narr="Now the part that matters. Here's exactly what your customer sees — one screen at a time, from first click to confirmation.">
+  <span class="ghost" aria-hidden="true">05</span>
+  <div class="wrap">
+    <span class="eyebrow"><span class="n">05</span> The centerpiece</span>
+    <h2 class="reveal">What your customer sees, one screen at a time.</h2>
+    <p class="lede reveal d1">From first click to confirmation — the whole journey, exactly as a shipper experiences it. Keep scrolling.</p>
+  </div>
+</section>
+
+<!-- 05·1 quote form -->
+<section class="step flowstep" id="s05a" data-rail="s05" data-narr="Step one. They land on a quote form that looks like you. Origin, destination, and freight details — entered in under a minute.">
+  <div class="wrap">
+    <div class="fs-grid">
+      <div class="fs-copy">
+        <span class="stepno">STEP <b>1</b> / 5</span>
+        <h3 class="reveal">They land on a quote form that looks like you.</h3>
+        <p class="reveal d1">No account walls, no phone number required just to see a price. Origin, destination, and freight details — entered in under a minute.</p>
+        <a class="fs-link reveal d2" href="truckload.html">Try the real form →</a>
+      </div>
+      <div class="mock reveal d2" role="img" aria-label="Mock quote form: Savannah, GA to Nashville, TN, dry van, 42,000 pounds">
+        <div class="mock-head"><span class="dots"><i></i><i></i><i></i></span><span class="url">lewisbroome.com/truckload — Request a Truck</span></div>
+        <div class="mock-body">
+          <div class="mock-brandline"><span class="mk">SL</span><b>STATESIDE</b><span>Instant quote</span></div>
+          <div class="mform">
+            <div class="mfield"><label>Pickup</label><div class="val">Savannah, GA 31401 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div></div>
+            <div class="mfield"><label>Delivery</label><div class="val">Nashville, TN 37210 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div></div>
+            <div class="mfield"><label>Equipment</label><div class="val">Dry Van 53' <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div></div>
+            <div class="mfield"><label>Weight</label><div class="val hot">42,000 lbs<span class="caret"></span></div></div>
+            <div class="mbtn">Get my instant quote ⚡</div>
+            <div class="mnote">Under a minute · no callback required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05·2 instant quote, across modes -->
+<section class="step flowstep flip soft" id="s05b" data-rail="s05" data-narr="Step two. They get an instant quote, across modes. Truckload, container, and drayage, side by side, with transparent pricing. Whatever they prefer.">
+  <div class="wrap">
+    <div class="fs-grid">
+      <div class="fs-copy">
+        <span class="stepno">STEP <b>2</b> / 5</span>
+        <h3 class="reveal">They get an instant quote — across modes.</h3>
+        <p class="reveal d1">Truckload, container, or drayage, side by side with transparent pricing. Whatever they prefer. Every rate carries the same floors your dispatch runs on — no bait numbers.</p>
+        <a class="fs-link reveal d2" href="quote.html">Run a container quote →</a>
+      </div>
+      <div class="mock reveal d2" role="img" aria-label="Mock quote results: truckload, container, and drayage priced side by side">
+        <div class="mock-head"><span class="dots"><i></i><i></i><i></i></span><span class="url">Your quote — Savannah, GA → Nashville, TN · 531 mi</span></div>
+        <div class="mock-body">
+          <div class="modes">
+            <div class="mode pick"><span class="tag">Fastest</span><div class="m-ico">🚛</div><h4>Truckload</h4><div class="m-sub">Dry Van 53' · FTL</div><div class="m-price">$1,593–$1,860</div><div class="m-per">$3.00–$3.50 / mi</div><span class="m-eta">Transit: 1 day</span></div>
+            <div class="mode"><div class="m-ico">🚢</div><h4>Container</h4><div class="m-sub">40' HC · ocean + door</div><div class="m-price">from $6,400</div><div class="m-per">Shanghai → your door</div><span class="m-eta">28–34 days</span></div>
+            <div class="mode"><div class="m-ico">🏗️</div><h4>Drayage</h4><div class="m-sub">Port pull → door</div><div class="m-price">from $750</div><div class="m-per">load minimum</div><span class="m-eta">Same / next day</span></div>
+          </div>
+          <div class="modes-note">⛽ Fuel surcharge updates weekly — the final number is locked by your agent.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05·3 request dispatch -->
+<section class="step flowstep" id="s05c" data-rail="s05" data-narr="Step three. They pick their option and request dispatch. One click, and the request goes to the Landstar network in real time.">
+  <div class="wrap">
+    <div class="fs-grid">
+      <div class="fs-copy">
+        <span class="stepno">STEP <b>3</b> / 5</span>
+        <h3 class="reveal">They pick their option and request dispatch.</h3>
+        <p class="reveal d1">One click to request a truck dispatched in real time — the load goes straight to the Landstar network and your CRM. No email chains, no "let me check."</p>
+        <a class="fs-link reveal d2" href="truckload.html">Request a truck →</a>
+      </div>
+      <div class="mock reveal d2" role="img" aria-label="Mock dispatch screen with a selected truckload option and a request-dispatch button">
+        <div class="mock-head"><span class="dots"><i></i><i></i><i></i></span><span class="url">Confirm &amp; dispatch — load #SL-20441</span></div>
+        <div class="mock-body">
+          <div class="dispatch">
+            <div class="sel">
+              <div><b>Truckload · Dry Van 53'</b><span>Savannah, GA → Nashville, TN · 531 mi · 42,000 lbs</span></div>
+              <div class="price">$1,720</div>
+            </div>
+            <div class="dbtn"><span class="ring"></span> Request dispatch — truck to you in real time</div>
+            <div class="dnote"><i></i> Pushed live to the Landstar network &amp; Agent LBR's dispatch board</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05·4 assigned & tracked -->
+<section class="step flowstep flip soft" id="s05d" data-rail="s05" data-narr="Step four. The truck is assigned and tracked. Carrier, E T A, live status — no refreshing, no chasing.">
+  <div class="wrap">
+    <div class="fs-grid">
+      <div class="fs-copy">
+        <span class="stepno">STEP <b>4</b> / 5</span>
+        <h3 class="reveal">The truck is assigned — and tracked.</h3>
+        <p class="reveal d1">Carrier assigned, ETA on screen, status updating as it happens. No refreshing, no chasing, no "any update on my load?" calls.</p>
+        <a class="fs-link reveal d2" href="portal.html">See the client portal →</a>
+      </div>
+      <div class="mock reveal d2" role="img" aria-label="Mock live tracking screen: carrier assigned, route 62 percent complete, status feed">
+        <div class="mock-head"><span class="dots"><i></i><i></i><i></i></span><span class="url">Live tracking — load #SL-20441</span></div>
+        <div class="mock-body track">
+          <div class="t-top">
+            <div class="t-carrier"><span class="tk">🚛</span><div><b>Landstar BCO #4417 — assigned</b><span>Volvo VNL · Dry Van 53'</span></div></div>
+            <span class="t-eta">ETA tomorrow · 11:40 AM</span>
+          </div>
+          <div class="t-route"><span class="t-fill"></span><span class="t-truck">🚚</span></div>
+          <div class="t-cities"><span>Savannah, GA</span><span>62% · Chattanooga, TN</span><span>Nashville, TN</span></div>
+          <div class="t-feed">
+            <div class="t-ev"><span class="td"></span><div><b>Dispatched — driver confirmed</b><span>Today · 6:02 AM</span></div></div>
+            <div class="t-ev"><span class="td"></span><div><b>Picked up — 42,000 lbs, sealed</b><span>Today · 8:47 AM</span></div></div>
+            <div class="t-ev live"><span class="td"></span><div><b>In transit — I-24 W near Chattanooga</b><span>Updating live · no refresh needed</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05·5 confirmation -->
+<section class="step flowstep" id="s05e" data-rail="s05" data-narr="Step five. Confirmation lands clean. Who, what, where, when, and price — in one tidy summary they can save or forward.">
+  <div class="wrap">
+    <div class="fs-grid">
+      <div class="fs-copy">
+        <span class="stepno">STEP <b>5</b> / 5</span>
+        <h3 class="reveal">Confirmation lands clean.</h3>
+        <p class="reveal d1">Who, what, where, when, and price — one tidy summary they can save or forward to anyone who asks. That's the whole transaction.</p>
+        <a class="fs-link reveal d2" href="quote.html">Start yours →</a>
+      </div>
+      <div class="mock reveal d2" role="img" aria-label="Mock confirmation summary: route, equipment, weight, pickup time, carrier, and total price">
+        <div class="mock-head"><span class="dots"><i></i><i></i><i></i></span><span class="url">Booking confirmed — load #SL-20441</span></div>
+        <div class="mock-body confirm">
+          <div class="c-head"><span class="c-check"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>You're booked.</b><span>Confirmation sent · reference #SL-20441</span></div></div>
+          <div class="c-rows">
+            <div class="c-row"><span>Route</span><b>Savannah, GA → Nashville, TN</b></div>
+            <div class="c-row"><span>Equipment</span><b>Dry Van 53' · FTL</b></div>
+            <div class="c-row"><span>Freight</span><b>Retail goods · 42,000 lbs</b></div>
+            <div class="c-row"><span>Pickup</span><b>Tomorrow · 8:00–10:00 AM</b></div>
+            <div class="c-row"><span>Carrier</span><b>Landstar BCO #4417</b></div>
+            <div class="c-row total"><span>Total — locked</span><b>$1,720</b></div>
+          </div>
+          <div class="c-actions"><span class="ca pri">Save PDF</span><span class="ca">Forward</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- ============ WALKTHROUGH PLAYER ============ -->
@@ -369,8 +621,9 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
   var railLinks=[].slice.call(document.querySelectorAll('#rail a'));
   var topbar=$('topbar');
   function setActive(id){
-    railLinks.forEach(function(a){a.classList.toggle('active',a.dataset.t===id)});
     var sec=document.getElementById(id);
+    var railId=(sec&&sec.dataset.rail)||id; /* 05 sub-steps map back to rail item 05 */
+    railLinks.forEach(function(a){a.classList.toggle('active',a.dataset.t===railId)});
     document.body.classList.toggle('on-dark',!!(sec&&sec.classList.contains('dark')));
     if(topbar)topbar.classList.toggle('solid',!(sec&&sec.classList.contains('dark')));
   }
