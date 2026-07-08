@@ -372,7 +372,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
 @media(max-width:640px){.player button span.txt{display:none}.player .pp span.txt{display:inline}.auto-tgl span.txt{display:none}}
 </style>
 </head>
-<body>
+<body class="cc-off">
 
 <!-- mobile progress -->
 <div class="mprog" aria-hidden="true"><i id="mprogFill"></i></div>
@@ -676,7 +676,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   <span class="sep" aria-hidden="true"></span>
   <button class="auto-tgl" id="autoTgl" type="button" role="switch" aria-checked="true"><span class="sw" aria-hidden="true"></span><span class="txt">Auto-advance</span></button>
   <span class="sep" aria-hidden="true"></span>
-  <button id="ccBtn" type="button" role="switch" aria-checked="true" aria-label="Toggle captions"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M8 10.5a2 2 0 1 0 0 3M16 10.5a2 2 0 1 0 0 3"/></svg><span class="txt">Captions</span></button>
+  <button id="ccBtn" type="button" role="switch" aria-checked="false" aria-label="Toggle captions"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M8 10.5a2 2 0 1 0 0 3M16 10.5a2 2 0 1 0 0 3"/></svg><span class="txt">Captions</span></button>
   <span class="sep" aria-hidden="true"></span>
   <button id="stopBtn" type="button" aria-label="Stop walkthrough"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg><span class="txt">Stop</span></button>
 </div>
@@ -726,7 +726,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
        3. Silent timer fallback (auto-advance still works) */
   var stops=[].slice.call(document.querySelectorAll('[data-narr]'));
   var player=$('player'), captions=$('captions'), ppBtn=$('ppBtn'), ppIcon=$('ppIcon'), ppTxt=$('ppTxt'), autoTgl=$('autoTgl'), stopBtn=$('stopBtn');
-  var playing=false, idx=0, auto=true, timer=null, synth=window.speechSynthesis||null, voice=null;
+  var playing=false, idx=0, auto=true, timer=null, synth=window.speechSynthesis||null, voice=null, unlocked=false;
 
   /* single reusable audio element — one user-gesture unlock covers every
      clip on iOS Safari (fresh Audio() per clip would get blocked) */
@@ -819,17 +819,34 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
     if(!off&&playing)caption(stops[idx].getAttribute('data-narr'));
   });
   var heroPlay=$('heroPlay');
-  if(heroPlay)heroPlay.addEventListener('click',function(){play(true)});
+  if(heroPlay)heroPlay.addEventListener('click',function(){unlocked=true;play(true)});
   var replayBtn=$('replayBtn');
-  if(replayBtn)replayBtn.addEventListener('click',function(){play(true)});
+  if(replayBtn)replayBtn.addEventListener('click',function(){unlocked=true;play(true)});
 
-  /* manual scroll while playing = user takes the wheel → pause narration */
+  /* Audio can't start before a user gesture (browser rule). We auto-start
+     the tour silently on load; the first tap/click/key unlocks the voice
+     and (re)starts narration from the current section. */
+  function firstGesture(e){
+    if(unlocked)return;
+    /* player controls & hero button already manage their own audio */
+    if(e.target.closest&&(e.target.closest('#player')||e.target.closest('#heroPlay')||e.target.closest('#replayBtn'))){unlocked=true;return;}
+    unlocked=true;
+    if(playing)playStop(idx);
+  }
+  ['pointerdown','keydown'].forEach(function(ev){addEventListener(ev,firstGesture,{once:true})});
+
+  /* real scroll = the visitor is taking manual control → pause the auto-tour
+     so it doesn't fight them. (Programmatic auto-scroll fires 'scroll', not
+     'wheel'/'touchmove', so the auto-start doesn't trip this.) */
   ['wheel','touchmove'].forEach(function(ev){
     addEventListener(ev,function(){if(playing)pause()},{passive:true});
   });
 
-  /* show player pill once the page settles */
+  /* show player pill, then auto-start the walkthrough (unless the visitor
+     prefers reduced motion) */
   setTimeout(function(){player.classList.add('show')},900);
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce)setTimeout(function(){if(!playing)play(true)},1300);
 })();
 </script>
 </body>
