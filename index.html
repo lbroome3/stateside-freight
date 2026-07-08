@@ -390,6 +390,17 @@ body.cc-off .captions{display:none}
 #ccBtn[aria-checked="true"] svg{color:var(--green)}
 /* during playback, lift each section's content clear of the player + captions */
 body.vo-playing section.step{padding-bottom:min(230px,26vh)}
+
+/* ---- start gate (shown only if the browser blocks autoplay-with-sound) ---- */
+.vo-gate{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;background:rgba(6,18,32,.5);backdrop-filter:blur(3px);cursor:pointer;animation:gatein .45s ease}
+.vo-gate[hidden]{display:none}
+@keyframes gatein{from{opacity:0}to{opacity:1}}
+.vo-gate-inner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;color:#fff;padding:26px;pointer-events:none}
+.vo-gate-btn{width:94px;height:94px;border-radius:50%;flex:none;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 18px 44px rgba(14,128,212,.55);animation:gpulse 2.4s infinite}
+@keyframes gpulse{0%{box-shadow:0 0 0 0 rgba(14,128,212,.5),0 18px 44px rgba(14,128,212,.5)}70%{box-shadow:0 0 0 24px rgba(14,128,212,0),0 18px 44px rgba(14,128,212,.5)}100%{box-shadow:0 0 0 0 rgba(14,128,212,0),0 18px 44px rgba(14,128,212,.5)}}
+.vo-gate-btn svg{margin-left:5px}
+.vo-gate h3{font-family:'Archivo';font-weight:800;font-size:1.4rem}
+.vo-gate p{font-size:.92rem;color:rgba(255,255,255,.72);max-width:30ch}
 @media(max-width:640px){.player button span.txt{display:none}.player .pp span.txt{display:inline}.auto-tgl span.txt{display:none}}
 </style>
 </head>
@@ -730,6 +741,15 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
 
 </main>
 
+<!-- ============ START GATE (only if autoplay-with-sound is blocked) ============ -->
+<div class="vo-gate" id="voGate" hidden role="button" tabindex="0" aria-label="Play the walkthrough with narration">
+  <div class="vo-gate-inner">
+    <span class="vo-gate-btn"><svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+    <h3>Play the walkthrough</h3>
+    <p>60 seconds, narrated — tap anywhere to start with sound.</p>
+  </div>
+</div>
+
 <!-- ============ WALKTHROUGH PLAYER ============ -->
 <div class="captions" id="captions" aria-live="polite"></div>
 <div class="player" id="player" role="toolbar" aria-label="Walkthrough playback">
@@ -898,35 +918,48 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
     ccBtn.setAttribute('aria-checked',String(!off));
     if(!off&&playing)caption(stops[idx].getAttribute('data-narr'));
   });
+  /* start the tour from the top WITH sound, from a user gesture */
+  function startWithSound(){unlocked=true;hideGate();window.scrollTo({top:0});play(true);}
+
   var heroPlay=$('heroPlay');
-  if(heroPlay)heroPlay.addEventListener('click',function(){unlocked=true;play(true)});
+  if(heroPlay)heroPlay.addEventListener('click',startWithSound);
   var replayBtn=$('replayBtn');
-  if(replayBtn)replayBtn.addEventListener('click',function(){unlocked=true;play(true)});
+  if(replayBtn)replayBtn.addEventListener('click',startWithSound);
 
-  /* Audio can't start before a user gesture (browser rule). We auto-start
-     the tour silently on load; the first tap/click/key unlocks the voice
-     and (re)starts narration from the current section. */
-  function firstGesture(e){
-    if(unlocked)return;
-    /* player controls & hero button already manage their own audio */
-    if(e.target.closest&&(e.target.closest('#player')||e.target.closest('#heroPlay')||e.target.closest('#replayBtn'))){unlocked=true;return;}
-    unlocked=true;
-    if(playing)playStop(idx);
+  /* ---- start gate ----
+     Browsers block audio until the visitor interacts, so on load we FIRST
+     try a real autoplay-with-sound. If the browser allows it (some do), the
+     tour just runs. If it's blocked, we show a one-tap poster — that single
+     tap starts audio + visuals together from section 1, perfectly synced. */
+  var gate=$('voGate');
+  function showGate(){if(gate)gate.hidden=false;}
+  function hideGate(){if(gate)gate.hidden=true;}
+  if(gate){
+    gate.addEventListener('click',startWithSound);
+    gate.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();startWithSound();}});
   }
-  ['pointerdown','keydown'].forEach(function(ev){addEventListener(ev,firstGesture,{once:true})});
 
-  /* real scroll = the visitor is taking manual control → pause the auto-tour
-     so it doesn't fight them. (Programmatic auto-scroll fires 'scroll', not
-     'wheel'/'touchmove', so the auto-start doesn't trip this.) */
+  /* real scroll during playback = visitor taking manual control → pause */
   ['wheel','touchmove'].forEach(function(ev){
-    addEventListener(ev,function(){if(playing)pause()},{passive:true});
+    addEventListener(ev,function(){if(playing)pause();},{passive:true});
   });
 
-  /* show player pill, then auto-start the walkthrough (unless the visitor
-     prefers reduced motion) */
-  setTimeout(function(){player.classList.add('show')},900);
+  /* did the audio element actually produce sound? */
+  var audioEverPlayed=false;
+  vo.addEventListener('playing',function(){audioEverPlayed=true;});
+
+  function attemptAutostart(){
+    unlocked=true;                 /* optimistic: assume sound is allowed */
+    play(true);                    /* plays section 1's clip immediately */
+    /* if no sound has started shortly after, autoplay was blocked → gate */
+    setTimeout(function(){
+      if(!audioEverPlayed){pause();idx=0;unlocked=false;showGate();}
+    },1100);
+  }
+
+  setTimeout(function(){player.classList.add('show');},900);
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!reduce)setTimeout(function(){if(!playing)play(true)},1300);
+  if(!reduce)setTimeout(attemptAutostart,700);
 })();
 </script>
 </body>
