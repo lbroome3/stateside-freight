@@ -19,13 +19,15 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 VOICE="${VOICE:-Samantha}"
-RATE="${RATE:-172}"   # words/min — lower = calmer
-mkdir -p assets/vo
+RATE="${RATE:-172}"          # words/min — lower = calmer
+PAGE="${PAGE:-index.html}"   # source HTML to read narration from
+OUTDIR="${OUTDIR:-assets/vo}"   # where the .m4a clips are written
+mkdir -p "$OUTDIR"
 tmp="$(mktemp -d)"
 
-python3 - <<'PY' > "$tmp/lines.tsv"
-import re
-src = open('index.html').read()
+PAGE="$PAGE" python3 - <<'PY' > "$tmp/lines.tsv"
+import re, os
+src = open(os.environ['PAGE']).read()
 for m in re.finditer(r'<section[^>]*id="([^"]+)"[^>]*data-narr="([^"]+)"', src):
     text = m.group(2).replace('&amp;','&').replace('&quot;','"')
     print(f"{m.group(1)}\t{text}")
@@ -36,7 +38,7 @@ while IFS=$'\t' read -r id text; do
   n=$((n+1))
   echo "[$n] $id — ${text:0:56}…"
   say -v "$VOICE" -r "$RATE" -o "$tmp/$id.aiff" "$text"
-  afconvert "$tmp/$id.aiff" "assets/vo/$id.m4a" -f m4af -d aac >/dev/null
+  afconvert "$tmp/$id.aiff" "$OUTDIR/$id.m4a" -f m4af -d aac >/dev/null
 done < "$tmp/lines.tsv"
 
 rm -rf "$tmp"

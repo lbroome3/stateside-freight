@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/BCOonboarding", "destination": "/BCOonboarding.html" },
+    { "source": "/bcoonboarding", "destination": "/BCOonboarding.html" }
+  ]
+}
