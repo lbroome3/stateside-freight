@@ -83,7 +83,8 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,3vw,34px);transition:background .35s,box-shadow .35s}
 .topbar.solid{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);box-shadow:var(--shadow-sm)}
 .brand{display:flex;align-items:center;gap:11px}
-.brand .mark{width:42px;height:42px;border-radius:11px;flex:none;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Archivo';font-weight:900;font-size:1rem;letter-spacing:-.04em;box-shadow:0 6px 16px rgba(14,128,212,.35)}
+.brand .mark{width:44px;height:44px;border-radius:11px;flex:none;background:#fff;display:flex;align-items:center;justify-content:center;padding:5px;box-shadow:0 6px 16px rgba(8,26,44,.25)}
+.brand .mark img,.foot-brand .mark img,.mock-brandline .mk img{width:100%;height:100%;object-fit:contain;display:block}
 .brand-text{line-height:1.15}
 .brand-text b{font-family:'Archivo';font-size:1rem;font-weight:800;color:#fff;display:block;transition:color .3s}
 .brand-text span{font-size:.62rem;font-weight:700;letter-spacing:1.6px;color:rgba(255,255,255,.55);text-transform:uppercase;transition:color .3s}
@@ -210,6 +211,26 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 .agent-line b{display:block;color:#fff;font-size:.98rem}
 .agent-line span{font-size:.82rem;color:rgba(255,255,255,.6)}
 
+/* ---- branded Landstar truck (credibility) ---- */
+.truck-band{position:relative;margin-top:46px;height:200px;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.09)}
+/* real photo, when present, covers the animated fallback beneath */
+.truck-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:4;display:block}
+.truck-band .photo-cap{position:absolute;left:16px;bottom:14px;z-index:5;display:flex;align-items:center;gap:9px;background:rgba(8,26,44,.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 14px 7px 8px;font-size:.78rem;font-weight:700;color:#fff}
+.truck-band .photo-cap img{width:24px;height:24px;background:#fff;border-radius:6px;padding:2px;flex:none}
+.truck-band:not(.has-photo) .photo-cap{display:none}
+@media(max-width:600px){.truck-band .photo-cap{font-size:.7rem}}
+.truck-band .road{position:absolute;left:0;right:0;bottom:36px;height:3px;background:rgba(255,255,255,.16)}
+.truck-band .road i{position:absolute;left:0;right:0;top:0;height:2px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 18px,transparent 18px 42px);animation:roll .5s linear infinite}
+.truck-svg{position:absolute;bottom:22px;width:48%;max-width:430px;height:auto;left:-52%;animation:drive 14s linear infinite}
+.tk-bob{transform-box:fill-box;transform-origin:center;animation:bob .85s ease-in-out infinite alternate}
+.tk-wheel{transform-box:fill-box;transform-origin:center;animation:spin .7s linear infinite}
+@keyframes drive{0%{left:-52%}100%{left:110%}}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes roll{to{background-position:-42px 0}}
+@media(max-width:600px){.truck-band{height:150px}.truck-svg{width:74%}}
+@media(prefers-reduced-motion:reduce){.truck-svg{animation:none;left:26%}.tk-bob,.tk-wheel,.truck-band .road i{animation:none}}
+
 /* ============================================================
    05 — WHAT YOUR CUSTOMER SEES (centerpiece)
    ============================================================ */
@@ -236,7 +257,7 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 .mock-head .url{flex:1;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:.72rem;color:var(--ink-2);padding:5px 14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mock-body{padding:clamp(18px,2.6vw,30px)}
 .mock-brandline{display:flex;align-items:center;gap:9px;margin-bottom:18px}
-.mock-brandline .mk{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--amber),var(--amber-700));color:#fff;font-family:'Archivo';font-weight:900;font-size:.6rem;display:flex;align-items:center;justify-content:center}
+.mock-brandline .mk{width:28px;height:28px;border-radius:7px;background:#fff;border:1px solid var(--line);padding:3px;display:flex;align-items:center;justify-content:center}
 .mock-brandline b{font-family:'Archivo';font-size:.82rem;font-weight:800}
 .mock-brandline span{font-size:.6rem;font-weight:700;letter-spacing:1.2px;color:var(--ink-2);text-transform:uppercase}
 
@@ -338,7 +359,7 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 .foot{width:100%;margin-top:70px;border-top:1px solid rgba(255,255,255,.1);padding:34px clamp(20px,5vw,60px) 110px;position:relative;z-index:2}
 .foot-in{max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:22px 40px;align-items:center;justify-content:space-between}
 .foot-brand{display:flex;align-items:center;gap:11px}
-.foot-brand .mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--amber),var(--amber-700));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Archivo';font-weight:900;font-size:.85rem}
+.foot-brand .mark{width:40px;height:40px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;padding:4px}
 .foot-brand b{font-family:'Archivo';font-weight:800;font-size:1rem;color:#fff;display:block;line-height:1.2}
 .foot-brand span{font-size:.68rem;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:1px;text-transform:uppercase}
 .foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:.86rem;font-weight:700}
@@ -380,7 +401,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
 <!-- ============ TOP BAR ============ -->
 <header class="topbar" id="topbar">
   <a class="brand" href="#s01" aria-label="Stateside International Logistics — home">
-    <span class="mark">SL</span>
+    <span class="mark"><img src="assets/landstar-star.svg" alt="Landstar" width="34" height="34" /></span>
     <span class="brand-text"><b>STATESIDE</b><span>International Logistics</span></span>
   </a>
   <nav class="top-actions" aria-label="Primary">
@@ -479,6 +500,46 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
         <div class="net-stat reveal d4"><b>24<i>/</i>7</b><span>Dispatch &amp; emergency response</span></div>
       </div>
     </div>
+    <div class="truck-band reveal d2" id="truckBand" aria-label="Landstar tractor-trailer">
+      <img class="truck-photo" src="assets/landstar-truck.jpg" alt="Landstar tractor-trailer on the highway"
+           onload="document.getElementById('truckBand').classList.add('has-photo')"
+           onerror="this.remove()" />
+      <div class="photo-cap"><img src="assets/landstar-star.svg" alt="" aria-hidden="true" /> Powered by Landstar's nationwide fleet</div>
+      <div class="road"><i></i></div>
+      <svg class="truck-svg" viewBox="0 0 400 175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stateside International Logistics truck, powered by Landstar">
+        <ellipse cx="186" cy="161" rx="165" ry="9" fill="rgba(0,0,0,.28)"/>
+        <g class="tk-bob">
+          <!-- trailer -->
+          <rect x="18" y="38" width="232" height="100" rx="9" fill="#ffffff" stroke="#d4dde8" stroke-width="2"/>
+          <path d="M18 53 h232 v-7 a9 9 0 0 0-9-9 H27 a9 9 0 0 0-9 9 z" fill="#0e80d4"/>
+          <rect x="30" y="58" width="36" height="36" rx="7" fill="#ffffff" stroke="#e2eaf2" stroke-width="1"/>
+          <image href="assets/landstar-star.svg" x="31" y="59" width="34" height="34" preserveAspectRatio="xMidYMid meet"/>
+          <text x="76" y="80" font-family="Archivo,Arial,sans-serif" font-size="20" font-weight="800" fill="#0a1f33" letter-spacing="-.5">STATESIDE</text>
+          <text x="77" y="97" font-family="Inter,Arial,sans-serif" font-size="9" font-weight="700" fill="#46607a" letter-spacing="1.3">INTERNATIONAL LOGISTICS</text>
+          <image href="assets/landstar-logo.png" x="150" y="106" width="94" height="17" preserveAspectRatio="xMinYMid meet"/>
+          <!-- cab -->
+          <path d="M250 138 L250 68 Q250 60 258 60 L296 60 L300 96 L338 104 L342 138 Z" fill="#0e80d4" stroke="#0a5f9e" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M301 66 L318 69 L320 93 L301 93 Z" fill="#bfe0ff"/>
+          <rect x="262" y="61" width="2" height="76" fill="#0a5f9e"/>
+          <circle cx="339" cy="120" r="8" fill="rgba(255,210,120,.4)"/>
+          <circle cx="339" cy="120" r="4" fill="#ffd27a"/>
+          <line x1="300" y1="64" x2="293" y2="57" stroke="#0a5f9e" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- wheels -->
+          <g><circle cx="78" cy="138" r="21" fill="#11202f"/>
+            <g class="tk-wheel"><circle cx="78" cy="138" r="12.5" fill="#d2dbe6"/>
+              <g stroke="#93a6bb" stroke-width="2.4" stroke-linecap="round"><line x1="78" y1="127" x2="78" y2="149"/><line x1="67" y1="138" x2="89" y2="138"/><line x1="70.5" y1="130.5" x2="85.5" y2="145.5"/><line x1="70.5" y1="145.5" x2="85.5" y2="130.5"/></g>
+              <circle cx="78" cy="138" r="3.6" fill="#46607a"/></g></g>
+          <g><circle cx="128" cy="138" r="21" fill="#11202f"/>
+            <g class="tk-wheel"><circle cx="128" cy="138" r="12.5" fill="#d2dbe6"/>
+              <g stroke="#93a6bb" stroke-width="2.4" stroke-linecap="round"><line x1="128" y1="127" x2="128" y2="149"/><line x1="117" y1="138" x2="139" y2="138"/><line x1="120.5" y1="130.5" x2="135.5" y2="145.5"/><line x1="120.5" y1="145.5" x2="135.5" y2="130.5"/></g>
+              <circle cx="128" cy="138" r="3.6" fill="#46607a"/></g></g>
+          <g><circle cx="312" cy="138" r="21" fill="#11202f"/>
+            <g class="tk-wheel"><circle cx="312" cy="138" r="12.5" fill="#d2dbe6"/>
+              <g stroke="#93a6bb" stroke-width="2.4" stroke-linecap="round"><line x1="312" y1="127" x2="312" y2="149"/><line x1="301" y1="138" x2="323" y2="138"/><line x1="304.5" y1="130.5" x2="319.5" y2="145.5"/><line x1="304.5" y1="145.5" x2="319.5" y2="130.5"/></g>
+              <circle cx="312" cy="138" r="3.6" fill="#46607a"/></g></g>
+        </g>
+      </svg>
+    </div>
   </div>
 </section>
 
@@ -505,7 +566,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
       <div class="mock reveal d2" role="img" aria-label="Mock quote form: Savannah, GA to Nashville, TN, dry van, 42,000 pounds">
         <div class="mock-head"><span class="dots"><i></i><i></i><i></i></span><span class="url">lewisbroome.com/truckload — Request a Truck</span></div>
         <div class="mock-body">
-          <div class="mock-brandline"><span class="mk">SL</span><b>STATESIDE</b><span>Instant quote</span></div>
+          <div class="mock-brandline"><span class="mk"><img src="assets/landstar-star.svg" alt="Landstar" width="22" height="22" /></span><b>STATESIDE</b><span>Instant quote</span></div>
           <div class="mform">
             <div class="mfield"><label>Pickup</label><div class="val">Savannah, GA 31401 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div></div>
             <div class="mfield"><label>Delivery</label><div class="val">Nashville, TN 37210 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div></div>
@@ -654,7 +715,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   <!-- footer -->
   <footer class="foot">
     <div class="foot-in">
-      <div class="foot-brand"><span class="mark">SL</span><div><b>STATESIDE</b><span>International Logistics</span></div></div>
+      <div class="foot-brand"><span class="mark"><img src="assets/landstar-star.svg" alt="Landstar" width="32" height="32" /></span><div><b>STATESIDE</b><span>International Logistics</span></div></div>
       <nav class="foot-links" aria-label="Footer">
         <a href="quote.html">Get a quote</a>
         <a href="truckload.html">Request a truck</a>
@@ -754,43 +815,62 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   function caption(t){captions.textContent=t||'';captions.classList.toggle('show',!!t&&playing);}
   function clearTimer(){if(timer){clearTimeout(timer);timer=null}}
 
-  /* pacing — beat between one stop finishing and the next beginning,
-     and how long the silent timer lingers so the reader can absorb */
-  var GAP=2000;                 /* pause between sections */
-  function speakFallback(text,next){
-    if(synth){
-      synth.cancel();
-      var u=new SpeechSynthesisUtterance(text);
-      if(voice)u.voice=voice;u.rate=0.94;u.pitch=1;  /* slower, calmer */
-      u.onend=next;u.onerror=next;
-      setTimeout(function(){if(playing)synth.speak(u)},250);
-      /* safety net if onend never fires */
-      timer=setTimeout(next,Math.max(7000,text.length*88));
-    }else{
-      /* no speech at all — hold each section long enough to read it */
-      timer=setTimeout(next,Math.max(6800,text.length*82));
-    }
-  }
+  /* ---- pacing ----
+     GAP  = quiet beat between one section and the next
+     dwell(text) = how long to hold a section when there's NO audio
+                   (reading pace ~11 chars/sec, generous floor) */
+  var GAP=1400, VOEXT='.m4a';
+  function dwell(text){return Math.max(7500,text.length*90);}
+
+  /* playStop drives exactly ONE advance per section via the `done` guard,
+     and at most ONE browser-speech attempt via `spoke`. Every scheduled
+     timer goes through the single `timer` var (cleared first) so nothing
+     stacks or double-fires. */
   function playStop(i){
     if(i>=stops.length){stop();return}
     idx=i;var el=stops[i],text=el.getAttribute('data-narr');
     el.scrollIntoView({behavior:'smooth',block:'start'});
     caption(text);
     clearTimer();
-    var advanced=false;
-    var next=function(){if(advanced||!playing)return;advanced=true;
-      if(auto){timer=setTimeout(function(){playStop(idx+1)},GAP)}else{caption('')}};
-    /* recorded voiceover first; Web Speech only if the clip is missing */
-    vo.onended=next;
-    vo.onerror=function(){if(playing&&!advanced)speakFallback(text,next)};
-    vo.src=VO+el.id+'.mp3';
-    /* slight delay so the scroll lands before speech starts */
-    setTimeout(function(){
-      if(!playing||advanced)return;
-      vo.play().catch(function(){if(playing&&!advanced)speakFallback(text,next)});
-    },450);
-    /* outer safety net: clip stalled / never fired an event */
-    timer=setTimeout(next,Math.max(12000,text.length*95));
+    var done=false, spoke=false, audioOk=false;
+
+    function advance(){
+      if(done||!playing)return;done=true;clearTimer();
+      if(auto){timer=setTimeout(function(){playStop(idx+1)},GAP);}else{caption('');}
+    }
+    /* browser-speech stopgap when a recorded clip won't play. Speech ENDING
+       advances; a speech ERROR does NOT insta-advance (that was the old
+       "too fast" bug) — it holds for reading time instead. */
+    function toSpeech(){
+      if(spoke||done||!playing)return;spoke=true;clearTimer();
+      if(synth){
+        try{synth.cancel();}catch(e){}
+        var u=new SpeechSynthesisUtterance(text);
+        if(voice)u.voice=voice;u.rate=0.95;u.pitch=1;
+        u.onend=advance;
+        u.onerror=function(){clearTimer();timer=setTimeout(advance,dwell(text));};
+        timer=setTimeout(advance,dwell(text)+9000); /* safety if neither fires */
+        setTimeout(function(){if(playing&&!done){try{synth.speak(u);}catch(e){}}},120);
+      }else{
+        timer=setTimeout(advance,dwell(text));
+      }
+    }
+
+    /* Before the first user gesture, browsers block ALL audio — so don't
+       even try; just hold each section at a readable pace. */
+    if(!unlocked){timer=setTimeout(advance,dwell(text));return;}
+
+    /* Unlocked: play the recorded clip; its real duration paces the tour. */
+    vo.onplaying=function(){audioOk=true;caption(text);};
+    vo.onended=advance;
+    vo.onerror=toSpeech;
+    try{
+      vo.src=VO+el.id+VOEXT;
+      var p=vo.play();
+      if(p&&p.catch)p.catch(toSpeech);
+    }catch(e){toSpeech();}
+    /* if the clip neither starts nor errors quickly, fall back to speech */
+    timer=setTimeout(function(){if(!audioOk&&!done&&!spoke)toSpeech();},1600);
   }
   function play(fromStart){
     setPP(true);
@@ -799,9 +879,9 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   }
   function pause(){
     setPP(false);clearTimer();
-    vo.onended=null;vo.onerror=null;
+    vo.onended=null;vo.onerror=null;vo.onplaying=null;
     try{vo.pause();vo.currentTime=0;}catch(e){}
-    if(synth)synth.cancel();
+    if(synth){try{synth.cancel();}catch(e){}}
     caption('');
   }
   function stop(){
