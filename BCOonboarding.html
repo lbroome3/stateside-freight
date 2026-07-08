@@ -419,17 +419,12 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   .step .lede{font-size:.92rem;line-height:1.48}
   /* top-align the tall content sections so their top always shows */
   #s02.step,#s03.step,#s05.step{align-items:flex-start;padding-top:78px}
-  #s02 h2{font-size:1.46rem;margin-bottom:10px}
-  #s02 .lede{font-size:.86rem;line-height:1.45;margin-bottom:14px}
+  #s02 h2{font-size:1.4rem;margin-bottom:9px}
+  #s02 .lede{font-size:.84rem;line-height:1.44;margin-bottom:14px}
   #s03 .lede{margin-bottom:16px}
-  /* compact the broker-vs-Landstar board comparison so both boards show */
-  .boards{gap:10px}
-  .board-h{padding:8px 13px;font-size:.66rem}
-  .board-h .b-tag{font-size:.54rem;padding:3px 8px}
-  .brow{padding:6px 13px;font-size:.77rem;column-gap:8px}
-  .brow .wt{font-size:.66rem}
-  .brow .rate{font-size:.8rem}
-  .brow .rate.hide{font-size:.7rem}
+  /* swap the two full boards for the compact per-lane comparison */
+  #s02 .boards{display:none}
+  #s02 .board-compact{display:block}
   /* backing + resource grids: tighter cards */
   .back{padding:16px}
   .back h3{font-size:1.06rem}
@@ -458,6 +453,16 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
 .brow .rate{font-family:'Archivo';font-weight:900;text-align:right;white-space:nowrap;grid-row:1/3;align-self:center}
 .brow .rate.hide{color:#b03a3a;font-weight:700;font-family:'Inter';font-size:.74rem}
 .board.win .brow .rate{color:var(--green)}
+/* compact per-lane comparison — mobile only (desktop keeps the two boards) */
+.board-compact{display:none;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.board-compact .bc-head{padding:11px 14px;background:var(--bg-soft);border-bottom:1px solid var(--line);font-size:.82rem}
+.board-compact .bc-head b{font-family:'Archivo'}
+.board-compact .bc-row{padding:11px 14px;border-bottom:1px solid var(--line)}
+.board-compact .bc-row:last-child{border-bottom:none}
+.board-compact .bc-lane{font-weight:800;font-size:.86rem;margin-bottom:5px}
+.board-compact .bc-vs{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.board-compact .bc-broker{color:#b03a3a;font-weight:700;font-size:.74rem;white-space:nowrap}
+.board-compact .bc-ls{color:var(--green);font-weight:800;font-family:'Archivo';font-size:.82rem;text-align:right;white-space:nowrap}
 /* ---- BCO: backing benefit grid ---- */
 .back-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(14px,2vw,22px);margin-top:40px}
 .back{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(22px,2.6vw,30px);box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s}
@@ -551,6 +556,22 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
         <div class="brow"><span class="lane">GA → TN · 531 mi</span><span class="wt">Dry Van · 42,000 lbs</span><span class="rate">$3,100 · $2.35/mi</span></div>
         <div class="brow"><span class="lane">FL → NC · 612 mi</span><span class="wt">Reefer · 38,000 lbs</span><span class="rate">$3,650 · $2.60/mi</span></div>
         <div class="brow"><span class="lane">TX → OH · 1,190 mi</span><span class="wt">Flatbed · 45,000 lbs</span><span class="rate">$4,280 · $2.75/mi</span></div>
+      </div>
+    </div>
+    <!-- compact per-lane comparison (mobile only) -->
+    <div class="board-compact reveal d1" role="img" aria-label="Broker board vs Landstar board, same lanes">
+      <div class="bc-head"><b>Same lane — broker vs Landstar</b></div>
+      <div class="bc-row">
+        <div class="bc-lane">GA → TN · Dry Van</div>
+        <div class="bc-vs"><span class="bc-broker">Broker: — call for rate</span><span class="bc-ls">Landstar: $3,100 · $2.35/mi</span></div>
+      </div>
+      <div class="bc-row">
+        <div class="bc-lane">FL → NC · Reefer</div>
+        <div class="bc-vs"><span class="bc-broker">Broker: — call for rate</span><span class="bc-ls">Landstar: $3,650 · $2.60/mi</span></div>
+      </div>
+      <div class="bc-row">
+        <div class="bc-lane">TX → OH · Flatbed</div>
+        <div class="bc-vs"><span class="bc-broker">Broker: — call for rate</span><span class="bc-ls">Landstar: $4,280 · $2.75/mi</span></div>
       </div>
     </div>
   </div>
