@@ -372,6 +372,10 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 .foot-links .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(31,157,87,.6);animation:pulse 2s infinite}
 .foot-legal{width:100%;font-size:.74rem;color:rgba(255,255,255,.42);line-height:1.6}
 .foot-legal a{color:rgba(255,255,255,.6)}
+.hit-counter{display:none;align-items:center;gap:7px;width:100%;margin-top:6px;font-size:.74rem;font-weight:700;color:rgba(255,255,255,.45)}
+.hit-counter.show{display:inline-flex}
+.hit-counter svg{opacity:.7;flex:none}
+.hit-counter b{color:rgba(255,255,255,.75);font-family:'Archivo';letter-spacing:.3px}
 
 /* ============================================================
    WALKTHROUGH PLAYER (floating pill + captions)
@@ -696,6 +700,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
         <a href="https://www.lewisbroome.com/">Freight &amp; shipping home</a>
       </nav>
       <p class="foot-legal">Lewis Broome III, <b>Director of Autonomous Freight</b> — Stateside International Logistics, an <b>Authorized Independent Agent</b> for Landstar System, Inc. Recruiting qualified BCOs (Business Capacity Owners) to lease on with Landstar. One year OTR experience required. <a href="home-classic.html">More information</a></p>
+      <span class="hit-counter" id="hitWrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> <b id="hitCount">—</b>&nbsp;page views</span>
     </div>
   </footer>
 </section>
@@ -935,6 +940,19 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   setTimeout(function(){player.classList.add('show');},900);
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduce)setTimeout(attemptAutostart,700);
+})();
+</script>
+
+<!-- page-view counter (static-site friendly; hides itself if unavailable) -->
+<script>
+(function(){
+  var el=document.getElementById('hitCount');if(!el)return;
+  fetch('https://api.counterapi.dev/v1/lewisbroome-com/bco-onboarding/up')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var n=d&&(typeof d.count==='number'?d.count:d.value);
+      if(typeof n==='number'){el.textContent=n.toLocaleString();var w=document.getElementById('hitWrap');if(w)w.classList.add('show');}
+    }).catch(function(){});
 })();
 </script>
 </body>
