@@ -367,6 +367,9 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 .foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:.86rem;font-weight:700}
 .foot-links a{color:rgba(255,255,255,.65);transition:color .25s}
 .foot-links a:hover{color:#fff}
+.foot-links a.track-link{display:inline-flex;align-items:center;gap:8px;color:#fff;background:rgba(31,157,87,.14);border:1px solid rgba(31,157,87,.4);padding:6px 14px;border-radius:999px}
+.foot-links a.track-link:hover{background:rgba(31,157,87,.24)}
+.foot-links .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(31,157,87,.6);animation:pulse 2s infinite}
 .foot-legal{width:100%;font-size:.74rem;color:rgba(255,255,255,.42);line-height:1.6}
 .foot-legal a{color:rgba(255,255,255,.6)}
 
@@ -730,6 +733,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
     <div class="foot-in">
       <div class="foot-brand"><span class="mark"><img src="assets/landstar-star.svg" alt="Landstar" width="32" height="32" /></span><div><b>STATESIDE</b><span>International Logistics</span></div></div>
       <nav class="foot-links" aria-label="Footer">
+        <a class="track-link" href="https://websphere.landstar.com/shipmgr/publictrack/search.xhtml" target="_blank" rel="noopener noreferrer"><span class="live-dot" aria-hidden="true"></span> Track your freight — live</a>
         <a href="quote.html">Get a quote</a>
         <a href="truckload.html">Request a truck</a>
         <a href="portal.html">Client portal</a>
