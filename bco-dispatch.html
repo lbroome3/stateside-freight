@@ -4,21 +4,20 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>BCO Dispatch — Stateside International Logistics</title>
-<meta name="description" content="Run with Stateside. Register your truck, sign on, and tap available to get dispatched through the Landstar network." />
+<meta name="description" content="Run with Stateside. Sign in with your email and truck number, then tap available to get dispatched through the Landstar network." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root{
     --ink:#0a1f33; --ink-2:#43617c; --bg:#ffffff; --bg-soft:#f4f8fc; --line:#e2eaf2;
-    --navy:#081a2c; --navy-2:#0d2740; --blue:#0e80d4; --blue-700:#0a63a6; --green:#1f9d57; --amber:#e08a1e; --red:#d4483b;
+    --navy:#081a2c; --navy-2:#0d2740; --blue:#0e80d4; --blue-700:#0a63a6; --green:#1f9d57; --red:#d4483b;
     --radius:16px; --shadow-sm:0 4px 16px rgba(10,31,51,.06); --shadow:0 20px 50px rgba(10,31,51,.12);
   }
   *{box-sizing:border-box;margin:0}
   body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg-soft);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
   h1,h2,h3{font-family:'Archivo','Inter',sans-serif;letter-spacing:-.02em;line-height:1.1}
   .wrap{max-width:560px;margin:0 auto;padding:0 18px 60px}
-  /* header */
   header{background:linear-gradient(180deg,var(--navy),var(--navy-2));color:#fff;padding:22px 18px 30px;border-radius:0 0 24px 24px;box-shadow:var(--shadow)}
   .head-in{max-width:560px;margin:0 auto}
   .brandrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -28,31 +27,30 @@
   @keyframes pulse{70%{box-shadow:0 0 0 7px rgba(62,224,138,0)}100%{box-shadow:0 0 0 0 rgba(62,224,138,0)}}
   header h1{font-size:clamp(1.7rem,7vw,2.3rem);font-weight:900;margin-top:16px}
   header p{color:#b9d2e8;font-size:.98rem;margin-top:8px;max-width:34ch}
-  /* cards */
   .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:20px;margin-top:18px}
   .eyebrow{font-family:'Archivo';font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
   label{display:block;font-weight:700;font-size:.82rem;color:var(--ink);margin:14px 0 6px}
   input,select{width:100%;font:inherit;font-size:1.05rem;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);outline:none;transition:border-color .2s}
   input:focus,select:focus{border-color:var(--blue)}
+  .code-in{text-align:center;font-family:'Archivo';font-size:1.9rem;font-weight:800;letter-spacing:.5rem}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;font-family:'Archivo';font-weight:800;font-size:1.05rem;padding:16px;border:none;border-radius:14px;cursor:pointer;transition:transform .15s,box-shadow .2s;margin-top:20px}
   .btn.primary{background:linear-gradient(135deg,var(--blue),var(--blue-700));color:#fff;box-shadow:0 12px 26px rgba(14,128,212,.35)}
   .btn.primary:active{transform:scale(.98)}
   .btn.ghost{background:transparent;color:var(--ink-2);border:1.5px solid var(--line);box-shadow:none;font-size:.95rem;padding:13px}
+  .btn[disabled]{opacity:.5;pointer-events:none}
   .muted{color:var(--ink-2);font-size:.88rem}
+  .link{color:var(--blue);font-weight:700;background:none;border:none;cursor:pointer;font-size:.88rem;padding:0}
   .hide{display:none!important}
-  /* contract */
   .terms{background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:.92rem}
   .terms h3{font-size:1.05rem;margin-bottom:10px}
   .terms ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:6px}
   .terms li{display:flex;gap:9px;align-items:flex-start}
-  .terms li b{color:var(--ink)}
   .chk{width:12px;height:12px;border-radius:3px;background:var(--blue);flex:none;margin-top:5px}
   .agree{display:flex;gap:11px;align-items:flex-start;margin-top:16px;cursor:pointer}
   .agree input{width:22px;height:22px;flex:none;margin-top:1px}
   .agree span{font-size:.9rem}
-  /* availability dashboard */
-  .avail{text-align:center;padding:26px 20px}
+  .avail{text-align:center;padding:24px 20px}
   .avail .who{font-weight:700}
   .bigtoggle{width:100%;padding:26px;border:none;border-radius:20px;cursor:pointer;font-family:'Archivo';font-weight:900;font-size:1.5rem;color:#fff;margin:18px 0;transition:transform .15s;display:flex;flex-direction:column;align-items:center;gap:6px}
   .bigtoggle:active{transform:scale(.98)}
@@ -61,33 +59,50 @@
   .bigtoggle.on{background:linear-gradient(135deg,var(--green),#157a41);box-shadow:0 16px 40px rgba(31,157,87,.4)}
   .statusline{font-weight:700;font-size:.95rem}
   .statusline.on{color:var(--green)} .statusline.off{color:var(--ink-2)}
+  .locbox{display:flex;gap:8px;align-items:center;margin-top:14px}
+  .locbox input{flex:1}
+  .gps{flex:none;background:var(--bg-soft);border:1.5px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;font-size:1.1rem}
   .foot{text-align:center;color:var(--ink-2);font-size:.8rem;margin-top:24px}
   .foot a{color:var(--blue);text-decoration:none;font-weight:700}
-  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;font-size:.9rem;box-shadow:var(--shadow);opacity:0;transition:opacity .3s;pointer-events:none;z-index:50}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;font-size:.9rem;box-shadow:var(--shadow);opacity:0;transition:opacity .3s;pointer-events:none;z-index:50;max-width:90vw;text-align:center}
   .toast.show{opacity:1}
 </style>
 </head>
 <body>
 <header><div class="head-in">
   <div class="brandrow"><b>STATESIDE&nbsp;·&nbsp;BCO DISPATCH</b><span class="live"><span class="dot"></span> Live</span></div>
-  <h1 id="hTitle">Run with Stateside.</h1>
-  <p id="hSub">Register your truck, sign on, and tap available — we push you loads through the Landstar network.</p>
+  <h1>Run with Stateside.</h1>
+  <p>Sign in with your email and truck number, then tap available — we push you loads through the Landstar network.</p>
 </div></header>
 
 <div class="wrap">
 
-  <!-- STEP 1: identify by truck # -->
-  <section class="card" id="stepId">
-    <div class="eyebrow">Get started</div>
+  <!-- STEP: email + truck -->
+  <section class="card" id="stepEmail">
+    <div class="eyebrow">Sign in</div>
+    <label for="email">Email address</label>
+    <input id="email" type="email" inputmode="email" placeholder="you@email.com" autocomplete="email" />
     <label for="truck">Truck number</label>
     <input id="truck" inputmode="numeric" placeholder="e.g. 580282" autocomplete="off" />
-    <button class="btn primary" id="idBtn">Continue</button>
-    <p class="muted" style="margin-top:12px">Your truck number is how Landstar tracks your load and location. One tap to check in next time.</p>
+    <button class="btn primary" id="sendBtn">Email me a code</button>
+    <p class="muted" style="margin-top:12px">We verify your email so only you can control your truck's dispatch status. Your truck number is how Landstar tracks your load &amp; location.</p>
   </section>
 
-  <!-- STEP 2: register details -->
+  <!-- STEP: verify code -->
+  <section class="card hide" id="stepCode">
+    <div class="eyebrow">Check your email</div>
+    <p class="muted" style="margin-top:6px">We sent a 6-digit code to <b id="codeEmail">your email</b>. Enter it below.</p>
+    <input id="code" class="code-in" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code" />
+    <button class="btn primary" id="verifyBtn">Verify &amp; continue</button>
+    <div style="margin-top:14px;display:flex;justify-content:space-between">
+      <button class="link" id="resend">Resend code</button>
+      <button class="link" id="changeEmail">Change email</button>
+    </div>
+  </section>
+
+  <!-- STEP: register -->
   <section class="card hide" id="stepReg">
-    <div class="eyebrow">New truck — quick setup</div>
+    <div class="eyebrow">Quick setup</div>
     <div class="row2">
       <div><label for="trailer">Trailer number</label><input id="trailer" placeholder="e.g. 671318" autocomplete="off" /></div>
       <div><label for="name">Your name</label><input id="name" placeholder="First Last" autocomplete="name" /></div>
@@ -95,19 +110,17 @@
     <label for="phone">Mobile number</label>
     <input id="phone" type="tel" inputmode="tel" placeholder="(555) 123-4567" autocomplete="tel" />
     <label for="equipment">Equipment</label>
-    <select id="equipment">
-      <option value="">Select…</option><option>53' Van</option><option>53' Reefer</option><option>Container / Drayage</option><option>Flatbed</option><option>Step Deck</option><option>Other</option>
-    </select>
+    <select id="equipment"><option value="">Select…</option><option>53' Van</option><option>53' Reefer</option><option>Container / Drayage</option><option>Flatbed</option><option>Step Deck</option><option>Other</option></select>
     <button class="btn primary" id="regBtn">Continue to agreement</button>
   </section>
 
-  <!-- STEP 3: dispatch contract -->
+  <!-- STEP: contract -->
   <section class="card hide" id="stepContract">
     <div class="eyebrow">Dispatch agreement</div>
     <div class="terms" style="margin-top:12px">
       <h3>How you get paid</h3>
       <ul>
-        <li><span class="chk"></span><span><b>Dispatch fee — 5% of the line haul.</b> That's it. Charged only on the line haul.</span></li>
+        <li><span class="chk"></span><span><b>Dispatch fee — 5% of the line haul.</b> Charged only on the line haul.</span></li>
         <li><span class="chk"></span><span><b>Accessorials go 100% to your truck</b> — nothing skimmed:</span></li>
         <li style="padding-left:21px"><span><b>Fuel surcharge</b> — currently $0.71 / mile</span></li>
         <li style="padding-left:21px"><span><b>Hazmat</b> — $100</span></li>
@@ -115,26 +128,29 @@
         <li><span class="chk"></span><span>You share your <b>truck &amp; trailer number</b> so Landstar can track the load and your location.</span></li>
         <li><span class="chk"></span><span>You control your status — go <b>available</b> or <b>offline</b> anytime.</span></li>
       </ul>
-      <p class="muted" style="margin-top:12px">Example: on a $1,000 load with ~$200 in accessorials, the line haul is $800 — your dispatch fee is <b>$40</b>, and you keep the rest plus every accessorial dollar.</p>
+      <p class="muted" style="margin-top:12px">Example: a $1,000 load with ~$200 in accessorials is $800 line haul — your dispatch fee is <b>$40</b>, and you keep the rest plus every accessorial dollar.</p>
     </div>
     <label class="agree"><input type="checkbox" id="agreeChk" /><span>I agree to the Stateside dispatch terms and authorize dispatch of loads to my truck.</span></label>
-    <button class="btn primary" id="contractBtn" disabled style="opacity:.5">Agree &amp; activate</button>
+    <button class="btn primary" id="contractBtn" disabled>Agree &amp; activate</button>
   </section>
 
-  <!-- STEP 4: availability dashboard -->
+  <!-- STEP: dashboard -->
   <section class="card avail hide" id="stepDash">
     <div class="eyebrow">Your dispatch board</div>
     <p class="who" id="dashWho" style="margin-top:8px">Truck —</p>
     <button class="bigtoggle off" id="toggleBtn">Go available<small>Tap when you're empty &amp; ready for a load</small></button>
     <p class="statusline off" id="statusLine">You're offline — not visible to dispatch.</p>
-    <div id="availExtra" class="hide" style="text-align:left;margin-top:14px">
-      <label for="loc">Where are you now?</label>
-      <input id="loc" placeholder="City, ST (e.g. Ocala, FL)" autocomplete="off" />
+    <div id="availExtra" class="hide" style="text-align:left">
+      <label for="loc">Your location</label>
+      <div class="locbox">
+        <input id="loc" placeholder="City, ST" autocomplete="off" />
+        <button class="gps" id="gpsBtn" title="Use my GPS location">📍</button>
+      </div>
       <label for="until">Available until</label>
       <select id="until"><option value="">End of day</option><option value="4">Next 4 hours</option><option value="8">Next 8 hours</option><option value="24">Next 24 hours</option></select>
       <button class="btn ghost" id="updateBtn">Update my status</button>
     </div>
-    <button class="btn ghost" id="signout" style="margin-top:18px">Not your truck? Switch</button>
+    <button class="btn ghost" id="signout" style="margin-top:18px">Sign out</button>
   </section>
 
   <p class="foot">Stateside International Logistics · Landstar freight · <a href="/">lewisbroome.com</a><br/>Questions? Call dispatch: <a href="tel:+18033611303">803-361-1303</a></p>
@@ -142,109 +158,111 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
-  var SB_URL='https://tjhxaqwvlencdnsyexnt.supabase.co/rest/v1/bco_drivers';
+  var SB_URL='https://tjhxaqwvlencdnsyexnt.supabase.co';
   var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqaHhhcXd2bGVuY2Ruc3lleG50Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjI0NTQsImV4cCI6MjA5NjU5ODQ1NH0.clR2g0qMrzRAC-3yosRsgTxMeE2ZVdb02oGjkxptFk8';
-  var H={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
+  var sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
   var $=function(id){return document.getElementById(id)};
-  var driver=null;
-  function toast(t){var e=$('toast');e.textContent=t;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},2200);}
-  function show(id){['stepId','stepReg','stepContract','stepDash'].forEach(function(s){$(s).classList.toggle('hide',s!==id)});}
+  var pendingEmail=null,pendingTruck=null,row=null,user=null;
+  function toast(t){var e=$('toast');e.textContent=t;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},2600);}
+  function show(id){['stepEmail','stepCode','stepReg','stepContract','stepDash'].forEach(function(s){$(s).classList.toggle('hide',s!==id)});}
+  function busy(btn,txt){btn.dataset.t=btn.textContent;btn.textContent=txt;btn.disabled=true;}
+  function unbusy(btn){btn.textContent=btn.dataset.t||btn.textContent;btn.disabled=false;}
 
-  // phone is write-only for the public key (revoked from anon SELECT for privacy),
-  // so never request it back — read/return an explicit non-phone column set.
-  var COLS='truck_number,trailer_number,name,contract_signed_at,available,available_location,equipment,available_until';
-  async function getDriver(truck){
-    var r=await fetch(SB_URL+'?truck_number=eq.'+encodeURIComponent(truck)+'&select='+COLS,{headers:H});
-    var d=await r.json(); return (d&&d[0])||null;
-  }
-  async function upsert(obj){
-    var r=await fetch(SB_URL+'?select='+COLS,{method:'POST',headers:Object.assign({},H,{'Prefer':'resolution=merge-duplicates,return=representation'}),body:JSON.stringify(obj)});
-    var d=await r.json(); if(!r.ok) throw new Error((d&&d.message)||'save failed');
-    return (d&&d[0])||obj;
-  }
-  async function patch(truck,obj){
-    obj.updated_at=new Date().toISOString();
-    var r=await fetch(SB_URL+'?truck_number=eq.'+encodeURIComponent(truck)+'&select='+COLS,{method:'PATCH',headers:Object.assign({},H,{'Prefer':'return=representation'}),body:JSON.stringify(obj)});
-    var d=await r.json(); if(!r.ok) throw new Error((d&&d.message)||'update failed');
-    return (d&&d[0])||Object.assign({},driver||{},{truck_number:truck},obj);
-  }
-  // Remember on-device that this truck registered + signed, so returning offline
-  // drivers (whose row RLS now hides) still skip straight to their board.
-  function remember(d){ if(!d||!d.truck_number)return; localStorage.setItem('bco_truck',d.truck_number); if(d.name)localStorage.setItem('bco_name_'+d.truck_number,d.name); if(d.contract_signed_at)localStorage.setItem('bco_signed_'+d.truck_number,'1'); }
-  function localDriver(t){ return { truck_number:t, name:localStorage.getItem('bco_name_'+t)||null, contract_signed_at:'local', available:false }; }
+  // ---- auth: email OTP ----
+  $('sendBtn').onclick=async function(){
+    var email=$('email').value.trim().toLowerCase(), truck=$('truck').value.replace(/\D/g,'').trim();
+    if(!/.+@.+\..+/.test(email)){toast('Enter a valid email');return;}
+    if(!truck){toast('Enter your truck number');return;}
+    pendingEmail=email; pendingTruck=truck; busy(this,'Sending…');
+    var res=await sb.auth.signInWithOtp({email:email,options:{shouldCreateUser:true}});
+    unbusy(this);
+    if(res.error){toast(res.error.message||'Could not send code');return;}
+    $('codeEmail').textContent=email; show('stepCode'); setTimeout(function(){$('code').focus()},200);
+  };
+  $('verifyBtn').onclick=async function(){
+    var code=$('code').value.replace(/\D/g,'').trim();
+    if(code.length<6){toast('Enter the 6-digit code');return;}
+    busy(this,'Verifying…');
+    var res=await sb.auth.verifyOtp({email:pendingEmail,token:code,type:'email'});
+    unbusy(this);
+    if(res.error){toast('That code is wrong or expired');return;}
+    await onAuthed();
+  };
+  $('resend').onclick=async function(){ if(!pendingEmail)return; await sb.auth.signInWithOtp({email:pendingEmail,options:{shouldCreateUser:true}}); toast('New code sent'); };
+  $('changeEmail').onclick=function(){ show('stepEmail'); };
 
+  async function onAuthed(){
+    var u=(await sb.auth.getUser()).data.user; user=u;
+    var q=await sb.from('bco_drivers').select('*').eq('user_id',user.id).maybeSingle();
+    row=q.data;
+    if(row&&row.contract_signed_at){renderDash();}
+    else if(row){show('stepContract');}
+    else{ show('stepReg'); }
+  }
+
+  // ---- register ----
+  $('regBtn').onclick=async function(){
+    busy(this,'Saving…');
+    var payload={user_id:user.id,email:user.email,truck_number:pendingTruck,trailer_number:$('trailer').value.trim()||null,name:$('name').value.trim()||null,phone:$('phone').value.trim()||null,equipment:$('equipment').value||null};
+    var res=await sb.from('bco_drivers').upsert(payload,{onConflict:'user_id'}).select().maybeSingle();
+    unbusy(this);
+    if(res.error){toast(res.error.message.indexOf('truck_number')>-1?'That truck number is already registered to another account.':res.error.message);return;}
+    row=res.data; show('stepContract');
+  };
+  // ---- contract ----
+  $('agreeChk').onchange=function(){$('contractBtn').disabled=!this.checked;};
+  $('contractBtn').onclick=async function(){
+    if(!$('agreeChk').checked)return; busy(this,'Activating…');
+    var res=await sb.from('bco_drivers').update({contract_signed_at:new Date().toISOString(),contract_version:'v1-5pct-linehaul'}).eq('user_id',user.id).select().maybeSingle();
+    unbusy(this);
+    if(res.error){toast(res.error.message);return;}
+    row=res.data; toast('You’re signed on — welcome aboard'); renderDash();
+  };
+
+  // ---- dashboard ----
   function renderDash(){
     show('stepDash');
-    $('dashWho').textContent='Truck '+driver.truck_number+(driver.name?' · '+driver.name:'');
-    var on=!!driver.available;
-    var btn=$('toggleBtn'), sl=$('statusLine');
+    $('dashWho').textContent='Truck '+row.truck_number+(row.name?' · '+row.name:'');
+    var on=!!row.available, btn=$('toggleBtn'), sl=$('statusLine');
     btn.className='bigtoggle '+(on?'on':'off');
     btn.innerHTML=on?'You’re available<small>Tap to go offline</small>':'Go available<small>Tap when you’re empty &amp; ready for a load</small>';
     sl.className='statusline '+(on?'on':'off');
-    sl.textContent=on?('You’re LIVE to dispatch'+(driver.available_location?' · '+driver.available_location:'')+'. We’ll call with a load.'):'You’re offline — not visible to dispatch.';
+    sl.textContent=on?('You’re LIVE to dispatch'+(row.available_location?' · '+row.available_location:'')+'. We’ll call with a load.'):'You’re offline — not visible to dispatch.';
     $('availExtra').classList.toggle('hide',!on);
-    if(driver.available_location)$('loc').value=driver.available_location;
+    if(row.available_location)$('loc').value=row.available_location;
   }
-
-  // STEP 1
-  $('idBtn').onclick=async function(){
-    var t=$('truck').value.replace(/\D/g,'').trim();
-    if(!t){toast('Enter your truck number');return;}
-    this.textContent='Checking…';this.disabled=true;
-    try{
-      driver=await getDriver(t);
-      localStorage.setItem('bco_truck',t);
-      if(driver&&driver.contract_signed_at){renderDash();}
-      else if(driver){show('stepContract');}
-      else if(localStorage.getItem('bco_signed_'+t)){ driver=localDriver(t); renderDash(); } // signed before, now offline (hidden)
-      else{ show('stepReg'); }
-    }catch(e){toast('Connection issue — try again');}
-    this.textContent='Continue';this.disabled=false;
-  };
-  // STEP 2
-  $('regBtn').onclick=async function(){
-    var t=localStorage.getItem('bco_truck');
-    this.textContent='Saving…';this.disabled=true;
-    try{
-      driver=await upsert({truck_number:t,trailer_number:$('trailer').value.trim()||null,name:$('name').value.trim()||null,phone:$('phone').value.trim()||null,equipment:$('equipment').value||null});
-      remember(driver); show('stepContract');
-    }catch(e){toast(e.message||'Save failed');}
-    this.textContent='Continue to agreement';this.disabled=false;
-  };
-  // STEP 3
-  $('agreeChk').onchange=function(){var b=$('contractBtn');b.disabled=!this.checked;b.style.opacity=this.checked?1:.5;};
-  $('contractBtn').onclick=async function(){
-    if(!$('agreeChk').checked)return;
-    this.textContent='Activating…';this.disabled=true;
-    try{ driver=await patch(driver.truck_number,{contract_signed_at:new Date().toISOString(),contract_version:'v1-5pct-linehaul'}); driver.contract_signed_at=driver.contract_signed_at||new Date().toISOString(); remember(driver); toast('You’re signed on — welcome aboard'); renderDash(); }
-    catch(e){toast(e.message||'Failed'); this.textContent='Agree & activate'; this.disabled=false;}
-  };
-  // STEP 4
+  async function saveRow(patch){
+    var res=await sb.from('bco_drivers').update(patch).eq('user_id',user.id).select().maybeSingle();
+    if(res.error){toast(res.error.message);return false;}
+    row=res.data; return true;
+  }
   $('toggleBtn').onclick=async function(){
-    var next=!driver.available;
-    this.style.opacity=.7;
-    try{
-      var until=null; var h=$('until')&&$('until').value; if(next&&h){until=new Date(Date.now()+(+h)*3600000).toISOString();}
-      driver=await patch(driver.truck_number,{available:next,available_location:next?($('loc').value.trim()||null):null,available_until:until});
-      renderDash(); toast(next?'You’re available — dispatch can see you':'You’re offline');
-    }catch(e){toast(e.message||'Failed');}
-    this.style.opacity=1;
+    var next=!row.available; this.style.opacity=.7;
+    var until=null,h=$('until')&&$('until').value; if(next&&h)until=new Date(Date.now()+(+h)*3600000).toISOString();
+    var ok=await saveRow({available:next,available_location:next?($('loc').value.trim()||row.available_location||null):row.available_location,available_until:until});
+    this.style.opacity=1; if(ok){renderDash();toast(next?'You’re available — dispatch can see you':'You’re offline');}
   };
   $('updateBtn').onclick=async function(){
-    try{ var h=$('until').value; var until=h?new Date(Date.now()+(+h)*3600000).toISOString():null;
-      driver=await patch(driver.truck_number,{available_location:$('loc').value.trim()||null,available_until:until}); renderDash(); toast('Status updated'); }
-    catch(e){toast(e.message||'Failed');}
+    var h=$('until').value,until=h?new Date(Date.now()+(+h)*3600000).toISOString():null;
+    if(await saveRow({available_location:$('loc').value.trim()||null,available_until:until})){renderDash();toast('Status updated');}
   };
-  $('signout').onclick=function(){localStorage.removeItem('bco_truck');driver=null;$('truck').value='';show('stepId');};
+  $('gpsBtn').onclick=function(){
+    if(!navigator.geolocation){toast('Location not supported');return;}
+    toast('Getting your location…');
+    navigator.geolocation.getCurrentPosition(async function(pos){
+      var la=pos.coords.latitude.toFixed(4),lo=pos.coords.longitude.toFixed(4);
+      var place=la+', '+lo;
+      try{ var r=await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+la+'&longitude='+lo+'&localityLanguage=en'); var j=await r.json(); var st=(j.principalSubdivisionCode||'').split('-').pop(); if(j.city||j.locality){place=(j.city||j.locality)+(st?', '+st:'');} }catch(e){}
+      $('loc').value=place; await saveRow({available_location:place}); renderDash(); toast('Location set: '+place);
+    },function(){toast('Could not get location — type your city');},{enableHighAccuracy:true,timeout:9000});
+  };
+  $('signout').onclick=async function(){ await sb.auth.signOut(); location.reload(); };
 
-  // returning driver — auto check-in
-  var saved=localStorage.getItem('bco_truck');
-  if(saved){ $('truck').value=saved; getDriver(saved).then(function(d){
-    if(d){driver=d; d.contract_signed_at?renderDash():show('stepContract');}
-    else if(localStorage.getItem('bco_signed_'+saved)){ driver=localDriver(saved); renderDash(); }
-  }).catch(function(){}); }
+  // resume session
+  sb.auth.getSession().then(function(r){ if(r.data.session){ onAuthed(); } });
 })();
 </script>
 </body>
