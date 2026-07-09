@@ -158,13 +158,19 @@
   }
   async function upsert(obj){
     var r=await fetch(SB_URL,{method:'POST',headers:Object.assign({},H,{'Prefer':'resolution=merge-duplicates,return=representation'}),body:JSON.stringify(obj)});
-    var d=await r.json(); if(!r.ok) throw new Error((d&&d.message)||'save failed'); return d[0];
+    var d=await r.json(); if(!r.ok) throw new Error((d&&d.message)||'save failed');
+    return (d&&d[0])||obj; // offline rows are hidden by RLS -> fall back to what we sent
   }
   async function patch(truck,obj){
     obj.updated_at=new Date().toISOString();
     var r=await fetch(SB_URL+'?truck_number=eq.'+encodeURIComponent(truck),{method:'PATCH',headers:Object.assign({},H,{'Prefer':'return=representation'}),body:JSON.stringify(obj)});
-    var d=await r.json(); if(!r.ok) throw new Error((d&&d.message)||'update failed'); return d[0];
+    var d=await r.json(); if(!r.ok) throw new Error((d&&d.message)||'update failed');
+    return (d&&d[0])||Object.assign({},driver||{},{truck_number:truck},obj); // keep state when the row is hidden (offline)
   }
+  // Remember on-device that this truck registered + signed, so returning offline
+  // drivers (whose row RLS now hides) still skip straight to their board.
+  function remember(d){ if(!d||!d.truck_number)return; localStorage.setItem('bco_truck',d.truck_number); if(d.name)localStorage.setItem('bco_name_'+d.truck_number,d.name); if(d.contract_signed_at)localStorage.setItem('bco_signed_'+d.truck_number,'1'); }
+  function localDriver(t){ return { truck_number:t, name:localStorage.getItem('bco_name_'+t)||null, contract_signed_at:'local', available:false }; }
 
   function renderDash(){
     show('stepDash');
@@ -189,7 +195,8 @@
       localStorage.setItem('bco_truck',t);
       if(driver&&driver.contract_signed_at){renderDash();}
       else if(driver){show('stepContract');}
-      else{ $('truck').dataset.val=t; show('stepReg'); }
+      else if(localStorage.getItem('bco_signed_'+t)){ driver=localDriver(t); renderDash(); } // signed before, now offline (hidden)
+      else{ show('stepReg'); }
     }catch(e){toast('Connection issue — try again');}
     this.textContent='Continue';this.disabled=false;
   };
@@ -199,7 +206,7 @@
     this.textContent='Saving…';this.disabled=true;
     try{
       driver=await upsert({truck_number:t,trailer_number:$('trailer').value.trim()||null,name:$('name').value.trim()||null,phone:$('phone').value.trim()||null,equipment:$('equipment').value||null});
-      show('stepContract');
+      remember(driver); show('stepContract');
     }catch(e){toast(e.message||'Save failed');}
     this.textContent='Continue to agreement';this.disabled=false;
   };
@@ -208,7 +215,7 @@
   $('contractBtn').onclick=async function(){
     if(!$('agreeChk').checked)return;
     this.textContent='Activating…';this.disabled=true;
-    try{ driver=await patch(driver.truck_number,{contract_signed_at:new Date().toISOString(),contract_version:'v1-5pct-linehaul'}); toast('You’re signed on — welcome aboard'); renderDash(); }
+    try{ driver=await patch(driver.truck_number,{contract_signed_at:new Date().toISOString(),contract_version:'v1-5pct-linehaul'}); driver.contract_signed_at=driver.contract_signed_at||new Date().toISOString(); remember(driver); toast('You’re signed on — welcome aboard'); renderDash(); }
     catch(e){toast(e.message||'Failed'); this.textContent='Agree & activate'; this.disabled=false;}
   };
   // STEP 4
@@ -231,7 +238,10 @@
 
   // returning driver — auto check-in
   var saved=localStorage.getItem('bco_truck');
-  if(saved){ $('truck').value=saved; getDriver(saved).then(function(d){ if(d){driver=d; if(d.contract_signed_at)renderDash(); else show('stepContract');} }).catch(function(){}); }
+  if(saved){ $('truck').value=saved; getDriver(saved).then(function(d){
+    if(d){driver=d; d.contract_signed_at?renderDash():show('stepContract');}
+    else if(localStorage.getItem('bco_signed_'+saved)){ driver=localDriver(saved); renderDash(); }
+  }).catch(function(){}); }
 })();
 </script>
 </body>
