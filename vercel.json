@@ -1,6 +1,20 @@
 {
   "rewrites": [
-    { "source": "/BCOonboarding", "destination": "/BCOonboarding.html" },
-    { "source": "/bcoonboarding", "destination": "/BCOonboarding.html" }
+    {
+      "source": "/BCOonboarding",
+      "destination": "/BCOonboarding.html"
+    },
+    {
+      "source": "/bcoonboarding",
+      "destination": "/BCOonboarding.html"
+    },
+    {
+      "source": "/bco-dispatch",
+      "destination": "/bco-dispatch.html"
+    },
+    {
+      "source": "/bco-dispatch/",
+      "destination": "/bco-dispatch.html"
+    }
   ]
 }
