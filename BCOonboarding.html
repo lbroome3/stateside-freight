@@ -869,7 +869,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
      GAP  = quiet beat between one section and the next
      dwell(text) = how long to hold a section when there's NO audio
                    (reading pace ~11 chars/sec, generous floor) */
-  var GAP=1400, VOEXT='.m4a';
+  var GAP=1400, VOEXT='.mp3';
   function dwell(text){return Math.max(7500,text.length*90);}
 
   /* playStop drives exactly ONE advance per section via the `done` guard,
