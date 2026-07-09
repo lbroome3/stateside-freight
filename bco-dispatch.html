@@ -152,20 +152,23 @@
   function toast(t){var e=$('toast');e.textContent=t;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},2200);}
   function show(id){['stepId','stepReg','stepContract','stepDash'].forEach(function(s){$(s).classList.toggle('hide',s!==id)});}
 
+  // phone is write-only for the public key (revoked from anon SELECT for privacy),
+  // so never request it back — read/return an explicit non-phone column set.
+  var COLS='truck_number,trailer_number,name,contract_signed_at,available,available_location,equipment,available_until';
   async function getDriver(truck){
-    var r=await fetch(SB_URL+'?truck_number=eq.'+encodeURIComponent(truck)+'&select=*',{headers:H});
+    var r=await fetch(SB_URL+'?truck_number=eq.'+encodeURIComponent(truck)+'&select='+COLS,{headers:H});
     var d=await r.json(); return (d&&d[0])||null;
   }
   async function upsert(obj){
-    var r=await fetch(SB_URL,{method:'POST',headers:Object.assign({},H,{'Prefer':'resolution=merge-duplicates,return=representation'}),body:JSON.stringify(obj)});
+    var r=await fetch(SB_URL+'?select='+COLS,{method:'POST',headers:Object.assign({},H,{'Prefer':'resolution=merge-duplicates,return=representation'}),body:JSON.stringify(obj)});
     var d=await r.json(); if(!r.ok) throw new Error((d&&d.message)||'save failed');
-    return (d&&d[0])||obj; // offline rows are hidden by RLS -> fall back to what we sent
+    return (d&&d[0])||obj;
   }
   async function patch(truck,obj){
     obj.updated_at=new Date().toISOString();
-    var r=await fetch(SB_URL+'?truck_number=eq.'+encodeURIComponent(truck),{method:'PATCH',headers:Object.assign({},H,{'Prefer':'return=representation'}),body:JSON.stringify(obj)});
+    var r=await fetch(SB_URL+'?truck_number=eq.'+encodeURIComponent(truck)+'&select='+COLS,{method:'PATCH',headers:Object.assign({},H,{'Prefer':'return=representation'}),body:JSON.stringify(obj)});
     var d=await r.json(); if(!r.ok) throw new Error((d&&d.message)||'update failed');
-    return (d&&d[0])||Object.assign({},driver||{},{truck_number:truck},obj); // keep state when the row is hidden (offline)
+    return (d&&d[0])||Object.assign({},driver||{},{truck_number:truck},obj);
   }
   // Remember on-device that this truck registered + signed, so returning offline
   // drivers (whose row RLS now hides) still skip straight to their board.
