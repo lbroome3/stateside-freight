@@ -263,8 +263,8 @@
 <script>
 (function(){
   "use strict";
-  var SB_LEAD='https://fgglqweohdhamapunofy.supabase.co/functions/v1/web-lead-capture';
-  var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnZ2xxd2VvaGRoYW1hcHVub2Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwOTM3MjYsImV4cCI6MjA3NzY2OTcyNn0.sJDjgE9NlSlkGhUaTWjMWUtovtuAJ4zn6qM7h6EuyB8';
+  var SB_LEAD='https://npbuchdosowfgtnjrwes.supabase.co/functions/v1/web-lead-capture';
+  var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wYnVjaGRvc293Zmd0bmpyd2VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Nzg3NTcsImV4cCI6MjA5OTU1NDc1N30.VRi5naGM_k1oHvBM0Mi92ybTU575xcG_afpFduHuz74';
   function pushLead(p){ try{ fetch(SB_LEAD,{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify(p)}).catch(function(){}); }catch(e){} }
   document.querySelectorAll('.check input').forEach(function(cb){
     cb.addEventListener('change',function(){ cb.closest('.check').classList.toggle('on',cb.checked); });
