@@ -1,0 +1,44 @@
+{
+  "rewrites": [
+    {
+      "source": "/BCOonboarding",
+      "destination": "/BCOonboarding.html"
+    },
+    {
+      "source": "/bcoonboarding",
+      "destination": "/BCOonboarding.html"
+    },
+    {
+      "source": "/bco-dispatch",
+      "destination": "/bco-dispatch.html"
+    },
+    {
+      "source": "/bco-dispatch/",
+      "destination": "/bco-dispatch.html"
+    },
+    {
+      "source": "/dispatch/prefs",
+      "destination": "https://broome-crm.vercel.app/api/bco-questionnaire"
+    },
+    {
+      "source": "/dispatch",
+      "destination": "https://broome-crm.vercel.app/api/driver-portal"
+    },
+    {
+      "source": "/api/tts",
+      "destination": "https://broome-crm.vercel.app/api/tts"
+    },
+    {
+      "source": "/api/driver-voice",
+      "destination": "https://broome-crm.vercel.app/api/driver-voice"
+    },
+    {
+      "source": "/api/driver-portal",
+      "destination": "https://broome-crm.vercel.app/api/driver-portal"
+    },
+    {
+      "source": "/api/bco-questionnaire",
+      "destination": "https://broome-crm.vercel.app/api/bco-questionnaire"
+    }
+  ]
+}
