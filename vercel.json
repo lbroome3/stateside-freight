@@ -21,6 +21,10 @@
       "destination": "/videos.html"
     },
     {
+      "source": "/rate-con",
+      "destination": "https://broome-crm.vercel.app/api/rate-con-confirm"
+    },
+    {
       "source": "/dispatch/join",
       "destination": "https://broome-crm.vercel.app/api/bco-signup"
     },
