@@ -17,6 +17,10 @@
       "destination": "/bco-dispatch.html"
     },
     {
+      "source": "/videos",
+      "destination": "/videos.html"
+    },
+    {
       "source": "/dispatch/prefs",
       "destination": "https://broome-crm.vercel.app/api/bco-questionnaire"
     },
