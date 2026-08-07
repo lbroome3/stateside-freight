@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/truckload",
+      "destination": "/truckload.html"
+    },
+    {
+      "source": "/quote",
+      "destination": "/quote.html"
+    },
+    {
       "source": "/portal",
       "destination": "/portal.html"
     },
