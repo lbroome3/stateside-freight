@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/portal",
+      "destination": "/portal.html"
+    },
+    {
       "source": "/BCOonboarding",
       "destination": "/BCOonboarding.html"
     },
