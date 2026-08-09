@@ -33,6 +33,14 @@
       "destination": "/videos.html"
     },
     {
+      "source": "/2seats",
+      "destination": "/2seats.html"
+    },
+    {
+      "source": "/2seats/",
+      "destination": "/2seats.html"
+    },
+    {
       "source": "/rate-con",
       "destination": "https://broome-crm.vercel.app/api/rate-con-confirm"
     },
