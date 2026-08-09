@@ -61,6 +61,10 @@
       "destination": "https://broome-crm.vercel.app/api/driver-portal"
     },
     {
+      "source": "/api/driver-apply",
+      "destination": "https://broome-crm.vercel.app/api/driver-apply"
+    },
+    {
       "source": "/api/tts",
       "destination": "https://broome-crm.vercel.app/api/tts"
     },

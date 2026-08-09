@@ -326,6 +326,57 @@
   }
   .aside b { color: var(--chrome); font-weight: 600; }
 
+  /* ── The capture form ───────────────────────────────────────────────────── */
+  .apply-form {
+    width: 100%;
+    max-width: 34rem;
+    margin-top: .5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .9rem;
+    text-align: left;
+  }
+  .field { grid-column: 1 / -1; display: flex; flex-direction: column; gap: .35rem; }
+  .field-half { grid-column: span 1; }
+
+  .apply-form label {
+    font-family: var(--mono);
+    font-size: .66rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--dust);
+  }
+  .apply-form input {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--steel);
+    color: var(--chrome);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    /* 16px minimum, or iOS zooms the whole page the moment the field is tapped. */
+    font: 16px/1.4 var(--body);
+    padding: .8rem .85rem;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .apply-form input::placeholder { color: rgba(138,147,163,.55); }
+  .apply-form input:focus {
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(245,165,36,.16);
+  }
+  .apply-form button { grid-column: 1 / -1; justify-content: center; cursor: pointer; }
+  .apply-form button[disabled] { opacity: .7; cursor: progress; }
+
+  .fineprint {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: .78rem;
+    color: var(--dust);
+    text-align: center;
+  }
+  /* Honeypot: off-screen and hidden from assistive tech, but a bot fills it in. */
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
   /* ── Closing band ───────────────────────────────────────────────────────── */
   .close { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
   .close h2 { font-size: clamp(2.4rem, 8vw, 4.4rem); }
@@ -385,7 +436,7 @@
           </p>
 
           <div class="cta-row" style="margin-top:.35rem">
-            <a class="btn btn-go" href="https://www.lewisbroome.com/BCOonboarding">
+            <a class="btn btn-go" href="#apply">
               Apply to drive
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
@@ -540,22 +591,63 @@
 
   <hr class="rule">
 
-  <section>
+  <!-- The application itself lives on Landstar's portal, which tells us nothing back. So
+       we ask for a name and a way to reach them on THIS side of the handoff, and forward
+       them on afterwards. A driver who starts an application and never finishes it is
+       still someone worth calling — that only works if we know they exist. -->
+  <section id="apply">
     <div class="wrap close">
       <p class="eyebrow">Two seats open</p>
       <h2 class="display">Take one.</h2>
-      <div class="cta-row">
-        <a class="btn btn-go" href="https://www.lewisbroome.com/BCOonboarding">
-          Start the application
+      <p class="lede" style="text-align:center">
+        Leave your name and I'll call you today. Then I'll send you straight into the
+        Landstar application.
+      </p>
+
+      <form class="apply-form" method="POST" action="/api/driver-apply">
+        <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="field">
+          <label for="f-name">Your name</label>
+          <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="First and last">
+        </div>
+
+        <div class="field">
+          <label for="f-phone">Cell number</label>
+          <input id="f-phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" placeholder="555-555-0100">
+        </div>
+
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@gmail.com">
+        </div>
+
+        <div class="field field-half">
+          <label for="f-state">Home state</label>
+          <input id="f-state" name="state" type="text" maxlength="2" autocomplete="address-level1" placeholder="MI" style="text-transform:uppercase">
+        </div>
+
+        <div class="field field-half">
+          <label for="f-exp">Years OTR</label>
+          <input id="f-exp" name="experience" type="text" inputmode="numeric" placeholder="3">
+        </div>
+
+        <button class="btn btn-go" type="submit">
+          <span class="btn-label">Continue to the application</span>
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        </button>
+
+        <p class="fineprint">
+          Goes to me and nobody else — no lists, no spam. The next page is Landstar's own
+          driver application.
+        </p>
+      </form>
+
+      <div class="cta-row" style="margin-top:1.5rem">
         <a class="btn btn-call" href="tel:+17064179097">
-          Call Lewis <span class="num">(706) 417-9097</span>
+          Rather just call? <span class="num">(706) 417-9097</span>
         </a>
       </div>
-      <p class="url">
-        <a href="https://www.lewisbroome.com/BCOonboarding">www.lewisbroome.com/BCOonboarding</a>
-      </p>
     </div>
   </section>
 
@@ -595,6 +687,55 @@
     }
     apply();
     q.addEventListener ? q.addEventListener("change", apply) : q.addListener(apply);
+  })();
+
+  // Log the applicant, then hand them to Landstar's application.
+  //
+  // The form posts and redirects perfectly well on its own with JavaScript off — this
+  // only makes it smoother. Two rules it must never break: the driver always reaches the
+  // application, and a failure on our side is never allowed to stop them. So any error
+  // falls through to the plain form submit rather than showing anybody an error page.
+  (function () {
+    var form = document.querySelector(".apply-form");
+    if (!form || !window.fetch) return;
+
+    form.addEventListener("submit", function (e) {
+      if (!form.reportValidity()) return;
+      e.preventDefault();
+
+      var btn = form.querySelector("button");
+      var label = form.querySelector(".btn-label");
+      btn.disabled = true;
+      if (label) label.textContent = "Taking you to the application…";
+
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+
+      var forwarded = false;
+      function go(url) {
+        if (forwarded) return;
+        forwarded = true;
+        window.location.href = url;
+      }
+      // Whatever happens — slow network, a bad response, an outage — they get there.
+      var failsafe = setTimeout(function () { form.submit(); }, 6000);
+
+      fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          clearTimeout(failsafe);
+          if (d && d.next) go(d.next);
+          else form.submit();
+        })
+        .catch(function () {
+          clearTimeout(failsafe);
+          form.submit();
+        });
+    });
   })();
 </script>
 </body>
