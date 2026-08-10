@@ -317,6 +317,49 @@
   .checks b { font-weight: 600; }
   .checks span { color: var(--dust); }
 
+  /* ── The spokesperson, beside the gate ──────────────────────────────────── */
+  .gate-pair { display: grid; gap: clamp(1rem, 3vw, 1.75rem); align-items: start; }
+  @media (min-width: 840px) {
+    .gate-pair { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); }
+  }
+
+  .agent {
+    position: relative;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--steel);
+    box-shadow: 0 24px 60px -30px rgba(0,0,0,.9);
+  }
+  .agent video { display: block; width: 100%; height: auto; }
+
+  /* Sound is off until asked for, so the control has to be unmissable rather than a
+     tasteful little speaker glyph in a corner. */
+  .sound {
+    position: absolute;
+    left: .7rem; bottom: .7rem;
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: .5rem .8rem;
+    border: 1px solid rgba(233,237,243,.28);
+    border-radius: 2px;
+    background: rgba(11,14,19,.82);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    color: var(--chrome);
+    font-family: var(--display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-size: .82rem;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease, transform .15s ease;
+  }
+  .sound:hover, .sound:focus-visible { transform: translateY(-1px); background: rgba(11,14,19,.95); border-color: var(--amber); }
+  .sound .i-on { display: none; }
+  .sound[aria-pressed="true"] { color: var(--amber); border-color: rgba(245,165,36,.5); }
+  .sound[aria-pressed="true"] .i-on { display: block; }
+  .sound[aria-pressed="true"] .i-off { display: none; }
+
   .aside {
     margin: 0;
     font-size: .9rem;
@@ -555,6 +598,23 @@
         <p>Landstar's requirements, plainly. If you're short on any of these, the application won't get through — save yourself the hour.</p>
       </div>
 
+      <div class="gate-pair">
+      <!-- Her captions are the qualifying line, so she runs beside the list rather than
+           floating on her own somewhere. Muted on load because every browser blocks sound
+           until someone asks for it — the button is the asking. -->
+      <figure class="agent" style="margin:0">
+        <video id="agentVid" autoplay muted loop playsinline preload="none"
+               poster="/assets/videos/poster-agent.jpg"
+               aria-label="Spokesperson describing the driving requirements">
+          <source src="/assets/videos/agent-2seats.mp4" type="video/mp4">
+        </video>
+        <button type="button" class="sound" id="soundBtn" aria-pressed="false">
+          <svg class="i-off" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+          <svg class="i-on" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+          <span class="sound-label">Sound on</span>
+        </button>
+      </figure>
+
       <div class="gate">
         <ul class="checks">
           <li>
@@ -585,6 +645,7 @@
           driver the same way. <b>Pay we settle on the call</b> — I'd rather agree it with you
           straight than post a number that turns out not to fit the freight.
         </p>
+      </div>
       </div>
     </div>
   </section>
@@ -679,14 +740,50 @@
   // setting here: freeze on the poster frame instead of looping the push-in.
   (function () {
     var q = window.matchMedia("(prefers-reduced-motion: reduce)");
-    var v = document.querySelector(".yard video");
-    if (!v) return;
+    var vids = document.querySelectorAll(".yard video, .agent video");
+    if (!vids.length) return;
     function apply() {
-      if (q.matches) { v.removeAttribute("autoplay"); v.pause(); v.currentTime = 0; }
-      else { v.play().catch(function () { /* a blocked autoplay just leaves the poster up */ }); }
+      Array.prototype.forEach.call(vids, function (v) {
+        if (q.matches) { v.removeAttribute("autoplay"); v.pause(); v.currentTime = 0; }
+        else { v.play().catch(function () { /* a blocked autoplay just leaves the poster up */ }); }
+      });
     }
     apply();
     q.addEventListener ? q.addEventListener("change", apply) : q.addListener(apply);
+  })();
+
+  // Sound on / sound off for the spokesperson.
+  //
+  // She loads muted because no browser will autoplay audio unasked, and one that tried
+  // would be muted anyway — or worse, blocked from playing at all. Tapping unmutes AND
+  // restarts, since by then she is mid-sentence and the first thing she says is the part
+  // worth hearing.
+  (function () {
+    var v = document.getElementById("agentVid");
+    var b = document.getElementById("soundBtn");
+    if (!v || !b) return;
+    var label = b.querySelector(".sound-label");
+
+    b.addEventListener("click", function () {
+      var turningOn = v.muted;
+      v.muted = !turningOn;
+      b.setAttribute("aria-pressed", String(turningOn));
+      if (label) label.textContent = turningOn ? "Sound off" : "Sound on";
+      if (turningOn) { v.currentTime = 0; v.play().catch(function () {}); }
+    });
+
+    // Don't talk over the page: if she scrolls out of view, mute and reset the control.
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting && !v.muted) {
+            v.muted = true;
+            b.setAttribute("aria-pressed", "false");
+            if (label) label.textContent = "Sound on";
+          }
+        });
+      }, { threshold: .25 }).observe(v);
+    }
   })();
 
   // Log the applicant, then hand them to Landstar's application.
