@@ -388,23 +388,25 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 /* ============================================================
    WALKTHROUGH PLAYER (floating pill + captions)
    ============================================================ */
-.player{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(140px);z-index:80;display:flex;align-items:center;gap:4px;background:rgba(8,26,44,.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 10px;box-shadow:var(--shadow-lg);color:#fff;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
-.player.show{transform:translateX(-50%) translateY(0)}
-.player button{display:flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;font-weight:700;font-size:.85rem;transition:background .25s;white-space:nowrap}
-.player button:hover{background:rgba(255,255,255,.1)}
-.player .pp{background:linear-gradient(135deg,var(--amber),var(--amber-700));box-shadow:0 6px 16px rgba(14,128,212,.4)}
-.player .pp:hover{background:linear-gradient(135deg,var(--amber),var(--amber-700));filter:brightness(1.1)}
-.player .sep{width:1px;height:22px;background:rgba(255,255,255,.14);margin:0 3px}
-.auto-tgl{display:flex;align-items:center;gap:9px;padding:9px 15px;font-size:.85rem;font-weight:700;color:rgba(255,255,255,.85)}
-.auto-tgl .sw{width:34px;height:19px;border-radius:999px;background:rgba(255,255,255,.2);position:relative;transition:background .25s;flex:none}
-.auto-tgl .sw::after{content:'';position:absolute;top:2.5px;left:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .25s}
-.auto-tgl[aria-checked="true"] .sw{background:var(--green)}
-.auto-tgl[aria-checked="true"] .sw::after{transform:translateX(14px)}
+.vo-stop{position:fixed;bottom:20px;left:16px;z-index:80;display:none;align-items:center;gap:7px;background:rgba(8,26,44,.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 14px;box-shadow:var(--shadow-lg);color:#fff;font-weight:700;font-size:.8rem;cursor:pointer}
+body.vo-playing .vo-stop{display:flex}
+.vo-stop:hover{background:rgba(8,26,44,1);border-color:rgba(255,255,255,.3)}
+
+
+
+
+
+
+
+
+
+
+
 .captions{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);z-index:79;max-width:min(540px,92vw);background:rgba(8,26,44,.82);backdrop-filter:blur(10px);color:#fff;font-size:.86rem;line-height:1.45;padding:9px 18px;border-radius:12px;text-align:center;opacity:0;pointer-events:none;transition:opacity .35s;border:1px solid rgba(255,255,255,.1)}
 .captions.show{opacity:1}
 body.cc-off .captions{display:none}
-#ccBtn[aria-checked="false"]{opacity:.45}
-#ccBtn[aria-checked="true"] svg{color:var(--green)}
+
+
 /* during playback, lift each section's content clear of the player + captions */
 body.vo-playing section.step{padding-bottom:min(230px,26vh)}
 
@@ -418,7 +420,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
 .vo-gate-btn svg{margin-left:5px}
 .vo-gate h3{font-family:'Archivo';font-weight:800;font-size:1.4rem}
 .vo-gate p{font-size:.92rem;color:rgba(255,255,255,.72);max-width:30ch}
-@media(max-width:640px){.player button span.txt{display:none}.player .pp span.txt{display:inline}.auto-tgl span.txt{display:none}}
+
 
 /* ---- mobile: fit every frame above the player + show all three modes ---- */
 @media(max-width:640px){
@@ -823,15 +825,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
 
 <!-- ============ WALKTHROUGH PLAYER ============ -->
 <div class="captions" id="captions" aria-live="polite"></div>
-<div class="player" id="player" role="toolbar" aria-label="Walkthrough playback">
-  <button class="pp" id="ppBtn" type="button" aria-label="Play walkthrough"><svg id="ppIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span class="txt" id="ppTxt">Play walkthrough</span></button>
-  <span class="sep" aria-hidden="true"></span>
-  <button class="auto-tgl" id="autoTgl" type="button" role="switch" aria-checked="true"><span class="sw" aria-hidden="true"></span><span class="txt">Auto-advance</span></button>
-  <span class="sep" aria-hidden="true"></span>
-  <button id="ccBtn" type="button" role="switch" aria-checked="false" aria-label="Toggle captions"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M8 10.5a2 2 0 1 0 0 3M16 10.5a2 2 0 1 0 0 3"/></svg><span class="txt">Captions</span></button>
-  <span class="sep" aria-hidden="true"></span>
-  <button id="stopBtn" type="button" aria-label="Stop walkthrough"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg><span class="txt">Stop</span></button>
-</div>
+<button class="vo-stop" id="stopBtn" type="button" aria-label="Stop the walkthrough" title="Stop the walkthrough"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg><span>Stop tour</span></button>
 
 <script>
 /* ============================================================
@@ -877,7 +871,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
        2. Web Speech API fallback (best installed voice)
        3. Silent timer fallback (auto-advance still works) */
   var stops=[].slice.call(document.querySelectorAll('[data-narr]'));
-  var player=$('player'), captions=$('captions'), ppBtn=$('ppBtn'), ppIcon=$('ppIcon'), ppTxt=$('ppTxt'), autoTgl=$('autoTgl'), stopBtn=$('stopBtn');
+  var captions=$('captions'), stopBtn=$('stopBtn');
   var playing=false, idx=0, auto=true, timer=null, synth=window.speechSynthesis||null, voice=null, unlocked=false;
 
   /* single reusable audio element — one user-gesture unlock covers every
@@ -897,12 +891,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   }
   if(synth){pickVoice();synth.onvoiceschanged=pickVoice;}
 
-  function setPP(on){
-    playing=on;
-    ppIcon.innerHTML=on?'<rect x="5" y="4" width="5" height="16" rx="1.5"/><rect x="14" y="4" width="5" height="16" rx="1.5"/>':'<path d="M8 5v14l11-7z"/>';
-    ppTxt.textContent=on?'Pause':'Play walkthrough';
-    ppBtn.setAttribute('aria-label',on?'Pause walkthrough':'Play walkthrough');
-  }
+  function setPP(on){playing=on}
   function caption(t){captions.textContent=t||'';captions.classList.toggle('show',!!t&&playing);}
   function clearTimer(){if(timer){clearTimeout(timer);timer=null}}
 
@@ -993,10 +982,8 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
     pause();idx=0;
     document.body.classList.remove('vo-playing');
   }
-
-  ppBtn.addEventListener('click',function(){playing?pause():play(false)});
   stopBtn.addEventListener('click',stop);
-  autoTgl.addEventListener('click',function(){auto=!auto;autoTgl.setAttribute('aria-checked',String(auto))});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&playing)stop()});
   var ccBtn=$('ccBtn');
   if(ccBtn)ccBtn.addEventListener('click',function(){
     var off=document.body.classList.toggle('cc-off');
@@ -1041,8 +1028,6 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
       if(!audioEverPlayed){pause();idx=0;unlocked=false;showGate();}
     },1100);
   }
-
-  setTimeout(function(){player.classList.add('show');},900);
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduce)setTimeout(attemptAutostart,700);
 })();
