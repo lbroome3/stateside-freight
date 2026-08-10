@@ -15,7 +15,7 @@ Here are the details you asked for up front:
 
 - **Name:** Lewis Broome, III
 - **Phone:** 803-361-1303
-- **Vehicle:** SUV — owner-provided, and I will carry the required 100/300/50 liability limits with Gill Logistics named as required before onboarding is complete.
+- **Vehicle:** 2014 Jeep Wrangler (SUV) — owned outright, hardtop and lockable, and I will carry the required 100/300/50 liability limits with Gill Logistics named as required before onboarding is complete.
 
 I'm based at 2902 Hwy 17 S in Atlantic Beach, roughly ten minutes from the North Myrtle Beach service area. A 6:00 am start is an easy commute for me, and staying inside the designated area through 2:00 pm to cover on-demand orders is not a problem — I'd rather be the driver who is already positioned when the call comes in than the one being dispatched from thirty miles out.
 
