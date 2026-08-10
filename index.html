@@ -47,6 +47,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
 <style>
+html{overflow-x:clip}
 /* ============================================================
    STATESIDE WALKTHROUGH — design system
    (colors & type inherited from the classic site)
@@ -408,7 +409,7 @@ body.cc-off .captions{display:none}
 
 
 /* during playback, lift each section's content clear of the player + captions */
-body.vo-playing section.step{padding-bottom:min(230px,26vh)}
+body.vo-playing section.step{padding-bottom:110px}
 
 /* ---- start gate (shown only if the browser blocks autoplay-with-sound) ---- */
 .vo-gate{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;background:rgba(6,18,32,.5);backdrop-filter:blur(3px);cursor:pointer;animation:gatein .45s ease}
@@ -464,7 +465,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
   .c-actions{gap:8px}
   .c-actions .ca{padding:9px;font-size:.8rem}
   /* reserve just enough room under the player while playing */
-  body.vo-playing section.step{padding-bottom:140px}
+  body.vo-playing section.step{padding-bottom:110px}
 }
 </style>
 </head>
@@ -893,7 +894,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
 
   function setPP(on){playing=on}
   function caption(t){captions.textContent=t||'';captions.classList.toggle('show',!!t&&playing);}
-  function clearTimer(){if(timer){clearTimeout(timer);timer=null}}
+  function clearTimer(){if(timer){clearTimeout(timer);timer=null}if(panTimer){clearTimeout(panTimer);panTimer=null}}
 
   /* keep the phone screen awake while the walkthrough is playing hands-free */
   var wakeLock=null;
@@ -912,7 +913,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
      GAP  = quiet beat between one section and the next
      dwell(text) = how long to hold a section when there's NO audio
                    (reading pace ~11 chars/sec, generous floor) */
-  var GAP=1400, VOEXT='.mp3';
+  var GAP=1400, VOEXT='.mp3', panTimer=null;
   function dwell(text){return Math.max(7500,text.length*90);}
 
   /* playStop drives exactly ONE advance per section via the `done` guard,
@@ -925,6 +926,14 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
     el.scrollIntoView({behavior:'smooth',block:'start'});
     caption(text);
     clearTimer();
+    /* a section taller than the screen gets one slow glide to its bottom edge
+       mid-narration, so nothing the voice mentions stays below the fold */
+    function schedulePan(totalMs){
+      var extra=el.offsetHeight-window.innerHeight+120;
+      if(extra>40){panTimer=setTimeout(function(){
+        if(playing&&idx===i)window.scrollTo({top:el.offsetTop+extra,behavior:'smooth'});
+      },Math.max(2500,totalMs*.55));}
+    }
     var done=false, spoke=false, audioOk=false;
 
     function advance(){
@@ -935,7 +944,7 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
        advances; a speech ERROR does NOT insta-advance (that was the old
        "too fast" bug) — it holds for reading time instead. */
     function toSpeech(){
-      if(spoke||done||!playing)return;spoke=true;clearTimer();
+      if(spoke||done||!playing)return;spoke=true;clearTimer();schedulePan(dwell(text));
       if(synth){
         try{synth.cancel();}catch(e){}
         var u=new SpeechSynthesisUtterance(text);
@@ -951,10 +960,10 @@ body.vo-playing section.step{padding-bottom:min(230px,26vh)}
 
     /* Before the first user gesture, browsers block ALL audio — so don't
        even try; just hold each section at a readable pace. */
-    if(!unlocked){timer=setTimeout(advance,dwell(text));return;}
+    if(!unlocked){timer=setTimeout(advance,dwell(text));schedulePan(dwell(text));return;}
 
     /* Unlocked: play the recorded clip; its real duration paces the tour. */
-    vo.onplaying=function(){audioOk=true;caption(text);};
+    vo.onplaying=function(){audioOk=true;caption(text);schedulePan(isFinite(vo.duration)&&vo.duration>1?vo.duration*1000:dwell(text));};
     vo.onended=advance;
     vo.onerror=toSpeech;
     try{
