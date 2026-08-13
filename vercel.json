@@ -149,6 +149,18 @@
       "destination": "https://broome-crm.vercel.app/api/portal-request"
     },
     {
+      "source": "/checkin",
+      "destination": "https://broome-crm.vercel.app/api/wrangle-pages?page=checkin"
+    },
+    {
+      "source": "/lot",
+      "destination": "https://broome-crm.vercel.app/api/wrangle-pages?page=lot"
+    },
+    {
+      "source": "/api/wrangle",
+      "destination": "https://broome-crm.vercel.app/api/wrangle"
+    },
+    {
       "source": "/x",
       "destination": "https://broome-crm.vercel.app/"
     },
