@@ -107,6 +107,10 @@
     {
       "source": "/api/stationery-photo",
       "destination": "https://broome-crm.vercel.app/api/stationery-photo"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "https://broome-crm.vercel.app/$1"
     }
   ]
 }
