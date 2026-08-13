@@ -81,6 +81,22 @@
       "destination": "https://broome-crm.vercel.app/api/bco-questionnaire"
     },
     {
+      "source": "/meet",
+      "destination": "https://broome-crm.vercel.app/api/meet-page"
+    },
+    {
+      "source": "/api/meet-slots",
+      "destination": "https://broome-crm.vercel.app/api/meet-slots"
+    },
+    {
+      "source": "/api/meet-book",
+      "destination": "https://broome-crm.vercel.app/api/meet-book"
+    },
+    {
+      "source": "/api/meet-ics",
+      "destination": "https://broome-crm.vercel.app/api/meet-ics"
+    },
+    {
       "source": "/team",
       "destination": "https://broome-crm.vercel.app/api/team-view"
     },
