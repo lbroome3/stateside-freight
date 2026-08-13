@@ -1,6 +1,26 @@
 {
   "rewrites": [
     {
+      "source": "/fireworks-import",
+      "destination": "/fireworks-import.html"
+    },
+    {
+      "source": "/fireworks-import/",
+      "destination": "/fireworks-import.html"
+    },
+    {
+      "source": "/fireworks",
+      "destination": "/fireworks-import.html"
+    },
+    {
+      "source": "/customs-bond",
+      "destination": "/customs-bond.html"
+    },
+    {
+      "source": "/customs-bond/",
+      "destination": "/customs-bond.html"
+    },
+    {
       "source": "/truckload",
       "destination": "/truckload.html"
     },
