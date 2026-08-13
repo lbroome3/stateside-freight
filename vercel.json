@@ -149,6 +149,10 @@
       "destination": "https://broome-crm.vercel.app/api/customer-portal"
     },
     {
+      "source": "/api/portal-request",
+      "destination": "https://broome-crm.vercel.app/api/portal-request"
+    },
+    {
       "source": "/x",
       "destination": "https://broome-crm.vercel.app/"
     },
