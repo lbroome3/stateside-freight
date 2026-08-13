@@ -141,6 +141,14 @@
       "destination": "https://broome-crm.vercel.app/api/load-docs"
     },
     {
+      "source": "/portal",
+      "destination": "https://broome-crm.vercel.app/api/portal-page"
+    },
+    {
+      "source": "/api/customer-portal",
+      "destination": "https://broome-crm.vercel.app/api/customer-portal"
+    },
+    {
       "source": "/x",
       "destination": "https://broome-crm.vercel.app/"
     },
