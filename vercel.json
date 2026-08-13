@@ -109,8 +109,40 @@
       "destination": "https://broome-crm.vercel.app/api/stationery-photo"
     },
     {
-      "source": "/(.*)",
-      "destination": "https://broome-crm.vercel.app/$1"
+      "source": "/assets/:path*",
+      "destination": "https://broome-crm.vercel.app/assets/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://broome-crm.vercel.app/api/:path*"
+    },
+    {
+      "source": "/landstar-logo.png",
+      "destination": "https://broome-crm.vercel.app/landstar-logo.png"
+    },
+    {
+      "source": "/sw.js",
+      "destination": "https://broome-crm.vercel.app/sw.js"
+    },
+    {
+      "source": "/manifest.json",
+      "destination": "https://broome-crm.vercel.app/manifest.json"
+    },
+    {
+      "source": "/x",
+      "destination": "https://broome-crm.vercel.app/"
+    },
+    {
+      "source": "/x/:path*",
+      "destination": "https://broome-crm.vercel.app/:path*"
+    },
+    {
+      "source": "/X",
+      "destination": "https://broome-crm.vercel.app/"
+    },
+    {
+      "source": "/X/:path*",
+      "destination": "https://broome-crm.vercel.app/:path*"
     }
   ]
 }
