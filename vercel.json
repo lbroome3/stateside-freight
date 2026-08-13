@@ -129,6 +129,18 @@
       "destination": "https://broome-crm.vercel.app/manifest.json"
     },
     {
+      "source": "/photos",
+      "destination": "https://broome-crm.vercel.app/api/photos-page"
+    },
+    {
+      "source": "/docs",
+      "destination": "https://broome-crm.vercel.app/api/docs-page"
+    },
+    {
+      "source": "/api/load-docs",
+      "destination": "https://broome-crm.vercel.app/api/load-docs"
+    },
+    {
       "source": "/x",
       "destination": "https://broome-crm.vercel.app/"
     },
