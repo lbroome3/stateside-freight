@@ -79,6 +79,18 @@
     {
       "source": "/api/bco-questionnaire",
       "destination": "https://broome-crm.vercel.app/api/bco-questionnaire"
+    },
+    {
+      "source": "/team",
+      "destination": "https://broome-crm.vercel.app/api/team-view"
+    },
+    {
+      "source": "/api/viewer-data",
+      "destination": "https://broome-crm.vercel.app/api/viewer-data"
+    },
+    {
+      "source": "/api/stationery-photo",
+      "destination": "https://broome-crm.vercel.app/api/stationery-photo"
     }
   ]
 }
