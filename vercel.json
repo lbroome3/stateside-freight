@@ -21,6 +21,10 @@
       "destination": "/customs-bond.html"
     },
     {
+      "source": "/ours",
+      "destination": "/ours.html"
+    },
+    {
       "source": "/truckload",
       "destination": "/truckload.html"
     },

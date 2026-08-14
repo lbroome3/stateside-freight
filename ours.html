@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Lewis ♥ Kaylah</title>
+<meta property="og:title" content="Lewis ♥ Kaylah">
+<meta property="og:description" content="Counting down to our next moment, always.">
+<style>
+  :root { --navy:#081226; --deep:#0b1a36; --gold:#d4af5f; --gold2:#f0d49a; --ink:#f5ecd9; --rose:#e8788a; }
+  * { margin:0; box-sizing:border-box; }
+  html,body { height:100%; }
+  body {
+    background: radial-gradient(1200px 800px at 50% 120%, #12295a 0%, var(--deep) 45%, var(--navy) 100%);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    padding: 6vh 20px 8vh;
+    position: relative;
+  }
+  /* the sky */
+  .star { position: fixed; border-radius: 50%; background: #fff; opacity:.7; animation: tw linear infinite; pointer-events:none; }
+  @keyframes tw { 0%,100%{opacity:.15} 50%{opacity:.9} }
+  /* floating hearts */
+  .heart { position: fixed; bottom:-4vh; font-size: 18px; opacity: 0; animation: rise linear infinite; pointer-events: none; }
+  @keyframes rise {
+    0% { transform: translateY(0) rotate(-8deg); opacity: 0; }
+    12% { opacity: .5; }
+    100% { transform: translateY(-110vh) rotate(10deg); opacity: 0; }
+  }
+  .names {
+    font-size: clamp(34px, 8vw, 64px);
+    letter-spacing: .06em;
+    color: var(--gold2);
+    text-shadow: 0 0 30px rgba(212,175,95,.35);
+    margin-bottom: 6px;
+  }
+  .names .amp { color: var(--rose); font-style: italic; padding: 0 .15em; }
+  .est { font-size: 13px; letter-spacing: .5em; text-transform: uppercase; color: #9fb0d0; margin-bottom: 6vh; }
+  .moment { font-size: clamp(16px, 3.4vw, 22px); color: var(--gold); letter-spacing:.18em; text-transform: uppercase; margin-bottom: 2.5vh; }
+  .count { display:flex; gap: clamp(8px,2.5vw,22px); justify-content:center; margin-bottom: 1.5vh; }
+  .cell {
+    min-width: clamp(64px, 18vw, 120px);
+    padding: clamp(10px,2.5vw,20px) 6px;
+    background: rgba(240,212,154,.05);
+    border: 1px solid rgba(212,175,95,.35);
+    border-radius: 14px;
+    backdrop-filter: blur(3px);
+    box-shadow: 0 8px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .num { font-size: clamp(34px, 9vw, 68px); font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.05; }
+  .lab { font-size: clamp(9px, 2vw, 12px); letter-spacing: .3em; text-transform: uppercase; color: #9fb0d0; margin-top: 6px; }
+  .sub { color:#b9c6e2; font-size: clamp(14px,3vw,17px); font-style: italic; margin-bottom: 7vh; }
+  .line { width: 120px; height: 1px; margin: 0 auto 5vh; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .story { max-width: 560px; }
+  .story .when { color: var(--gold); font-size: 12px; letter-spacing:.3em; text-transform: uppercase; }
+  .story .what { font-size: clamp(17px,3.6vw,21px); margin: 4px 0 26px; }
+  .foot { margin-top: auto; padding-top: 6vh; color:#7487ab; font-size: 12px; letter-spacing:.14em; }
+  .foot b { color: var(--gold); }
+  #fireworks { display:none; font-size: clamp(40px, 10vw, 80px); margin-bottom: 3vh; animation: pop 1.2s ease infinite alternate; }
+  @keyframes pop { from { transform: scale(.94); } to { transform: scale(1.06); } }
+</style>
+</head>
+<body>
+  <div class="names">Lewis <span class="amp">♥</span> Kaylah</div>
+  <div class="est">est · august 24 · 2024</div>
+
+  <div id="fireworks">🎆✨🎆</div>
+  <div class="moment" id="moment">…</div>
+  <div class="count">
+    <div class="cell"><div class="num" id="d">–</div><div class="lab">days</div></div>
+    <div class="cell"><div class="num" id="h">–</div><div class="lab">hours</div></div>
+    <div class="cell"><div class="num" id="m">–</div><div class="lab">minutes</div></div>
+    <div class="cell"><div class="num" id="s">–</div><div class="lab">seconds</div></div>
+  </div>
+  <div class="sub" id="sub">…</div>
+
+  <div class="line"></div>
+  <div class="story">
+    <div class="when">August 24, 2024 · 6:30 in the evening</div>
+    <div class="what">The day I married the love of my life.</div>
+    <div class="when">October 29 · every year</div>
+    <div class="what">The day the world got Kaylah — crowned 👑 and celebrated in this house.</div>
+    <div class="when">Every day in between</div>
+    <div class="what">Counting nothing but blessings.</div>
+  </div>
+
+  <div class="foot">counting every second, because every second counts · <b>L ♥ K</b></div>
+
+<script>
+(function(){
+  // The sky: a hundred quiet stars, a few hearts always rising.
+  for (var i=0;i<110;i++){
+    var st=document.createElement('div'); st.className='star';
+    var sz=(Math.random()*2+1).toFixed(1);
+    st.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(Math.random()*100)+'vw;top:'+(Math.random()*100)+'vh;animation-duration:'+(2+Math.random()*5)+'s;animation-delay:'+(Math.random()*4)+'s';
+    document.body.appendChild(st);
+  }
+  var HEARTS=['❤️','💛','✨','❤️','🤍'];
+  for (var j=0;j<12;j++){
+    var hb=document.createElement('div'); hb.className='heart';
+    hb.textContent=HEARTS[j%HEARTS.length];
+    hb.style.cssText='left:'+(Math.random()*96)+'vw;font-size:'+(12+Math.random()*16)+'px;animation-duration:'+(14+Math.random()*16)+'s;animation-delay:'+(Math.random()*14)+'s';
+    document.body.appendChild(hb);
+  }
+
+  // The engine: always counting to the NEXT moment that matters.
+  // Anniversary: Aug 24, 6:30 PM Eastern. Kaylah's day: Oct 29.
+  function nextMoments(now){
+    var y=now.getFullYear(), list=[];
+    for (var yy=y; yy<=y+1; yy++){
+      list.push({t:new Date(yy+'-08-24T18:30:00-04:00'), kind:'anni', years: yy-2024});
+      list.push({t:new Date(yy+'-10-29T00:00:00-04:00'), kind:'bday'});
+    }
+    list.sort(function(a,b){return a.t-b.t});
+    return list;
+  }
+  var WORDS={ anni:function(n){ return {
+      moment: n.years===2 ? 'two years married' : n.years+' years married',
+      sub: 'until I get to say: happy anniversary, my love.' }; },
+    bday:function(){ return { moment: "Kaylah's day 👑", sub: 'until the queen’s birthday.' }; } };
+
+  function tick(){
+    var now=new Date();
+    var ms=nextMoments(now), target=null;
+    for (var i=0;i<ms.length;i++){
+      // Celebrate ON the day: hold the fireworks for 24 hours after the moment.
+      if (now - ms[i].t < 0){ target=ms[i]; break; }
+      if (now - ms[i].t < 24*3600*1000){ target=ms[i]; target.today=true; break; }
+    }
+    var w=WORDS[target.kind](target);
+    var fx=document.getElementById('fireworks');
+    if (target.today){
+      fx.style.display='block';
+      document.getElementById('moment').textContent = target.kind==='anni' ? 'today — '+w.moment+'!' : "today is Kaylah's day 👑";
+      ['d','h','m','s'].forEach(function(id){document.getElementById(id).textContent='0';});
+      document.getElementById('sub').textContent = target.kind==='anni' ? 'Happy anniversary, my love.' : 'Happy birthday, my love.';
+      return;
+    }
+    fx.style.display='none';
+    var diff=target.t-now;
+    var d=Math.floor(diff/86400000), h=Math.floor(diff/3600000)%24, m=Math.floor(diff/60000)%60, s=Math.floor(diff/1000)%60;
+    document.getElementById('moment').textContent = 'counting down to ' + w.moment;
+    document.getElementById('d').textContent=d;
+    document.getElementById('h').textContent=h;
+    document.getElementById('m').textContent=(m<10?'0':'')+m;
+    document.getElementById('s').textContent=(s<10?'0':'')+s;
+    document.getElementById('sub').textContent=w.sub;
+  }
+  tick(); setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>
