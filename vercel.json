@@ -177,6 +177,10 @@
       "destination": "https://broome-crm.vercel.app/api/wrangle-pages?page=checkin"
     },
     {
+      "source": "/offer/:id",
+      "destination": "https://broome-crm.vercel.app/api/load-offer?id=:id"
+    },
+    {
       "source": "/lotmap",
       "destination": "https://broome-crm.vercel.app/api/wrangle-pages?page=map"
     },
