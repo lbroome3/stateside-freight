@@ -65,6 +65,10 @@
       "destination": "https://broome-crm.vercel.app/api/rate-con-confirm"
     },
     {
+      "source": "/j/:token",
+      "destination": "https://broome-crm.vercel.app/api/join-page?token=:token"
+    },
+    {
       "source": "/v/:token",
       "destination": "https://broome-crm.vercel.app/api/verify-page?token=:token"
     },
