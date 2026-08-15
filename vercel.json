@@ -73,6 +73,10 @@
       "destination": "https://broome-crm.vercel.app/api/rate-con-confirm?t=:token"
     },
     {
+      "source": "/partner-card.png",
+      "destination": "https://broome-crm.vercel.app/partner-card.png"
+    },
+    {
       "source": "/rate-con-card.png",
       "destination": "https://broome-crm.vercel.app/rate-con-card.png"
     },
