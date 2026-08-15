@@ -141,6 +141,10 @@
       "destination": "https://broome-crm.vercel.app/assets/:path*"
     },
     {
+      "source": "/calendar.ics",
+      "destination": "https://broome-crm.vercel.app/api/calendar-ics"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://broome-crm.vercel.app/api/:path*"
     },
