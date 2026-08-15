@@ -61,6 +61,18 @@
   .story .what { font-size: clamp(17px,3.6vw,21px); margin: 4px 0 26px; }
   .foot { margin-top: auto; padding-top: 6vh; color:#7487ab; font-size: 12px; letter-spacing:.14em; }
   .foot b { color: var(--gold); }
+  .alt { color:#8ea3c6; font-size: clamp(12px,2.6vw,14px); letter-spacing:.12em; text-transform:uppercase; margin-bottom: 3vh; }
+  .note {
+    max-width: 560px; margin: 0 auto 5vh; padding: clamp(18px,4vw,26px) clamp(16px,4vw,28px);
+    background: linear-gradient(160deg, rgba(240,212,154,.09), rgba(240,212,154,.03));
+    border: 1px solid rgba(212,175,95,.4); border-radius: 18px;
+    box-shadow: 0 10px 44px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.07);
+  }
+  .note .day { font-size: 11px; letter-spacing:.34em; text-transform: uppercase; color: var(--gold); }
+  .note .txt { font-size: clamp(18px,4vw,24px); line-height:1.5; color: var(--ink); margin: 12px 0 0; font-style: italic; }
+  .note .sig { margin-top: 14px; font-size: 13px; letter-spacing:.2em; color:#9fb0d0; text-transform: uppercase; }
+  .again { color:#7d8fb3; font-size: 12px; letter-spacing:.14em; margin-bottom: 5vh; font-style: italic; }
+  .halfsix { color: var(--rose); font-size: clamp(13px,3vw,16px); margin: -1vh auto 4vh; max-width: 520px; font-style: italic; }
   #fireworks { display:none; font-size: clamp(40px, 10vw, 80px); margin-bottom: 3vh; animation: pop 1.2s ease infinite alternate; }
   @keyframes pop { from { transform: scale(.94); } to { transform: scale(1.06); } }
 </style>
@@ -78,6 +90,15 @@
     <div class="cell"><div class="num" id="s">–</div><div class="lab">seconds</div></div>
   </div>
   <div class="sub" id="sub">…</div>
+  <div class="alt" id="alt"></div>
+  <div class="halfsix" id="halfsix" style="display:none"></div>
+
+  <div class="note" id="noteCard" style="display:none">
+    <div class="day" id="noteDay"></div>
+    <p class="txt" id="noteTxt"></p>
+    <div class="sig">— Lewis</div>
+  </div>
+  <div class="again" id="again"></div>
 
   <div class="line"></div>
   <div class="story">
@@ -124,6 +145,165 @@
       sub: 'until I get to say: happy anniversary, my love.' }; },
     bday:function(){ return { moment: "Kaylah's day 👑", sub: 'until the queen’s birthday.' }; } };
 
+
+  // ── WHAT MAKES HER COME BACK ────────────────────────────────────────────────────
+  // Lewis, 8/15: "that ten day countdown needs to change throughout the day, saying
+  // stuff differently. Give a reason to keep looking at it."
+  //
+  // A clock that only counts down is the same page every time you open it, so you stop
+  // opening it. Three things change here instead:
+  //
+  //   1. A NOTE THAT LASTS ONE DAY. Each day of the countdown has its own note and it is
+  //      gone at midnight. That is the reason to come back tomorrow — tomorrow's is new
+  //      and today's will never be here again.
+  //   2. A VOICE THAT KNOWS THE HOUR. Opening this at 6 in the morning should not read
+  //      the same as opening it at 11 at night, because it isn't the same moment.
+  //   3. THE SAME TIME, COUNTED DIFFERENTLY. Nine days is also 216 hours, two more
+  //      Saturdays, nine more sunsets. The number stops being a number.
+  //
+  // And at 6:30 every evening — the minute they married — the page says so. A standing
+  // appointment, once a day, that only exists for sixty minutes.
+  //
+  // EVERYTHING IS COMPUTED IN THE BROWSER from the Eastern date, so the note turns over
+  // at midnight at home no matter which phone is holding it, and no server has to be
+  // awake for any of this to work.
+
+  // ── THE NOTES. Edit these. They are meant to sound like Lewis, not like a card. ──
+  // Index = days remaining. 0 is the day itself.
+  var ANNI_NOTES = [
+    "Two years ago right now I was standing at the front of a room watching you walk toward me. I have not had a better minute since. Happy anniversary, my love.",
+    "Tomorrow makes two years. I have been sitting here trying to think of what I would change, and I have got nothing.",
+    "Two days. People say the first years are the hard ones. Nobody warned me they would go this fast.",
+    "Three days out. I still catch myself looking at you across a room like I did that night.",
+    "Four days. Every load I move is for us. That has not changed since the day I met you and it is not going to.",
+    "Five days to two years. Best deal I ever closed, and I did not even have to negotiate.",
+    "Six days. Been thinking about our first dance all morning. I was terrible. You made me look good. That is kind of the whole story.",
+    "One week from two years. I love you more than I did on day one, and I did not think that was possible then.",
+    "Eight days. You are still the whole reason. Every bit of it.",
+    "Nine days. I started counting early because I could not wait, and I am not sorry.",
+    "Ten days to two years. The countdown is on, my love."
+  ];
+  var BDAY_NOTES = [
+    "Happy birthday to my queen. 👑 Today the whole world runs on your schedule.",
+    "Tomorrow is your day. Rest up — you are getting celebrated whether you like it or not.",
+    "Two days until the queen's birthday. I have plans. That is all I am saying.",
+    "Three days out from your day. 👑",
+    "Four days. Already planning, already smiling about it.",
+    "Five days until Kaylah Day. The best day on my calendar that is not August 24.",
+    "Six days. You still do not look a day older than the night I met you.",
+    "One week to your birthday, my love.",
+    "Eight days out. 👑",
+    "Nine days until your day, and I am already counting.",
+    "Ten days to Kaylah Day. 👑"
+  ];
+  // Outside the ten-day windows this rotates, one per day, so the page is never empty.
+  var EVERYDAY = [
+    "No occasion today. Still my favorite person.",
+    "Nothing on the calendar. Everything still for you.",
+    "Ordinary Tuesday, extraordinary wife. That math has always worked out in my favor.",
+    "Counting nothing but blessings today.",
+    "Somewhere out on a road right now, thinking about getting home to you.",
+    "Every load I move is for us.",
+    "You are the reason any of this is worth building."
+  ];
+  var WORD = ["today","one","two","three","four","five","six","seven","eight","nine","ten"];
+
+  // ── THE HOUR'S VOICE. Same day, different moment. ──
+  var HOURS = [
+    { to: 4,  lines: ["still up, still counting.", "the house is quiet and I am thinking about you.", "late. thinking about you anyway."] },
+    { to: 8,  lines: ["good morning, my love.", "first thought of the day, same as always.", "morning. one day closer."] },
+    { to: 11, lines: ["somewhere out here working, and counting.", "middle of the morning and you crossed my mind again.", "one day closer, and the morning is not even over."] },
+    { to: 13, lines: ["lunch hour. thinking about you.", "hope you are eating something. I am thinking about you.", "midday check-in from a man who misses his wife."] },
+    { to: 17, lines: ["afternoon, and the clock is on our side today.", "getting closer while you were not looking.", "half the day gone, half a day closer."] },
+    { to: 20, lines: ["evening. best part of the day is the one with you in it.", "sun is going down on one more day of waiting.", "almost home."] },
+    { to: 24, lines: ["goodnight, my love. one less day between us and it.", "one more day off the board. goodnight.", "the day is done and we are closer than we were this morning."] }
+  ];
+
+  // ── THE SAME TIME, COUNTED DIFFERENTLY ──
+  function framings(cal, msLeft) {
+    var out = [];
+    var hours = Math.floor(msLeft / 3600000);
+    if (hours > 0) out.push(hours.toLocaleString() + " hours");
+    if (cal > 0) out.push(cal + (cal === 1 ? " more sunset" : " more sunsets"));
+    var sats = 0, dt = new Date();
+    for (var i = 1; i <= cal; i++) { dt.setDate(dt.getDate() + 1); if (dt.getDay() === 6) sats++; }
+    if (sats > 0) out.push(sats + (sats === 1 ? " more Saturday" : " more Saturdays"));
+    if (cal >= 7) out.push(Math.floor(cal / 7) + (cal < 14 ? " more week" : " more weeks") + (cal % 7 ? " and change" : ""));
+    if (cal > 0 && cal <= 3) out.push("nearly here");
+    return out;
+  }
+
+  // The Eastern calendar day, so the note turns over at midnight AT HOME regardless of
+  // which phone is holding the page.
+  function etParts(now) {
+    var p = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric",
+      month: "numeric", day: "numeric", hour: "numeric", hour12: false }).formatToParts(now);
+    var g = function (t) { return Number(p.find(function (x) { return x.type === t; }).value); };
+    return { y: g("year"), m: g("month"), d: g("day"), h: g("hour") % 24 };
+  }
+  // A stable number for "which day is it" — so one note holds all day and changes once.
+  function daySeed(e) { return e.y * 10000 + e.m * 100 + e.d; }
+
+  // WHOLE CALENDAR DAYS, not milliseconds. The big counter runs to the exact minute they
+  // married — 6:30 in the evening — but a NOTE that turned over at 6:30 PM would have
+  // broken the one promise this page makes out loud: a new one every day. Counting
+  // calendar dates in Eastern time means the note changes at midnight at home, which is
+  // when a day actually ends to the two people reading it.
+  function calDaysUntil(e, month, day) {
+    var today = Date.UTC(e.y, e.m - 1, e.d);
+    var target = Date.UTC(e.y, month - 1, day);
+    if (target < today) target = Date.UTC(e.y + 1, month - 1, day);
+    return Math.round((target - today) / 86400000);
+  }
+
+  function dress(target, diff) {
+    var now = new Date(), e = etParts(now);
+    var seed = daySeed(e);
+    var d = target.kind === "anni" ? calDaysUntil(e, 8, 24) : calDaysUntil(e, 10, 29);
+
+    // The hour's voice, with the day's seed picking which variant — so the same hour on
+    // two different days does not read identically either.
+    var band = HOURS[0];
+    for (var i = 0; i < HOURS.length; i++) { if (e.h < HOURS[i].to) { band = HOURS[i]; break; } }
+    document.getElementById("sub").textContent = band.lines[seed % band.lines.length];
+
+    // The same wait, counted a different way each time the hour turns.
+    var f = framings(d, Math.max(0, diff));
+    document.getElementById("alt").textContent = f.length ? "that's " + f[(e.h + seed) % f.length] : "";
+
+    // TODAY'S NOTE — one day only.
+    var notes = target.kind === "anni" ? ANNI_NOTES : BDAY_NOTES;
+    var card = document.getElementById("noteCard");
+    var txt, label;
+    if (d <= 10 && notes[d]) {
+      txt = notes[d];
+      // THE DAY ITSELF READS DIFFERENTLY BEFORE AND AFTER 6:30. "Two years ago right
+      // now" is only true after the minute it happened; at nine in the morning it is a
+      // sentence that has not come true yet.
+      if (d === 0 && target.kind === "anni" && e.h < 18) {
+        txt = "Two years ago today I married the love of my life, and at half past six this evening it will have been exactly that. Happy anniversary, my love.";
+      }
+      label = d === 0 ? "today" : WORD[d] + (d === 1 ? " day to go" : " days to go");
+    } else {
+      txt = EVERYDAY[seed % EVERYDAY.length];
+      label = "today";
+    }
+    card.style.display = "block";
+    document.getElementById("noteDay").textContent = label;
+    document.getElementById("noteTxt").textContent = txt;
+    document.getElementById("again").textContent = d === 0
+      ? "" : "a new one here every day — come see what tomorrow says";
+
+    // 6:30 IN THE EVENING. The minute they married, every single day, for one hour.
+    var hs = document.getElementById("halfsix");
+    if (e.h === 18 && target.kind === "anni") {
+      hs.style.display = "block";
+      hs.textContent = d === 0
+        ? "6:30. two years ago at this exact minute, you became my wife."
+        : "it's 6:30 — the same minute, two years ago, that I got the best yes of my life.";
+    } else { hs.style.display = "none"; }
+  }
+
   function tick(){
     var now=new Date();
     var ms=nextMoments(now), target=null;
@@ -139,6 +319,7 @@
       document.getElementById('moment').textContent = target.kind==='anni' ? 'today — '+w.moment+'!' : "today is Kaylah's day 👑";
       ['d','h','m','s'].forEach(function(id){document.getElementById(id).textContent='0';});
       document.getElementById('sub').textContent = target.kind==='anni' ? 'Happy anniversary, my love.' : 'Happy birthday, my love.';
+      dress(target, 0);
       return;
     }
     fx.style.display='none';
@@ -150,6 +331,9 @@
     document.getElementById('m').textContent=(m<10?'0':'')+m;
     document.getElementById('s').textContent=(s<10?'0':'')+s;
     document.getElementById('sub').textContent=w.sub;
+    // Everything that changes through the day: the hour's voice (which overwrites the
+    // line above), the alternate framing, today's note, and the 6:30 moment.
+    dress(target, diff);
   }
   tick(); setInterval(tick,1000);
 })();
