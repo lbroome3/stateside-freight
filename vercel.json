@@ -81,6 +81,10 @@
       "destination": "https://broome-crm.vercel.app/api/rate-con-confirm?t=:token"
     },
     {
+      "source": "/go/:token",
+      "destination": "https://broome-crm.vercel.app/api/carrier-track?t=:token"
+    },
+    {
       "source": "/partner-card.png",
       "destination": "https://broome-crm.vercel.app/partner-card.png"
     },
