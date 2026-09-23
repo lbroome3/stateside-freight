@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+# /d/ holds one-off documents sent to a single named person by link — a brief for a
+# meeting, a quote a customer asked to be able to forward. They are unlisted, not
+# secret: the filename is the only thing keeping them private, so they carry nothing
+# that would hurt if a wrong link were forwarded. Keeping them out of the index keeps
+# a document written for one reader from turning up in a search for the agency.
+Disallow: /d/
+
 Sitemap: https://www.lewisbroome.com/sitemap.xml
