@@ -92,6 +92,13 @@
   .result .placeholder .big{width:66px;height:66px;border-radius:16px;background:rgba(14,128,212,.12);display:flex;align-items:center;justify-content:center;color:var(--amber);margin:0 auto 18px}
   .result h3{color:#fff;font-size:1.3rem}
   .quote-out{display:none}
+  /* The visitor's receipt. Before this, "submit" handed the request to their own mail
+     client and the page said nothing either way — so a phone with no mail app configured
+     looked exactly like a request that had gone through. Two people filled this form in
+     twice, minutes apart, because nothing ever told them it had worked. */
+  .sent{display:none;background:rgba(34,160,90,.14);border:1px solid rgba(34,160,90,.45);border-radius:12px;padding:14px 16px;margin:0 0 16px;color:#cdebd9;font-size:.92rem;line-height:1.5}
+  .sent b{color:#fff;display:block;margin-bottom:3px;font-weight:700}
+  .sent.warn{background:rgba(212,150,14,.14);border-color:rgba(212,150,14,.45);color:#f2e2bd}
   .lane{color:#9fbdd8;font-size:.92rem;margin:2px 0 18px}
   .leg{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;margin-bottom:14px;background:rgba(0,0,0,.18)}
   .leg-head{display:flex;align-items:center;gap:.6rem;margin-bottom:12px;color:#9fbdd8;font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:.76rem}
@@ -249,6 +256,7 @@
             <div class="leg-rows"><div class="lr"><span>Port → Door</span><b id="domCost">—</b></div><div class="lr"><span>Est. Distance</span><b id="domDist">—</b></div></div>
           </div>
           <div class="total"><span class="lbl">Estimated Total</span><span class="amt" id="totalAmt">—</span></div>
+          <div class="sent" id="sentNote"></div>
           <p class="disclaimer">Planning estimate only. Final ocean and domestic rates are confirmed by Agent LBR (Landstar) based on exact cargo, port congestion, and dangerous-goods classification. No freight moves without written confirmation.</p>
         </div>
       </div>
@@ -268,7 +276,16 @@
   "use strict";
   var SB_LEAD='https://npbuchdosowfgtnjrwes.supabase.co/functions/v1/web-lead-capture';
   var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wYnVjaGRvc293Zmd0bmpyd2VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Nzg3NTcsImV4cCI6MjA5OTU1NDc1N30.VRi5naGM_k1oHvBM0Mi92ybTU575xcG_afpFduHuz74';
-  function pushLead(p){ try{ fetch(SB_LEAD,{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify(p)}).catch(function(){}); }catch(e){} }
+  // keepalive, and AWAITED. The old version fired this and immediately set
+  // window.location to a mailto:, which aborts an in-flight fetch — so on the one page
+  // where the request mattered most, the CRM record and the notification could both
+  // vanish while the visitor watched a quote appear and assumed they were done.
+  function pushLead(p){
+    try{
+      return fetch(SB_LEAD,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify(p)})
+        .then(function(r){return r.ok;}).catch(function(){return false;});
+    }catch(e){ return Promise.resolve(false); }
+  }
   document.querySelectorAll('.check input').forEach(function(cb){
     cb.addEventListener('change',function(){ cb.closest('.check').classList.toggle('on',cb.checked); });
   });
@@ -323,8 +340,24 @@
 'CONTACT\n  Name:    '+o.name+'\n  Company: '+(o.company||'N/A')+'\n  Email:   '+o.email+'\n  Phone:   '+(o.phone||'N/A')+'\n\n'+
 '----------------------------------------------------\nSubmitted via LewisBroome.ME quote page. Estimate only — confirm final rate.';
     var subject='Freight Quote — '+usport+' → '+zip+' ('+o.name+')';
-    pushLead({company_name:o.company||o.name,contact_name:o.name,email:o.email,phone:o.phone,hazmat:o.hazmat,commodity:o.pharma?'Pharma import':(o.hazmat?'Hazmat import':'Ocean container import'),source:'Container Quote (Website)',quote_link:'https://www.lewisbroome.com/quote.html',notes:'Ocean container quote\nLane: '+o.origin+' → '+usport+' → '+zip+'\nContainer: '+o.container+', '+(o.weight||'?')+' lbs\nSpecial: '+(specials.length?specials.join(', '):'None')+'\nEstimate: ocean '+money(ocean)+' + domestic '+money(dom)+' = '+money(total)});
-    window.location.href='mailto:lewis.broome@landstarmail.com?cc=lewisbroome@gmail.com&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    var note=document.getElementById('sentNote');
+    note.style.display='block'; note.className='sent'; note.innerHTML='<b>Sending your request…</b>One moment.';
+
+    pushLead({company_name:o.company||o.name,contact_name:o.name,email:o.email,phone:o.phone,hazmat:o.hazmat,commodity:o.pharma?'Pharma import':(o.hazmat?'Hazmat import':'Ocean container import'),source:'Container Quote (Website)',quote_link:'https://www.lewisbroome.com/quote.html',notes:'Ocean container quote\nLane: '+o.origin+' → '+usport+' → '+zip+'\nContainer: '+o.container+', '+(o.weight||'?')+' lbs\nSpecial: '+(specials.length?specials.join(', '):'None')+'\nEstimate: ocean '+money(ocean)+' + domestic '+money(dom)+' = '+money(total)})
+      .then(function(ok){
+        if(ok){
+          // The request is recorded and Lewis is alerted server-side within five minutes.
+          // No mail client is opened and none is needed — that dependency is the whole bug.
+          note.className='sent';
+          note.innerHTML='<b>Request received.</b>Lewis Broome has your details and will confirm a firm rate directly. Need it sooner — call 803-361-1303.';
+          return;
+        }
+        // The save failed. Fall back to the visitor's mail client rather than lose them,
+        // and SAY SO, so a request that did not go through never looks like one that did.
+        note.className='sent warn';
+        note.innerHTML='<b>Couldn’t submit that automatically.</b>Opening your email instead — please press send. If nothing opens, call 803-361-1303 or write lewis.broome@landstarmail.com.';
+        try{ window.location.href='mailto:lewis.broome@landstarmail.com?cc=lewisbroome@gmail.com&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body); }catch(e){}
+      });
   });
 })();
 </script>
