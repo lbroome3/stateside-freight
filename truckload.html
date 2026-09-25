@@ -867,7 +867,27 @@ s0.parentNode.insertBefore(s1,s0);
     }catch(e){}
   }
 
+  // "A TRUCK WAS JUST REQUESTED" (Lewis, 9/25: "This alert will trigger me to use the chat
+  // to engage with them"). The chat opens on this button; the name comes a screen later, if
+  // ever. So the lane goes to the CRM now, with the same honeypot and timing, and Lewis's
+  // phone lights up while the visitor is still looking at the page. Nothing is saved.
+  var requestSent=false;
+  function sendRequested(){
+    if(requestSent||!lastLoad) return; requestSent=true;
+    try{
+      var hp=document.getElementById('company_website');
+      fetch(LEAD_API,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        stage:'requested',source:'Request a Truck (Website)',
+        pickup:lastLoad.pickup,dropoff:lastLoad.dropoff,stops:lastLoad.stops||[],
+        equipment:lastLoad.equipment,miles:lastLoad.miles,estimate:lastLoad.estimate,eta:lastLoad.eta,
+        weight:lastLoad.weight,commodity:lastLoad.commodity,
+        company_website:hp?hp.value:'',fill_ms:Date.now()-T0
+      })}).catch(function(){});
+    }catch(x){}
+  }
+
   $('requestBtn').addEventListener('click',function(){
+    sendRequested();
     $('fare').classList.remove('show');
     $('dispatch').classList.add('show');
     var laneStr=lastLoad.pickup+((lastLoad.stops&&lastLoad.stops.length)?' → '+lastLoad.stops.join(' → '):'')+' → '+lastLoad.dropoff;
