@@ -232,7 +232,12 @@
             <button type="submit" class="btn btn-amber btn-block btn-lg" style="margin-top:6px">Calculate &amp; Send Quote Request
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
-            <p class="field-note">Submitting opens your email to send the request directly to Agent LBR — nothing is stored on this site.</p>
+            <!-- Both halves of the old caption were untrue. "Submitting opens your email" stopped
+                 being true when the page started saving the request itself; "nothing is stored on
+                 this site" was never true — pushLead has always written the request to the CRM.
+                 Telling a visitor their details are not kept, while keeping them, is the one
+                 sentence on this page that had to be right. -->
+            <p class="field-note">Your request goes straight to Agent LBR and is answered personally — usually the same business day. Your details are used to quote your freight and nothing else.</p>
           </form>
         </div>
       </div>
