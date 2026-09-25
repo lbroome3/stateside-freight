@@ -209,6 +209,25 @@
     }catch(e){ return Promise.resolve(false); }
   }
 
+  // "SOMEONE IS TYPING." Once per page load: when the email field loses focus with a name
+  // already entered, the CRM gets a push — no mail, nothing saved — so Lewis knows a person
+  // is on the form before the button is pressed. Same honeypot and timing go with it.
+  (function(){
+    var fired=false, em=document.getElementById('c_email'), nm=document.getElementById('c_name'), co=document.getElementById('c_company');
+    if(!em) return;
+    em.addEventListener('blur',function(){
+      if(fired) return;
+      var e=(em.value||'').trim(), n=nm?(nm.value||'').trim():'';
+      if(!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return;
+      fired=true;
+      var hp=document.getElementById('company_website');
+      try{ fetch(LEAD_API,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        stage:'typing',contact_name:n,email:e,company_name:co?(co.value||'').trim():'',source:'Customs Bond (Website)',
+        company_website:hp?hp.value:'',fill_ms:Date.now()-T0
+      })}).catch(function(){}); }catch(x){}
+    });
+  })();
+
   document.getElementById('cbForm').addEventListener('submit',function(e){
     e.preventDefault();
     var v=function(id){return (document.getElementById(id).value||'').trim();};
