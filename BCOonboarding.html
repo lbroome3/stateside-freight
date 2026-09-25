@@ -998,7 +998,7 @@ body.vo-playing section.step{padding-bottom:110px}
 
   /* real scroll during playback = visitor taking manual control → pause */
   ['wheel','touchmove'].forEach(function(ev){
-    addEventListener(ev,function(){if(playing)pause();},{passive:true});
+    addEventListener(ev,function(){window.__bcoManual=true;if(playing)pause();},{passive:true});
   });
 
   /* did the audio element actually produce sound? */
@@ -1010,7 +1010,10 @@ body.vo-playing section.step{padding-bottom:110px}
     play(true);                    /* plays section 1's clip immediately */
     /* if no sound has started shortly after, autoplay was blocked → gate */
     setTimeout(function(){
-      if(!audioEverPlayed){pause();idx=0;unlocked=false;showGate();}
+      /* ...unless the visitor has already scrolled, tapped an apply link or touched the
+         card — intent to read or apply, not to watch. A gate over the apply card was
+         eating the first tap and restarting the tour at the top (9/25). */
+      if(!audioEverPlayed&&!window.__bcoManual){pause();idx=0;unlocked=false;showGate();}
     },1100);
   }
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1038,6 +1041,16 @@ body.vo-playing section.step{padding-bottom:110px}
   var T0 = Date.now();
   var hp = form.querySelector(".hp");
   var f = function (id) { return (document.getElementById(id).value || "").trim(); };
+
+  // INTENT BEATS THE GATE. The play-gate is a full-screen overlay that appears when
+  // autoplay is blocked — every phone. A driver who taps "Lease on →" is scrolled to this
+  // card and, a second later, covered by it; his next tap starts the tour and sends him
+  // back to the top. So tapping any apply link, focusing the card, or scrolling at all
+  // marks intent: the gate hides if it is up and does not appear if it is not yet.
+  function intent() { window.__bcoManual = true; var g = document.getElementById("voGate"); if (g && !g.hidden) g.hidden = true; }
+  document.querySelectorAll('a[href="#apply"]').forEach(function (a) { a.addEventListener("click", intent); });
+  form.addEventListener("focusin", intent);
+  addEventListener("scroll", intent, { passive: true });
 
   // "Someone is typing" — once, when cell or email loses focus with a name already there.
   (function () {
