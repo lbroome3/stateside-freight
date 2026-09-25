@@ -355,6 +355,18 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 .btn-solid:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(14,128,212,.55)}
 .btn-solid.green{background:linear-gradient(135deg,var(--green),#157a42);box-shadow:0 14px 34px rgba(31,157,87,.4)}
 .btn-solid.green:hover{box-shadow:0 20px 44px rgba(31,157,87,.5)}
+.apply-card{margin:28px auto 0;max-width:560px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:24px 22px;text-align:left;scroll-margin-top:90px}
+.apply-h{font-weight:800;font-size:1.12rem;color:#fff;letter-spacing:-.01em}
+.apply-sub{color:rgba(255,255,255,.66);font-size:.93rem;margin:6px 0 16px}
+.apply-form{display:grid;gap:12px}
+.apply-form .af{display:flex;flex-direction:column;gap:5px}
+.apply-form label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.apply-form input{background:rgba(0,0,0,.28);border:1.5px solid rgba(255,255,255,.18);border-radius:12px;color:#fff;font:inherit;font-size:1rem;padding:13px 14px;outline:none}
+.apply-form input:focus{border-color:var(--amber)}
+.apply-form input::placeholder{color:rgba(255,255,255,.32)}
+.apply-form button{justify-content:center;cursor:pointer;margin-top:4px;border:0;font:inherit}
+.apply-form button[disabled]{opacity:.7;cursor:progress}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .replay{margin-top:26px;display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);font-weight:700;font-size:.88rem;transition:color .25s}
 .replay:hover{color:#fff}
 
@@ -509,7 +521,7 @@ body.vo-playing section.step{padding-bottom:110px}
   </a>
   <nav class="top-actions" aria-label="Primary">
     <a class="top-phone" href="tel:17064179097"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>(706) 417-9097</span></a>
-    <a class="top-cta" href="https://intelliapp.driverapponline.com/c/landstar?r=LBRagency" target="_blank" rel="noopener noreferrer">Lease on →</a>
+    <a class="top-cta" href="#apply">Lease on →</a>
   </nav>
 </header>
 
@@ -534,7 +546,7 @@ body.vo-playing section.step{padding-bottom:110px}
     <p class="lede reveal in d2">Broker boards hide the money. Landstar puts real rates right on the board — and puts an agent in your corner who eats off the same plate you do. Here's the honest pitch.</p>
     <div class="hero-actions reveal in d3">
       <button class="btn-play" id="heroPlay" type="button"><span class="tri" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span> Play the walkthrough</button>
-      <a class="btn-ghost" href="https://intelliapp.driverapponline.com/c/landstar?r=LBRagency" target="_blank" rel="noopener noreferrer">Apply to lease on <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a class="btn-ghost" href="#apply">Apply to lease on <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
   </div>
   <div class="scroll-cue" aria-hidden="true"><div class="wheel"></div>scroll</div>
@@ -690,8 +702,26 @@ body.vo-playing section.step{padding-bottom:110px}
     </div>
     <div class="promise reveal d3">My rates aren't the cheapest. They're the fairest and the most reliable. That's my promise.</div>
     <div class="payoff-ctas reveal d3">
-      <a class="btn-solid" href="https://intelliapp.driverapponline.com/c/landstar?r=LBRagency" target="_blank" rel="noopener noreferrer">Apply to lease on with Landstar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a class="btn-solid" href="#apply">Apply to lease on with Landstar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       <a class="btn-solid green" href="tel:17064179097">Call Agent LBR · (706) 417-9097</a>
+    </div>
+
+    <!-- THE CAPTURE. Until 9/25 all six apply links on this page went straight to Landstar's
+         Intelliapp, and a driver the walkthrough had just convinced was invisible the moment
+         he clicked — the same hole /2seats had on 8/9. Now: name, cell, email, logged and
+         announced, and THEN the application. The handoff always happens; a failure on our
+         side falls through to Intelliapp rather than to an error page. -->
+    <div class="apply-card reveal d3" id="apply">
+      <div class="apply-h">Leave your name first — then straight into the application.</div>
+      <p class="apply-sub">I'll call you today. This takes ten seconds; the application takes twenty minutes.</p>
+      <form class="apply-form" id="bcoApply" method="POST" action="/api/driver-apply">
+        <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="via" value="BCOonboarding">
+        <div class="af"><label for="b-name">Your name</label><input id="b-name" name="name" type="text" required autocomplete="name" placeholder="First and last"></div>
+        <div class="af"><label for="b-phone">Cell number</label><input id="b-phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" placeholder="555-555-0100"></div>
+        <div class="af"><label for="b-email">Email</label><input id="b-email" name="email" type="email" required autocomplete="email" placeholder="you@gmail.com"></div>
+        <button class="btn-solid" type="submit"><span class="btn-label">Continue to the Landstar application</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </form>
     </div>
     <button class="replay reveal d4" id="replayBtn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Replay the walkthrough</button>
 
@@ -729,12 +759,12 @@ body.vo-playing section.step{padding-bottom:110px}
           <span class="rt"><b>FAQ</b><span>PDF · common questions, answered</span></span>
           <svg class="arw" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
         </a>
-        <a class="res-card" href="https://intelliapp.driverapponline.com/c/landstar?r=LBRagency" target="_blank" rel="noopener noreferrer">
+        <a class="res-card" href="#apply">
           <span class="doc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span>
           <span class="rt"><b>BCO Testimonials</b><span>Hear from owner-operators</span></span>
           <svg class="arw" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
         </a>
-        <a class="res-card" href="https://intelliapp.driverapponline.com/c/landstar?r=LBRagency" target="_blank" rel="noopener noreferrer">
+        <a class="res-card" href="#apply">
           <span class="doc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           <span class="rt"><b>Lease to Landstar</b><span>Start your application with Agent LBR</span></span>
           <svg class="arw" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
@@ -748,7 +778,7 @@ body.vo-playing section.step{padding-bottom:110px}
     <div class="foot-in">
       <div class="foot-brand"><span class="mark"><img src="assets/landstar-star.svg" alt="Landstar" width="32" height="32" /></span><div><b>STATESIDE</b><span>International Logistics</span></div></div>
       <nav class="foot-links" aria-label="Footer">
-        <a class="track-link" href="https://intelliapp.driverapponline.com/c/landstar?r=LBRagency" target="_blank" rel="noopener noreferrer"><span class="live-dot" aria-hidden="true"></span> Apply to lease on</a>
+        <a class="track-link" href="#apply"><span class="live-dot" aria-hidden="true"></span> Apply to lease on</a>
         <a href="tel:17064179097">(706) 417-9097</a>
         <a href="mailto:lewis.broome@landstarmail.com">lewis.broome@landstarmail.com</a>
         <a href="https://www.lewisbroome.com/">Freight &amp; shipping home</a>
@@ -998,6 +1028,47 @@ body.vo-playing section.step{padding-bottom:110px}
       var n=d&&(typeof d.count==='number'?d.count:d.value);
       if(typeof n==='number'){el.textContent=n.toLocaleString();var w=document.getElementById('hitWrap');if(w)w.classList.add('show');}
     }).catch(function(){});
+})();
+</script>
+<script>
+(function () {
+  var APPLY_URL = "https://intelliapp.driverapponline.com/c/landstar?r=LBRagency";
+  var form = document.getElementById("bcoApply");
+  if (!form) return;
+  var T0 = Date.now();
+  var hp = form.querySelector(".hp");
+  var f = function (id) { return (document.getElementById(id).value || "").trim(); };
+
+  // "Someone is typing" — once, when cell or email loses focus with a name already there.
+  (function () {
+    var fired = false;
+    ["b-phone", "b-email"].forEach(function (id) {
+      document.getElementById(id).addEventListener("blur", function () {
+        if (fired || !f("b-name") || f(id).length < 6) return;
+        fired = true;
+        try { fetch(form.action, { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ stage: "typing", name: f("b-name"), phone: f("b-phone"), email: f("b-email"),
+            company: hp ? hp.value : "", fill_ms: Date.now() - T0, via: "BCOonboarding" }) }).catch(function () {}); } catch (x) {}
+      });
+    });
+  })();
+
+  if (!window.fetch) return; // the plain form post and its redirect still work
+  form.addEventListener("submit", function (e) {
+    if (!form.reportValidity()) return;
+    e.preventDefault();
+    var btn = form.querySelector("button"), label = form.querySelector(".btn-label");
+    btn.disabled = true; if (label) label.textContent = "Taking you to the application…";
+    var forwarded = false;
+    function go(url) { if (forwarded) return; forwarded = true; window.location.href = url; }
+    var failsafe = setTimeout(function () { go(APPLY_URL); }, 6000);
+    fetch(form.action, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: f("b-name"), phone: f("b-phone"), email: f("b-email"),
+        company: hp ? hp.value : "", fill_ms: Date.now() - T0, via: "BCOonboarding" }) })
+      .then(function (r) { return r.json(); })
+      .then(function (d) { clearTimeout(failsafe); go(d && d.next || APPLY_URL); })
+      .catch(function () { clearTimeout(failsafe); go(APPLY_URL); });
+  });
 })();
 </script>
 <!--Start of Tawk.to Script-->

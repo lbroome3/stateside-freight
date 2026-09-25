@@ -795,6 +795,32 @@
   (function () {
     var form = document.querySelector(".apply-form");
     if (!form || !window.fetch) return;
+    var T0 = Date.now();
+
+    // "SOMEONE IS TYPING." Once per page load: when the cell or email field loses focus
+    // with a name already entered, Lewis's phone gets a push — nothing saved — so he knows
+    // a driver is on the form before the button is pressed. Carries the same honeypot and
+    // fill time as the real submission; the fuzzer sets every field at once and fires no
+    // blur, so this never fires for it.
+    (function () {
+      var fired = false, nm = form.querySelector("#f-name"), hp = form.querySelector(".hp");
+      ["#f-phone", "#f-email"].forEach(function (sel) {
+        var el = form.querySelector(sel);
+        if (!el) return;
+        el.addEventListener("blur", function () {
+          if (fired) return;
+          var n = (nm && nm.value || "").trim(), v = (el.value || "").trim();
+          if (!n || v.length < 6) return;
+          fired = true;
+          try {
+            fetch(form.action, { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ stage: "typing", name: n, phone: (form.querySelector("#f-phone").value || "").trim(),
+                email: (form.querySelector("#f-email").value || "").trim(), company: hp ? hp.value : "",
+                fill_ms: Date.now() - T0, via: "2seats" }) }).catch(function () {});
+          } catch (x) {}
+        });
+      });
+    })();
 
     form.addEventListener("submit", function (e) {
       if (!form.reportValidity()) return;
@@ -807,6 +833,8 @@
 
       var data = {};
       new FormData(form).forEach(function (v, k) { data[k] = v; });
+      data.fill_ms = Date.now() - T0;   // nobody fills three fields in three seconds
+      data.via = "2seats";
 
       var forwarded = false;
       function go(url) {
