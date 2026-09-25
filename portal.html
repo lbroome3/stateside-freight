@@ -213,6 +213,12 @@
           <div class="fld"><label>Anything else we should know?</label><textarea id="notes" placeholder="Special requirements, timelines, references, etc."></textarea></div>
 
           <div class="err" id="err"></div>
+          <!-- The field no person can see: off-screen, aria-hidden, tabindex -1, autocomplete off.
+               A visitor never meets it; the script that fills every input on this page fills it
+               every time. It is the only check in this filter that cannot turn a customer away. -->
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+            <label>Company website<input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off"></label>
+          </div>
           <button type="submit" class="btn btn-amber btn-block btn-lg">Create My Account
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
@@ -274,7 +280,28 @@ s0.parentNode.insertBefore(s1,s0);
 
   var SB_LEAD='https://npbuchdosowfgtnjrwes.supabase.co/functions/v1/web-lead-capture';
   var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wYnVjaGRvc293Zmd0bmpyd2VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Nzg3NTcsImV4cCI6MjA5OTU1NDc1N30.VRi5naGM_k1oHvBM0Mi92ybTU575xcG_afpFduHuz74';
-  function pushLead(p){ return fetch(SB_LEAD,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify(p)}).then(function(r){return r.ok;}).catch(function(){return false;}); }
+  // INTAKE, FILTERED. Posts same-origin to /api/web-lead (rewritten to the CRM), which
+  // screens the honeypot, the fill time and the form's own fingerprints before writing.
+  // On any CRM failure it falls back to the original edge function: losing a real lead is
+  // worse than letting one scripted submission through, and the downstream triage in
+  // api/web-leads.js still catches those.
+  var LEAD_API='/api/web-lead';
+  var T0=Date.now();
+  function sendLead(p){
+    try{
+      var hp=document.getElementById('company_website');
+      p.company_website=hp?hp.value:'';
+      p.fill_ms=Date.now()-T0;
+      return fetch(LEAD_API,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
+        .then(function(r){ if(!r.ok) throw new Error('crm'); return true; })
+        .catch(function(){
+          return fetch(SB_LEAD,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify(p)})
+            .then(function(r){return r.ok;}).catch(function(){return false;});
+        });
+    }catch(e){ return Promise.resolve(false); }
+  }
+
+  function pushLead(p){ return sendLead(p); }
   function v(id){return document.getElementById(id).value.trim();}
 
   // Mapbox address autocomplete → auto-fills City / State / ZIP

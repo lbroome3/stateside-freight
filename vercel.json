@@ -133,6 +133,10 @@
       "destination": "https://broome-crm.vercel.app/api/meet-page"
     },
     {
+      "source": "/api/web-lead",
+      "destination": "https://broome-crm.vercel.app/api/web-lead"
+    },
+    {
       "source": "/api/meet-slots",
       "destination": "https://broome-crm.vercel.app/api/meet-slots"
     },

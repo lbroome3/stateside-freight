@@ -163,6 +163,12 @@
       <select id="f_type"><option>1.4G consumer fireworks</option><option>1.3G display fireworks</option><option>Mixed / not sure</option></select>
       <label>Details (origin, destination, timing)</label>
       <textarea id="f_notes" rows="3" placeholder="e.g. 1x40HC from Shanghai to Myrtle Beach SC, need it before June"></textarea>
+      <!-- The field no person can see: off-screen, aria-hidden, tabindex -1, autocomplete off.
+           A visitor never meets it; the script that fills every input on this page fills it
+           every time. It is the only check in this filter that cannot turn a customer away. -->
+      <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+        <label>Company website<input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off"></label>
+      </div>
       <button class="btn" type="submit" style="width:100%;margin-top:16px">Request My Quote</button>
       <div class="ok" id="fwOk">✅ Got it — Agent LBR will reach out today.</div>
       <p style="font-size:.78rem;color:var(--ink-2);margin-top:10px">Prefer to talk? <a href="tel:17064179097">(706) 417-9097</a> or text <a href="sms:+18033611303">(803) 361-1303</a></p>
@@ -182,15 +188,39 @@
 (function(){
   var SB_LEAD='https://npbuchdosowfgtnjrwes.supabase.co/functions/v1/web-lead-capture';
   var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wYnVjaGRvc293Zmd0bmpyd2VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Nzg3NTcsImV4cCI6MjA5OTU1NDc1N30.VRi5naGM_k1oHvBM0Mi92ybTU575xcG_afpFduHuz74';
+  // INTAKE, FILTERED. Posts same-origin to /api/web-lead (rewritten to the CRM), which
+  // screens the honeypot, the fill time and the form's own fingerprints before writing.
+  // On any CRM failure it falls back to the original edge function: losing a real lead is
+  // worse than letting one scripted submission through, and the downstream triage in
+  // api/web-leads.js still catches those.
+  var LEAD_API='/api/web-lead';
+  var T0=Date.now();
+  function sendLead(p){
+    try{
+      var hp=document.getElementById('company_website');
+      p.company_website=hp?hp.value:'';
+      p.fill_ms=Date.now()-T0;
+      return fetch(LEAD_API,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
+        .then(function(r){ if(!r.ok) throw new Error('crm'); return true; })
+        .catch(function(){
+          return fetch(SB_LEAD,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify(p)})
+            .then(function(r){return r.ok;}).catch(function(){return false;});
+        });
+    }catch(e){ return Promise.resolve(false); }
+  }
+
   document.getElementById('fwForm').addEventListener('submit',function(e){
     e.preventDefault();
     var v=function(id){return (document.getElementById(id).value||'').trim();};
-    fetch(SB_LEAD,{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON},body:JSON.stringify({
+    // Through the filter, and the button only settles once the save is answered —
+    // the old version fired and forgot, so a visitor was told it worked before
+    // anything knew whether it had.
+    sendLead({
       company_name:v('f_company'),contact_name:v('f_name'),email:v('f_email'),phone:v('f_phone'),
       commodity:'Fireworks',hazmat:true,source:'Fireworks Import (Website)',
       quote_link:'https://www.lewisbroome.com/fireworks-import.html',
       notes:'Fireworks import inquiry\nType: '+v('f_type')+'\nDetails: '+(v('f_notes')||'None')
-    })}).catch(function(){});
+    }).catch(function(){});
     document.getElementById('fwOk').style.display='block';
     e.target.querySelector('button').disabled=true;
   });
