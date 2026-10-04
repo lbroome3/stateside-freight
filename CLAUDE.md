@@ -104,7 +104,7 @@ SHA=<the 40-character sha>
 for f in index.html <each changed page>; do
   printf "%-22s repo %s  live %s\n" "$f" \
     "$(git show $SHA:$f | md5sum | cut -c1-32)" \
-    "$(curl -sSI -L https://www.lewisbroome.com/$f | grep -i '^etag' | tr -dc '0-9a-f' )"
+    "$(curl -sSI -L https://www.lewisbroome.com/$f | grep -i '^etag' | sed 's/.*"\([0-9a-f]*\)".*/\1/')"
 done
 curl -sS -L https://www.lewisbroome.com/<page> | grep -c "<something the change added>"
 ```
