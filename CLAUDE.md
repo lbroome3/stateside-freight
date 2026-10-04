@@ -80,14 +80,39 @@ snippet is the same on each. The CRM's early alert opens `dashboard.tawk.to` for
 
 ## Shipping
 
-There is no build and no test suite in this repo. Verify a change the way it will be seen:
+There is no build and no test suite in this repo. Deploys are driven from the chat, the
+way the Zeus desk does it (Lewis, 10/4): never through Gizmo, never on a visible screen,
+and a build is not done until it is verified.
 
 ```bash
-git push -u origin claude/ai-chatbox-name-p3fpjk && git push origin HEAD:main
-# Vercel deploys main in about a minute, then:
-curl -sS -o /dev/null -w "%{http_code}\n" -L https://www.lewisbroome.com/<page>
+git push -u origin claude/ai-chatbox-name-p3fpjk && git push origin HEAD:main   # 1. push
+```
+
+2. Create the production deployment yourself, by the FULL 40-character SHA:
+   `create_deployment` on project `prj_Wf9Ly1On5c56ZO8a6gZCr493AOjg` (team
+   `team_wyD898mIe3j026B5el9MGc8x`), `target: "production"`,
+   `gitSource: { type: "github", org: "lbroome3", repo: "stateside-freight", ref: "main", sha }`.
+3. Poll `get_deployment` until `readyState` is `READY` and `www.lewisbroome.com` is in its
+   `alias` list.
+4. Verify from the outside. A static site carries no SHA, but Vercel's `etag` on a static
+   file is the MD5 of its content (proven 10/4), so prove the live host serves the files AT
+   THAT SHA. The deployment's own URL is behind deployment protection and 302s; use the
+   live host only:
+
+```bash
+SHA=<the 40-character sha>
+for f in index.html <each changed page>; do
+  printf "%-22s repo %s  live %s\n" "$f" \
+    "$(git show $SHA:$f | md5sum | cut -c1-32)" \
+    "$(curl -sSI -L https://www.lewisbroome.com/$f | grep -i '^etag' | tr -dc '0-9a-f' )"
+done
 curl -sS -L https://www.lewisbroome.com/<page> | grep -c "<something the change added>"
 ```
+
+Report the deployment id, the SHA it was built from, and that the MD5s match. Secrets are
+names only; Lewis pastes values into Vercel himself. On a Vercel toast: Dismiss, never
+Redeploy. Gizmo stays only for what the chat cannot reach: clicks inside a UI, DNS in a
+signed-in tab.
 
 For anything interactive (a form, a script that posts to the CRM) the pattern that has
 worked is Playwright against the live site from the sandbox, with Node `fetch` fulfilling
