@@ -24,7 +24,7 @@ The assistant's name is **Gizmo** (not Apollo).
 - Safety-first, technology-enabled, fully tracked from booking to delivery.
 - **Coverage:** all 50 U.S. states, plus Canada and Mexico cross-border.
 - **Authority:** USDOT 241572 · MC 166960 · Brokerage MC 178439.
-- **Based:** 2902 Hwy 17 S, Atlantic Beach, SC 29582.
+- **Based:** Myrtle Beach, SC (no street address; mail goes to the Landstar mailbox).
 
 ## CONTACT
 - **Direct line (call or text): 803-361-1303** — Agent LBR

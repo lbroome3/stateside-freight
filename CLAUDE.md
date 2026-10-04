@@ -35,9 +35,9 @@ that fills the trap or submits in under a few seconds. Never remove them, never 
 trap visible, never autofill it in a test.
 
 **No physical address.** Lewis, 9/25: "I don't have a physical address anymore. Just use
-Myrtle Beach SC." New pages say "Myrtle Beach, SC". Older pages still carry "2902 Hwy 17 S,
-Atlantic Beach, SC" in `portal.html` and "Atlantic Beach, SC" in the fireworks and
-customs-bond footers — change them only when he says so.
+Myrtle Beach SC." Every page, the structured-data address, the geo tags, the email signature and the
+Gizmo knowledge base say "Myrtle Beach, SC" with no street and no ZIP (changed 10/3 on his
+word). Never put a street address back.
 
 **Nothing public names a customer, a rate, a driver or a load id.** `/loads`, `/trucks` and
 `/week` read `GET /api/public-board` (same-origin via the `/api/*` rewrite), which the CRM
