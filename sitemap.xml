@@ -37,6 +37,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.lewisbroome.com/loads</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.lewisbroome.com/trucks</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.lewisbroome.com/week</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.lewisbroome.com/BCOonboarding</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.lewisbroome.com/portal.html</loc>
     <lastmod>2026-08-10</lastmod>
     <changefreq>weekly</changefreq>

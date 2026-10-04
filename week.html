@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>This Week at Landstar Agency LBR | Lewis Broome</title>
+<meta name="description" content="What Landstar Agency LBR moved this week: loads delivered, miles run, states covered, every load tracked live. Ship next week with hazmat-endorsed drivers. Call or text 803-361-1303.">
+<meta property="og:title" content="This week at Landstar Agency LBR">
+<meta property="og:description" content="Loads delivered, miles run, states covered, every one tracked live. Ship next week: 803-361-1303.">
+<meta property="og:image" content="https://www.lewisbroome.com/assets/videos/poster-shipper.jpg">
+<link rel="canonical" href="https://www.lewisbroome.com/week">
+<style>
+ body{font:16px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;margin:0;background:#050a18;color:#e8f1ff}
+ .wrap{max-width:34rem;margin:0 auto;padding:1.4rem 1rem 4rem}
+ h1{font-size:1.4rem;margin:.2rem 0 .3rem}
+ h2{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:#8fa8d8;margin:1.8rem 0 .5rem}
+ p.muted{color:#8fa8d8;font-size:.85rem}
+ a{color:#9fd4ff}
+ .row{display:flex;gap:.6rem;margin-top:.7rem;flex-wrap:wrap}
+ a.btn{display:inline-block;background:rgba(24,42,82,.9);color:#9fd4ff;border:1px solid rgba(120,180,255,.3);border-radius:9px;padding:.55rem .9rem;font-size:.9rem;text-decoration:none}
+ a.btn.go{background:linear-gradient(135deg,#38bdf8,#2563eb);color:#03122b;border:0;font-weight:700}
+ .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.7rem}
+ .num{background:rgba(24,42,82,.55);border:1px solid rgba(120,180,255,.25);border-radius:14px;padding:.8rem .6rem;text-align:center}
+ .num b{display:block;font-size:1.7rem;color:#9fd4ff}
+ .num span{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:#8fa8d8}
+ .card{background:rgba(24,42,82,.55);border:1px solid rgba(120,180,255,.25);border-radius:14px;padding:.9rem 1.1rem;margin-top:.7rem}
+ ul{padding-left:1.2rem;margin:.4rem 0}
+ .stamp{font-size:.75rem;color:#8fa8d8;margin-top:.5rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>This week at Landstar Agency LBR</h1>
+<p class="muted">Stateside International Logistics · Lewis Broome · <a href="tel:+18033611303">803-361-1303</a></p>
+
+<p>Counts only, straight from the agency's own records: what delivered since Monday, how far it ran and how many states it crossed. No customer is named here and none ever will be.</p>
+
+<div class="nums" id="nums">
+ <div class="num"><b>…</b><span>Loads delivered</span></div>
+ <div class="num"><b>…</b><span>Miles run</span></div>
+ <div class="num"><b>…</b><span>States</span></div>
+</div>
+<div class="stamp" id="stamp"></div>
+
+<h2>How every one of them moved</h2>
+<div class="card">
+ <ul>
+  <li><strong>A hazmat-endorsed Landstar driver</strong> on every load, van or reefer.</li>
+  <li><strong>Tracked live</strong> from pickup to delivery, with the tracking link in the shipper's inbox.</li>
+  <li><strong>Confirmed by a person.</strong> The agent books the truck, the driver gets the details by text, the shipper hears once it is covered and once it is delivered.</li>
+ </ul>
+</div>
+
+<h2>Next week's freight</h2>
+<p>Quote on the website and a truck is confirmed the same day where the lane allows.</p>
+<div class="row">
+ <a class="btn go" href="/truckload">🚛 Request a truck</a>
+ <a class="btn" href="sms:+18033611303?body=I%20have%20freight%20for%20next%20week">📱 Text 803-361-1303</a>
+</div>
+
+<h2>Also on the site</h2>
+<div class="row">
+ <a class="btn" href="/loads">Open loads this week</a>
+ <a class="btn" href="/trucks">Trucks available</a>
+ <a class="btn" href="/fireworks-import">Fireworks importers</a>
+ <a class="btn" href="/BCOonboarding">Lease on with Landstar</a>
+</div>
+
+<p class="muted" style="margin-top:2rem">Stateside International Logistics · Landstar Agency LBR · Myrtle Beach, SC</p>
+</div>
+<script>
+(async function(){
+  var nums=document.getElementById('nums'), stamp=document.getElementById('stamp');
+  function cell(v,label){return '<div class="num"><b>'+v+'</b><span>'+label+'</span></div>';}
+  try{
+    var r=await fetch('/api/public-board',{cache:'no-store'}); var d=await r.json();
+    var w=(d&&d.week)||{delivered:0,miles:0,states:0};
+    nums.innerHTML=cell(Number(w.delivered||0).toLocaleString('en-US'),'Loads delivered')+cell(Number(w.miles||0).toLocaleString('en-US'),'Miles run')+cell(Number(w.states||0),'States');
+    if(w.since) stamp.textContent='Since Monday '+w.since+' · updated '+(d.date||'')+' · Landstar Agency LBR';
+  }catch(e){ nums.innerHTML=cell('—','Loads delivered')+cell('—','Miles run')+cell('—','States'); }
+})();
+</script>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a454e926c81d51d4c9a577c/1jsfblr4r';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</body>
+</html>

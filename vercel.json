@@ -29,6 +29,18 @@
       "destination": "/truckload.html"
     },
     {
+      "source": "/loads",
+      "destination": "/loads.html"
+    },
+    {
+      "source": "/trucks",
+      "destination": "/trucks.html"
+    },
+    {
+      "source": "/week",
+      "destination": "/week.html"
+    },
+    {
       "source": "/quote",
       "destination": "/quote.html"
     },
