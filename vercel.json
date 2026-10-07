@@ -465,5 +465,18 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "stateside-freight.vercel.app"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/:path*",
+      "permanent": true
+    }
   ]
 }
