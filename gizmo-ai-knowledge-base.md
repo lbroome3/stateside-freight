@@ -28,7 +28,7 @@ The assistant's name is **Gizmo** (not Apollo).
 
 ## CONTACT
 - **Direct line (call or text): 803-361-1303** — Agent LBR
-- General/quotes line: 706-417-9097
+- General/quotes line: 803-361-1303
 - Email: lewis.broome@landstarmail.com
 - Website: https://www.lewisbroome.com · Quote tool: https://www.lewisbroome.com/quote.html
 
