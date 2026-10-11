@@ -63,21 +63,21 @@
 
   /* showpieces */
   .big{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
-  .show{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);min-height:380px;display:flex;align-items:flex-end;background:#0e1420}
-  .show img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s}
-  .show:hover img{transform:scale(1.05)}
-  .show .ov{position:relative;padding:1.4rem;width:100%;background:linear-gradient(180deg,transparent,rgba(6,8,15,.92) 55%)}
-  .show .tag{display:inline-block;background:var(--warn);color:#111;font-weight:800;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:.2rem .6rem;margin-bottom:.5rem}
-  .show h3{font-size:1.6rem}
-  .show p{color:#d3dbe8;margin:.3rem 0 .8rem;max-width:520px}
+  .piece{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);min-height:380px;display:flex;align-items:flex-end;background:#0e1420}
+  .piece img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s}
+  .piece:hover img{transform:scale(1.05)}
+  .piece .ov{position:relative;padding:1.4rem;width:100%;background:linear-gradient(180deg,transparent,rgba(6,8,15,.92) 55%)}
+  .piece .tag{display:inline-block;background:var(--warn);color:#111;font-weight:800;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:.2rem .6rem;margin-bottom:.5rem}
+  .piece h3{font-size:1.6rem}
+  .piece p{color:#d3dbe8;margin:.3rem 0 .8rem;max-width:520px}
   .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}
   .chip{background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.5);color:var(--accent);font-weight:800;font-size:.76rem;border-radius:999px;padding:.3rem .65rem}
   .go{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;background:var(--amz);color:#111;font-weight:800;border-radius:12px;padding:.75rem 1.1rem;font-size:.95rem}
   .go:hover{filter:brightness(1.08)}
   .side{display:grid;gap:16px}
-  .side .show{min-height:182px}
-  .side .show h3{font-size:1.2rem}
-  .side .show p{display:none}
+  .side .piece{min-height:182px}
+  .side .piece h3{font-size:1.2rem}
+  .side .piece p{display:none}
 
   /* kit grid */
   .kit{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
@@ -118,7 +118,7 @@
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
   .reveal.show{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.hero .bg,.rain{animation:none}.reveal{opacity:1;transform:none}}
-  @media (max-width:760px){.big{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.side .show{min-height:150px}.hero{min-height:74vh}.kit{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}.tile .body{padding:.7rem .75rem .8rem}.tile h3{font-size:.92rem}.tile p{font-size:.82rem}}
+  @media (max-width:760px){.big{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.side .piece{min-height:150px}.hero{min-height:74vh}.kit{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}.tile .body{padding:.7rem .75rem .8rem}.tile h3{font-size:.92rem}.tile p{font-size:.82rem}}
 </style>
 </head>
 <body>
@@ -159,17 +159,17 @@
     <div class="wrap">
       <div class="reveal"><h2>The power core</h2><p class="sub">Battery, sun and gas. One of these keeps the lights on no matter how long it takes.</p></div>
       <div class="big reveal">
-        <a class="show" href="https://www.amazon.com/dp/B0CZ6KTYH7?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
+        <a class="piece" href="https://www.amazon.com/dp/B0CZ6KTYH7?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
           <img loading="lazy" src="/az-media/own/dji_wagon_01.jpg" alt="DJI Power 1000 in my beach wagon" />
           <div class="ov"><span class="tag">The heart of it</span><h3>DJI Power 1000</h3><p>1,024 Wh, 2,200 W out, 70 minutes to full, silent, runs indoors. It ran my whole beach day: fridge, fan and phones.</p>
             <div class="chips"><span class="chip">1,024 Wh</span><span class="chip">2,200 W</span><span class="chip">70 min charge</span><span class="chip">Fridge + fan ≈ 8 h</span></div>
             <span class="go">🛒 Buy on Amazon →</span></div>
         </a>
         <div class="side">
-          <a class="show" href="https://www.amazon.com/dp/B0HCDFJB5X?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
+          <a class="piece" href="https://www.amazon.com/dp/B0HCDFJB5X?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
             <div class="ov"><span class="tag">Long outage</span><h3>CRAFTSMAN 2,500W Inverter Generator</h3><p></p><div class="chips"><span class="chip">2,500 W start</span><span class="chip">Gas</span></div><span class="go">🛒 Buy on Amazon →</span></div>
           </a>
-          <a class="show" href="https://www.amazon.com/dp/B07VL3XF96?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
+          <a class="piece" href="https://www.amazon.com/dp/B07VL3XF96?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
             <img loading="lazy" src="/az-media/img/kit-dokio.jpg" alt="DOKIO folding solar panel" />
             <div class="ov"><span class="tag">After the storm</span><h3>DOKIO 110W Solar Panel</h3><p></p><div class="chips"><span class="chip">110 W</span><span class="chip">6 lb, folds</span></div><span class="go">🛒 Buy on Amazon →</span></div>
           </a>
