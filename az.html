@@ -67,6 +67,11 @@
   .search input::placeholder{color:var(--ink-2)}
   .search button{background:var(--amz);color:#111;border:0;border-radius:12px;padding:.7rem 1rem;font-weight:800;font-family:inherit;cursor:pointer;white-space:nowrap}
   .small-note{color:var(--ink-2);font-size:.82rem;margin-top:.5rem;max-width:560px}
+  .finder{display:flex;align-items:center;gap:.8rem;margin:0 0 1rem}
+  .finder input{flex:1;min-width:0;background:rgba(10,14,24,.6);backdrop-filter:blur(8px);border:1.5px solid var(--line);border-radius:12px;color:var(--ink);font-size:1rem;padding:.7rem .9rem;font-family:inherit;outline:0}
+  .finder input:focus{border-color:rgba(34,211,238,.6)}
+  .finder span{color:var(--ink-2);font-size:.85rem;white-space:nowrap}
+  .tag.yr{background:rgba(120,140,180,.25);color:var(--ink)}
   .stats{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:2rem;color:var(--ink-2);font-size:.9rem}
   .stats b{display:block;font-family:'Archivo',sans-serif;font-size:1.6rem;color:var(--ink);line-height:1}
   .stats b[data-count]{font-variant-numeric:tabular-nums}
@@ -246,7 +251,7 @@
     </form>
     <p class="small-note">Not on my list? Search Amazon from here and I still get credit for your order, at no extra cost to you.</p>
     <div class="stats">
-      <div><b data-count="24">0</b>gadgets I own</div>
+      <div><b data-count="24" id="owncount">0</b>gadgets I own</div>
       <div><b data-count="10">0</b>in the video</div>
       <div><b data-count="1">0</b>battery ran the whole beach day</div>
     </div>
@@ -346,9 +351,15 @@
         <button class="chip" data-cat="car">Car Tech</button>
         <button class="chip" data-cat="audio">Audio</button>
         <button class="chip" data-cat="desk">Desk &amp; Gaming</button>
+        <button class="chip" data-cat="home">Smart Home &amp; Security</button>
+        <button class="chip" data-cat="outdoor">Outdoor, Beach &amp; Ride</button>
+        <button class="chip" data-cat="camera">Drones &amp; Cameras</button>
+        <button class="chip" data-cat="tv">TV &amp; Streaming</button>
         <button class="chip" data-cat="kitchen">Kitchen</button>
+        <button class="chip" data-cat="wellness">Home &amp; Wellness</button>
         <button class="chip" data-cat="tools">Tools</button>
       </div>
+      <div class="finder"><input type="search" id="finder" placeholder="Type to find a gadget… (ring, tesla, drone)" aria-label="Find a gadget" autocomplete="off" /><span id="fcount"></span></div>
       <div class="grid" id="allgrid"></div>
     </div>
   </section>
@@ -412,6 +423,7 @@
   </div>
 </div>
 
+<script src="/az-data.js"></script>
 <script>
 (function(){
   var TAG='?tag=broomepicks-20', AMZ='https://www.amazon.com/dp/';
@@ -452,6 +464,19 @@
     ['dji_cooler_03','Cooler from the side'],['dji_solar_02','Cable close-up'],['dji_wagon_04','From above']
   ];
 
+  // Everything from the order history (az-data.js), minus the 10 in the video. Hand-written blurbs win.
+  var ICON={power:'🔋',car:'🚗',audio:'🎧',desk:'🖥️',kitchen:'🍳',tools:'🛠️',home:'🏠',outdoor:'🏖️',camera:'📷',wellness:'💆',tv:'📺'};
+  var vidAsins={B0G4SCX27Q:1}; VIDEO.forEach(function(v){vidAsins[v.asin]=1}); // B0G4SCX27Q = the Quest 3S again under its other listing
+  var blurb={}; MORE.forEach(function(m){blurb[m.asin]=m});
+  if(window.AZ_ALL && AZ_ALL.length){
+    MORE=[]; AZ_ALL.forEach(function(r){
+      if(vidAsins[r.asin]) return;
+      var b=blurb[r.asin]||{};
+      MORE.push({asin:r.asin,name:b.name||r.name,cat:r.cat,ico:b.ico||ICON[r.cat]||'📦',p:b.p||'',year:r.year,u:r.u});
+    });
+    MORE.sort(function(a,b){return (b.p?1:0)-(a.p?1:0)});
+    var total=MORE.length+VIDEO.length, oc=document.getElementById('owncount'); oc.dataset.count=total;
+  }
   function mmss(s){return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2)}
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
   function tile(it,i){
@@ -461,8 +486,8 @@
       ?'<a class="ph" href="'+buy+'" target="_blank" rel="sponsored noopener" title="Buy on Amazon"><img loading="lazy" src="'+it.pic+'" alt="'+esc(it.name)+'" /><i class="shine"></i></a>'
       :'<a class="ph nopic" href="'+buy+'" target="_blank" rel="sponsored noopener" title="Buy on Amazon">'+it.ico+'</a>';
     return '<article class="tile in" data-cat="'+it.cat+(vid?' video':'')+'" style="animation-delay:'+(i*40)+'ms">'+ph+
-      '<div class="body"><div class="tags"><span class="tag">I own this</span>'+(vid?'<span class="tag vid">'+mmss(it.t)+' in video</span>':'')+(it.beach?'<span class="tag beach">My photo</span>':'')+'</div>'+
-      '<h3>'+esc(it.name)+'</h3><p>'+esc(it.p)+'</p><div class="acts">'+
+      '<div class="body"><div class="tags"><span class="tag">I own this</span>'+(vid?'<span class="tag vid">'+mmss(it.t)+' in video</span>':'')+(it.beach?'<span class="tag beach">My photo</span>':'')+(it.year?'<span class="tag yr">Bought '+it.year+'</span>':'')+'</div>'+
+      '<h3>'+esc(it.name)+'</h3><p>'+esc(it.p||(it.u?'Was unavailable last time I checked; the button still shows the listing.':''))+'</p><div class="acts">'+
       '<a class="go" href="'+buy+'" target="_blank" rel="sponsored noopener">🛒 Buy on Amazon →</a>'+
       (vid?'<button class="jump" type="button" data-t="'+it.t+'">▶ '+mmss(it.t)+'</button>':'')+'</div></div></article>';
   }
@@ -483,17 +508,22 @@
     document.addEventListener('pointerout',function(e){var t=e.target.closest&&e.target.closest('.tile'); if(t&&!t.contains(e.relatedTarget)) t.style.transform='';});
   }
 
-  // Filters
-  var chips=document.getElementById('chips');
+  // Filters: category chip + text finder
+  var chips=document.getElementById('chips'), finder=document.getElementById('finder'), fcount=document.getElementById('fcount'), curCat='all';
+  function applyFilter(){
+    var q=finder.value.trim().toLowerCase(), n=0;
+    ag.querySelectorAll('.tile').forEach(function(t){
+      var ok=(curCat==='all'||t.dataset.cat.split(' ').indexOf(curCat)>-1) && (!q||t.textContent.toLowerCase().indexOf(q)>-1);
+      t.classList.toggle('hide',!ok); t.classList.remove('in'); if(ok){ if(n<40){void t.offsetWidth; t.style.animationDelay=(n*30)+'ms'; t.classList.add('in');} n++; }
+    });
+    fcount.textContent=n+' of '+ag.children.length;
+  }
   chips.addEventListener('click',function(e){
     var b=e.target.closest('.chip'); if(!b) return;
     chips.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c===b)});
-    var cat=b.dataset.cat, n=0;
-    ag.querySelectorAll('.tile').forEach(function(t){
-      var ok=cat==='all'||t.dataset.cat.split(' ').indexOf(cat)>-1;
-      t.classList.toggle('hide',!ok); t.classList.remove('in'); if(ok){void t.offsetWidth; t.style.animationDelay=(n++*40)+'ms'; t.classList.add('in');}
-    });
+    curCat=b.dataset.cat; applyFilter();
   });
+  finder.addEventListener('input',applyFilter); applyFilter();
 
   // Video modal + chapters
   var vm=document.getElementById('vmodal'), player=document.getElementById('player'), ch=document.getElementById('chapters');
