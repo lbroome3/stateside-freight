@@ -2,14 +2,22 @@
  * az-track.js — private traffic analytics for the gadget pages (/az, /az/hurricane-kit, /az/dji-power-1000).
  *
  * Lewis, 10/11: "monitor the traffic as folks enter the site, give me analytics so I can see it
- * on my side only." Vercel Web Analytics does that: page views, referrers (YouTube, Facebook,
- * search), countries and devices, visible only to Lewis in the Vercel dashboard for this project
- * (Analytics tab). Nothing is shown to visitors. On top of the page views this file sends custom
- * events for the actions that make money: every Buy on Amazon click (with the ASIN), the
- * "Search all of Amazon" box, demo requests, the kit sheet and the video player.
+ * on my side only, pipe it to my CMS. That way I know what product to push more." And later:
+ * "Is that all the telemetry I can get? Impress me."
  *
- * Web Analytics must be switched on once in the Vercel dashboard (Project → Analytics → Enable);
- * until then the script below 404s quietly and nothing breaks.
+ * Two destinations, nothing shown to visitors:
+ *   1. Vercel Web Analytics (page views, referrers, countries, devices) — the Vercel dashboard.
+ *   2. The CRM: every event is POSTed straight to broome-crm.vercel.app/api/az-event (not through
+ *      the site's /api rewrite, so Vercel's city/region headers describe the visitor, not the
+ *      proxy). /api/az-stats and the CRM's Gadget Analytics page turn it into the leaderboard,
+ *      the live feed, the funnel and the alerts.
+ *
+ * Events: arrive (with referrer + campaign), product_view (a card scrolled into view),
+ * buy_click (ASIN + product), amazon_search, demo_open / demo_request, kit_sheet_open,
+ * video_play, photo_hotspot, leave (scroll depth %, seconds on page).
+ *
+ * Campaign attribution: every link in a YouTube description carries ?v=<short-id>; the first
+ * page of the visit remembers it and every later event carries it. No cookies, no names, no IP.
  */
 (function () {
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -17,16 +25,22 @@
   s.defer = true; s.src = "/_vercel/insights/script.js";
   document.head.appendChild(s);
 
-  var page = location.pathname;
-  // Two destinations: Vercel's dashboard, and Lewis's own CRM (/api/az-event is rewritten to
-  // broome-crm by vercel.json), where /api/az-stats turns it into the product leaderboard.
+  var CRM = "https://broome-crm.vercel.app/api/az-event";
+  var page = location.pathname, T0 = Date.now(), maxDepth = 0;
+  var campaign = "";
+  try {
+    var q = new URLSearchParams(location.search);
+    campaign = (q.get("v") || q.get("utm_source") || q.get("utm_campaign") || "").slice(0, 40);
+    if (campaign) sessionStorage.setItem("az_campaign", campaign); else campaign = sessionStorage.getItem("az_campaign") || "";
+  } catch (e) {}
+
   function track(name, data) {
-    var d = Object.assign({ page: page }, data || {});
+    var d = Object.assign({ page: page }, campaign ? { campaign: campaign } : {}, data || {});
     try { window.va("event", { name: name, data: d }); } catch (e) {}
     try {
       var body = JSON.stringify({ name: name, data: d });
-      if (navigator.sendBeacon) navigator.sendBeacon("/api/az-event", new Blob([body], { type: "application/json" }));
-      else fetch("/api/az-event", { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: body }).catch(function () {});
+      if (navigator.sendBeacon) navigator.sendBeacon(CRM, new Blob([body], { type: "application/json" }));
+      else fetch(CRM, { method: "POST", keepalive: true, mode: "cors", headers: { "Content-Type": "application/json" }, body: body }).catch(function () {});
     } catch (e) {}
   }
   function asinOf(href) { var m = /\/dp\/([A-Z0-9]{10})/.exec(href || ""); return m ? m[1] : ""; }
@@ -60,9 +74,36 @@
     else if (f.id === "dform") { var k = f.querySelector('[name="kind"]:checked'); track("demo_request", { kind: k ? k.value : "video", product: (f.product && f.product.value || "").slice(0, 60) }); }
   }, true);
 
+  // Which products were actually SEEN (card at least half on screen), so the funnel is
+  // visit → saw the product → tapped Buy. Capped at 25 a page so a long scroll stays cheap.
+  var seen = 0;
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting || seen >= 25) return;
+        io.unobserve(en.target); seen++;
+        var a = en.target.querySelector('a[href*="amazon.com/dp/"]') || (en.target.matches && en.target.matches('a[href*="amazon.com/dp/"]') ? en.target : null);
+        var h = en.target.querySelector("h3");
+        track("product_view", { asin: a ? asinOf(a.href) : "", product: (h ? h.textContent : "").trim().slice(0, 60) });
+      });
+    }, { threshold: 0.5 });
+    var arm = function () { document.querySelectorAll(".tile, .piece, .kit > a").forEach(function (el) { if (!el._azio) { el._azio = 1; io.observe(el); } }); };
+    arm(); setTimeout(arm, 1500); setTimeout(arm, 4000);
+  }
+
+  // How far they read and how long they stayed, sent once when they leave.
+  addEventListener("scroll", function () {
+    var h = document.documentElement, p = Math.round((scrollY + innerHeight) / Math.max(1, h.scrollHeight) * 100);
+    if (p > maxDepth) maxDepth = Math.min(100, p);
+  }, { passive: true });
+  var left = false;
+  function leave() { if (left) return; left = true; track("leave", { depth: maxDepth, seconds: Math.round((Date.now() - T0) / 1000) }); }
+  addEventListener("pagehide", leave); document.addEventListener("visibilitychange", function () { if (document.hidden) leave(); });
+
   // Where they came from, once per visit, so YouTube vs Facebook vs search is visible per page.
   try {
     var ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "direct";
     if (!sessionStorage.getItem("az_src")) { sessionStorage.setItem("az_src", ref); track("arrive", { from: ref }); }
-  } catch (e) {}
+    else track("arrive", { from: sessionStorage.getItem("az_src"), again: 1 });
+  } catch (e) { track("arrive", { from: "direct" }); }
 })();
