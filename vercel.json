@@ -1,6 +1,18 @@
 {
   "rewrites": [
     {
+      "source": "/az/hurricane-kit",
+      "destination": "/az-hurricane-kit.html"
+    },
+    {
+      "source": "/az/kit",
+      "destination": "/az-hurricane-kit.html"
+    },
+    {
+      "source": "/AZ/hurricane-kit",
+      "destination": "/az-hurricane-kit.html"
+    },
+    {
       "source": "/az/dji-power-1000",
       "destination": "/az-dji-power-1000.html"
     },

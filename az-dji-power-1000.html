@@ -50,12 +50,23 @@
   .calc input,.calc select{background:var(--card-2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:.75rem .9rem;font-size:1rem;flex:1;min-width:140px}
   .calc .out{margin-top:1rem;font-size:1.25rem;font-weight:800}
   .calc .out span{color:var(--accent)}
-  .kit{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-  .kit a{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem;text-decoration:none;display:flex;flex-direction:column;gap:.3rem}
-  .kit a:hover{border-color:var(--accent)}
-  .kit h3{font-size:1rem}
-  .kit p{color:var(--ink-2);font-size:.9rem;flex:1}
-  .kit .go{color:var(--amz);font-weight:700;font-size:.88rem}
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:.2rem 0 1rem}
+  .strip img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+  @media (max-width:520px){.strip{grid-template-columns:repeat(2,1fr)}}
+  .kit{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+  .kit a{background:linear-gradient(180deg,#141a26,#0f1522);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .2s}
+  .kit a:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 18px 50px rgba(0,0,0,.5)}
+  .kit .ph{position:relative;aspect-ratio:4/3;background:#0e1420;overflow:hidden}
+  .kit .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .kit a:hover .ph img{transform:scale(1.06)}
+  .kit .ph.nopic{display:flex;align-items:center;justify-content:center;font-size:3.2rem;background:radial-gradient(circle at 50% 40%,#1b2333,#0e1420)}
+  .kit .badge{position:absolute;left:10px;top:10px;background:rgba(7,10,18,.85);border:1px solid rgba(34,211,238,.6);color:var(--accent);font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:.25rem .6rem;backdrop-filter:blur(6px)}
+  .kit .own{position:absolute;right:10px;top:10px;background:var(--accent);color:#07131a;font-weight:800;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:.2rem .5rem}
+  .kit .body{padding:.9rem 1rem 1rem;display:flex;flex-direction:column;gap:.3rem;flex:1}
+  .kit h3{font-size:1.02rem;color:var(--ink)}
+  .kit p{color:var(--ink-2);font-size:.88rem;flex:1}
+  .kit .go{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;background:var(--amz);color:#111;font-weight:800;font-size:.9rem;border-radius:10px;padding:.6rem .9rem;margin-top:.6rem}
+  .kit .go:hover{filter:brightness(1.08)}
   .faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;margin-bottom:.6rem}
   .faq summary{font-weight:700;cursor:pointer}
   .faq details p{margin-top:.6rem;color:var(--ink-2)}
@@ -77,7 +88,7 @@
     <h1>The power station I'd want when the hurricane knocks the power out</h1>
     <p class="lead">I live in Myrtle Beach. I own the DJI Power 1000, and I've used it on the beach with a solar panel. Here's why it's my storm backup, what it'll run, and who should skip it.</p>
     <div class="buy">
-      <a class="btn btn-amz" href="https://www.amazon.com/dp/B0CZ6KTYH7?tag=broomepicks-20" target="_blank" rel="sponsored noopener">Check today's price on Amazon</a>
+      <a class="btn btn-amz" href="https://www.amazon.com/dp/B0CZ6KTYH7?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🛒 Buy the DJI Power 1000 on Amazon →</a>
       <a class="btn btn-ghost" href="#calc">What will it run?</a>
     </div>
     <p class="small">Prices and deals change daily. The button shows the current one.</p>
@@ -106,6 +117,12 @@
 
   <section>
     <h2>How I use it</h2>
+    <div class="strip">
+      <img loading="lazy" src="/az-media/own/dji_wagon_01.jpg" alt="DJI Power 1000 in my beach wagon" />
+      <img loading="lazy" src="/az-media/own/fan_closeup.jpg" alt="Fan running off the DJI" />
+      <img loading="lazy" src="/az-media/own/dji_solar_03.jpg" alt="Solar panel on the sand" />
+      <img loading="lazy" src="/az-media/own/phone_app.jpg" alt="DJI app showing 48% left" />
+    </div>
     <p>We took it to the beach with a solar panel and ran everything off it all day. That's the same setup I'd use after a hurricane: charge it full from the wall while the power's still on, then keep it topped up with the panel once the grid goes down.</p>
     <p><a href="https://www.tiktok.com/@lewisbroome" target="_blank" rel="noopener" style="color:var(--accent)">Watch the beach video on my TikTok →</a></p>
   </section>
@@ -149,13 +166,22 @@
 
   <section>
     <h2>The rest of my storm kit</h2>
-    <p class="small" style="margin-bottom:.9rem">Gadgets I own that pair with it.</p>
+    <p class="small" style="margin-bottom:.4rem"><a href="/az/hurricane-kit" style="color:var(--accent);font-weight:700">See the full hurricane kit page →</a></p>
+    <p class="small" style="margin-bottom:.9rem">Everything here is mine. Every button goes straight to Amazon to buy.</p>
     <div class="kit">
-      <a href="https://www.amazon.com/dp/B0H5PM66WN?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><h3>VEVOR 12V Fridge (21 qt)</h3><p>The cooler in my beach video. 12V/24V, so it plugs into the car or the power station.</p><span class="go">Check price →</span></a>
-      <a href="https://www.amazon.com/dp/B0BYL3NV6L?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><h3>Cobra 75 All Road CB Radio</h3><p>Talk when cell service goes down.</p><span class="go">Check price →</span></a>
-      <a href="https://www.amazon.com/dp/B0DHGCX78C?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><h3>RORRY 3-in-1 Power Bank</h3><p>Pocket backup for phone and watch.</p><span class="go">Check price →</span></a>
-      <a href="https://www.amazon.com/dp/B00T564EIY?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><h3>KRIËGER 1100W Inverter</h3><p>Runs plugs off a vehicle battery.</p><span class="go">Check price →</span></a>
-      <a href="https://www.amazon.com/dp/B0F5VZ18TH?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><h3>Bluetooth Tracker Tag</h3><p>Keep tabs on go-bags and keys if you evacuate.</p><span class="go">Check price →</span></a>
+      <a href="https://www.amazon.com/dp/B0HCDFJB5X?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph nopic">⚡<span class="badge">2,500 W gas</span><span class="own">I own this</span></div><div class="body"><h3>CRAFTSMAN 2,500W Inverter Generator</h3><p>The backup to the backup. Quiet inverter generator for the fridge and the DJI when the sun's gone for days.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B07VL3XF96?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph"><img loading="lazy" src="/az-media/img/kit-dokio.jpg" alt="DOKIO folding solar panel" /><span class="badge">110 W solar</span><span class="own">I own this</span></div><div class="body"><h3>DOKIO 110W Folding Solar Panel</h3><p>Six pounds, folds like a briefcase, recharges the DJI on the hood of the truck.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B0H5PM66WN?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph"><img loading="lazy" src="/az-media/own/cooler_open.jpg" alt="VEVOR fridge full of cold drinks" /><span class="badge">45 W · ~19 h on the DJI</span><span class="own">I own this</span></div><div class="body"><h3>VEVOR 12V Fridge (21 qt)</h3><p>A real compressor fridge, not an ice chest. The cooler from my beach video.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B00T564EIY?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph"><img loading="lazy" src="/az-media/img/kit-krieger.jpg" alt="KRIËGER 1100W power inverter" /><span class="badge">1,100 W</span><span class="own">I own this</span></div><div class="body"><h3>KRIËGER 1100W Inverter</h3><p>Two real wall outlets off the truck battery.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B0BJ68TST8?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph"><img loading="lazy" src="/az-media/img/kit-ups.jpg" alt="UPS battery backup" /><span class="badge">Wi-Fi never blinks</span><span class="own">I own this</span></div><div class="body"><h3>UPS Battery Backup</h3><p>Modem and router ride through the outage, surge protection for the rest.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B0BYL3NV6L?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph"><img loading="lazy" src="/az-media/img/07-cobra-1.jpg" alt="Cobra 75 All Road CB radio" /><span class="badge">40 ch · NOAA alerts</span><span class="own">I own this</span></div><div class="body"><h3>Cobra 75 All Road CB Radio</h3><p>Talk when the cell towers go down. Weather alerts built in.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B0DHGCX78C?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph"><img loading="lazy" src="/az-media/img/03-rorry-1.jpg" alt="RORRY 3-in-1 power bank" /><span class="badge">10,000 mAh</span><span class="own">I own this</span></div><div class="body"><h3>RORRY 3-in-1 Power Bank</h3><p>Phone and watch off one brick, cables built in.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B0D4M581B3?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph"><img loading="lazy" src="/az-media/img/kit-aa.jpg" alt="Lithium rechargeable AA batteries" /><span class="badge">1.5 V lithium · USB charger</span><span class="own">I own this</span></div><div class="body"><h3>Lithium Rechargeable AA Batteries</h3><p>Flashlights, lanterns, the CB. Charges off the DJI.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B0F2MSDF3V?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph nopic">🏮<span class="badge">10 pack · glow in the dark</span><span class="own">I own this</span></div><div class="body"><h3>KUNHE LED Camping Lanterns</h3><p>One per room, and you can find them in the dark.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B0BWM67GSL?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph nopic">🌀<span class="badge">20,000 mAh · all night</span><span class="own">I own this</span></div><div class="body"><h3>KopBeau Camping Fan with Lights</h3><p>No power means no AC. This runs all night on low and charges a phone.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B07DBN829V?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph nopic">💧<span class="badge">750 W · 1.1 gal</span><span class="own">I own this</span></div><div class="body"><h3>VEVOR Water Distiller</h3><p>Clean water when the tap is on a boil notice. Runs off the DJI or the generator.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B09CDCRKNZ?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph nopic">🧰<span class="badge">142 pieces</span><span class="own">I own this</span></div><div class="body"><h3>Survival &amp; First Aid Kit</h3><p>Tourniquet, fire starter, whistle, flashlight. Lives in the truck.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
+      <a href="https://www.amazon.com/dp/B0FDFFCXVG?tag=broomepicks-20" target="_blank" rel="sponsored noopener"><div class="ph nopic">🛰️<span class="badge">Starlink Mini</span><span class="own">I own this</span></div><div class="body"><h3>Starlink Mini Mount + Car Charger</h3><p>Internet from the sky, power from the truck, when the ground lines are gone.</p><span class="go">🛒 Buy on Amazon →</span></div></a>
     </div>
   </section>
 
@@ -169,7 +195,7 @@
 
 </main>
 
-<div class="sticky"><a class="btn btn-amz" href="https://www.amazon.com/dp/B0CZ6KTYH7?tag=broomepicks-20" target="_blank" rel="sponsored noopener">Get the DJI Power 1000 on Amazon</a></div>
+<div class="sticky"><a class="btn btn-amz" href="https://www.amazon.com/dp/B0CZ6KTYH7?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🛒 Buy the DJI Power 1000 on Amazon</a></div>
 
 <footer>
   <div class="wrap">
