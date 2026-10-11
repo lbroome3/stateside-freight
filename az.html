@@ -62,6 +62,11 @@
   .btn-play{background:rgba(34,211,238,.14);border:1.5px solid rgba(34,211,238,.6);color:var(--ink);backdrop-filter:blur(8px)}
   .btn-play:hover{background:rgba(34,211,238,.26)}
   .btn-ghost{border:1.5px solid var(--line);color:var(--ink);background:rgba(10,14,24,.45);backdrop-filter:blur(8px)}
+  .search{display:flex;gap:.5rem;margin-top:1.4rem;max-width:560px;background:rgba(10,14,24,.6);backdrop-filter:blur(10px);border:1.5px solid rgba(255,153,0,.55);border-radius:16px;padding:.4rem;box-shadow:0 0 30px rgba(255,153,0,.15)}
+  .search input[type=search]{flex:1;min-width:0;background:transparent;border:0;color:var(--ink);font-size:1rem;padding:.6rem .7rem;font-family:inherit;outline:0}
+  .search input::placeholder{color:var(--ink-2)}
+  .search button{background:var(--amz);color:#111;border:0;border-radius:12px;padding:.7rem 1rem;font-weight:800;font-family:inherit;cursor:pointer;white-space:nowrap}
+  .small-note{color:var(--ink-2);font-size:.82rem;margin-top:.5rem;max-width:560px}
   .stats{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:2rem;color:var(--ink-2);font-size:.9rem}
   .stats b{display:block;font-family:'Archivo',sans-serif;font-size:1.6rem;color:var(--ink);line-height:1}
   .stats b[data-count]{font-variant-numeric:tabular-nums}
@@ -139,6 +144,63 @@
   footer a{color:var(--ink)}
   footer a:hover{color:var(--accent)}
 
+  /* ---------- rotating word ---------- */
+  .rot{display:inline-block;color:var(--accent);border-right:2px solid var(--accent);padding-right:.15em;white-space:nowrap;animation:caret 1s step-end infinite}
+  @keyframes caret{50%{border-color:transparent}}
+
+  /* ---------- cursor spotlight ---------- */
+  .spot{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s;
+    background:radial-gradient(420px 420px at var(--mx,50%) var(--my,50%),rgba(34,211,238,.16),transparent 60%)}
+  body.fine .spot{opacity:1}
+
+  /* ---------- shop the photo ---------- */
+  .photo-shop{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.5);max-width:560px;margin:0 auto}
+  .photo-shop img{width:100%;display:block}
+  .hs{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:rgba(255,153,0,.95);border:2px solid #fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;color:#111;font-size:.9rem;box-shadow:0 0 0 0 rgba(255,153,0,.6);animation:ping 2s infinite}
+  .hs.cyan{background:var(--accent);box-shadow:0 0 0 0 rgba(34,211,238,.6)}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,153,0,.6)}70%{box-shadow:0 0 0 18px rgba(255,153,0,0)}100%{box-shadow:0 0 0 0 rgba(255,153,0,0)}}
+  .pop{position:absolute;z-index:3;width:min(260px,80%);background:rgba(10,14,24,.96);backdrop-filter:blur(12px);border:1px solid rgba(34,211,238,.5);border-radius:14px;padding:.8rem .9rem;display:none;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .pop.open{display:block;animation:rise .25s ease both}
+  .pop h4{font-family:'Archivo',sans-serif;font-size:1rem;margin-bottom:.2rem}
+  .pop p{color:var(--ink-2);font-size:.84rem;margin-bottom:.6rem}
+  .pop .go{font-size:.84rem;padding:.5rem .7rem;width:100%}
+  .pop .x2{position:absolute;top:6px;right:8px;background:none;border:0;color:var(--ink-2);font-size:1rem;cursor:pointer}
+
+  /* ---------- battery gauge ---------- */
+  .gauge{display:grid;grid-template-columns:200px 1fr;gap:1.4rem;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem;backdrop-filter:blur(12px)}
+  .ring{width:200px;height:200px;position:relative}
+  .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .ring .bgc{stroke:rgba(120,140,180,.18);fill:none;stroke-width:14}
+  .ring .fgc{stroke:url(#ggrad);fill:none;stroke-width:14;stroke-linecap:round;stroke-dasharray:534;stroke-dashoffset:534;transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
+  .ring .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .ring .mid b{font-family:'Archivo',sans-serif;font-size:2.1rem;line-height:1;color:var(--ink)}
+  .ring .mid small{color:var(--ink-2);font-size:.78rem;margin-top:.25rem}
+  .loads{display:flex;flex-wrap:wrap;gap:.45rem;margin:.6rem 0 .8rem}
+  .load{border:1.5px solid var(--line);background:rgba(10,14,24,.5);color:var(--ink-2);border-radius:999px;padding:.45rem .85rem;font-weight:700;font-size:.86rem;cursor:pointer;font-family:inherit;transition:all .2s}
+  .load.on{background:rgba(255,153,0,.18);border-color:var(--amz);color:var(--ink)}
+  .gauge .big{font-family:'Archivo',sans-serif;font-size:1.5rem;line-height:1.15}
+  .gauge .big span{color:var(--accent)}
+  .gauge .note{color:var(--ink-2);font-size:.82rem;margin-top:.5rem}
+  @media (max-width:640px){.gauge{grid-template-columns:1fr;justify-items:center;text-align:center}.loads{justify-content:center}}
+
+  /* ---------- sticky kit bar + sheet ---------- */
+  .kitbar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:40;display:inline-flex;align-items:center;gap:.6rem;background:rgba(10,14,24,.85);backdrop-filter:blur(14px);border:1px solid rgba(255,153,0,.6);border-radius:999px;padding:.55rem .6rem .55rem 1rem;box-shadow:0 10px 40px rgba(0,0,0,.6),0 0 30px rgba(255,153,0,.2);font-weight:700;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+  .kitbar.show{opacity:1;pointer-events:auto}
+  .kitbar b{color:var(--amz)}
+  .kitbar button{background:var(--amz);color:#111;border:0;border-radius:999px;padding:.55rem .95rem;font-weight:800;font-family:inherit;cursor:pointer;font-size:.9rem}
+  .sheet{position:fixed;inset:0;z-index:60;display:none;align-items:flex-end;justify-content:center;background:rgba(3,6,12,.7);backdrop-filter:blur(6px)}
+  .sheet.open{display:flex}
+  .sheet .pane{width:min(640px,100%);background:#0d121c;border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;padding:1.1rem 1rem 1.4rem;animation:up .3s cubic-bezier(.2,.8,.2,1) both;max-height:85vh;overflow:auto}
+  @keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+  .sheet h3{font-size:1.25rem;margin-bottom:.2rem}
+  .sheet .sub{margin-bottom:.8rem}
+  .kititem{display:grid;grid-template-columns:64px 1fr auto;gap:.8rem;align-items:center;padding:.6rem 0;border-top:1px solid var(--line)}
+  .kititem img{width:64px;height:64px;object-fit:cover;border-radius:10px}
+  .kititem h4{font-size:.95rem}
+  .kititem p{color:var(--ink-2);font-size:.8rem}
+  .kititem .go{flex:0;font-size:.8rem;padding:.5rem .7rem;white-space:nowrap}
+  @media (max-width:480px){.kititem{grid-template-columns:56px 1fr}.kititem .go{grid-column:2}}
+
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
   .reveal.show{opacity:1;transform:none}
 
@@ -171,12 +233,18 @@
   <div class="wrap">
     <span class="eyebrow"><i class="dot"></i> Picked by Lewis Broome · Myrtle Beach, SC</span>
     <h1>Gidgets <span class="amp">&amp;</span> Gadgets</h1>
-    <p class="lead">Cool gadgets and hot electronics I actually own and use. No hype, just the stuff that works. The ten in my video were shot on the beach, running off one battery.</p>
+    <p class="lead">Gadgets I actually use <span class="rot" id="rot">on the beach</span><br />No hype, just the stuff that works. The ten in my video were shot on the beach, running off one battery.</p>
     <div class="btns">
       <button class="btn btn-play" type="button" data-open-video="0">▶&nbsp; Watch the video <span style="opacity:.7;font-weight:600">3:52</span></button>
       <a class="btn btn-amz" href="#finds">Shop the 10 finds</a>
       <a class="btn btn-ghost" href="#all">Everything I own</a>
     </div>
+    <form class="search" action="https://www.amazon.com/s" method="get" target="_blank" rel="sponsored noopener">
+      <input type="hidden" name="tag" value="broomepicks-20" />
+      <input type="search" name="k" placeholder="Search all of Amazon…" aria-label="Search Amazon" autocomplete="off" required />
+      <button type="submit">Search Amazon →</button>
+    </form>
+    <p class="small-note">Not on my list? Search Amazon from here and I still get credit for your order, at no extra cost to you.</p>
     <div class="stats">
       <div><b data-count="24">0</b>gadgets I own</div>
       <div><b data-count="10">0</b>in the video</div>
@@ -196,11 +264,60 @@
     </div>
   </section>
 
+  <section id="shop-photo">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Shop the photo</h2>
+        <p class="sub">This is my wagon on the beach. Tap a dot to see what it is and check the price.</p>
+      </div>
+      <div class="photo-shop reveal" id="pshop">
+        <img src="/az-media/own/dji_wagon_01.jpg" alt="Lewis's beach wagon: DJI Power 1000, VEVOR fridge and a fan" />
+        <button class="hs" type="button" style="left:38%;top:47%" data-hs="dji" aria-label="DJI Power 1000">1</button>
+        <button class="hs" type="button" style="left:74%;top:30%" data-hs="vevor" aria-label="VEVOR fridge">2</button>
+        <button class="hs cyan" type="button" style="left:28%;top:86%" data-hs="fan" aria-label="Fan">3</button>
+        <div class="pop" id="pop"><button class="x2" type="button" aria-label="Close">✕</button><h4></h4><p></p><a class="go" target="_blank" rel="sponsored noopener">🛒 Buy on Amazon →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="battery">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>One battery, one beach day</h2>
+        <p class="sub">Pick what you'd plug into the DJI Power 1000 and watch the day it gives you.</p>
+      </div>
+      <div class="gauge reveal">
+        <div class="ring">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <defs><linearGradient id="ggrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#ff9900"/></linearGradient></defs>
+            <circle class="bgc" cx="100" cy="100" r="85"/>
+            <circle class="fgc" id="fgc" cx="100" cy="100" r="85"/>
+          </svg>
+          <div class="mid"><b id="ghours">—</b><small id="gsub">pick a load</small></div>
+        </div>
+        <div>
+          <div class="big">Running <span id="gwatts">0 W</span> off 1,024 Wh</div>
+          <div class="loads" id="loads">
+            <button class="load on" data-w="45">🧊 VEVOR fridge · 45 W</button>
+            <button class="load on" data-w="50">🌀 Box fan · 50 W</button>
+            <button class="load on" data-w="10">📱 Phone · 10 W</button>
+            <button class="load" data-w="30">🔊 Rockville speaker · 30 W</button>
+            <button class="load" data-w="60">💻 Laptop · 60 W</button>
+            <button class="load" data-w="15">🥽 Quest charging · 15 W</button>
+            <button class="load" data-w="150">🏠 Home fridge · 150 W</button>
+          </div>
+          <p class="note">Estimate: 1,024 Wh × 85% usable ÷ watts, the same math as my <a href="/az/dji-power-1000" style="color:var(--accent)">hurricane page</a>. Wattages are typical; check your label. Add my solar panel and the fridge-and-fan setup ran all afternoon with charge to spare.</p>
+          <div class="acts" style="margin-top:.8rem"><a class="go" href="https://www.amazon.com/dp/B0CZ6KTYH7?tag=broomepicks-20" target="_blank" rel="sponsored noopener" style="flex:0 1 auto">DJI Power 1000 on Amazon →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="finds">
     <div class="wrap">
       <div class="reveal">
         <h2>The 10 from the video</h2>
-        <p class="sub">Tap a photo to see it in the video. Tap the orange button to check today's price.</p>
+        <p class="sub">Tap the photo or the orange button to buy it on Amazon. The ▶ button jumps to it in the video.</p>
       </div>
       <div class="grid" id="vidgrid"></div>
     </div>
@@ -243,8 +360,13 @@
         <ul>
           <li><strong>I own it.</strong> Every gadget on this page came out of my own orders.</li>
           <li><strong>I say the downside.</strong> If it's not for everybody, I'll tell you who should skip it.</li>
-          <li><strong>Prices live on Amazon.</strong> Deals change daily, so every button checks the current price there.</li>
+          <li><strong>Prices live on Amazon.</strong> Deals change daily, so every button takes you straight there to buy.</li>
         </ul>
+        <form class="search" action="https://www.amazon.com/s" method="get" target="_blank" rel="sponsored noopener" style="margin-top:1.2rem;max-width:none">
+          <input type="hidden" name="tag" value="broomepicks-20" />
+          <input type="search" name="k" placeholder="Looking for something else? Search Amazon…" aria-label="Search Amazon" autocomplete="off" required />
+          <button type="submit">Search →</button>
+        </form>
       </div>
     </div>
   </section>
@@ -268,6 +390,19 @@
       <source src="/az-media/az-video-720.mp4" type="video/mp4" />
     </video>
     <div class="chapters" id="chapters"></div>
+  </div>
+</div>
+<div class="spot" id="spot" aria-hidden="true"></div>
+<div class="kitbar" id="kitbar"><span>🏖️ <b>My beach kit</b> · 4 items</span><button type="button" data-open-kit>Shop it</button></div>
+<div class="sheet" id="kitsheet" role="dialog" aria-modal="true" aria-label="My beach kit">
+  <div class="pane">
+    <h3>My beach kit</h3>
+    <p class="sub">The four things that made the beach day in the video. Each button goes straight to Amazon to buy.</p>
+    <div class="kititem"><img src="/az-media/own/dji_wagon_01.jpg" alt="" /><div><h4>DJI Power 1000</h4><p>The battery that ran everything.</p></div><a class="go" href="https://www.amazon.com/dp/B0CZ6KTYH7?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🛒 Buy →</a></div>
+    <div class="kititem"><img src="/az-media/own/cooler_open.jpg" alt="" /><div><h4>VEVOR 12V Fridge (21 qt)</h4><p>Cold drinks all day, app control.</p></div><a class="go" href="https://www.amazon.com/dp/B0H5PM66WN?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🛒 Buy →</a></div>
+    <div class="kititem"><img src="/az-media/img/03-rorry-1.jpg" alt="" /><div><h4>RORRY 3-in-1 Power Bank</h4><p>Phone and watch topped up in the chair.</p></div><a class="go" href="https://www.amazon.com/dp/B0DHGCX78C?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🛒 Buy →</a></div>
+    <div class="kititem"><img src="/az-media/img/06-rockville-2.jpg" alt="" /><div><h4>Rockville BASS Party 65</h4><p>The music.</p></div><a class="go" href="https://www.amazon.com/dp/B0BTMMLF7X?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🛒 Buy →</a></div>
+    <button class="btn btn-ghost" type="button" data-close style="width:100%;margin-top:1rem">Close</button>
   </div>
 </div>
 <div class="modal" id="pmodal" role="dialog" aria-modal="true" aria-label="Photo">
@@ -321,13 +456,14 @@
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
   function tile(it,i){
     var vid=it.t!==undefined;
+    var buy=AMZ+it.asin+TAG;
     var ph=it.pic
-      ?'<div class="ph"'+(vid?' data-t="'+it.t+'" title="Watch in the video"':'')+'><img loading="lazy" src="'+it.pic+'" alt="'+esc(it.name)+'" /><i class="shine"></i></div>'
-      :'<div class="ph nopic">'+it.ico+'</div>';
+      ?'<a class="ph" href="'+buy+'" target="_blank" rel="sponsored noopener" title="Buy on Amazon"><img loading="lazy" src="'+it.pic+'" alt="'+esc(it.name)+'" /><i class="shine"></i></a>'
+      :'<a class="ph nopic" href="'+buy+'" target="_blank" rel="sponsored noopener" title="Buy on Amazon">'+it.ico+'</a>';
     return '<article class="tile in" data-cat="'+it.cat+(vid?' video':'')+'" style="animation-delay:'+(i*40)+'ms">'+ph+
       '<div class="body"><div class="tags"><span class="tag">I own this</span>'+(vid?'<span class="tag vid">'+mmss(it.t)+' in video</span>':'')+(it.beach?'<span class="tag beach">My photo</span>':'')+'</div>'+
       '<h3>'+esc(it.name)+'</h3><p>'+esc(it.p)+'</p><div class="acts">'+
-      '<a class="go" href="'+AMZ+it.asin+TAG+'" target="_blank" rel="sponsored noopener">Check price on Amazon →</a>'+
+      '<a class="go" href="'+buy+'" target="_blank" rel="sponsored noopener">🛒 Buy on Amazon →</a>'+
       (vid?'<button class="jump" type="button" data-t="'+it.t+'">▶ '+mmss(it.t)+'</button>':'')+'</div></div></article>';
   }
   var vg=document.getElementById('vidgrid'), ag=document.getElementById('allgrid');
@@ -369,7 +505,7 @@
     ch.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',+b.dataset.t===t)});
   }
   function closeAll(){
-    document.querySelectorAll('.modal.open').forEach(function(m){m.classList.remove('open')});
+    document.querySelectorAll('.modal.open,.sheet.open').forEach(function(m){m.classList.remove('open')});
     document.body.style.overflow=''; player.pause();
   }
   document.addEventListener('click',function(e){
@@ -392,6 +528,56 @@
     function step(ts){if(!t0) t0=ts; var p=Math.min(1,(ts-t0)/1100); el.textContent=Math.round(end*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step)}
     requestAnimationFrame(step);
   });
+  // Rotating word in the hero
+  var WORDS=['on the beach','in the truck','at my desk','when the power goes out','every single day'], wi=0, rot=document.getElementById('rot');
+  function typeWord(){
+    var w=WORDS[wi=(wi+1)%WORDS.length], i=0; rot.textContent='';
+    (function t(){ if(i<=w.length){rot.textContent=w.slice(0,i++); setTimeout(t,55)} else setTimeout(typeWord,2200) })();
+  }
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches) setTimeout(typeWord,2600);
+
+  // Cursor spotlight (desktop)
+  if(fine){ document.body.classList.add('fine'); var spot=document.getElementById('spot');
+    document.addEventListener('pointermove',function(e){spot.style.setProperty('--mx',e.clientX+'px');spot.style.setProperty('--my',e.clientY+'px')}); }
+
+  // Shop the photo
+  var HS={
+    dji:{h:'DJI Power 1000',p:'The grey box with the green light. 1,024 Wh, and it ran the fridge, the fan and my phone all afternoon.',a:'B0CZ6KTYH7'},
+    vevor:{h:'VEVOR 12V Fridge (21 qt)',p:'The lid with the two latches. Compressor fridge, not an ice chest. Drinks stay cold off the DJI.',a:'B0H5PM66WN'},
+    fan:{h:'Fan on the DJI',p:'A plain box fan plugged into the DJI\'s outlet, about 50 W. Any fan works; the battery is the trick.',a:'B0CZ6KTYH7'}
+  };
+  var pshop=document.getElementById('pshop'), pop=document.getElementById('pop');
+  pshop.addEventListener('click',function(e){
+    var b=e.target.closest('.hs');
+    if(b){ var d=HS[b.dataset.hs]; pop.querySelector('h4').textContent=d.h; pop.querySelector('p').textContent=d.p; pop.querySelector('a').href=AMZ+d.a+TAG;
+      var r=pshop.getBoundingClientRect(), x=parseFloat(b.style.left), y=parseFloat(b.style.top);
+      pop.style.left=(x>55?'auto':'calc('+x+'% + 22px)'); pop.style.right=(x>55?'calc('+(100-x)+'% + 22px)':'auto'); pop.style.top=(y>70?'auto':y+'%'); pop.style.bottom=(y>70?(100-y)+'%':'auto');
+      pop.classList.add('open'); return; }
+    if(e.target.closest('.x2')) pop.classList.remove('open');
+  });
+
+  // Battery gauge
+  var FULL=1024*0.85, fgc=document.getElementById('fgc'), gh=document.getElementById('ghours'), gs=document.getElementById('gsub'), gw=document.getElementById('gwatts'), loads=document.getElementById('loads');
+  function gauge(){
+    var w=0; loads.querySelectorAll('.load.on').forEach(function(b){w+=+b.dataset.w});
+    gw.textContent=w+' W';
+    if(!w){gh.textContent='—'; gs.textContent='pick a load'; fgc.style.strokeDashoffset=534; return}
+    var h=FULL/w, pct=Math.min(1,h/24);
+    gh.textContent=h>=48?Math.round(h/24)+' days':h>=1?(Math.round(h*10)/10)+' h':Math.round(h*60)+' min';
+    gs.textContent=h>=24?'more than a full day':h>=8?'a full beach day':h>=3?'an afternoon':'a short session';
+    fgc.style.strokeDashoffset=534*(1-pct);
+  }
+  loads.addEventListener('click',function(e){var b=e.target.closest('.load'); if(!b) return; b.classList.toggle('on'); gauge()});
+  new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){gauge()}})},{threshold:.3}).observe(document.getElementById('battery'));
+
+  // Beach kit bar + sheet
+  var kitbar=document.getElementById('kitbar'), kitsheet=document.getElementById('kitsheet');
+  addEventListener('scroll',function(){kitbar.classList.toggle('show',scrollY>500 && !kitsheet.classList.contains('open'))},{passive:true});
+  document.addEventListener('click',function(e){
+    if(e.target.closest('[data-open-kit]')){kitsheet.classList.add('open'); kitbar.classList.remove('show'); document.body.style.overflow='hidden'; return}
+    if(kitsheet.classList.contains('open') && (e.target===kitsheet || e.target.closest('[data-close]'))){kitsheet.classList.remove('open'); document.body.style.overflow='';}
+  });
+
   // Pause the background loop when the modal is open or the tab is hidden (saves battery on phones)
   var bg=document.getElementById('bg');
   document.addEventListener('visibilitychange',function(){document.hidden?bg.pause():bg.play().catch(function(){})});
