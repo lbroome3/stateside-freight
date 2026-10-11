@@ -1,6 +1,22 @@
 {
   "rewrites": [
     {
+      "source": "/az",
+      "destination": "/az.html"
+    },
+    {
+      "source": "/az/",
+      "destination": "/az.html"
+    },
+    {
+      "source": "/AZ",
+      "destination": "/az.html"
+    },
+    {
+      "source": "/AZ/",
+      "destination": "/az.html"
+    },
+    {
       "source": "/fireworks-import",
       "destination": "/fireworks-import.html"
     },
