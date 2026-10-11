@@ -18,8 +18,16 @@
   document.head.appendChild(s);
 
   var page = location.pathname;
+  // Two destinations: Vercel's dashboard, and Lewis's own CRM (/api/az-event is rewritten to
+  // broome-crm by vercel.json), where /api/az-stats turns it into the product leaderboard.
   function track(name, data) {
-    try { window.va("event", { name: name, data: Object.assign({ page: page }, data || {}) }); } catch (e) {}
+    var d = Object.assign({ page: page }, data || {});
+    try { window.va("event", { name: name, data: d }); } catch (e) {}
+    try {
+      var body = JSON.stringify({ name: name, data: d });
+      if (navigator.sendBeacon) navigator.sendBeacon("/api/az-event", new Blob([body], { type: "application/json" }));
+      else fetch("/api/az-event", { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: body }).catch(function () {});
+    } catch (e) {}
   }
   function asinOf(href) { var m = /\/dp\/([A-Z0-9]{10})/.exec(href || ""); return m ? m[1] : ""; }
   function productOf(a) {
