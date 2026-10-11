@@ -18,6 +18,14 @@
  *
  * Campaign attribution: every link in a YouTube description carries ?v=<short-id>; the first
  * page of the visit remembers it and every later event carries it. No cookies, no names, no IP.
+ *
+ * v3 (Lewis, 10/11: "Am I really plugged in? Is there any more telemetry I can get? Deep dive."):
+ *   · new vs returning (a flag in this browser only), the visit number
+ *   · which card position gets the taps (pos), seconds from landing to the Buy tap (secs)
+ *   · video completion milestones (video_progress 25/50/75/100)
+ *   · per-video Amazon tracking IDs: when TAGS maps the campaign to an Associates tracking ID,
+ *     every Buy link on the page is retagged, so Amazon's own earnings report says which video
+ *     earned. Empty until the IDs exist in Associates Central (a tag Amazon doesn't know = no credit).
  */
 (function () {
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -26,6 +34,7 @@
   document.head.appendChild(s);
 
   var CRM = "https://broome-crm.vercel.app/api/az-event";
+  var TAGS = {};  // e.g. { vidA: "broomevida-20", vidB: "broomevidb-20", channel: "broomechan-20" }
   var page = location.pathname, T0 = Date.now(), maxDepth = 0;
   var campaign = "";
   try {
@@ -33,6 +42,23 @@
     campaign = (q.get("v") || q.get("utm_source") || q.get("utm_campaign") || "").slice(0, 40);
     if (campaign) sessionStorage.setItem("az_campaign", campaign); else campaign = sessionStorage.getItem("az_campaign") || "";
   } catch (e) {}
+
+  var returning = 0, visitN = 1;
+  try { visitN = (Number(localStorage.getItem("az_visits")) || 0) + 1; returning = visitN > 1 ? 1 : 0; localStorage.setItem("az_visits", String(visitN)); } catch (e) {}
+
+  // Retag every Amazon link with the tracking ID for the video that sent this visitor.
+  function retag() {
+    var tag = TAGS[campaign]; if (!tag) return;
+    document.querySelectorAll('a[href*="amazon.com"]').forEach(function (a) { a.href = a.href.replace(/([?&])tag=[^&]*/, "$1tag=" + tag); });
+    document.querySelectorAll('form[action*="amazon.com"] input[name="tag"]').forEach(function (i) { i.value = tag; });
+  }
+  retag(); setTimeout(retag, 1500); setTimeout(retag, 4000);
+
+  function posOf(a) {
+    var t = a.closest && a.closest(".tile, .piece, .kititem, .kit > a"); if (!t) return 0;
+    var all = Array.prototype.slice.call(document.querySelectorAll(".tile, .piece, .kititem, .kit > a"));
+    return all.indexOf(t) + 1;
+  }
 
   function track(name, data) {
     var d = Object.assign({ page: page }, campaign ? { campaign: campaign } : {}, data || {});
@@ -54,7 +80,7 @@
     var a = e.target.closest && e.target.closest("a[href]");
     if (a && /amazon\.com/.test(a.href)) {
       if (/\/s\?/.test(a.href)) track("amazon_search_link", {});
-      else track("buy_click", { asin: asinOf(a.href), product: productOf(a) });
+      else track("buy_click", { asin: asinOf(a.href), product: productOf(a), pos: posOf(a), secs: Math.round((Date.now() - T0) / 1000) });
       return;
     }
     var b = e.target.closest && e.target.closest("[data-open-kit]");
@@ -84,12 +110,21 @@
         io.unobserve(en.target); seen++;
         var a = en.target.querySelector('a[href*="amazon.com/dp/"]') || (en.target.matches && en.target.matches('a[href*="amazon.com/dp/"]') ? en.target : null);
         var h = en.target.querySelector("h3");
-        track("product_view", { asin: a ? asinOf(a.href) : "", product: (h ? h.textContent : "").trim().slice(0, 60) });
+        track("product_view", { asin: a ? asinOf(a.href) : "", product: (h ? h.textContent : "").trim().slice(0, 60), pos: posOf(en.target) });
       });
     }, { threshold: 0.5 });
     var arm = function () { document.querySelectorAll(".tile, .piece, .kit > a").forEach(function (el) { if (!el._azio) { el._azio = 1; io.observe(el); } }); };
     arm(); setTimeout(arm, 1500); setTimeout(arm, 4000);
   }
+
+  // How much of the video they actually watched: one event per quarter, once per visit.
+  var player = document.getElementById("player"), hit = {};
+  if (player) player.addEventListener("timeupdate", function () {
+    if (!player.duration) return;
+    var pct = Math.floor(player.currentTime / player.duration * 4) * 25;
+    if (pct >= 25 && !hit[pct]) { hit[pct] = 1; track("video_progress", { pct: pct }); }
+  });
+  if (player) player.addEventListener("ended", function () { if (!hit[100]) { hit[100] = 1; track("video_progress", { pct: 100 }); } });
 
   // How far they read and how long they stayed, sent once when they leave.
   addEventListener("scroll", function () {
@@ -103,7 +138,7 @@
   // Where they came from, once per visit, so YouTube vs Facebook vs search is visible per page.
   try {
     var ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "direct";
-    if (!sessionStorage.getItem("az_src")) { sessionStorage.setItem("az_src", ref); track("arrive", { from: ref }); }
-    else track("arrive", { from: sessionStorage.getItem("az_src"), again: 1 });
-  } catch (e) { track("arrive", { from: "direct" }); }
+    if (!sessionStorage.getItem("az_src")) { sessionStorage.setItem("az_src", ref); track("arrive", { from: ref, returning: returning, visit: visitN }); }
+    else track("arrive", { from: sessionStorage.getItem("az_src"), again: 1, returning: returning, visit: visitN });
+  } catch (e) { track("arrive", { from: "direct", returning: returning, visit: visitN }); }
 })();
