@@ -4,292 +4,241 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Gidgets &amp; Gadgets — Hot Gadgets and Electronics I Actually Use | Lewis Broome</title>
-<meta name="description" content="Gidgets & Gadgets: cool gadgets and hot electronics picked by Lewis Broome — smart home, phone and power, audio, TV and streaming, car tech, kitchen gadgets. Shop on Amazon." />
+<meta name="description" content="Gidgets & Gadgets: the 10 Amazon finds from Lewis Broome's video, plus every gadget he actually owns — power, car tech, audio, desk, kitchen, tools. Real photos from the beach test. Shop on Amazon." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="https://www.lewisbroome.com/az" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Gidgets &amp; Gadgets — Gadgets I Actually Use" />
-<meta property="og:description" content="Hot gadgets and electronics picked by Lewis Broome. Shop on Amazon." />
+<meta property="og:title" content="Gidgets &amp; Gadgets — 10 Amazon Finds I Actually Use" />
+<meta property="og:description" content="Real photos, real beach test, every pick is something I own. Shop on Amazon." />
 <meta property="og:url" content="https://www.lewisbroome.com/az" />
+<meta property="og:image" content="https://www.lewisbroome.com/az-media/az-video-poster.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Archivo:wght@700;800;900&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#0b0f17;--card:#141a26;--card-2:#1b2333;--line:#263044;
-    --ink:#eef2f8;--ink-2:#9aa8bf;--accent:#22d3ee;--accent-2:#a78bfa;--amz:#ff9900;
-    --maxw:1080px;--radius:16px;
+    --bg:#070a12;--card:rgba(20,26,38,.72);--card-2:rgba(27,35,51,.78);--line:rgba(120,140,180,.22);
+    --ink:#eef2f8;--ink-2:#9aa8bf;--accent:#22d3ee;--accent-2:#a78bfa;--amz:#ff9900;--warn:#fbbf24;
+    --maxw:1120px;--radius:18px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   h1,h2,h3{font-family:'Archivo','Inter',sans-serif;letter-spacing:-.02em;line-height:1.1}
   a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
-  .disclose{background:#111827;border-bottom:1px solid var(--line);color:var(--ink-2);font-size:.82rem;text-align:center;padding:.55rem 16px}
-  header{padding:3.2rem 0 2rem}
-  .eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
-  h1{font-size:clamp(2.3rem,7vw,4rem);font-weight:900}
+
+  /* ---------- background video ---------- */
+  .bgv{position:fixed;inset:0;z-index:-2;overflow:hidden;background:#070a12}
+  .bgv video,.bgv img{width:100%;height:100%;object-fit:cover;opacity:.55;filter:saturate(1.15)}
+  .bgv::after{content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(1200px 600px at 20% -10%,rgba(34,211,238,.22),transparent 60%),
+      radial-gradient(900px 500px at 100% 20%,rgba(167,139,250,.18),transparent 60%),
+      linear-gradient(180deg,rgba(7,10,18,.55) 0%,rgba(7,10,18,.78) 45%,rgba(7,10,18,.96) 100%)}
+  .grid-lines{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;
+    background-image:linear-gradient(rgba(34,211,238,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.08) 1px,transparent 1px);
+    background-size:48px 48px;mask-image:linear-gradient(180deg,rgba(0,0,0,.6),transparent 70%)}
+  .scan{position:fixed;left:0;right:0;height:140px;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(34,211,238,.10),transparent);animation:scan 9s linear infinite}
+  @keyframes scan{from{top:-20%}to{top:110%}}
+
+  .disclose{background:rgba(17,24,39,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);color:var(--ink-2);font-size:.82rem;text-align:center;padding:.55rem 16px}
+
+  /* ---------- hero ---------- */
+  header{padding:4rem 0 2.4rem;min-height:72vh;display:flex;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+  h1{font-size:clamp(2.6rem,8vw,5rem);font-weight:900;text-shadow:0 10px 40px rgba(0,0,0,.6)}
   h1 .amp{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .lead{font-size:1.12rem;color:var(--ink-2);max-width:620px;margin-top:1rem}
+  .lead{font-size:1.15rem;color:#c5cfe0;max-width:620px;margin-top:1rem;text-shadow:0 2px 12px rgba(0,0,0,.6)}
   .btns{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;border-radius:12px;padding:.9rem 1.4rem;font-size:1rem}
-  .btn-amz{background:var(--amz);color:#111}
-  .btn-ghost{border:1.5px solid var(--line);color:var(--ink)}
-  section{padding:1.6rem 0 2.2rem}
-  h2{font-size:1.6rem;margin-bottom:.4rem}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:800;border-radius:14px;padding:.95rem 1.5rem;font-size:1rem;cursor:pointer;border:0;font-family:inherit;transition:transform .15s,box-shadow .2s}
+  .btn:active{transform:scale(.97)}
+  .btn-amz{background:var(--amz);color:#111;box-shadow:0 8px 30px rgba(255,153,0,.35)}
+  .btn-amz:hover{box-shadow:0 10px 40px rgba(255,153,0,.55)}
+  .btn-play{background:rgba(34,211,238,.14);border:1.5px solid rgba(34,211,238,.6);color:var(--ink);backdrop-filter:blur(8px)}
+  .btn-play:hover{background:rgba(34,211,238,.26)}
+  .btn-ghost{border:1.5px solid var(--line);color:var(--ink);background:rgba(10,14,24,.45);backdrop-filter:blur(8px)}
+  .stats{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:2rem;color:var(--ink-2);font-size:.9rem}
+  .stats b{display:block;font-family:'Archivo',sans-serif;font-size:1.6rem;color:var(--ink);line-height:1}
+  .stats b[data-count]{font-variant-numeric:tabular-nums}
+
+  section{padding:2rem 0 2.4rem}
+  h2{font-size:1.7rem;margin-bottom:.4rem}
   .sub{color:var(--ink-2);margin-bottom:1.2rem}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
-  .tile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem 1.2rem 1.1rem;display:flex;flex-direction:column;gap:.35rem;transition:border-color .2s,transform .15s}
-  .tile:hover{border-color:var(--accent);transform:translateY(-2px)}
-  .tile .ico{font-size:1.6rem}
-  .tile h3{font-size:1.1rem}
+
+  /* ---------- banner ---------- */
+  .banner{display:block;background:linear-gradient(90deg,rgba(251,191,36,.18),rgba(34,211,238,.10));border:1px solid rgba(251,191,36,.5);border-radius:16px;padding:1.1rem 1.2rem;backdrop-filter:blur(10px);transition:transform .2s,border-color .2s}
+  .banner:hover{transform:translateY(-2px);border-color:var(--warn)}
+  .banner span{font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--warn)}
+  .banner h3{font-size:1.25rem;margin:.3rem 0}
+  .banner p{color:var(--ink-2);font-size:.95rem}
+
+  /* ---------- filter chips ---------- */
+  .chips{display:flex;gap:.5rem;overflow-x:auto;padding:.2rem 0 1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto;border:1.5px solid var(--line);background:rgba(10,14,24,.5);color:var(--ink-2);border-radius:999px;padding:.5rem .95rem;font-weight:700;font-size:.88rem;cursor:pointer;font-family:inherit;transition:all .2s;backdrop-filter:blur(6px)}
+  .chip:hover{color:var(--ink);border-color:rgba(34,211,238,.5)}
+  .chip.on{background:var(--accent);color:#07131a;border-color:var(--accent);box-shadow:0 0 18px rgba(34,211,238,.45)}
+
+  /* ---------- product grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;perspective:1200px}
+  .tile{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;backdrop-filter:blur(12px);transform-style:preserve-3d;transition:transform .25s ease,box-shadow .25s,opacity .3s,border-color .25s;will-change:transform}
+  .tile:hover{border-color:rgba(34,211,238,.6);box-shadow:0 20px 60px rgba(0,0,0,.55),0 0 0 1px rgba(34,211,238,.25) inset}
+  .tile.hide{display:none}
+  .tile.in{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .tile .ph{position:relative;aspect-ratio:4/3;background:#0e1420;overflow:hidden}
+  .tile .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .tile:hover .ph img{transform:scale(1.06)}
+  .tile .ph.nopic{display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,#121a2a,#1b2333)}
+  .tile .ph .shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.14) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s}
+  .tile:hover .ph .shine{transform:translateX(120%)}
+  .tile .body{padding:1rem 1.1rem 1.1rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
+  .tile h3{font-size:1.06rem}
   .tile p{color:var(--ink-2);font-size:.92rem;flex:1}
-  .tile .go{color:var(--amz);font-weight:700;font-size:.9rem;margin-top:.4rem}
-  .hot .tile{background:var(--card-2)}
-  .tag{align-self:flex-start;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#111;background:var(--accent);border-radius:999px;padding:.15rem .55rem}
-  .how{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem}
+  .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.2rem}
+  .tag{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#07131a;background:var(--accent);border-radius:999px;padding:.15rem .55rem}
+  .tag.vid{background:var(--warn)}
+  .tag.beach{background:var(--accent-2);color:#fff}
+  .acts{display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap}
+  .go{display:inline-flex;align-items:center;gap:.4rem;background:var(--amz);color:#111;font-weight:800;font-size:.9rem;border-radius:10px;padding:.6rem .9rem;flex:1;justify-content:center}
+  .go:hover{filter:brightness(1.08)}
+  .jump{display:inline-flex;align-items:center;gap:.35rem;border:1.5px solid var(--line);color:var(--ink-2);font-weight:700;font-size:.82rem;border-radius:10px;padding:.55rem .7rem;cursor:pointer;background:transparent;font-family:inherit}
+  .jump:hover{color:var(--ink);border-color:rgba(34,211,238,.6)}
+
+  /* ---------- beach gallery ---------- */
+  .marquee{position:relative;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .track{display:flex;gap:12px;width:max-content;animation:slide 60s linear infinite}
+  .marquee:hover .track{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  .shot{flex:0 0 auto;width:180px;height:240px;border-radius:14px;overflow:hidden;border:1px solid var(--line);cursor:zoom-in;position:relative;transition:transform .2s}
+  .shot:hover{transform:scale(1.04)}
+  .shot img{width:100%;height:100%;object-fit:cover}
+  .shot span{position:absolute;left:0;right:0;bottom:0;padding:.4rem .6rem;font-size:.72rem;font-weight:700;background:linear-gradient(0deg,rgba(0,0,0,.8),transparent)}
+
+  /* ---------- video modal ---------- */
+  .modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(3,6,12,.86);backdrop-filter:blur(10px);padding:16px}
+  .modal.open{display:flex}
+  .modal .box{width:min(1000px,100%);position:relative}
+  .modal video,.modal img.big{width:100%;border-radius:16px;border:1px solid rgba(34,211,238,.4);box-shadow:0 30px 120px rgba(34,211,238,.18);background:#000;max-height:88vh;object-fit:contain}
+  .modal .x{position:absolute;top:-14px;right:-6px;background:var(--ink);color:#111;border:0;border-radius:50%;width:38px;height:38px;font-weight:900;font-size:1.1rem;cursor:pointer}
+  .chapters{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}
+  .chapters button{border:1px solid var(--line);background:rgba(20,26,38,.8);color:var(--ink-2);font-size:.78rem;font-weight:700;border-radius:999px;padding:.35rem .7rem;cursor:pointer;font-family:inherit}
+  .chapters button:hover,.chapters button.on{color:#07131a;background:var(--accent);border-color:var(--accent)}
+
+  .how{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem;backdrop-filter:blur(10px)}
   .how ul{list-style:none;display:grid;gap:.6rem;margin-top:.6rem}
   .how li{color:var(--ink-2)}
   .how li strong{color:var(--ink)}
-  .jump{display:flex;flex-wrap:wrap;gap:.3rem .6rem;color:var(--ink-2);font-size:.9rem;padding-bottom:.4rem}
-  .jump a{color:var(--accent)}
-  footer{border-top:1px solid var(--line);padding:1.8rem 0 2.4rem;color:var(--ink-2);font-size:.88rem}
+  footer{border-top:1px solid var(--line);padding:1.8rem 0 2.4rem;color:var(--ink-2);font-size:.88rem;background:rgba(7,10,18,.8)}
   footer .row{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-bottom:.8rem}
   footer a{color:var(--ink)}
   footer a:hover{color:var(--accent)}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.show{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion:reduce){
+    .scan,.track{animation:none}.tile,.tile .ph img{transition:none}.reveal{opacity:1;transform:none}
+  }
+  @media (max-width:640px){
+    header{min-height:auto;padding:3rem 0 1.6rem}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+    .tile .body{padding:.75rem .8rem .85rem}
+    .tile h3{font-size:.95rem}.tile p{font-size:.84rem}
+    .go{font-size:.82rem;padding:.55rem .6rem}
+    .shot{width:140px;height:190px}
+  }
 </style>
 </head>
 <body>
+
+<div class="bgv" aria-hidden="true">
+  <video id="bg" autoplay muted loop playsinline preload="metadata" poster="/az-media/az-bg-poster.jpg">
+    <source src="/az-media/az-bg.mp4" type="video/mp4" />
+  </video>
+</div>
+<div class="grid-lines" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
 
 <div class="disclose">As an Amazon Associate I earn from qualifying purchases. It costs you nothing extra.</div>
 
 <header>
   <div class="wrap">
-    <span class="eyebrow">Picked by Lewis Broome</span>
+    <span class="eyebrow"><i class="dot"></i> Picked by Lewis Broome · Myrtle Beach, SC</span>
     <h1>Gidgets <span class="amp">&amp;</span> Gadgets</h1>
-    <p class="lead">Cool gadgets and hot electronics I actually own and use. No hype, just the stuff that works. Every pick below is something I own.</p>
+    <p class="lead">Cool gadgets and hot electronics I actually own and use. No hype, just the stuff that works. The ten in my video were shot on the beach, running off one battery.</p>
     <div class="btns">
-      <a class="btn btn-amz" href="#hot">See what's hot</a>
-      <a class="btn btn-ghost" href="#phone">Shop by category</a>
+      <button class="btn btn-play" type="button" data-open-video="0">▶&nbsp; Watch the video <span style="opacity:.7;font-weight:600">3:52</span></button>
+      <a class="btn btn-amz" href="#finds">Shop the 10 finds</a>
+      <a class="btn btn-ghost" href="#all">Everything I own</a>
+    </div>
+    <div class="stats">
+      <div><b data-count="24">0</b>gadgets I own</div>
+      <div><b data-count="10">0</b>in the video</div>
+      <div><b data-count="1">0</b>battery ran the whole beach day</div>
     </div>
   </div>
 </header>
 
 <main>
-  <section style="padding-bottom:0">
-    <div class="wrap">
-      <a href="/az/dji-power-1000" style="display:block;background:linear-gradient(90deg,rgba(251,191,36,.16),rgba(34,211,238,.10));border:1px solid rgba(251,191,36,.45);border-radius:16px;padding:1.1rem 1.2rem">
-        <span style="font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fbbf24">Hurricane season</span>
-        <h3 style="font-size:1.25rem;margin:.3rem 0">My storm backup: DJI Power 1000</h3>
-        <p style="color:var(--ink-2);font-size:.95rem">What it runs, for how long, and my beach test with solar →</p>
+  <section style="padding-top:0">
+    <div class="wrap reveal">
+      <a class="banner" href="/az/dji-power-1000">
+        <span>Hurricane season</span>
+        <h3>My storm backup: DJI Power 1000</h3>
+        <p>What it runs, for how long, and my beach test with solar →</p>
       </a>
     </div>
   </section>
-  <nav class="wrap jump"><a href="#phone">Phone &amp; Power</a> · <a href="#car">Car Tech</a> · <a href="#audio">Audio</a> · <a href="#desk">Desk &amp; Gaming</a> · <a href="#kitchen">Kitchen Gadgets</a> · <a href="#tools">Tools</a></nav>
-  <section id="hot" class="hot">
+
+  <section id="finds">
     <div class="wrap">
-      <h2>Hot right now</h2>
-      <p class="sub">Gadgets I use every day.</p>
-      <div class="grid">
-        <a class="tile" href="https://www.amazon.com/dp/B0DDJZW3C9?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Meta Quest 3S (256GB)</h3>
-          <p>Mixed-reality headset. I use it to trade with virtual chart monitors floating around me.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0H5PM66WN?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>VEVOR 12V Fridge for Tesla Model 3 (21 qt)</h3>
-          <p>Plug-in compressor fridge with app control. The cooler full of drinks in my beach video.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0DHGCX78C?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>RORRY 3-in-1 Power Bank</h3>
-          <p>10,000mAh with built-in cables. Charges the phone and watch off one brick.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B00939FV8K?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Ninja BL660 Compact Blender</h3>
-          <p>Smoothies and frozen drinks in single-serve cups.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B00XP5KLLK?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Apple Lightning to HDMI Adapter</h3>
-          <p>Puts an iPhone screen on any TV with an HDMI cable.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0CZ6KTYH7?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>DJI Power 1000</h3>
-          <p>Portable power station for outages, camping and the job site.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
+      <div class="reveal">
+        <h2>The 10 from the video</h2>
+        <p class="sub">Tap a photo to see it in the video. Tap the orange button to check today's price.</p>
       </div>
+      <div class="grid" id="vidgrid"></div>
     </div>
   </section>
 
-  <section id="phone">
+  <section id="beach">
     <div class="wrap">
-      <h2>Phone &amp; Power</h2>
-      <div class="grid">
-        <a class="tile" href="https://www.amazon.com/dp/B0B4VZNTMR?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>RORRY Apple Watch Power Bank</h3>
-          <p>5,000mAh pocket charger made for the Apple Watch.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0BYRM9QF8?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>HUOTO Apple Watch Magnetic Charger</h3>
-          <p>Small magnetic watch charger for travel.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0DJCLCWYL?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Mophie Juice Pack (iPhone 16 Pro Max)</h3>
-          <p>Battery case that doubles as protection.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0F5VZ18TH?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Bluetooth Tracker Tag</h3>
-          <p>Works with Apple Find My for keys, bags and luggage.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
+      <div class="reveal">
+        <h2>The beach test</h2>
+        <p class="sub">My own shots. Wagon, cooler, fan, solar panel and the app, all off the DJI Power 1000. Tap to enlarge.</p>
       </div>
     </div>
+    <div class="marquee reveal"><div class="track" id="track"></div></div>
   </section>
 
-  <section id="car">
+  <section id="all">
     <div class="wrap">
-      <h2>Car Tech</h2>
-      <div class="grid">
-        <a class="tile" href="https://www.amazon.com/dp/B0D5LZTKFR?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>JDHDL Wireless Car Charger Mount</h3>
-          <p>Holds the phone and charges it while you drive.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0F1G6JSZL?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>FOLTUSYMY 10&quot; Under-Seat Subwoofer</h3>
-          <p>Adds bass without giving up trunk space.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0BYL3NV6L?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Cobra 75 All Road CB Radio</h3>
-          <p>Wireless-mic CB with all the controls in the handset.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B00T564EIY?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>KRIËGER 1100W Power Inverter</h3>
-          <p>Runs household plugs off the vehicle battery.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
+      <div class="reveal">
+        <h2>Everything I own</h2>
+        <p class="sub">Filter by what you need.</p>
       </div>
-    </div>
-  </section>
-
-  <section id="audio">
-    <div class="wrap">
-      <h2>Audio</h2>
-      <div class="grid">
-        <a class="tile" href="https://www.amazon.com/dp/B0BTMMLF7X?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Rockville BASS Party 65 Speaker</h3>
-          <p>Big Bluetooth party speaker.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0C5S7NXMB?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>JLab Work Buds</h3>
-          <p>Earbuds built for job sites and long days.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0BS1XLCYJ?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>BlueParrott M300-XT Headset</h3>
-          <p>Noise-canceling single-ear headset for calls on the road.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
+      <div class="chips" id="chips">
+        <button class="chip on" data-cat="all">All</button>
+        <button class="chip" data-cat="video">In the video</button>
+        <button class="chip" data-cat="power">Phone &amp; Power</button>
+        <button class="chip" data-cat="car">Car Tech</button>
+        <button class="chip" data-cat="audio">Audio</button>
+        <button class="chip" data-cat="desk">Desk &amp; Gaming</button>
+        <button class="chip" data-cat="kitchen">Kitchen</button>
+        <button class="chip" data-cat="tools">Tools</button>
       </div>
-    </div>
-  </section>
-
-  <section id="desk">
-    <div class="wrap">
-      <h2>Desk &amp; Gaming</h2>
-      <div class="grid">
-        <a class="tile" href="https://www.amazon.com/dp/B0DY1BD3T2?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>UGREEN Revodok Pro 8-in-1 USB-C Hub</h3>
-          <p>HDMI, USB and card reader from one USB-C port.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B091YYXB49?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>13.3&quot; Portable Monitor</h3>
-          <p>1080p second screen that fits in a laptop bag.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0CH9TPJ3V?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Soueto RGB Wireless Keyboard</h3>
-          <p>Backlit wireless keyboard.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0CWTY6Z99?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>ProtoArc Wireless Trackball Mouse</h3>
-          <p>Trackball mouse that&#x27;s easy on the wrist.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-        <a class="tile" href="https://www.amazon.com/dp/B0FC2FLNK9?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Creality K2 Combo 3D Printer</h3>
-          <p>Multi-color 3D printer.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section id="kitchen">
-    <div class="wrap">
-      <h2>Kitchen Gadgets</h2>
-      <div class="grid">
-        <a class="tile" href="https://www.amazon.com/dp/B07FDMKLCK?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Nostalgia Frozen Drink / Slushy Maker</h3>
-          <p>Slushies and frozen drinks at home.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section id="tools">
-    <div class="wrap">
-      <h2>Tools</h2>
-      <div class="grid">
-        <a class="tile" href="https://www.amazon.com/dp/B0FFHBL5RH?tag=broomepicks-20" target="_blank" rel="sponsored noopener">
-          <span class="tag">I own this</span>
-          <h3>Fanttik E2 Ultra Mini Electric Screwdriver</h3>
-          <p>Pocket-size powered screwdriver for small repairs.</p>
-          <span class="go">Check price on Amazon →</span>
-        </a>
-      </div>
+      <div class="grid" id="allgrid"></div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <div class="how">
+      <div class="how reveal">
         <h2>How I pick</h2>
         <ul>
           <li><strong>I own it.</strong> Every gadget on this page came out of my own orders.</li>
@@ -312,5 +261,141 @@
   </div>
 </footer>
 
+<div class="modal" id="vmodal" role="dialog" aria-modal="true" aria-label="Video">
+  <div class="box">
+    <button class="x" type="button" aria-label="Close" data-close>✕</button>
+    <video id="player" controls playsinline preload="metadata" poster="/az-media/az-video-poster.jpg">
+      <source src="/az-media/az-video-720.mp4" type="video/mp4" />
+    </video>
+    <div class="chapters" id="chapters"></div>
+  </div>
+</div>
+<div class="modal" id="pmodal" role="dialog" aria-modal="true" aria-label="Photo">
+  <div class="box" style="width:min(720px,100%)">
+    <button class="x" type="button" aria-label="Close" data-close>✕</button>
+    <img class="big" id="bigpic" alt="" />
+  </div>
+</div>
+
+<script>
+(function(){
+  var TAG='?tag=broomepicks-20', AMZ='https://www.amazon.com/dp/';
+  // The 10 from the video, in video order. t = seconds into the video.
+  var VIDEO=[
+    {asin:'B00939FV8K',t:20, name:'Ninja BL660 Compact Blender',cat:'kitchen',pic:'/az-media/img/01-ninja-1.jpg',p:'Smoothies and frozen drinks in single-serve cups. 72 oz pitcher for the whole family.'},
+    {asin:'B0FFHBL5RH',t:40, name:'Fanttik E2 Ultra Mini Electric Screwdriver',cat:'tools',pic:'/az-media/img/02-fanttik-1.jpg',p:'Pocket-size powered screwdriver for small repairs.'},
+    {asin:'B0DHGCX78C',t:60, name:'RORRY 3-in-1 Power Bank',cat:'power',pic:'/az-media/img/03-rorry-1.jpg',p:'10,000mAh with built-in cables. Charges the phone and watch off one brick.'},
+    {asin:'B0H5PM66WN',t:78, name:'VEVOR 12V Fridge for Tesla Model 3 (21 qt)',cat:'car',pic:'/az-media/own/cooler_open.jpg',beach:1,p:'Plug-in compressor fridge with app control. The cooler full of cold drinks in my beach video.'},
+    {asin:'B091YYXB49',t:99, name:'13.3" Portable Monitor',cat:'desk',pic:'/az-media/img/05-monitor-2.jpg',p:'1080p second screen that fits in a laptop bag.'},
+    {asin:'B0BTMMLF7X',t:118,name:'Rockville BASS Party 65 Speaker',cat:'audio',pic:'/az-media/img/06-rockville-2.jpg',p:'Big Bluetooth party speaker.'},
+    {asin:'B0BYL3NV6L',t:137,name:'Cobra 75 All Road CB Radio',cat:'car',pic:'/az-media/img/07-cobra-1.jpg',p:'Wireless-mic CB with all the controls in the handset.'},
+    {asin:'B0FC2FLNK9',t:155,name:'Creality K2 Combo 3D Printer',cat:'desk',pic:'/az-media/img/08-creality-1.jpg',p:'Multi-color 3D printer.'},
+    {asin:'B0DDJZW3C9',t:176,name:'Meta Quest 3S (256GB)',cat:'desk',pic:'/az-media/own/quest_vr.jpg',beach:1,p:'Mixed-reality headset. I trade with virtual chart monitors floating around me.'},
+    {asin:'B0CZ6KTYH7',t:194,name:'DJI Power 1000',cat:'power',pic:'/az-media/own/dji_wagon_01.jpg',beach:1,p:'Portable power station for outages, camping and the job site. Ran my whole beach day.'}
+  ];
+  // Everything else I own.
+  var MORE=[
+    {asin:'B00XP5KLLK',name:'Apple Lightning to HDMI Adapter',cat:'power',ico:'📺',p:'Puts an iPhone screen on any TV with an HDMI cable.'},
+    {asin:'B0B4VZNTMR',name:'RORRY Apple Watch Power Bank',cat:'power',ico:'⌚',p:'5,000mAh pocket charger made for the Apple Watch.'},
+    {asin:'B0BYRM9QF8',name:'HUOTO Apple Watch Magnetic Charger',cat:'power',ico:'🧲',p:'Small magnetic watch charger for travel.'},
+    {asin:'B0DJCLCWYL',name:'Mophie Juice Pack (iPhone 16 Pro Max)',cat:'power',ico:'🔋',p:'Battery case that doubles as protection.'},
+    {asin:'B0F5VZ18TH',name:'Bluetooth Tracker Tag',cat:'power',ico:'📍',p:'Works with Apple Find My for keys, bags and luggage.'},
+    {asin:'B0D5LZTKFR',name:'JDHDL Wireless Car Charger Mount',cat:'car',ico:'📱',p:'Holds the phone and charges it while you drive.'},
+    {asin:'B0F1G6JSZL',name:'FOLTUSYMY 10" Under-Seat Subwoofer',cat:'car',ico:'🔊',p:'Adds bass without giving up trunk space.'},
+    {asin:'B00T564EIY',name:'KRIËGER 1100W Power Inverter',cat:'car',ico:'⚡',p:'Runs household plugs off the vehicle battery.'},
+    {asin:'B0C5S7NXMB',name:'JLab Work Buds',cat:'audio',ico:'🎧',p:'Earbuds built for job sites and long days.'},
+    {asin:'B0BS1XLCYJ',name:'BlueParrott M300-XT Headset',cat:'audio',ico:'🎙️',p:'Noise-canceling single-ear headset for calls on the road.'},
+    {asin:'B0DY1BD3T2',name:'UGREEN Revodok Pro 8-in-1 USB-C Hub',cat:'desk',ico:'🔌',p:'HDMI, USB and card reader from one USB-C port.'},
+    {asin:'B0CH9TPJ3V',name:'Soueto RGB Wireless Keyboard',cat:'desk',ico:'⌨️',p:'Backlit wireless keyboard.'},
+    {asin:'B0CWTY6Z99',name:'ProtoArc Wireless Trackball Mouse',cat:'desk',ico:'🖱️',p:"Trackball mouse that's easy on the wrist."},
+    {asin:'B07FDMKLCK',name:'Nostalgia Frozen Drink / Slushy Maker',cat:'kitchen',ico:'🥤',p:'Slushies and frozen drinks at home.'}
+  ];
+  var BEACH=[
+    ['dji_wagon_01','DJI Power 1000 in the wagon'],['fan_closeup','Fan running off the DJI'],['cooler_open','Cooler full of cold drinks'],
+    ['dji_solar_03','Solar panel on the sand'],['phone_app','DJI app, 48% left'],['dji_wagon_02','Fan on, cooler cold'],
+    ['dji_solar_01','Solar charging on the beach'],['dji_wagon_03','Cables to the cooler'],['quest_vr','Trading in VR'],
+    ['dji_cooler_03','Cooler from the side'],['dji_solar_02','Cable close-up'],['dji_wagon_04','From above']
+  ];
+
+  function mmss(s){return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2)}
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+  function tile(it,i){
+    var vid=it.t!==undefined;
+    var ph=it.pic
+      ?'<div class="ph"'+(vid?' data-t="'+it.t+'" title="Watch in the video"':'')+'><img loading="lazy" src="'+it.pic+'" alt="'+esc(it.name)+'" /><i class="shine"></i></div>'
+      :'<div class="ph nopic">'+it.ico+'</div>';
+    return '<article class="tile in" data-cat="'+it.cat+(vid?' video':'')+'" style="animation-delay:'+(i*40)+'ms">'+ph+
+      '<div class="body"><div class="tags"><span class="tag">I own this</span>'+(vid?'<span class="tag vid">'+mmss(it.t)+' in video</span>':'')+(it.beach?'<span class="tag beach">My photo</span>':'')+'</div>'+
+      '<h3>'+esc(it.name)+'</h3><p>'+esc(it.p)+'</p><div class="acts">'+
+      '<a class="go" href="'+AMZ+it.asin+TAG+'" target="_blank" rel="sponsored noopener">Check price on Amazon →</a>'+
+      (vid?'<button class="jump" type="button" data-t="'+it.t+'">▶ '+mmss(it.t)+'</button>':'')+'</div></div></article>';
+  }
+  var vg=document.getElementById('vidgrid'), ag=document.getElementById('allgrid');
+  vg.innerHTML=VIDEO.map(tile).join('');
+  ag.innerHTML=VIDEO.concat(MORE).map(tile).join('');
+  var tr=document.getElementById('track'), shots=BEACH.concat(BEACH).map(function(b){return '<figure class="shot" data-pic="/az-media/own/'+b[0]+'.jpg"><img loading="lazy" src="/az-media/own/'+b[0]+'.jpg" alt="'+esc(b[1])+'" /><span>'+esc(b[1])+'</span></figure>'}).join('');
+  tr.innerHTML=shots;
+
+  // 3D tilt on pointer (desktop only)
+  var fine=matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(fine){
+    document.addEventListener('pointermove',function(e){
+      var t=e.target.closest&&e.target.closest('.tile'); if(!t) return;
+      var r=t.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      t.style.transform='rotateX('+(-y*8)+'deg) rotateY('+(x*10)+'deg) translateY(-4px)';
+    });
+    document.addEventListener('pointerout',function(e){var t=e.target.closest&&e.target.closest('.tile'); if(t&&!t.contains(e.relatedTarget)) t.style.transform='';});
+  }
+
+  // Filters
+  var chips=document.getElementById('chips');
+  chips.addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b) return;
+    chips.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c===b)});
+    var cat=b.dataset.cat, n=0;
+    ag.querySelectorAll('.tile').forEach(function(t){
+      var ok=cat==='all'||t.dataset.cat.split(' ').indexOf(cat)>-1;
+      t.classList.toggle('hide',!ok); t.classList.remove('in'); if(ok){void t.offsetWidth; t.style.animationDelay=(n++*40)+'ms'; t.classList.add('in');}
+    });
+  });
+
+  // Video modal + chapters
+  var vm=document.getElementById('vmodal'), player=document.getElementById('player'), ch=document.getElementById('chapters');
+  ch.innerHTML='<button data-t="0">0:00 Intro</button>'+VIDEO.map(function(v){return '<button data-t="'+v.t+'">'+mmss(v.t)+' '+esc(v.name.split(' (')[0].split(' 3-in-1')[0])+'</button>'}).join('');
+  function openVideo(t){
+    vm.classList.add('open'); document.body.style.overflow='hidden';
+    var go=function(){try{player.currentTime=t}catch(e){} player.play().catch(function(){});};
+    if(player.readyState>0) go(); else player.addEventListener('loadedmetadata',go,{once:true});
+    ch.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',+b.dataset.t===t)});
+  }
+  function closeAll(){
+    document.querySelectorAll('.modal.open').forEach(function(m){m.classList.remove('open')});
+    document.body.style.overflow=''; player.pause();
+  }
+  document.addEventListener('click',function(e){
+    var o=e.target.closest('[data-open-video]'); if(o){openVideo(+o.dataset.openVideo); return;}
+    var j=e.target.closest('.jump,.ph[data-t],#chapters button'); if(j){openVideo(+j.dataset.t); return;}
+    var s=e.target.closest('.shot'); if(s){document.getElementById('bigpic').src=s.dataset.pic; document.getElementById('pmodal').classList.add('open'); document.body.style.overflow='hidden'; return;}
+    if(e.target.closest('[data-close]')||e.target.classList.contains('modal')) closeAll();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape') closeAll()});
+  player.addEventListener('timeupdate',function(){
+    var t=player.currentTime, cur=0; VIDEO.forEach(function(v){if(t>=v.t) cur=v.t});
+    ch.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',+b.dataset.t===cur)});
+  });
+
+  // Counters + reveal on scroll
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('show'); io.unobserve(en.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var end=+el.dataset.count, t0=null;
+    function step(ts){if(!t0) t0=ts; var p=Math.min(1,(ts-t0)/1100); el.textContent=Math.round(end*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step)}
+    requestAnimationFrame(step);
+  });
+  // Pause the background loop when the modal is open or the tab is hidden (saves battery on phones)
+  var bg=document.getElementById('bg');
+  document.addEventListener('visibilitychange',function(){document.hidden?bg.pause():bg.play().catch(function(){})});
+})();
+</script>
 </body>
 </html>
