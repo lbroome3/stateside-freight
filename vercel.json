@@ -1,6 +1,22 @@
 {
   "rewrites": [
     {
+      "source": "/az/dji-power-1000",
+      "destination": "/az-dji-power-1000.html"
+    },
+    {
+      "source": "/AZ/dji-power-1000",
+      "destination": "/az-dji-power-1000.html"
+    },
+    {
+      "source": "/az/hurricane",
+      "destination": "/az-dji-power-1000.html"
+    },
+    {
+      "source": "/AZ/hurricane",
+      "destination": "/az-dji-power-1000.html"
+    },
+    {
       "source": "/az",
       "destination": "/az.html"
     },
