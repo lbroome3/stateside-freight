@@ -521,7 +521,7 @@
     MORE=[]; AZ_ALL.forEach(function(r){
       if(vidAsins[r.asin]) return;
       var b=blurb[r.asin]||{};
-      MORE.push({asin:r.asin,name:b.name||r.name,cat:r.cat,ico:b.ico||ICON[r.cat]||'📦',p:b.p||'',year:r.year,u:r.u});
+      MORE.push({asin:r.asin,name:b.name||r.name,cat:r.cat,ico:b.ico||ICON[r.cat]||'📦',p:b.p||'',year:r.year,u:r.u,pic:r.pic||null});
     });
     MORE.sort(function(a,b){return (b.p?1:0)-(a.p?1:0)});
     var total=MORE.length+VIDEO.length, oc=document.getElementById('owncount'); oc.dataset.count=total;
