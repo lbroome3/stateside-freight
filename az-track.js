@@ -34,7 +34,10 @@
   document.head.appendChild(s);
 
   var CRM = "https://broome-crm.vercel.app/api/az-event";
-  var TAGS = {};  // e.g. { vidA: "broomevida-20", vidB: "broomevidb-20", channel: "broomechan-20" }
+  // Associates tracking IDs, one per video (created 10/11 by Gizmo). A Short's own ?v= code
+  // (its 11-character id) maps to the Shorts tag; nothing else is retagged.
+  var TAGS = { vidA: "broomevida-20", vidB: "broomevidb-20", vidC: "broomevidc-20", vid1: "broomevid1-20", channel: "broomechannel-20" };
+  function tagFor(c) { return TAGS[c] || (/^[A-Za-z0-9_-]{11}$/.test(c) ? "broomeshorts-20" : ""); }
   var page = location.pathname, T0 = Date.now(), maxDepth = 0;
   var campaign = "";
   try {
@@ -48,7 +51,7 @@
 
   // Retag every Amazon link with the tracking ID for the video that sent this visitor.
   function retag() {
-    var tag = TAGS[campaign]; if (!tag) return;
+    var tag = tagFor(campaign); if (!tag) return;
     document.querySelectorAll('a[href*="amazon.com"]').forEach(function (a) { a.href = a.href.replace(/([?&])tag=[^&]*/, "$1tag=" + tag); });
     document.querySelectorAll('form[action*="amazon.com"] input[name="tag"]').forEach(function (i) { i.value = tag; });
   }
