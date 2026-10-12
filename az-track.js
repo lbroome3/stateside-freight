@@ -50,10 +50,21 @@
   try { visitN = (Number(localStorage.getItem("az_visits")) || 0) + 1; returning = visitN > 1 ? 1 : 0; localStorage.setItem("az_visits", String(visitN)); } catch (e) {}
 
   // Retag every Amazon link with the tracking ID for the video that sent this visitor.
+  // A link with no tag at all gets the store's default, so no Buy tap ever leaves untagged.
+  var DEFAULT_TAG = "broomepicks-20";
+  function tagHref(href) {
+    var tag = tagFor(campaign) || DEFAULT_TAG;
+    if (/[?&]tag=/.test(href)) return tagFor(campaign) ? href.replace(/([?&])tag=[^&#]*/, "$1tag=" + tag) : href;
+    return href.replace(/^([^#]*?)(\?|(?=#)|$)/, function (m, base, q) { return base + "?tag=" + tag + (q === "?" ? "&" : ""); });
+  }
+  function tagForm(f) {
+    var i = f.querySelector('input[name="tag"]');
+    if (!i) { i = document.createElement("input"); i.type = "hidden"; i.name = "tag"; i.value = DEFAULT_TAG; f.appendChild(i); }
+    if (tagFor(campaign)) i.value = tagFor(campaign);
+  }
   function retag() {
-    var tag = tagFor(campaign); if (!tag) return;
-    document.querySelectorAll('a[href*="amazon.com"]').forEach(function (a) { a.href = a.href.replace(/([?&])tag=[^&]*/, "$1tag=" + tag); });
-    document.querySelectorAll('form[action*="amazon.com"] input[name="tag"]').forEach(function (i) { i.value = tag; });
+    document.querySelectorAll('a[href*="amazon.com"]').forEach(function (a) { var h = tagHref(a.href); if (h !== a.href) a.href = h; });
+    document.querySelectorAll('form[action*="amazon.com"]').forEach(tagForm);
   }
   retag(); setTimeout(retag, 1500); setTimeout(retag, 4000);
 
@@ -82,6 +93,8 @@
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest("a[href]");
     if (a && /amazon\.com/.test(a.href)) {
+      // Tag at the moment of the tap too, so cards drawn after the page settled are covered.
+      var th = tagHref(a.href); if (th !== a.href) a.href = th;
       if (/\/s\?/.test(a.href)) track("amazon_search_link", {});
       else track("buy_click", { asin: asinOf(a.href), product: productOf(a), pos: posOf(a), secs: Math.round((Date.now() - T0) / 1000) });
       return;
@@ -99,7 +112,7 @@
   document.addEventListener("submit", function (e) {
     var f = e.target;
     if (!f || f.tagName !== "FORM") return;
-    if (/amazon\.com\/s/.test(f.action)) { var q = f.querySelector('[name="k"]'); track("amazon_search", { q: (q && q.value || "").slice(0, 60) }); }
+    if (/amazon\.com\/s/.test(f.action)) { tagForm(f); var q = f.querySelector('[name="k"]'); track("amazon_search", { q: (q && q.value || "").slice(0, 60) }); }
     else if (f.id === "dform") { var k = f.querySelector('[name="kind"]:checked'); track("demo_request", { kind: k ? k.value : "video", product: (f.product && f.product.value || "").slice(0, 60) }); }
   }, true);
 
