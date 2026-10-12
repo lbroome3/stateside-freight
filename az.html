@@ -195,7 +195,8 @@
   .kitbar button{background:var(--amz);color:#111;border:0;border-radius:999px;padding:.55rem .95rem;font-weight:800;font-family:inherit;cursor:pointer;font-size:.9rem}
   .sheet{position:fixed;inset:0;z-index:60;display:none;align-items:flex-end;justify-content:center;background:rgba(3,6,12,.7);backdrop-filter:blur(6px)}
   .sheet.open{display:flex}
-  .sheet .pane{width:min(640px,100%);background:#0d121c;border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;padding:1.1rem 1rem 1.4rem;animation:up .3s cubic-bezier(.2,.8,.2,1) both;max-height:85vh;overflow:auto}
+  .sheet .pane{width:min(640px,100%);background:#0d121c;border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;padding:1.1rem 1rem calc(1.4rem + env(safe-area-inset-bottom));animation:up .3s cubic-bezier(.2,.8,.2,1) both;max-height:85vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box}
+  .sheet .pane *{min-width:0}
   @keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
   .sheet h3{font-size:1.25rem;margin-bottom:.2rem}
   .sheet .sub{margin-bottom:.8rem}
@@ -211,7 +212,7 @@
   .jump.demo:hover{border-color:var(--accent-2);color:#fff}
   .dform{display:grid;gap:.7rem;margin-top:.8rem}
   .dform label{display:grid;gap:.3rem;font-size:.85rem;color:var(--ink-2);font-weight:600}
-  .dform input,.dform textarea{background:rgba(10,14,24,.7);border:1.5px solid var(--line);border-radius:10px;color:var(--ink);font-size:1rem;padding:.65rem .8rem;font-family:inherit;outline:0;width:100%}
+  .dform input:not([type=radio]),.dform textarea{background:rgba(10,14,24,.7);border:1.5px solid var(--line);border-radius:10px;color:var(--ink);font-size:1rem;padding:.65rem .8rem;font-family:inherit;outline:0;width:100%}
   .dform input:focus,.dform textarea:focus{border-color:rgba(167,139,250,.7)}
   .dform input[readonly]{color:var(--accent);font-weight:700}
   .dform textarea{min-height:84px;resize:vertical}
@@ -220,10 +221,10 @@
   .dform .send{background:var(--accent-2);color:#fff;border:0;border-radius:12px;padding:.9rem 1.2rem;font-weight:800;font-family:inherit;cursor:pointer;font-size:1rem}
   .dform .send[disabled]{opacity:.6;cursor:wait}
   .dkind{display:grid;gap:.5rem}
-  .dkind .opt{display:flex;gap:.6rem;align-items:flex-start;background:rgba(10,14,24,.5);border:1.5px solid var(--line);border-radius:12px;padding:.7rem .8rem;cursor:pointer;color:var(--ink)}
+  .dkind .opt{display:flex;gap:.7rem;align-items:flex-start;background:rgba(10,14,24,.5);border:1.5px solid var(--line);border-radius:12px;padding:.75rem .85rem;cursor:pointer;color:var(--ink);text-decoration:none;font-weight:500;font-size:1rem;min-width:0}
   .dkind .opt:has(input:checked){border-color:var(--accent-2);background:rgba(167,139,250,.12)}
-  .dkind input{margin-top:.25rem;accent-color:var(--accent-2);flex:0 0 auto}
-  .dkind .opt span{flex:1;text-align:left}
+  .dkind input[type=radio]{appearance:auto;-webkit-appearance:radio;width:20px;height:20px;margin:.15rem 0 0;padding:0;border:0;background:none;accent-color:var(--accent-2);flex:0 0 20px}
+  .dkind .opt span{flex:1 1 auto;min-width:0;text-align:left}
   .dkind b{display:block;font-size:.95rem}
   .dkind small{display:block;color:var(--ink-2);font-size:.8rem;font-weight:500}
   .dnote{margin-top:.8rem;font-size:.92rem;color:var(--ink-2)}
