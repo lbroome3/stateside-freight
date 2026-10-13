@@ -46,6 +46,15 @@
     if (campaign) sessionStorage.setItem("az_campaign", campaign); else campaign = sessionStorage.getItem("az_campaign") || "";
   } catch (e) {}
 
+  // Lewis's own devices: open lewisbroome.com/az?me=1 once on each and that browser never rings
+  // his phone with a visitor alert (?me=0 undoes it). Visits are still counted.
+  var me = 0;
+  try {
+    var mq = new URLSearchParams(location.search).get("me");
+    if (mq === "1") localStorage.setItem("az_me", "1"); else if (mq === "0") localStorage.removeItem("az_me");
+    me = localStorage.getItem("az_me") === "1" ? 1 : 0;
+  } catch (e) {}
+
   var returning = 0, visitN = 1;
   try { visitN = (Number(localStorage.getItem("az_visits")) || 0) + 1; returning = visitN > 1 ? 1 : 0; localStorage.setItem("az_visits", String(visitN)); } catch (e) {}
 
@@ -158,7 +167,7 @@
   // Where they came from, once per visit, so YouTube vs Facebook vs search is visible per page.
   try {
     var ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "direct";
-    if (!sessionStorage.getItem("az_src")) { sessionStorage.setItem("az_src", ref); track("arrive", { from: ref, returning: returning, visit: visitN }); }
-    else track("arrive", { from: sessionStorage.getItem("az_src"), again: 1, returning: returning, visit: visitN });
-  } catch (e) { track("arrive", { from: "direct", returning: returning, visit: visitN }); }
+    if (!sessionStorage.getItem("az_src")) { sessionStorage.setItem("az_src", ref); track("arrive", { from: ref, returning: returning, visit: visitN, me: me }); }
+    else track("arrive", { from: sessionStorage.getItem("az_src"), again: 1, returning: returning, visit: visitN, me: me });
+  } catch (e) { track("arrive", { from: "direct", returning: returning, visit: visitN, me: me }); }
 })();
