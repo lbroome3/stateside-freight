@@ -30,6 +30,8 @@ def lang_link(href, label, hreflang):
 
 def common(html, en_path, es_path):
     """Spanish-wide changes: lang, canonical, hreflang, toggle, internal links, Amazon in Spanish."""
+    # make-az-seo.py writes its own Spanish blocks; drop the English ones before translating.
+    html = re.sub(r"<!-- (seo:head|seo:index) .*?<!-- /\1 -->\n", "", html, flags=re.S)
     # Undo what toggle_on_english() added to the English page, so reruns start clean.
     html = html.replace(LANG_CSS, "")
     html = re.sub(r'<link rel="alternate" hreflang="(en|es)" href="[^"]*" />\n', "", html)
@@ -502,3 +504,6 @@ if __name__ == "__main__":
         (ROOT / dst).write_text(html)
         toggle_on_english(src, es_path)
         print(f"{dst}: written")
+    # Search-engine layer (meta tags, structured data, A-Z list) on all six pages.
+    import subprocess
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "make-az-seo.py")], check=True)
