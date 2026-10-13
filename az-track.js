@@ -14,7 +14,7 @@
  *
  * Events: arrive (with referrer + campaign), product_view (a card scrolled into view),
  * buy_click (ASIN + product), amazon_search, demo_open / demo_request, kit_sheet_open,
- * video_play, photo_hotspot, leave (scroll depth %, seconds on page).
+ * video_play, photo_hotspot, leave (scroll depth %, seconds on page), ping (every 30 s while in view).
  *
  * Campaign attribution: every link in a YouTube description carries ?v=<short-id>; the first
  * page of the visit remembers it and every later event carries it. No cookies and no IP; each
@@ -174,8 +174,20 @@
     if (p > maxDepth) maxDepth = Math.min(100, p);
   }, { passive: true });
   var left = false;
-  function leave() { if (left) return; left = true; track("leave", { depth: maxDepth, seconds: Math.round((Date.now() - T0) / 1000) }); }
-  addEventListener("pagehide", leave); document.addEventListener("visibilitychange", function () { if (document.hidden) leave(); });
+  // Each stretch in view is its own leave, so switching apps and coming back never double-counts.
+  var segT0 = T0;
+  function leave() { if (left) return; left = true; track("leave", { depth: maxDepth, seconds: Math.round((Date.now() - segT0) / 1000) }); }
+  addEventListener("pagehide", leave);
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) leave();
+    else if (left) { left = false; segT0 = Date.now(); pings = 0; track("ping", {}); }
+  });
+
+  // Heartbeat (Lewis, 10/12: "So I know if it's live"): a tiny ping every 30 s while the page
+  // is open and in view, so the CRM's "On the site now" drops a visitor the moment they go
+  // quiet instead of five minutes later. Stops after 30 minutes on one page.
+  var pings = 0;
+  setInterval(function () { if (!document.hidden && !left && pings < 60) { pings++; track("ping", {}); } }, 30000);
 
   // Where they came from, once per visit, so YouTube vs Facebook vs search is visible per page.
   try {
