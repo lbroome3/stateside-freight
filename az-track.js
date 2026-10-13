@@ -79,8 +79,12 @@
     try { window.va("event", { name: name, data: d }); } catch (e) {}
     try {
       var body = JSON.stringify({ name: name, data: d });
-      if (navigator.sendBeacon) navigator.sendBeacon(CRM, new Blob([body], { type: "application/json" }));
-      else fetch(CRM, { method: "POST", keepalive: true, mode: "cors", headers: { "Content-Type": "application/json" }, body: body }).catch(function () {});
+      // text/plain, never application/json: a JSON beacon needs a CORS preflight, and a beacon
+      // carries cookies, so Chrome drops it unless the CRM answers Allow-Credentials. It did not,
+      // and from 10/11 to 10/12 nearly every visit was lost that way. The CRM parses either.
+      var sent = false;
+      if (navigator.sendBeacon) sent = navigator.sendBeacon(CRM, new Blob([body], { type: "text/plain;charset=UTF-8" }));
+      if (!sent) fetch(CRM, { method: "POST", keepalive: true, mode: "no-cors", headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: body }).catch(function () {});
     } catch (e) {}
   }
   function asinOf(href) { var m = /\/dp\/([A-Z0-9]{10})/.exec(href || ""); return m ? m[1] : ""; }
