@@ -109,6 +109,17 @@
       if (!sent) fetch(CRM, { method: "POST", keepalive: true, mode: "no-cors", headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: body }).catch(function () {});
     } catch (e) {}
   }
+  // The product photo on that card, as a site path ("/az-media/img/01-ninja-1.jpg"), so the CRM
+  // can show Lewis the product big (10/12: "Show me the product they're looking at. Photo and all.").
+  function imgOf(el) {
+    try {
+      var t = el.closest ? el.closest(".tile, .piece, .kititem, .kit > a, .row, .pop") || el : el;
+      var i = t.querySelector && t.querySelector("img");
+      var src = i ? (i.currentSrc || i.src || "") : "";
+      var u = src ? new URL(src, location.href) : null;
+      return u && u.host === location.host ? u.pathname.slice(0, 80) : "";
+    } catch (e) { return ""; }
+  }
   function asinOf(href) { var m = /\/dp\/([A-Z0-9]{10})/.exec(href || ""); return m ? m[1] : ""; }
   function productOf(a) {
     var t = a.closest(".tile, .piece, .row, .kititem, .pop, .kit a, .btns, header");
@@ -122,7 +133,7 @@
       // Tag at the moment of the tap too, so cards drawn after the page settled are covered.
       var th = tagHref(a.href); if (th !== a.href) a.href = th;
       if (/\/s\?/.test(a.href)) track("amazon_search_link", {});
-      else track("buy_click", { asin: asinOf(a.href), product: productOf(a), pos: posOf(a), secs: Math.round((Date.now() - T0) / 1000) });
+      else track("buy_click", { asin: asinOf(a.href), product: productOf(a), pos: posOf(a), secs: Math.round((Date.now() - T0) / 1000), img: imgOf(a) });
       return;
     }
     var b = e.target.closest && e.target.closest("[data-open-kit]");
@@ -152,7 +163,7 @@
         io.unobserve(en.target); seen++;
         var a = en.target.querySelector('a[href*="amazon.com/dp/"]') || (en.target.matches && en.target.matches('a[href*="amazon.com/dp/"]') ? en.target : null);
         var h = en.target.querySelector("h3");
-        track("product_view", { asin: a ? asinOf(a.href) : "", product: (h ? h.textContent : "").trim().slice(0, 60), pos: posOf(en.target) });
+        track("product_view", { asin: a ? asinOf(a.href) : "", product: (h ? h.textContent : "").trim().slice(0, 60), pos: posOf(en.target), img: imgOf(en.target) });
       });
     }, { threshold: 0.5 });
     var arm = function () { document.querySelectorAll(".tile, .piece, .kit > a").forEach(function (el) { if (!el._azio) { el._azio = 1; io.observe(el); } }); };
