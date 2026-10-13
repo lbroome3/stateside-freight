@@ -45,7 +45,7 @@
     <ul>
       <li>No account is needed to read anything here, and nothing here sells or rents your information.</li>
       <li>If you fill in a form (a quote, a load, a gadget demo request), the details you type go to Lewis so he can answer you. That is the only reason they are collected.</li>
-      <li>The gadget pages keep private, anonymous usage counts so Lewis knows which products people care about. No IP address is stored and no one is identified.</li>
+      <li>The gadget pages keep a private usage log so Lewis knows which products people care about. No IP address is stored.</li>
       <li>Product links on the gadget pages are Amazon affiliate links. Lewis earns a small commission when you buy; it costs you nothing extra.</li>
     </ul>
   </section>
@@ -59,8 +59,8 @@
     <h2>Gadget pages: what is counted, and what is not</h2>
     <p>The pages under /az (the store, the hurricane kit, the DJI page) send small anonymous events to the Broome CRM: that a page was opened, which product cards scrolled into view, which Buy button was tapped, an Amazon search term typed into the search box, a demo request, a video play, how far down the page you read, and how long you stayed. If you arrived from one of Lewis's YouTube videos, the link carries a short code so he knows which video sent you.</p>
     <div class="box">
-      <p><strong>What is not collected:</strong> your IP address is never stored. The only visitor identifier is a one-way hash that changes every day, good only for counting distinct people for that day and useless for recognising anyone. No names, emails, or account identifiers are attached to these events. Approximate city and region come from the hosting provider's edge network and are used only in aggregate.</p>
-      <p class="small">The pages use the browser's local storage to remember that you have visited before and which video sent you. No third-party advertising cookies are set.</p>
+      <p><strong>What is not collected:</strong> your IP address is never stored. Your browser keeps a random visitor number in its local storage, made up on your first visit and not derived from anything about you, so repeat visits from the same browser can be counted together; clearing your browser's site data resets it. Lewis may add a private name or note to that visitor record himself, for example after you call or message him. Approximate city and region come from the hosting provider's edge network, and the device type, screen size, language and time zone come from your browser. None of it is sold or shared.</p>
+      <p class="small">The pages use the browser's local storage to keep that visitor number, remember that you have visited before, and which video sent you. No third-party advertising cookies are set.</p>
     </div>
     <p>The site also uses <a href="https://vercel.com/docs/analytics/privacy-policy" rel="noopener">Vercel Web Analytics</a>, which is cookie-free and does not track people across sites.</p>
   </section>

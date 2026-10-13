@@ -17,7 +17,8 @@
  * video_play, photo_hotspot, leave (scroll depth %, seconds on page).
  *
  * Campaign attribution: every link in a YouTube description carries ?v=<short-id>; the first
- * page of the visit remembers it and every later event carries it. No cookies, no names, no IP.
+ * page of the visit remembers it and every later event carries it. No cookies and no IP; each
+ * browser keeps a random visitor id in local storage (see vid below).
  *
  * v3 (Lewis, 10/11: "Am I really plugged in? Is there any more telemetry I can get? Deep dive."):
  *   · new vs returning (a flag in this browser only), the visit number
@@ -58,6 +59,18 @@
   var returning = 0, visitN = 1;
   try { visitN = (Number(localStorage.getItem("az_visits")) || 0) + 1; returning = visitN > 1 ? 1 : 0; localStorage.setItem("az_visits", String(visitN)); } catch (e) {}
 
+  // The visitor id (Lewis, 10/12: "the ability to log the visitor and make notes"): a random
+  // string kept in this browser only, so the CRM's Visitor log can line one person's visits up
+  // into a journey and Lewis can put a name and notes on it. Not derived from anything about them.
+  var vid = "";
+  try {
+    vid = localStorage.getItem("az_vid") || "";
+    if (!/^[a-z0-9]{12}$/.test(vid)) { vid = ""; for (var i = 0; i < 12; i++) vid += "abcdefghijklmnopqrstuvwxyz0123456789".charAt(Math.floor(Math.random() * 36)); localStorage.setItem("az_vid", vid); }
+  } catch (e) { vid = ""; }
+  // Screen, language and time zone, sent once per page on arrive: "390×844 · en-US · America/New_York".
+  var env = "";
+  try { env = [screen.width + "×" + screen.height, navigator.language, Intl.DateTimeFormat().resolvedOptions().timeZone].filter(Boolean).join(" · "); } catch (e) {}
+
   // Retag every Amazon link with the tracking ID for the video that sent this visitor.
   // A link with no tag at all gets the store's default, so no Buy tap ever leaves untagged.
   var DEFAULT_TAG = "broomepicks-20";
@@ -84,7 +97,7 @@
   }
 
   function track(name, data) {
-    var d = Object.assign({ page: page }, campaign ? { campaign: campaign } : {}, data || {});
+    var d = Object.assign({ page: page }, campaign ? { campaign: campaign } : {}, vid ? { vid: vid } : {}, data || {});
     try { window.va("event", { name: name, data: d }); } catch (e) {}
     try {
       var body = JSON.stringify({ name: name, data: d });
@@ -167,7 +180,7 @@
   // Where they came from, once per visit, so YouTube vs Facebook vs search is visible per page.
   try {
     var ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "direct";
-    if (!sessionStorage.getItem("az_src")) { sessionStorage.setItem("az_src", ref); track("arrive", { from: ref, returning: returning, visit: visitN, me: me }); }
-    else track("arrive", { from: sessionStorage.getItem("az_src"), again: 1, returning: returning, visit: visitN, me: me });
-  } catch (e) { track("arrive", { from: "direct", returning: returning, visit: visitN, me: me }); }
+    if (!sessionStorage.getItem("az_src")) { sessionStorage.setItem("az_src", ref); track("arrive", { from: ref, returning: returning, visit: visitN, me: me, env: env }); }
+    else track("arrive", { from: sessionStorage.getItem("az_src"), again: 1, returning: returning, visit: visitN, me: me, env: env });
+  } catch (e) { track("arrive", { from: "direct", returning: returning, visit: visitN, me: me, env: env }); }
 })();
