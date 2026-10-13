@@ -153,6 +153,14 @@
       "destination": "/bco-dispatch.html"
     },
     {
+      "source": "/littlejohn",
+      "destination": "/littlejohn.html"
+    },
+    {
+      "source": "/littlejohn/",
+      "destination": "/littlejohn.html"
+    },
+    {
       "source": "/videos",
       "destination": "/videos.html"
     },
