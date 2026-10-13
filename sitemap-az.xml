@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The Gidgets & Gadgets store only (/az and /az/es). Submitted to Google Search Console
+     on its own; generated pages are listed in scripts/make-az-seo.py. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.lewisbroome.com/az</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az" />
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.lewisbroome.com/az/hurricane-kit</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az/hurricane-kit" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es/hurricane-kit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az/hurricane-kit" />
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lewisbroome.com/az/dji-power-1000</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az/dji-power-1000" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es/dji-power-1000" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az/dji-power-1000" />
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.lewisbroome.com/az/es</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az" />
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.lewisbroome.com/az/es/hurricane-kit</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az/hurricane-kit" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es/hurricane-kit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az/hurricane-kit" />
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.lewisbroome.com/az/es/dji-power-1000</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az/dji-power-1000" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es/dji-power-1000" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az/dji-power-1000" />
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
