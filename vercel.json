@@ -17,6 +17,38 @@
       "destination": "/privacy.html"
     },
     {
+      "source": "/az/es",
+      "destination": "/az-es.html"
+    },
+    {
+      "source": "/az/es/",
+      "destination": "/az-es.html"
+    },
+    {
+      "source": "/AZ/es",
+      "destination": "/az-es.html"
+    },
+    {
+      "source": "/AZ/ES",
+      "destination": "/az-es.html"
+    },
+    {
+      "source": "/az/es/hurricane-kit",
+      "destination": "/az-es-hurricane-kit.html"
+    },
+    {
+      "source": "/az/es/kit",
+      "destination": "/az-es-hurricane-kit.html"
+    },
+    {
+      "source": "/az/es/hurricane",
+      "destination": "/az-es-dji-power-1000.html"
+    },
+    {
+      "source": "/az/es/dji-power-1000",
+      "destination": "/az-es-dji-power-1000.html"
+    },
+    {
       "source": "/az/hurricane-kit",
       "destination": "/az-hurricane-kit.html"
     },
