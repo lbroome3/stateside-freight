@@ -153,6 +153,14 @@
       "destination": "/bco-dispatch.html"
     },
     {
+      "source": "/infinity",
+      "destination": "/infinity.html"
+    },
+    {
+      "source": "/infinity/",
+      "destination": "/infinity.html"
+    },
+    {
       "source": "/littlejohn",
       "destination": "/littlejohn.html"
     },
