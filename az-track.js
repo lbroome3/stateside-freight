@@ -133,6 +133,7 @@
       // Tag at the moment of the tap too, so cards drawn after the page settled are covered.
       var th = tagHref(a.href); if (th !== a.href) a.href = th;
       if (/\/s\?/.test(a.href)) track("amazon_search_link", {});
+      else if (/amazon\.com\/(coupons|deals)/.test(a.href)) track("deals_click", { page: /coupons/.test(a.href) ? "coupons" : "deals" });
       else track("buy_click", { asin: asinOf(a.href), product: productOf(a), pos: posOf(a), secs: Math.round((Date.now() - T0) / 1000), img: imgOf(a) });
       return;
     }

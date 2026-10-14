@@ -69,6 +69,9 @@
   .search input[type=search]{flex:1;min-width:0;background:transparent;border:0;color:var(--ink);font-size:1rem;padding:.6rem .7rem;font-family:inherit;outline:0}
   .search input::placeholder{color:var(--ink-2)}
   .search button{background:var(--amz);color:#111;border:0;border-radius:12px;padding:.7rem 1rem;font-weight:800;font-family:inherit;cursor:pointer;white-space:nowrap}
+  .deals{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;max-width:560px}
+  .deals a{flex:1 1 150px;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:1.5px solid rgba(255,153,0,.55);background:rgba(255,153,0,.12);color:var(--ink);font-weight:800;border-radius:12px;padding:.65rem .9rem;white-space:nowrap}
+  .clip{color:var(--ink-2);font-size:.78rem;margin-top:.45rem}
   .small-note{color:var(--ink-2);font-size:.82rem;margin-top:.5rem;max-width:560px}
   .finder{display:flex;align-items:center;gap:.8rem;margin:0 0 1rem}
   .finder input{flex:1;min-width:0;background:rgba(10,14,24,.6);backdrop-filter:blur(8px);border:1.5px solid var(--line);border-radius:12px;color:var(--ink);font-size:1rem;padding:.7rem .9rem;font-family:inherit;outline:0}
@@ -306,6 +309,11 @@
       <button type="submit">Search Amazon →</button>
     </form>
     <p class="small-note">Not on my list? Search Amazon from here and I still get credit for your order, at no extra cost to you.</p>
+    <div class="deals">
+      <a href="https://www.amazon.com/coupons?tag=broomepicks-20" target="_blank" rel="sponsored noopener">✂️ Amazon Coupons</a>
+      <a href="https://www.amazon.com/deals?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🔥 Today's Deals</a>
+    </div>
+    <p class="small-note">Amazon's own coupons and deals, updated every day. Clip a coupon and save at checkout.</p>
     <div class="stats">
       <div><b data-count="24" id="owncount">0</b>gadgets I own</div>
       <div><b data-count="10">0</b>in the video</div>
@@ -746,7 +754,7 @@
       '<h3>'+esc(it.name)+'</h3><p>'+esc(it.p||(it.u?'Was unavailable last time I checked; the button still shows the listing.':''))+'</p><div class="acts">'+
       '<a class="go" href="'+buy+'" target="_blank" rel="sponsored noopener">🛒 Buy on Amazon →</a>'+
       (vid?'<button class="jump" type="button" data-t="'+it.t+'">▶ '+mmss(it.t)+'</button>':'')+
-      '<button class="jump demo" type="button" data-asin="'+it.asin+'" data-name="'+esc(it.name)+'" title="Ask Lewis for a demo">🎥 Demo</button></div></div></article>';
+      '<button class="jump demo" type="button" data-asin="'+it.asin+'" data-name="'+esc(it.name)+'" title="Ask Lewis for a demo">🎥 Demo</button></div><p class="clip">✂️ Look for a clip coupon on the Amazon page</p></div></article>';
   }
   var vg=document.getElementById('vidgrid'), ag=document.getElementById('allgrid');
   vg.innerHTML=VIDEO.map(tile).join('');
