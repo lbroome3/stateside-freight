@@ -497,6 +497,12 @@ DJI = [
      "out.textContent=h>=48?'unos '+Math.round(h/24)+' días':(h>=1?'unas '+(Math.round(h*10)/10)+' horas':'unos '+Math.round(h*60)+' minutos');"),
 ]
 
+# The GPTMarketing.us credit line every page carries (Lewis, 10/15).
+CREDIT = [(">Website by <a", ">Sitio web por <a")]
+AZ += CREDIT
+KIT += CREDIT
+DJI += CREDIT
+
 PAGES = [
     ("az.html", "az-es.html", "/az", "/az/es", AZ),
     ("az-hurricane-kit.html", "az-es-hurricane-kit.html", "/az/hurricane-kit", "/az/es/hurricane-kit", KIT),
