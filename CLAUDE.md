@@ -25,7 +25,7 @@ Add it to `sitemap.xml` too.
 form pages (`<script src="/engage.js" data-form="…" defer>`): four seconds after the first
 keystroke it posts `{stage:"engaged", form, fields}` to `/api/web-lead`, once per page
 load. `truckload.html` also posts `{stage:"requested"}` the instant Request a Truck is
-pressed. The CRM pushes and mails him so he can open the Tawk chat with the visitor.
+pressed. The CRM pushes and mails him so he can open the site chat with the visitor.
 Lewis, 9/25: "I can't miss an opportunity to retain a customer." Any new form gets the
 same script and the same `data-form` name.
 
@@ -76,8 +76,12 @@ The Facebook page (`https://www.facebook.com/profile.php?id=61592981752191`) is 
 from every page's footer or trust row. It is managed by Muse, Lewis's Meta assistant; the
 CRM's `api/_muse.js` drafts the posts and every post links back to a page here.
 
-Tawk.to chat is embedded on the form pages and the three live-board pages; the embed
-snippet is the same on each. The CRM's early alert opens `dashboard.tawk.to` for Lewis.
+The site chat is our own bot (it replaced Tawk.to on 10/15): the same one-line embed on the form
+pages and the three live-board pages, `<script src="https://gptmarketing.us/w/gm.js"
+data-site="stateside" defer>`. It answers from the agency's facts in the CRM's
+`api/gm-chat.js` (never a rate, never a promised truck), turns a name plus a phone or email
+into a "lewisbroome.com · Chat" lead, and Lewis answers live from the CRM's `/site-chat`,
+which is also where the early alert opens.
 
 ---
 
