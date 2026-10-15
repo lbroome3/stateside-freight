@@ -498,7 +498,7 @@ DJI = [
 ]
 
 # The GPTMarketing.us credit line every page carries (Lewis, 10/15).
-CREDIT = [(">Website by <a", ">Sitio web por <a")]
+CREDIT = [(">Sponsored by <a", ">Patrocinado por <a")]
 AZ += CREDIT
 KIT += CREDIT
 DJI += CREDIT
