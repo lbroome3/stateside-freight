@@ -414,19 +414,8 @@
   </div>
 </div>
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a454e926c81d51d4c9a577c/1jsfblr4r';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+<!-- Site chat: the GPTMarketing.us bot, replacing Tawk (Lewis, 10/15). Inbox: CRM /site-chat -->
+<script src="https://gptmarketing.us/w/gm.js" data-site="stateside" defer></script>
 
 <script>
 (function(){
@@ -864,13 +853,10 @@ s0.parentNode.insertBefore(s1,s0);
 
   $('editBtn').addEventListener('click',function(){ $('fare').classList.remove('show'); $('form').style.display='block'; });
 
+  // The site chat (our own bot since 10/15) records the request as a conversion on this
+  // visit, so the visitor shows up in Lewis's /site-chat inbox as someone who asked for a truck.
   function openChat(){
-    try{
-      if(window.Tawk_API){
-        if(Tawk_API.setAttributes)Tawk_API.setAttributes({'name':'Truck Request — '+lastLoad.pickup+' to '+lastLoad.dropoff,'load-pickup':lastLoad.pickup,'load-delivery':lastLoad.dropoff,'load-stops':(lastLoad.stops&&lastLoad.stops.length?lastLoad.stops.join(' | '):'none'),'load-equipment':lastLoad.equipment,'load-miles':String(lastLoad.miles),'load-estimate':lastLoad.estimate,'load-weight':lastLoad.weight||'n/a','load-commodity':lastLoad.commodity||'n/a','load-dimensions':lastLoad.dims||'n/a','load-voice-intake':lastLoad.voiceNotes||'none'},function(){});
-        if(Tawk_API.addEvent)Tawk_API.addEvent('Requested Truck',{pickup:lastLoad.pickup,delivery:lastLoad.dropoff,equipment:lastLoad.equipment,miles:lastLoad.miles,estimate:lastLoad.estimate},function(){});
-      }
-    }catch(e){}
+    try{ if(window.gmTrack) window.gmTrack("lead"); }catch(e){}
   }
 
   // "A TRUCK WAS JUST REQUESTED" (Lewis, 9/25: "This alert will trigger me to use the chat
