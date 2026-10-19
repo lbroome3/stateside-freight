@@ -119,7 +119,9 @@ curl -sS -L https://www.lewisbroome.com/<page> | grep -c "<something the change 
 Report the deployment id, the SHA it was built from, and that the MD5s match. Secrets are
 names only; Lewis pastes values into Vercel himself. On a Vercel toast: Dismiss, never
 Redeploy. Gizmo stays only for what the chat cannot reach: clicks inside a UI, DNS in a
-signed-in tab.
+signed-in tab. Gizmo works in the browser only (Lewis, 10/19): Gizmo has the same connectors
+the chat has, so an instruction that needs a connector which failed here will fail there too.
+Name the page to open and the clicks to make; never "use the integration".
 
 For anything interactive (a form, a script that posts to the CRM) the pattern that has
 worked is Playwright against the live site from the sandbox, with Node `fetch` fulfilling
