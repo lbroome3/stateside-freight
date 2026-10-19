@@ -536,7 +536,8 @@ pre.spec { margin: 0; white-space: pre-wrap; font-family: var(--mono); font-size
   const path = (pts) => { ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath(); };
   const fillPoly = (pts, fill) => { path(pts); ctx.fillStyle = fill; ctx.fill(); };
   const ppi = (m, x, y) => Math.hypot(m(x + 1, y)[0] - m(x, y)[0], m(x + 1, y)[1] - m(x, y)[1]);
-  const metal = () => METAL[state.metal];
+  let metalKey = null;
+  const metal = () => METAL[metalKey || state.metal];
   function bar(p1, p2, d) {
     const M = metal();
     ctx.lineCap = "round";
@@ -594,23 +595,64 @@ pre.spec { margin: 0; white-space: pre-wrap; font-family: var(--mono); font-size
     if (state.window !== "wide") mull(m((x0 + x1) / 2, y0), m((x0 + x1) / 2, y1));
     fillPoly([m(x0 - 3.5, y1 + 2.5), m(x1 + 3.5, y1 + 2.5), m(x1 + 3.5, y1 + 4), m(x0 - 3.5, y1 + 4)], "#e7e7e3");
   }
+  // Each Moen collection's trim shape: plate, showerhead and handle, so the drawing matches the faucet picked.
+  const FAUCET_STYLE = [
+    [/90 degree|arris|doux/i, { plate: "square", head: "square", handle: "lever" }],
+    [/kyvos/i, { plate: "soft", head: "square", handle: "lever" }],
+    [/chateau|vichy|exact temp/i, { plate: "round", head: "round", handle: "knob" }],
+    [/weymouth|belfield/i, { plate: "round", head: "round", handle: "cross" }]
+  ];
+  const faucetStyle = (name) => (FAUCET_STYLE.find(([rx]) => rx.test(name)) || [, { plate: "round", head: "round", handle: "lever" }])[1];
+  // Draw in the faucet's own finish: a faucet not offered in the room's hardware finish shows the finish it will ship in.
+  function faucetMetal(pid) {
+    if (!pid) return null;
+    const sel = effSel(pid), g = CAT[pid].g.find(([n]) => /finish/i.test(n));
+    if (!g) return /chrome/i.test(CAT[pid].n) ? "chrome" : null;
+    return Object.keys(METAL_RX).find((k) => METAL_RX[k].test(sel[g[0]])) || null;
+  }
+  const ovalPts = (m, cx, cy, rx, ry, k = 28) => Array.from({ length: k }, (_, i) => m(cx + rx * Math.cos(i / k * 2 * Math.PI), cy + ry * Math.sin(i / k * 2 * Math.PI)));
+  function softRectPts(m, x0, y0, x1, y1, r) {
+    const out = [], arc = (cx, cy, a0) => { for (let i = 0; i <= 6; i++) { const a = a0 + i / 6 * Math.PI / 2; out.push(m(cx + r * Math.cos(a), cy + r * Math.sin(a))); } };
+    arc(x1 - r, y0 + r, -Math.PI / 2); arc(x1 - r, y1 - r, 0); arc(x0 + r, y1 - r, Math.PI / 2); arc(x0 + r, y0 + r, Math.PI);
+    return out;
+  }
   function drawFaucets(m, s) {
+    const fname = state.pick.faucet ? CAT[state.pick.faucet].n : "", st = faucetStyle(fname);
+    metalKey = faucetMetal(state.pick.faucet);
     const p = ppi(m, s.w * 0.8, s.h * 0.5), x = s.w * 0.8;
     const headY = Math.max(3, s.h - (isShower() ? 76 : 50));
     // shower arm and head
     bar(m(x, headY), m(x - 3, headY + 2.2), Math.max(2, p * 0.9));
-    const hc = m(x - 4, headY + 3.4);
-    ctx.save(); ctx.translate(hc[0], hc[1]);
-    const M = metal(), g = ctx.createLinearGradient(0, -p * 2, 0, p * 2); g.addColorStop(0, M.hi); g.addColorStop(0.5, M.base); g.addColorStop(1, M.lo);
-    ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.beginPath(); ctx.ellipse(p * 0.5, p * 1.2, p * 3.2, p * 1.2, 0, 0, 7); ctx.fill();
-    const hs = state.rain ? 1.9 : 1;
-    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(0, 0, p * 3.2 * hs, p * 1.3 * Math.sqrt(hs), 0, 0, 7); ctx.fill(); ctx.restore();
-    // valve trim plate and lever
+    const M = metal(), hs = state.rain ? 1.9 : 1;
+    if (st.head === "square") {
+      const hw = 3.4 * hs, hx = x - 4;
+      ctx.fillStyle = "rgba(0,0,0,0.25)"; fillPoly(rectPts(m, hx - hw + 0.6, headY + 3.6, hx + hw + 0.6, headY + 4.6), "rgba(0,0,0,0.22)");
+      metalPoly(rectPts(m, hx - hw, headY + 2.6, hx + hw, headY + 3.6));
+    } else {
+      const hc = m(x - 4, headY + 3.4);
+      ctx.save(); ctx.translate(hc[0], hc[1]);
+      const g = ctx.createLinearGradient(0, -p * 2, 0, p * 2); g.addColorStop(0, M.hi); g.addColorStop(0.5, M.base); g.addColorStop(1, M.lo);
+      ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.beginPath(); ctx.ellipse(p * 0.5, p * 1.2, p * 3.2, p * 1.2, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(0, 0, p * 3.2 * hs, p * 1.3 * Math.sqrt(hs), 0, 0, 7); ctx.fill(); ctx.restore();
+    }
+    // valve trim plate and handle
     const vy = s.h - (isShower() ? 46 : 18);
-    metalPoly(rectPts(m, x - 3, vy - 4, x + 3, vy + 4));
-    knob(m(x, vy), Math.max(3, p * 1.4));
-    bar(m(x, vy), m(x + 3.2, vy + 0.4), Math.max(2, p * 0.8));
-    if (!isShower()) { metalPoly(rectPts(m, x - 1.4, s.h - 6, x + 1.4, s.h - 3.2)); metalPoly(rectPts(m, x - 1.2, s.h - 3.2, x + 1.2, s.h - 2.2)); }
+    metalPoly(st.plate === "square" ? rectPts(m, x - 3.2, vy - 3.6, x + 3.2, vy + 3.6)
+      : st.plate === "soft" ? softRectPts(m, x - 3.3, vy - 3.3, x + 3.3, vy + 3.3, 1.2) : ovalPts(m, x, vy, 3.6, 3.6));
+    if (st.handle === "knob") knob(m(x, vy), Math.max(4, p * 2));
+    else if (st.handle === "cross") {
+      knob(m(x, vy), Math.max(3, p * 1.2));
+      bar(m(x - 2.2, vy), m(x + 2.2, vy), Math.max(2, p * 0.7)); bar(m(x, vy - 2.2), m(x, vy + 2.2), Math.max(2, p * 0.7));
+    } else {
+      knob(m(x, vy), Math.max(3, p * 1.4));
+      if (st.plate === "square") metalPoly(rectPts(m, x, vy - 0.5, x + 3.4, vy + 0.5));
+      else bar(m(x, vy), m(x + 3.2, vy + 0.4), Math.max(2, p * 0.8));
+    }
+    if (!isShower()) {
+      if (st.plate === "square") metalPoly(rectPts(m, x - 1.5, s.h - 6, x + 1.5, s.h - 2.6));
+      else { metalPoly(rectPts(m, x - 1.4, s.h - 6, x + 1.4, s.h - 3.2)); metalPoly(rectPts(m, x - 1.2, s.h - 3.2, x + 1.2, s.h - 2.2)); }
+    }
+    metalKey = null;
   }
   function drawBar(m, s) {
     if (state.bar === "none") return;
