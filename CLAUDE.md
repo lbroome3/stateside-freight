@@ -61,6 +61,7 @@ shows live freight.
 | `loads.html` | `/loads` | Open loads this week, live from the public board. Monday's post. |
 | `trucks.html` | `/trucks` | Trucks empty today and capacity. Thursday's post. |
 | `week.html` | `/week` | Loads, miles, states since Monday. Friday's post. |
+| `bath.html` | `/Bath` | Bath remodel visualizer: Bella Stone walls and fixtures on the visitor's own photo, installed price range, books a measure through `/api/web-lead` (source "Bath Visualizer (Website)"). Built from the project's `bath-site/visualizer-prototype.html` with dealer costs stripped: never ship a cost field or Dealer view. |
 | `videos.html` | `/videos` | The promo videos, downloadable. |
 | `bco-dispatch.html` | `/bco-dispatch` | The 3%-of-linehaul dispatch offer for BCOs. |
 | `home-classic.html` | — | The older long-form home page, linked as "More information". |

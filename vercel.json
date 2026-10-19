@@ -181,6 +181,26 @@
       "destination": "/2seats.html"
     },
     {
+      "source": "/Bath",
+      "destination": "/bath.html"
+    },
+    {
+      "source": "/Bath/",
+      "destination": "/bath.html"
+    },
+    {
+      "source": "/bath",
+      "destination": "/bath.html"
+    },
+    {
+      "source": "/bath/",
+      "destination": "/bath.html"
+    },
+    {
+      "source": "/BATH",
+      "destination": "/bath.html"
+    },
+    {
       "source": "/rate-con",
       "destination": "https://broome-crm.vercel.app/api/rate-con-confirm"
     },
