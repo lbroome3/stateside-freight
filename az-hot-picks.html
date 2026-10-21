@@ -54,6 +54,19 @@
   .tag{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:.15rem .55rem}
   .tag.rank{background:var(--pink);color:#1a0710}
   .tag.why{background:rgba(244,114,182,.18)}
+  .chips{display:flex;gap:.5rem;overflow-x:auto;padding:.2rem 0 1rem;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chips button{flex:0 0 auto;border:1.5px solid var(--line);background:rgba(10,14,24,.5);color:var(--ink-2);border-radius:999px;padding:.5rem .95rem;font:700 .9rem Inter,sans-serif;cursor:pointer}
+  .chips button.on{background:var(--pink);border-color:var(--pink);color:#1a0710}
+  .allp ul{list-style:none;padding-bottom:1.6rem}
+  .allp li{display:flex;gap:.8rem;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.6rem .8rem;margin-bottom:.6rem}
+  .allp li img{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:10px;padding:4px;flex:0 0 auto}
+  .allp li div{flex:1;min-width:0}
+  .allp li b{display:block;font-size:.92rem;line-height:1.3}
+  .allp li small{color:var(--ink-2);font-size:.78rem}
+  .allp li em{font-style:normal;color:var(--pink);font-weight:800}
+  .allp li a.b{flex:0 0 auto;background:var(--amz);color:#111;font-weight:800;font-size:.8rem;border-radius:9px;padding:.4rem .75rem}
+  [hidden]{display:none!important}
   .earlier h2{font-size:1.4rem;margin-top:.6rem}
   .earlier .esub{color:var(--ink-2);margin-bottom:.8rem}
   .day{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.8rem 1rem;margin-bottom:.7rem}
@@ -78,7 +91,8 @@
   <p class="sub">Trending on Amazon right now. Checked daily from Amazon's best seller lists.</p>
 </div></header>
 <main class="wrap">
-  <section class="grid" aria-label="Kaylah&#x27;s 3 Hot Picks for Women: trending on Amazon right now">
+  <nav class="chips" aria-label="Kaylah&#x27;s 3 Hot Picks for Women: trending on Amazon right now"><button type="button" data-p="d0" class=on>Today</button><button type="button" data-p="all">All Hot Picks (3)</button></nav>
+  <section class="grid panel" data-p="d0" aria-label="October 21, 2026">
       <article class="tile" id="p-B07ZTD3JZH">
         <a class="ph" href="https://www.amazon.com/dp/B07ZTD3JZH?tag=broomepicks-20" target="_blank" rel="sponsored noopener" title="Buy on Amazon"><img src="https://m.media-amazon.com/images/I/51Nj2NTfZoL._AC_SL1500_.jpg" alt="EVERSWE Women&#x27;s 80 Den Soft Opaque Tights" width="600" height="450" /></a>
         <div class="body"><div class="tags"><span class="tag rank">#1</span><span class="tag why">#1 in Women&#x27;s Fashion</span></div>
@@ -101,12 +115,19 @@
           <p class="clip">✂️ Look for a clip coupon on the Amazon page</p></div>
       </article>
   </section>
-
+  <section class="panel allp" data-p="all" hidden><ul><li><img src="https://m.media-amazon.com/images/I/51Nj2NTfZoL._AC_SL1500_.jpg" alt="" width="64" height="64" loading="lazy" /><div><b>EVERSWE Women&#x27;s 80 Den Soft Opaque Tights</b><small>1 day in the top 3 · <em>🔥 Still hot</em></small></div><a class="b" href="https://www.amazon.com/dp/B07ZTD3JZH?tag=broomepicks-20" target="_blank" rel="sponsored noopener" aria-label="Buy on Amazon: EVERSWE Women&#x27;s 80 Den Soft Opaque Tights">Buy</a></li><li><img src="https://m.media-amazon.com/images/I/61p+1+md+8L._SL1500_.jpg" alt="" width="64" height="64" loading="lazy" /><div><b>Mighty Patch Hero Cosmetics Original Nighttime Acne Pimple Patches (36 Ct)</b><small>1 day in the top 3 · <em>🔥 Still hot</em></small></div><a class="b" href="https://www.amazon.com/dp/B074PVTPBW?tag=broomepicks-20" target="_blank" rel="sponsored noopener" aria-label="Buy on Amazon: Mighty Patch Hero Cosmetics Original Nighttime Acne Pimple Patches (36 Ct)">Buy</a></li><li><img src="https://m.media-amazon.com/images/I/71QZExoIbxL._AC_SL1500_.jpg" alt="" width="64" height="64" loading="lazy" /><div><b>ANRABESS Women&#x27;s Long Sleeve Ribbed Fitted Top</b><small>1 day in the top 3 · <em>🔥 Still hot</em></small></div><a class="b" href="https://www.amazon.com/dp/B0CYZM5RSM?tag=broomepicks-20" target="_blank" rel="sponsored noopener" aria-label="Buy on Amazon: ANRABESS Women&#x27;s Long Sleeve Ribbed Fitted Top">Buy</a></li></ul></section>
   <div class="more">
     <a href="https://www.amazon.com/deals?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🔥 Today's Deals</a>
     <a href="https://www.amazon.com/coupons?tag=broomepicks-20" target="_blank" rel="sponsored noopener">✂️ Amazon Coupons</a>
   </div>
   <p class="fine">Rankings from Amazon.com Best Sellers (Women's Fashion and Beauty & Personal Care) as of October 21, 2026. This page is not affiliated with or endorsed by Amazon.</p>
 </main>
+<script>
+document.querySelector('.chips').addEventListener('click',function(ev){
+  var b=ev.target.closest('button'); if(!b) return;
+  document.querySelectorAll('.chips button').forEach(function(x){x.classList.toggle('on',x===b)});
+  document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.dataset.p!==b.dataset.p});
+});
+</script>
 </body>
 </html>

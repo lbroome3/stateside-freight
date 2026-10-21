@@ -41,7 +41,9 @@ T = {
         sub="Trending on Amazon right now. Checked daily from Amazon's best seller lists.",
         list_name="{name}: trending on Amazon right now",
         crumb="{name}", earlier="Earlier hot picks", earlier_sub="Every day's top three, newest first.",
-        buy_short="Buy", store="Gidgets & Gadgets",
+        buy_short="Buy", today="Today", all="All Hot Picks", still="🔥 Still hot", last="last {d}",
+        ndays=lambda n: f"{n} day in the top 3" if n == 1 else f"{n} days in the top 3",
+        short_fmt=lambda d: d.strftime("%b %-d"), store="Gidgets & Gadgets",
         buy="🛒 Buy on Amazon →", buy_title="Buy on Amazon",
         clip="✂️ Look for a clip coupon on the Amazon page",
         back="← All my gadgets", deals="🔥 Today's Deals", coupons="✂️ Amazon Coupons",
@@ -60,7 +62,9 @@ T = {
         sub="En tendencia en Amazon ahora mismo. Revisados cada día en las listas de más vendidos de Amazon.",
         list_name="{name}: tendencia en Amazon ahora mismo",
         crumb="{name}", earlier="Selecciones anteriores", earlier_sub="Las tres de cada día, la más reciente primero.",
-        buy_short="Comprar", store="Gidgets & Gadgets",
+        buy_short="Comprar", today="Hoy", all="Todos los favoritos", still="🔥 Sigue en tendencia", last="último: {d}",
+        ndays=lambda n: f"{n} día en el top 3" if n == 1 else f"{n} días en el top 3",
+        short_fmt=lambda d: f"{d.day} {MONTHS_ES[d.month-1][:3]}", store="Gidgets & Gadgets",
         buy="🛒 Comprar en Amazon →", buy_title="Comprar en Amazon",
         clip="✂️ Busca un cupón en la página de Amazon",
         back="← Todos mis gadgets", deals="🔥 Ofertas del día", coupons="✂️ Cupones de Amazon",
@@ -106,13 +110,39 @@ def page(lang, days):
          "itemListElement": [{"@type": "ListItem", "position": n + 1, "name": i["name"],
                               "image": i["pic"], "url": f"{url}#p-{i['asin']}"}
                              for n, i in enumerate(items)]}]}
-    cards = "\n".join(f"""      <article class="tile" id="p-{i['asin']}">
-        <a class="ph" href="{buy(i['asin'])}" target="_blank" rel="sponsored noopener" title="{t['buy_title']}"><img src="{e(i['pic'])}" alt="{e(i['name'])}" width="600" height="450"{' loading="lazy"' if n else ''} /></a>
-        <div class="body"><div class="tags"><span class="tag rank">#{n+1}</span><span class="tag why">{e(i.get('why_es') if lang == 'es' and i.get('why_es') else i.get('why', ''))}</span></div>
+    def card(i, n, first):
+        anchor = f' id="p-{i["asin"]}"' if first else ""
+        why = i.get("why_es") if lang == "es" and i.get("why_es") else i.get("why", "")
+        return f"""      <article class="tile"{anchor}>
+        <a class="ph" href="{buy(i['asin'])}" target="_blank" rel="sponsored noopener" title="{t['buy_title']}"><img src="{e(i['pic'])}" alt="{e(i['name'])}" width="600" height="450"{' loading="lazy"' if n or not first else ''} /></a>
+        <div class="body"><div class="tags"><span class="tag rank">#{n+1}</span><span class="tag why">{e(why)}</span></div>
           <h2>{e(i['name'])}</h2>
           <a class="go" href="{buy(i['asin'])}" target="_blank" rel="sponsored noopener">{t['buy']}</a>
           <p class="clip">{t['clip']}</p></div>
-      </article>""" for n, i in enumerate(items))
+      </article>"""
+    # One panel per day (today first, the rest hidden until its date is tapped), plus "All":
+    # every item ever picked, newest first, never removed (Lewis 10/21: "I don't want to
+    # remove an item off of the list"). Everything is in the HTML, so search engines see it all.
+    panels = []
+    for k, (d, its) in enumerate(days):
+        cards = "\n".join(card(i, n, k == 0) for n, i in enumerate(its))
+        panels.append(f'  <section class="grid panel" data-p="d{k}" aria-label="{e(t["date_fmt"](d))}"{" hidden" if k else ""}>\n{cards}\n  </section>')
+    seen = {}
+    for d, its in days:
+        for i in its:
+            seen.setdefault(i["asin"], {"item": i, "dates": []})["dates"].append(d)
+    today = {i["asin"] for i in items}
+    rows = "".join(
+        f'<li><img src="{e(v["item"]["pic"])}" alt="" width="64" height="64" loading="lazy" />'
+        f'<div><b>{e(v["item"]["name"])}</b><small>{t["ndays"](len(v["dates"]))} · '
+        f'{("<em>" + t["still"] + "</em>") if a in today else t["last"].format(d=t["short_fmt"](v["dates"][0]))}</small></div>'
+        f'<a class="b" href="{buy(a)}" target="_blank" rel="sponsored noopener" aria-label="{e(t["buy_title"])}: {e(v["item"]["name"])}">{t["buy_short"]}</a></li>'
+        for a, v in seen.items())
+    panels.append(f'  <section class="panel allp" data-p="all" hidden><ul>{rows}</ul></section>')
+    chips = "".join(
+        f'<button type="button" data-p="d{k}"{" class=on" if not k else ""}>{t["today"] if not k else t["short_fmt"](d)}</button>'
+        for k, (d, _) in enumerate(days)) + f'<button type="button" data-p="all">{t["all"]} ({len(seen)})</button>'
+    panels = "\n".join(panels)
     tg = t["toggle"]
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -170,6 +200,19 @@ def page(lang, days):
   .tag{{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:.15rem .55rem}}
   .tag.rank{{background:var(--pink);color:#1a0710}}
   .tag.why{{background:rgba(244,114,182,.18)}}
+  .chips{{display:flex;gap:.5rem;overflow-x:auto;padding:.2rem 0 1rem;scrollbar-width:none}}
+  .chips::-webkit-scrollbar{{display:none}}
+  .chips button{{flex:0 0 auto;border:1.5px solid var(--line);background:rgba(10,14,24,.5);color:var(--ink-2);border-radius:999px;padding:.5rem .95rem;font:700 .9rem Inter,sans-serif;cursor:pointer}}
+  .chips button.on{{background:var(--pink);border-color:var(--pink);color:#1a0710}}
+  .allp ul{{list-style:none;padding-bottom:1.6rem}}
+  .allp li{{display:flex;gap:.8rem;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.6rem .8rem;margin-bottom:.6rem}}
+  .allp li img{{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:10px;padding:4px;flex:0 0 auto}}
+  .allp li div{{flex:1;min-width:0}}
+  .allp li b{{display:block;font-size:.92rem;line-height:1.3}}
+  .allp li small{{color:var(--ink-2);font-size:.78rem}}
+  .allp li em{{font-style:normal;color:var(--pink);font-weight:800}}
+  .allp li a.b{{flex:0 0 auto;background:var(--amz);color:#111;font-weight:800;font-size:.8rem;border-radius:9px;padding:.4rem .75rem}}
+  [hidden]{{display:none!important}}
   .earlier h2{{font-size:1.4rem;margin-top:.6rem}}
   .earlier .esub{{color:var(--ink-2);margin-bottom:.8rem}}
   .day{{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.8rem 1rem;margin-bottom:.7rem}}
@@ -194,33 +237,24 @@ def page(lang, days):
   <p class="sub">{t['sub']}</p>
 </div></header>
 <main class="wrap">
-  <section class="grid" aria-label="{e(t['list_name'])}">
-{cards}
-  </section>
-{archive(t, e, buy, days)}
+  <nav class="chips" aria-label="{e(t['list_name'])}">{chips}</nav>
+{panels}
   <div class="more">
     <a href="https://www.amazon.com/deals?tag={TAG}{t['q']}" target="_blank" rel="sponsored noopener">{t['deals']}</a>
     <a href="https://www.amazon.com/coupons?tag={TAG}{t['q']}" target="_blank" rel="sponsored noopener">{t['coupons']}</a>
   </div>
   <p class="fine">{t['fine'].format(date=date)}</p>
 </main>
+<script>
+document.querySelector('.chips').addEventListener('click',function(ev){{
+  var b=ev.target.closest('button'); if(!b) return;
+  document.querySelectorAll('.chips button').forEach(function(x){{x.classList.toggle('on',x===b)}});
+  document.querySelectorAll('.panel').forEach(function(p){{p.hidden=p.dataset.p!==b.dataset.p}});
+}});
+</script>
 </body>
 </html>
 """
-
-
-def archive(t, e, buy, days):
-    """Earlier days, newest first: one compact row per item with its own Buy button."""
-    if len(days) < 2:
-        return ""
-    out = [f'  <section class="earlier"><h2>{t["earlier"]}</h2><p class="esub">{t["earlier_sub"]}</p>']
-    for d, its in days[1:]:
-        rows = "".join(
-            f'<li><span>{e(i["name"])}</span>'
-            f'<a class="b" href="{buy(i["asin"])}" target="_blank" rel="sponsored noopener" '
-            f'aria-label="{e(t["buy_title"])}: {e(i["name"])}">{t["buy_short"]}</a></li>' for i in its)
-        out.append(f'    <div class="day"><h3>{t["date_fmt"](d)}</h3><ul>{rows}</ul></div>')
-    return "\n".join(out + ["  </section>"])
 
 
 def sitemap(day):
