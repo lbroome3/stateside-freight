@@ -17,16 +17,16 @@
       "destination": "/privacy.html"
     },
     {
-      "source": "/az/es/wish-list",
-      "destination": "/az-es-wish-list.html"
+      "source": "/az/es/hot-picks",
+      "destination": "/az-es-hot-picks.html"
     },
     {
-      "source": "/az/wish-list",
-      "destination": "/az-wish-list.html"
+      "source": "/az/hot-picks",
+      "destination": "/az-hot-picks.html"
     },
     {
-      "source": "/AZ/wish-list",
-      "destination": "/az-wish-list.html"
+      "source": "/AZ/hot-picks",
+      "destination": "/az-hot-picks.html"
     },
     {
       "source": "/az/es",

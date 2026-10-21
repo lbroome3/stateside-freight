@@ -1,66 +1,73 @@
 #!/usr/bin/env python3
 """
-make-az-wish.py — the Kalah's Wish List pages, built from az-wish.js.
+make-az-hot3.py — the 3 Hot Picks for Women pages, built from az-hot3.js.
 
-  az-wish.js → az-wish-list.html    → /az/wish-list
-             → az-es-wish-list.html → /az/es/wish-list
+  az-hot3.js → az-hot-picks.html    → /az/hot-picks
+             → az-es-hot-picks.html → /az/es/hot-picks
 
 Lewis, 10/21: the three hottest things women are buying on Amazon, always on the store, and
-"Amazon, bestsellers list ... that wording will pull in people". So the page is static
+"Amazon, bestsellers list ... that wording will pull in people". Then: "three hot picks
+for women. Check daily" and "a running list". Each day's three go on top; earlier days stay
+below. No personal endorsement on the page: the source is Amazon's best seller lists.
+The display name lives in NAME below (one place), so a rename is one edit and a rerun.
+The page is static
 (every brand + model name is in the source, not only in JavaScript), its title carries the
 month, and it has JSON-LD ItemList (no prices or ratings, same rule as make-az-seo.py),
 hreflang, OG/Twitter cards and a lastmod in sitemap-az.xml that moves with every refresh.
 
 "Amazon" is used only to say where the ranking comes from; the page says it is not
-affiliated with or endorsed by Amazon. The /az section reads the same az-wish.js.
+affiliated with or endorsed by Amazon. The /az section reads the same az-hot3.js.
 
-Refresh: rewrite az-wish.js, then run `python3 scripts/make-az-es.py` (it runs this too).
+Refresh: add the day on top of az-hot3.js, then run `python3 scripts/make-az-es.py` (it runs this too).
 """
 import datetime, html as H, json, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 HOST = "https://www.lewisbroome.com"
 TAG = "broomepicks-20"
-EN_PATH, ES_PATH = "/az/wish-list", "/az/es/wish-list"
+EN_PATH, ES_PATH = "/az/hot-picks", "/az/es/hot-picks"
+NAME = {"en": "Kaylah's 3 Hot Picks for Women", "es": "Los 3 favoritos de Kaylah para mujeres"}
 
 MONTHS_ES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto",
              "septiembre", "octubre", "noviembre", "diciembre"]
 
 T = {
     "en": dict(
-        title="Top 3 Amazon Best Sellers for Women Right Now ({month}) | Kalah's Wish List",
-        desc="The three hottest things women are buying on Amazon right now, straight from Amazon's best seller lists: {names}. Updated {date}.",
-        og="Top 3 Amazon Best Sellers for Women Right Now",
-        eyebrow="Trending for her · Updated {date}",
-        h1="Top 3 Amazon Best Sellers for Women Right Now",
-        sub="The three hottest things women are buying on Amazon right now, straight from Amazon's best seller lists and refreshed every morning.",
-        list_name="Kalah's Wish List: top 3 Amazon best sellers for women",
-        crumb="Kalah's Wish List", store="Gidgets & Gadgets",
+        title="{name}: Trending on Amazon Right Now ({month})",
+        desc="{name}, trending on Amazon right now and checked daily from Amazon's best seller lists: {names}. Updated {date}.",
+        og="{name}: Trending on Amazon Right Now",
+        eyebrow="🔥 Hot picks · Updated {date}",
+        h1="{name}",
+        sub="Trending on Amazon right now. Checked daily from Amazon's best seller lists.",
+        list_name="{name}: trending on Amazon right now",
+        crumb="{name}", earlier="Earlier hot picks", earlier_sub="Every day's top three, newest first.",
+        buy_short="Buy", store="Gidgets & Gadgets",
         buy="🛒 Buy on Amazon →", buy_title="Buy on Amazon",
         clip="✂️ Look for a clip coupon on the Amazon page",
         back="← All my gadgets", deals="🔥 Today's Deals", coupons="✂️ Amazon Coupons",
         fine="Rankings from Amazon.com Best Sellers (Women's Fashion and Beauty & Personal Care) as of {date}. "
              "This page is not affiliated with or endorsed by Amazon.",
         disclose="As an Amazon Associate I earn from qualifying purchases. It costs you nothing extra.",
-        toggle=("/az/es/wish-list", "Español", "es"), q="",
+        toggle=("/az/es/hot-picks", "Español", "es"), q="",
         locale="en_US", date_fmt=lambda d: d.strftime("%B %-d, %Y"), month_fmt=lambda d: d.strftime("%B %Y"),
     ),
     "es": dict(
-        title="Los 3 más vendidos de Amazon para mujeres ahora mismo ({month}) | La lista de deseos de Kalah",
-        desc="Las tres cosas que más están comprando las mujeres en Amazon ahora mismo, directo de las listas de más vendidos de Amazon: {names}. Actualizado el {date}.",
-        og="Los 3 más vendidos de Amazon para mujeres ahora mismo",
-        eyebrow="Tendencia para ella · Actualizado el {date}",
-        h1="Los 3 más vendidos de Amazon para mujeres ahora mismo",
-        sub="Las tres cosas que más están comprando las mujeres en Amazon ahora mismo, directo de las listas de más vendidos de Amazon y actualizadas cada mañana.",
-        list_name="La lista de deseos de Kalah: los 3 más vendidos de Amazon para mujeres",
-        crumb="La lista de deseos de Kalah", store="Gidgets & Gadgets",
+        title="{name}: tendencia en Amazon ahora mismo ({month})",
+        desc="{name}, en tendencia en Amazon ahora mismo y revisados cada día en las listas de más vendidos de Amazon: {names}. Actualizado el {date}.",
+        og="{name}: tendencia en Amazon ahora mismo",
+        eyebrow="🔥 Favoritos · Actualizado el {date}",
+        h1="{name}",
+        sub="En tendencia en Amazon ahora mismo. Revisados cada día en las listas de más vendidos de Amazon.",
+        list_name="{name}: tendencia en Amazon ahora mismo",
+        crumb="{name}", earlier="Selecciones anteriores", earlier_sub="Las tres de cada día, la más reciente primero.",
+        buy_short="Comprar", store="Gidgets & Gadgets",
         buy="🛒 Comprar en Amazon →", buy_title="Comprar en Amazon",
         clip="✂️ Busca un cupón en la página de Amazon",
         back="← Todos mis gadgets", deals="🔥 Ofertas del día", coupons="✂️ Cupones de Amazon",
         fine="Clasificación de Amazon.com Best Sellers (moda de mujer y belleza) al {date}. "
              "Esta página no está afiliada ni respaldada por Amazon.",
         disclose="Como Asociado de Amazon gano con las compras que califican. A ti no te cuesta nada extra.",
-        toggle=("/az/wish-list", "English", "en"), q="&amp;language=es_US",
+        toggle=("/az/hot-picks", "English", "en"), q="&amp;language=es_US",
         locale="es_US", date_fmt=lambda d: f"{d.day} de {MONTHS_ES[d.month-1]} de {d.year}",
         month_fmt=lambda d: f"{MONTHS_ES[d.month-1]} de {d.year}",
     ),
@@ -68,13 +75,14 @@ T = {
 
 
 def load():
-    js = (ROOT / "az-wish.js").read_text()
-    data = json.loads(re.search(r"window\.AZ_WISH\s*=\s*(\{.*\})\s*;", js, re.S).group(1))
-    return datetime.date.fromisoformat(data["updated"]), data["items"][:3]
+    js = (ROOT / "az-hot3.js").read_text()
+    days = json.loads(re.search(r"window\.AZ_HOT3\s*=\s*(\{.*\})\s*;", js, re.S).group(1))["days"]
+    return [(datetime.date.fromisoformat(d["date"]), d["items"][:3]) for d in days]
 
 
-def page(lang, day, items):
-    t = T[lang]
+def page(lang, days):
+    day, items = days[0]
+    t = {k: (v.replace("{name}", NAME[lang]) if isinstance(v, str) else v) for k, v in T[lang].items()}
     e = H.escape
     path, other = (EN_PATH, ES_PATH) if lang == "en" else (ES_PATH, EN_PATH)
     url = HOST + path
@@ -111,7 +119,7 @@ def page(lang, day, items):
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- GENERATED by scripts/make-az-wish.py from az-wish.js. Do not hand-edit. -->
+<!-- GENERATED by scripts/make-az-hot3.py from az-hot3.js. Do not hand-edit. -->
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -148,7 +156,6 @@ def page(lang, day, items):
   .back{{color:var(--ink-2);font-size:.9rem;font-weight:600}}
   .eyebrow{{display:block;margin-top:1.2rem;font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--pink)}}
   h1{{font-size:clamp(1.8rem,6vw,2.8rem);margin:.4rem 0 .6rem}}
-  h1 small{{display:block;font-size:.55em;color:var(--pink);margin-top:.3rem}}
   .sub{{color:var(--ink-2);max-width:640px}}
   .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;padding-bottom:1.6rem}}
   .tile{{background:var(--card);border:1px solid rgba(244,114,182,.45);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}}
@@ -160,6 +167,13 @@ def page(lang, day, items):
   .tag{{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:.15rem .55rem}}
   .tag.rank{{background:var(--pink);color:#1a0710}}
   .tag.why{{background:rgba(244,114,182,.18)}}
+  .earlier h2{{font-size:1.4rem;margin-top:.6rem}}
+  .earlier .esub{{color:var(--ink-2);margin-bottom:.8rem}}
+  .day{{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.8rem 1rem;margin-bottom:.7rem}}
+  .day h3{{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pink);margin-bottom:.4rem}}
+  .day li{{list-style:none;display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.35rem 0;border-top:1px solid var(--line)}}
+  .day li:first-of-type{{border-top:0}}
+  .day li a.b{{flex:0 0 auto;background:var(--amz);color:#111;font-weight:800;font-size:.8rem;border-radius:9px;padding:.35rem .7rem}}
   .go{{display:flex;justify-content:center;background:var(--amz);color:#111;font-weight:800;border-radius:12px;padding:.7rem 1rem}}
   .clip{{color:var(--ink-2);font-size:.78rem}}
   .more{{display:flex;flex-wrap:wrap;gap:.5rem;margin:.4rem 0 1.2rem}}
@@ -173,13 +187,14 @@ def page(lang, day, items):
 <header><div class="wrap">
   <a class="back" href="{home}">{t['back']}</a>
   <span class="eyebrow">{t['eyebrow'].format(date=date)}</span>
-  <h1>{t['h1']}<small>{t['crumb']} 💖</small></h1>
+  <h1>{t['h1']} 🔥</h1>
   <p class="sub">{t['sub']}</p>
 </div></header>
 <main class="wrap">
   <section class="grid" aria-label="{e(t['list_name'])}">
 {cards}
   </section>
+{archive(t, e, buy, days)}
   <div class="more">
     <a href="https://www.amazon.com/deals?tag={TAG}{t['q']}" target="_blank" rel="sponsored noopener">{t['deals']}</a>
     <a href="https://www.amazon.com/coupons?tag={TAG}{t['q']}" target="_blank" rel="sponsored noopener">{t['coupons']}</a>
@@ -191,11 +206,25 @@ def page(lang, day, items):
 """
 
 
+def archive(t, e, buy, days):
+    """Earlier days, newest first: one compact row per item with its own Buy button."""
+    if len(days) < 2:
+        return ""
+    out = [f'  <section class="earlier"><h2>{t["earlier"]}</h2><p class="esub">{t["earlier_sub"]}</p>']
+    for d, its in days[1:]:
+        rows = "".join(
+            f'<li><span>{e(i["name"])}</span>'
+            f'<a class="b" href="{buy(i["asin"])}" target="_blank" rel="sponsored noopener" '
+            f'aria-label="{e(t["buy_title"])}: {e(i["name"])}">{t["buy_short"]}</a></li>' for i in its)
+        out.append(f'    <div class="day"><h3>{t["date_fmt"](d)}</h3><ul>{rows}</ul></div>')
+    return "\n".join(out + ["  </section>"])
+
+
 def sitemap(day):
     f = ROOT / "sitemap-az.xml"
     xml = f.read_text()
-    xml = re.sub(r"  <!-- wish:start -->.*?<!-- wish:end -->\n", "", xml, flags=re.S)
-    block = "  <!-- wish:start -->\n"
+    xml = re.sub(r"  <!-- (wish|hot3):start -->.*?<!-- \1:end -->\n", "", xml, flags=re.S)
+    block = "  <!-- hot3:start -->\n"
     for loc in (EN_PATH, ES_PATH):
         block += f"""  <url>
     <loc>{HOST}{loc}</loc>
@@ -207,13 +236,13 @@ def sitemap(day):
     <priority>0.7</priority>
   </url>
 """
-    block += "  <!-- wish:end -->\n"
+    block += "  <!-- hot3:end -->\n"
     f.write_text(xml.replace("</urlset>", block + "</urlset>", 1))
 
 
 if __name__ == "__main__":
-    day, items = load()
-    (ROOT / "az-wish-list.html").write_text(page("en", day, items))
-    (ROOT / "az-es-wish-list.html").write_text(page("es", day, items))
-    sitemap(day)
-    print(f"wish list: {len(items)} items, updated {day}")
+    days = load()
+    (ROOT / "az-hot-picks.html").write_text(page("en", days))
+    (ROOT / "az-es-hot-picks.html").write_text(page("es", days))
+    sitemap(days[0][0])
+    print(f"hot picks: {len(days)} day(s), latest {days[0][0]}")

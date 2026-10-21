@@ -45,7 +45,7 @@ def common(html, en_path, es_path):
                         '<meta property="og:locale" content="es_US" />\n<meta property="og:type"', 1)
     html = html.replace("</style>", LANG_CSS + "</style>", 1)
     # Internal links go to the Spanish pages.
-    for p in ("/az/hurricane-kit", "/az/dji-power-1000", "/az/wish-list"):
+    for p in ("/az/hurricane-kit", "/az/dji-power-1000", "/az/hot-picks"):
         html = html.replace(f'href="{p}"', f'href="/az/es{p[3:]}"')
     html = html.replace('href="/az"', 'href="/az/es"')
     # Amazon opens in Spanish; the tag stays exactly as it was.
@@ -115,11 +115,11 @@ AZ = [
     ("<h3>My hurricane kit: 13 things I actually own</h3>", "<h3>Mi kit para huracanes: 13 cosas que de verdad tengo</h3>"),
     ("<p>Battery, solar, generator, fridge, CB radio, distiller. Charge up before it hits →</p>",
      "<p>Batería, solar, generador, refrigerador, radio CB, destilador. Carga todo antes de que llegue →</p>"),
-    ('<span class="eyebrow2">Trending for her</span>', '<span class="eyebrow2">Tendencia para ella</span>'),
-    ("<h2>Kalah's Wish List 💖</h2>", "<h2>La lista de deseos de Kalah 💖</h2>"),
-    ('>See the list on its own page →</a>', '>Ver la lista en su propia página →</a>'),
-    ("The three hottest things women are buying on Amazon right now, straight from Amazon's best seller lists and refreshed every morning.",
-     "Las tres cosas que más están comprando las mujeres en Amazon ahora mismo, directo de las listas de más vendidos de Amazon y actualizadas cada mañana."),
+    ('<span class="eyebrow2">🔥 Hot picks</span>', '<span class="eyebrow2">🔥 Favoritos</span>'),
+    ("<h2>Kaylah's 3 Hot Picks for Women</h2>", "<h2>Los 3 favoritos de Kaylah para mujeres</h2>"),
+    (">See every day's picks →</a>", ">Ver los favoritos de cada día →</a>"),
+    ("Trending on Amazon right now. Checked daily from Amazon's best seller lists.",
+     "En tendencia en Amazon ahora mismo. Revisados cada día en las listas de más vendidos de Amazon."),
     ("<h2>Shop the photo</h2>", "<h2>Compra la foto</h2>"),
     ("This is my wagon on the beach. Tap a dot to see what it is and check the price.",
      "Este es mi carrito en la playa. Toca un punto para ver qué es y revisar el precio."),
@@ -525,6 +525,6 @@ if __name__ == "__main__":
     # Search-engine layer (meta tags, structured data, A-Z list) on all six pages.
     import subprocess
     subprocess.run([sys.executable, str(ROOT / "scripts" / "make-az-seo.py")], check=True)
-    # Kalah's Wish List pages and their sitemap entries (scripts/make-az-wish.py).
+    # Kaylah's 3 Hot Picks pages and their sitemap entries (scripts/make-az-hot3.py).
     import subprocess
-    subprocess.run([sys.executable, str(ROOT / "scripts" / "make-az-wish.py")], check=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "make-az-hot3.py")], check=True)

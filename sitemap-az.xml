@@ -56,24 +56,24 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- wish:start -->
+  <!-- hot3:start -->
   <url>
-    <loc>https://www.lewisbroome.com/az/wish-list</loc>
+    <loc>https://www.lewisbroome.com/az/hot-picks</loc>
     <lastmod>2026-10-21</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az/wish-list" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es/wish-list" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az/wish-list" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az/hot-picks" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es/hot-picks" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az/hot-picks" />
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.lewisbroome.com/az/es/wish-list</loc>
+    <loc>https://www.lewisbroome.com/az/es/hot-picks</loc>
     <lastmod>2026-10-21</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az/wish-list" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es/wish-list" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az/wish-list" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lewisbroome.com/az/hot-picks" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.lewisbroome.com/az/es/hot-picks" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lewisbroome.com/az/hot-picks" />
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- wish:end -->
+  <!-- hot3:end -->
 </urlset>
