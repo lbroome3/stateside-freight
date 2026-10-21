@@ -17,6 +17,18 @@
       "destination": "/privacy.html"
     },
     {
+      "source": "/az/es/wish-list",
+      "destination": "/az-es-wish-list.html"
+    },
+    {
+      "source": "/az/wish-list",
+      "destination": "/az-wish-list.html"
+    },
+    {
+      "source": "/AZ/wish-list",
+      "destination": "/az-wish-list.html"
+    },
+    {
       "source": "/az/es",
       "destination": "/az-es.html"
     },

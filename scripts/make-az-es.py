@@ -45,7 +45,7 @@ def common(html, en_path, es_path):
                         '<meta property="og:locale" content="es_US" />\n<meta property="og:type"', 1)
     html = html.replace("</style>", LANG_CSS + "</style>", 1)
     # Internal links go to the Spanish pages.
-    for p in ("/az/hurricane-kit", "/az/dji-power-1000"):
+    for p in ("/az/hurricane-kit", "/az/dji-power-1000", "/az/wish-list"):
         html = html.replace(f'href="{p}"', f'href="/az/es{p[3:]}"')
     html = html.replace('href="/az"', 'href="/az/es"')
     # Amazon opens in Spanish; the tag stays exactly as it was.
@@ -117,6 +117,7 @@ AZ = [
      "<p>Batería, solar, generador, refrigerador, radio CB, destilador. Carga todo antes de que llegue →</p>"),
     ('<span class="eyebrow2">Trending for her</span>', '<span class="eyebrow2">Tendencia para ella</span>'),
     ("<h2>Kalah's Wish List 💖</h2>", "<h2>La lista de deseos de Kalah 💖</h2>"),
+    ('>See the list on its own page →</a>', '>Ver la lista en su propia página →</a>'),
     ("The three hottest things women are buying on Amazon right now, straight from Amazon's best seller lists and refreshed every morning.",
      "Las tres cosas que más están comprando las mujeres en Amazon ahora mismo, directo de las listas de más vendidos de Amazon y actualizadas cada mañana."),
     ("<h2>Shop the photo</h2>", "<h2>Compra la foto</h2>"),
@@ -524,3 +525,6 @@ if __name__ == "__main__":
     # Search-engine layer (meta tags, structured data, A-Z list) on all six pages.
     import subprocess
     subprocess.run([sys.executable, str(ROOT / "scripts" / "make-az-seo.py")], check=True)
+    # Kalah's Wish List pages and their sitemap entries (scripts/make-az-wish.py).
+    import subprocess
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "make-az-wish.py")], check=True)
