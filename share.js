@@ -32,7 +32,7 @@
     ".sharefab,.homefab{transition:opacity .2s,bottom .2s}" +
     ".homefab{position:fixed;right:14px;bottom:14px;z-index:9990;display:inline-flex;align-items:center;gap:.4rem;border:1.5px solid rgba(255,153,0,.7);border-radius:999px;padding:.65rem 1rem;font:800 .92rem Inter,system-ui,sans-serif;line-height:normal;color:#fff;background:rgba(10,14,24,.92);cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.35)}" +
     ".fabaway{opacity:0!important;pointer-events:none!important}" +
-    ".homesheet{position:fixed;right:14px;bottom:66px;z-index:9991;width:min(320px,calc(100vw - 28px));padding:1rem 1.1rem;border-radius:16px;background:rgba(10,14,24,.97);border:1.5px solid rgba(255,153,0,.5);color:#eef2f8;font:600 .95rem/1.45 Inter,system-ui,sans-serif;box-shadow:0 12px 40px rgba(0,0,0,.5)}" +
+    ".homesheet{position:fixed;right:14px;bottom:66px;z-index:9991;max-height:calc(100vh - 90px);overflow:auto;width:min(320px,calc(100vw - 28px));padding:1rem 1.1rem;border-radius:16px;background:rgba(10,14,24,.97);border:1.5px solid rgba(255,153,0,.5);color:#eef2f8;font:600 .95rem/1.45 Inter,system-ui,sans-serif;box-shadow:0 12px 40px rgba(0,0,0,.5)}" +
     ".homesheet[hidden]{display:none}.homesheet b{color:#ff9900}.homesheet ol{margin:.5rem 0 .2rem 1.2rem;padding:0}.homesheet li{margin:.3rem 0}" +
     ".homesheet button{margin-top:.6rem;width:100%;border:0;border-radius:10px;padding:.6rem;font:800 .9rem Inter,system-ui,sans-serif;background:#ff9900;color:#111;cursor:pointer}";
   document.head.appendChild(css);
@@ -72,14 +72,66 @@
     document.body.appendChild(home);
     sheet = document.createElement("div");
     sheet.className = "homesheet"; sheet.hidden = true;
-    sheet.innerHTML = ios
-      ? (es ? "<b>Agregar a la pantalla de inicio</b><ol><li>Toca el botón <b>Compartir</b> de Safari (el cuadro con la flecha ⬆️, abajo o arriba).</li><li>Desliza y toca <b>Agregar a inicio</b>.</li><li>Toca <b>Agregar</b>.</li></ol>"
-            : "<b>Add to your Home Screen</b><ol><li>Tap Safari's <b>Share</b> button (the square with the arrow ⬆️, at the bottom or top).</li><li>Scroll down and tap <b>Add to Home Screen</b>.</li><li>Tap <b>Add</b>.</li></ol>")
-      : (es ? "<b>Agregar a la pantalla de inicio</b><ol><li>Toca el menú <b>⋮</b> del navegador (arriba a la derecha).</li><li>Toca <b>Agregar a pantalla principal</b> o <b>Instalar app</b>.</li></ol>"
-            : "<b>Add to your Home Screen</b><ol><li>Tap the browser's <b>⋮</b> menu (top right).</li><li>Tap <b>Add to Home screen</b> or <b>Install app</b>.</li></ol>");
-    sheet.innerHTML += '<button type="button">' + (es ? "Entendido" : "Got it") + "</button>";
+    // iPhone: Apple lets no page add itself, so the sheet is a call to action that walks them
+    // through Safari (Lewis, 10/21): a big "Show me where to tap" button dims the page and points
+    // a bouncing arrow at Safari's own Share button (inside ••• bottom-right on iOS 26+). In an
+    // app's built-in browser (Facebook, Instagram, Gmail, a text link preview) the first step is
+    // "Open in Safari" (x-safari-https: opens it on iOS 17+).
+    var ua = navigator.userAgent, ver = +((ua.match(/Version\/(\d+)/) || [])[1] || 0);
+    var inapp = ios && (/FBAN|FBAV|Instagram|Line\/|GSA\/|Twitter|LinkedInApp|Snapchat|TikTok|musical_ly/.test(ua) || !/Safari\//.test(ua));
+    var crios = ios && /CriOS|FxiOS|EdgiOS/.test(ua);
+    var SHARE = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4da3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-4px"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
+    var PLUS = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#eef2f8" stroke-width="2" stroke-linecap="round" style="vertical-align:-4px"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
+    var T = es
+      ? { h: "Pon LB Picks en tu pantalla de inicio", go: "👇 Muéstrame dónde tocar", safari: "🧭 Abrir en Safari", ok: "Cerrar",
+          s1: ver >= 26 ? "Toca <b>•••</b> abajo a la derecha y luego <b>Compartir</b> " + SHARE : "Toca <b>Compartir</b> " + SHARE + " en la barra de Safari",
+          s1c: "Toca <b>Compartir</b> " + SHARE + " junto a la barra de direcciones",
+          s2: "Desliza y toca " + PLUS + " <b>Agregar a inicio</b>", s3: "Toca <b>Agregar</b>. ¡Listo!",
+          app: "Primero ábrelo en Safari (aquí no se puede agregar):", app2: "Si no se abre, toca <b>•••</b> o 🧭 arriba y elige <b>Abrir en Safari</b>.",
+          tap: "Toca aquí", then: "y luego <b>Agregar a inicio</b>" }
+      : { h: "Put LB Picks on your Home Screen", go: "👇 Show me where to tap", safari: "🧭 Open in Safari", ok: "Close",
+          s1: ver >= 26 ? "Tap <b>•••</b> at the bottom right, then <b>Share</b> " + SHARE : "Tap <b>Share</b> " + SHARE + " in Safari's bar",
+          s1c: "Tap <b>Share</b> " + SHARE + " next to the address bar",
+          s2: "Scroll down and tap " + PLUS + " <b>Add to Home Screen</b>", s3: "Tap <b>Add</b>. Done!",
+          app: "First open it in Safari (this app's browser can't add it):", app2: "If it doesn't open, tap <b>•••</b> or 🧭 at the top and choose <b>Open in Safari</b>.",
+          tap: "Tap here", then: "then <b>Add to Home Screen</b>" };
+    var headHtml = '<div style="display:flex;gap:.7rem;align-items:center;margin-bottom:.4rem"><img src="/az-media/app/icon-180.png" alt="" width="52" height="52" style="border-radius:12px;flex:0 0 auto" /><b style="font-size:1.05rem;line-height:1.25">' + T.h + "</b></div>";
+    var big = "display:block;width:100%;margin-top:.7rem;border:0;border-radius:12px;padding:.85rem;font:800 1.05rem Inter,system-ui,sans-serif;text-align:center;text-decoration:none;cursor:pointer;";
+    if (ios && inapp) {
+      sheet.innerHTML = headHtml + "<p>" + T.app + "</p>" +
+        '<a data-safari href="x-safari-' + location.href.replace(/[?#].*$/, "") + '?v=homescreen" style="' + big + 'background:#ff9900;color:#111">' + T.safari + "</a>" +
+        '<p style="margin-top:.6rem;font-size:.85rem;color:#9aa8bf">' + T.app2 + "</p>" +
+        '<button type="button" data-x style="' + big + 'background:transparent;color:#9aa8bf;border:1px solid rgba(120,140,180,.35)">' + T.ok + "</button>";
+    } else if (ios) {
+      sheet.innerHTML = headHtml + "<ol><li>" + (crios ? T.s1c : T.s1) + "</li><li>" + T.s2 + "</li><li>" + T.s3 + "</li></ol>" +
+        (crios ? "" : '<button type="button" data-go style="' + big + 'background:#ff9900;color:#111">' + T.go + "</button>") +
+        '<button type="button" data-x style="' + big + 'background:transparent;color:#9aa8bf;border:1px solid rgba(120,140,180,.35)">' + T.ok + "</button>";
+    } else {
+      sheet.innerHTML = headHtml + (es ? "<ol><li>Toca el menú <b>⋮</b> del navegador (arriba a la derecha).</li><li>Toca <b>Agregar a pantalla principal</b> o <b>Instalar app</b>.</li></ol>"
+                                       : "<ol><li>Tap the browser's <b>⋮</b> menu (top right).</li><li>Tap <b>Add to Home screen</b> or <b>Install app</b>.</li></ol>") +
+        '<button type="button" data-x style="' + big + 'background:#ff9900;color:#111">' + (es ? "Entendido" : "Got it") + "</button>";
+    }
     document.body.appendChild(sheet);
-    sheet.querySelector("button").addEventListener("click", function () { sheet.hidden = true; });
+    sheet.querySelector("[data-x]").addEventListener("click", function () { sheet.hidden = true; });
+    var sa = sheet.querySelector("[data-safari]"); if (sa) sa.addEventListener("click", function () { log("homescreen_open_safari"); });
+    var go = sheet.querySelector("[data-go]");
+    if (go) go.addEventListener("click", function () {
+      // Dim the page and point at Safari's own button: bottom centre (Share) before iOS 26,
+      // bottom right (•••) from iOS 26.
+      sheet.hidden = true; log("homescreen_show_me");
+      var right = ver >= 26, d = document.createElement("div");
+      d.className = "a2hs-point";
+      d.innerHTML = '<div style="position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9995"></div>' +
+        '<div style="position:fixed;bottom:22px;' + (right ? "right:10px;text-align:right" : "left:0;right:0;text-align:center") + ';z-index:9996;color:#fff;font:800 1.2rem/1.3 Inter,system-ui,sans-serif">' +
+        '<div style="background:#ff9900;color:#111;display:inline-block;border-radius:14px;padding:.6rem .9rem;margin-bottom:.4rem">' + T.tap + (right ? " <b>•••</b>" : " " + SHARE.replace("#4da3ff", "#111")) + "<br><span style='font-size:.9rem;font-weight:700'>" + T.then + "</span></div>" +
+        '<div class="a2hs-arrow" style="font-size:3.2rem;line-height:1;' + (right ? "margin-right:.6rem" : "") + '">⬇️</div></div>';
+      var st = document.createElement("style");
+      st.textContent = "@keyframes a2hsb{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}.a2hs-arrow{animation:a2hsb .9s ease-in-out infinite}";
+      d.appendChild(st);
+      document.body.appendChild(d);
+      var done = function () { if (d.parentNode) d.parentNode.removeChild(d); };
+      d.addEventListener("click", done); setTimeout(done, 12000);
+    });
     window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); prompted = e; home.hidden = false; });
     window.addEventListener("appinstalled", function () { home.hidden = true; sheet.hidden = true; log("homescreen_installed"); });
     home.addEventListener("click", function () {
