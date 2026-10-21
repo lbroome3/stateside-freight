@@ -90,7 +90,7 @@ def page(lang, days):
     names = "; ".join(i["name"] for i in items)
     title = t["title"].format(month=month)
     desc = t["desc"].format(names=names, date=date)
-    img = items[0]["pic"]
+    img = HOST + "/az-media/hot-picks-og.png"  # option B, Lewis 10/21: the link preview for texts and emails
     home = "/az" if lang == "en" else "/az/es"
     buy = lambda a: f"https://www.amazon.com/dp/{a}?tag={TAG}{t['q']}"
     ld = {"@context": "https://schema.org", "@graph": [
@@ -134,6 +134,9 @@ def page(lang, days):
 <meta property="og:description" content="{e(desc)}" />
 <meta property="og:url" content="{url}" />
 <meta property="og:image" content="{e(img)}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="{e(NAME[lang])}" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{e(t['og'])}" />
 <meta name="twitter:description" content="{e(desc)}" />
