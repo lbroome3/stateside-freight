@@ -94,6 +94,15 @@
   .banner h3{font-size:1.25rem;margin:.3rem 0}
   .banner p{color:var(--ink-2);font-size:.95rem}
 
+  /* ---------- Kalah's Wish List ---------- */
+  #wish .eyebrow2{font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#f472b6}
+  #wish .tile{border-color:rgba(244,114,182,.45)}
+  #wish .tile .ph{background:#fff}
+  #wish .tile .ph img{object-fit:contain;padding:6%}
+  #wish .tag.rank{background:#f472b6;color:#1a0710}
+  #wish .tag.why{background:rgba(244,114,182,.18);color:var(--ink)}
+  #wish .asof{color:var(--ink-2);font-size:.8rem;margin-top:.8rem}
+
   /* ---------- filter chips ---------- */
   .chips{display:flex;gap:.5rem;overflow-x:auto;padding:.2rem 0 1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .chips::-webkit-scrollbar{display:none}
@@ -332,6 +341,18 @@
         <h3>Mi kit para huracanes: 13 cosas que de verdad tengo</h3>
         <p>Batería, solar, generador, refrigerador, radio CB, destilador. Carga todo antes de que llegue →</p>
       </a>
+    </div>
+  </section>
+
+  <section id="wish">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow2">Tendencia para ella</span>
+        <h2>La lista de deseos de Kalah 💖</h2>
+        <p class="sub">Las tres cosas que más están comprando las mujeres en Amazon ahora mismo, directo de las listas de más vendidos de Amazon y actualizadas cada mañana. En honor a mi esposa, Kalah.</p>
+      </div>
+      <div class="grid" id="wishgrid"></div>
+      <p class="asof" id="wishasof"></p>
     </div>
   </section>
 
@@ -689,6 +710,25 @@
 </div>
 
 <script src="/az-data.js"></script>
+<script src="/az-wish.js"></script>
+<script>
+// Kalah's Wish List: three cards from az-wish.js, which the Mac's morning routine rewrites.
+(function(){
+  var W=window.AZ_WISH, g=document.getElementById('wishgrid'); if(!W||!g||!W.items) return;
+  var es=document.documentElement.lang==='es', TAG='?tag=broomepicks-20&language=es_US';
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  g.innerHTML=W.items.slice(0,3).map(function(it,i){
+    var buy='https://www.amazon.com/dp/'+it.asin+TAG, why=es?(it.why_es||it.why):it.why;
+    return '<article class="tile in" data-cat="wish" style="animation-delay:'+(i*60)+'ms">'+
+      '<a class="ph" href="'+buy+'" target="_blank" rel="sponsored noopener" title="'+(es?'Comprar en Amazon':'Buy on Amazon')+'"><img loading="lazy" src="'+esc(it.pic)+'" alt="'+esc(it.name)+'" /><i class="shine"></i></a>'+
+      '<div class="body"><div class="tags"><span class="tag rank">#'+(i+1)+(es?' en tendencia':' trending')+'</span>'+(why?'<span class="tag why">'+esc(why)+'</span>':'')+'</div>'+
+      '<h3>'+esc(it.name)+'</h3><div class="acts"><a class="go" href="'+buy+'" target="_blank" rel="sponsored noopener">🛒 '+(es?'Comprar en Amazon':'Buy on Amazon')+' →</a></div>'+
+      '<p class="clip">'+(es?'✂️ Busca un cupón en la página de Amazon':'✂️ Look for a clip coupon on the Amazon page')+'</p></div></article>';
+  }).join('');
+  var d=new Date(W.updated+'T12:00:00');
+  document.getElementById('wishasof').textContent=(es?'Actualizado: ':'Updated ')+d.toLocaleDateString(es?'es-US':'en-US',{month:'long',day:'numeric',year:'numeric'})+(es?' · según los más vendidos de Amazon':' · from Amazon Best Sellers');
+})();
+</script>
 <script src="/engage.js" data-form="Gadget Demo Request" defer></script>
 <script>
 (function(){
