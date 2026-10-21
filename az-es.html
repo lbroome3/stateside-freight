@@ -210,7 +210,7 @@
   @media (max-width:640px){.gauge{grid-template-columns:1fr;justify-items:center;text-align:center}.loads{justify-content:center}}
 
   /* ---------- sticky kit bar + sheet ---------- */
-  .kitbar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:40;display:inline-flex;align-items:center;gap:.6rem;background:rgba(10,14,24,.85);backdrop-filter:blur(14px);border:1px solid rgba(255,153,0,.6);border-radius:999px;padding:.55rem .6rem .55rem 1rem;box-shadow:0 10px 40px rgba(0,0,0,.6),0 0 30px rgba(255,153,0,.2);font-weight:700;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+  .kitbar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 28px);z-index:40;display:inline-flex;align-items:center;gap:.6rem;background:rgba(10,14,24,.85);backdrop-filter:blur(14px);border:1px solid rgba(255,153,0,.6);border-radius:999px;padding:.55rem .6rem .55rem 1rem;box-shadow:0 10px 40px rgba(0,0,0,.6),0 0 30px rgba(255,153,0,.2);font-weight:700;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
   .kitbar.show{opacity:1;pointer-events:auto}
   .kitbar b{color:var(--amz)}
   .kitbar button{background:var(--amz);color:#111;border:0;border-radius:999px;padding:.55rem .95rem;font-weight:800;font-family:inherit;cursor:pointer;font-size:.9rem}

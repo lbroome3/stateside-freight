@@ -1,0 +1,15 @@
+{
+  "name": "Lewis Broome's Picks · Gidgets & Gadgets",
+  "short_name": "LB Picks",
+  "description": "Kaylah's 3 Hot Picks for Women and every gadget Lewis owns, on Amazon.",
+  "start_url": "/az?v=homescreen",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0f1a",
+  "theme_color": "#0b0f1a",
+  "icons": [
+    { "src": "/az-media/app/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/az-media/app/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/az-media/app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
