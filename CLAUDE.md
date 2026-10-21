@@ -86,7 +86,10 @@ would sit on the Amazon Coupons / Today's Deals buttons, a `.btn` or the search 
 
 The agency line is **803-361-1303**, everywhere: pages, navs, structured data, posts
 (Lewis, 10/7: "Use 803-361-1303" — one number so Google sees a consistent business).
-The old (706) 417-9097 must not come back on a public page.
+The old (706) 417-9097 must not come back on a freight page. The one exception (Lewis, 10/21, on a
+decision card): the Amazon store pages carry "📞 Customer service: 706-417-9097" in the footer,
+with a line sending order, return and shipping questions to Amazon Customer Service. It lives in
+the English store pages, `make-az-hot3.py` (`cs_block`) and the Spanish pairs in `make-az-es.py`.
 
 The Facebook page (`https://www.facebook.com/profile.php?id=61592981752191`) is linked
 from every page's footer or trust row. It is managed by Muse, Lewis's Meta assistant; the

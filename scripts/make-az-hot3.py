@@ -47,6 +47,7 @@ T = {
         buy="🛒 Buy on Amazon →", buy_title="Buy on Amazon",
         clip="✂️ Look for a clip coupon on the Amazon page",
         back="← All my gadgets", deals="🔥 Today's Deals", coupons="✂️ Amazon Coupons",
+        cs=("📞 Customer service: 706-417-9097", "Order, return or shipping question? Amazon handles those: ", "Amazon Customer Service"),
         fine="Rankings from Amazon.com Best Sellers (Women's Fashion and Beauty & Personal Care) as of {date}. "
              "This page is not affiliated with or endorsed by Amazon.",
         disclose="As an Amazon Associate I earn from qualifying purchases. It costs you nothing extra.",
@@ -68,6 +69,7 @@ T = {
         buy="🛒 Comprar en Amazon →", buy_title="Comprar en Amazon",
         clip="✂️ Busca un cupón en la página de Amazon",
         back="← Todos mis gadgets", deals="🔥 Ofertas del día", coupons="✂️ Cupones de Amazon",
+        cs=("📞 Servicio al cliente: 706-417-9097", "¿Preguntas sobre un pedido, una devolución o un envío? Eso lo atiende Amazon: ", "Servicio al cliente de Amazon"),
         fine="Clasificación de Amazon.com Best Sellers (moda de mujer y belleza) al {date}. "
              "Esta página no está afiliada ni respaldada por Amazon.",
         disclose="Como Asociado de Amazon gano con las compras que califican. A ti no te cuesta nada extra.",
@@ -83,6 +85,13 @@ def load():
     days = json.loads(re.search(r"window\.AZ_HOT3\s*=\s*(\{.*\})\s*;", js, re.S).group(1))["days"]
     return [(datetime.date.fromisoformat(d["date"]), d["items"][:3]) for d in days]
 
+
+
+def cs_block(cs, q, link):
+    # Customer service line (Lewis, 10/21: store pages only; freight pages keep 803-361-1303).
+    return ('<p class="cs" style="margin:0 0 .9rem"><a href="tel:+17064179097" style="display:inline-block;border:1.5px solid rgba(255,153,0,.6);border-radius:999px;padding:.55rem 1rem;font-weight:800;color:#fff;text-decoration:none">'
+            + cs + '</a><small style="display:block;margin-top:.45rem">' + q
+            + '<a href="https://www.amazon.com/gp/help/customer/display.html" target="_blank" rel="noopener" style="text-decoration:underline">' + link + '</a>.</small></p>')
 
 def page(lang, days):
     day, items = days[0]
@@ -244,6 +253,7 @@ def page(lang, days):
     <a href="https://www.amazon.com/deals?tag={TAG}{t['q']}" target="_blank" rel="sponsored noopener">{t['deals']}</a>
     <a href="https://www.amazon.com/coupons?tag={TAG}{t['q']}" target="_blank" rel="sponsored noopener">{t['coupons']}</a>
   </div>
+  {cs_block(*t['cs'])}
   <p class="fine">{t['fine'].format(date=date)}</p>
 </main>
 <script src="/share.js" defer></script>
