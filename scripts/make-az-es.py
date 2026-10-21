@@ -117,6 +117,7 @@ AZ = [
      "<p>Batería, solar, generador, refrigerador, radio CB, destilador. Carga todo antes de que llegue →</p>"),
     ('<span class="eyebrow2">🔥 Hot picks</span>', '<span class="eyebrow2">🔥 Favoritos</span>'),
     ("<h2>Kaylah's 3 Hot Picks for Women</h2>", "<h2>Los 3 favoritos de Kaylah para mujeres</h2>"),
+    ("🔥 <b>Kaylah's 3 Hot Picks for Women</b> · Trending on Amazon right now →</a>", "🔥 <b>Los 3 favoritos de Kaylah para mujeres</b> · En tendencia en Amazon ahora mismo →</a>"),
     (">See every day's picks →</a>", ">Ver los favoritos de cada día →</a>"),
     ("Trending on Amazon right now. Checked daily from Amazon's best seller lists.",
      "En tendencia en Amazon ahora mismo. Revisados cada día en las listas de más vendidos de Amazon."),

@@ -102,6 +102,8 @@
   #wish .tag.rank{background:#f472b6;color:#1a0710}
   #wish .tag.why{background:rgba(244,114,182,.18);color:var(--ink)}
   #wish .asof{color:var(--ink-2);font-size:.8rem;margin-top:.8rem}
+  .hotbar{display:block;text-align:center;padding:.7rem 16px;background:linear-gradient(90deg,#be185d,#f472b6 55%,#ff9900);color:#fff;font-size:.95rem;font-weight:600;position:relative;z-index:2}
+  .hotbar b{font-weight:900}
 
   /* ---------- filter chips ---------- */
   .chips{display:flex;gap:.5rem;overflow-x:auto;padding:.2rem 0 1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -303,6 +305,7 @@
 <div class="scan" aria-hidden="true"></div>
 
 <div class="disclose">Como Asociado de Amazon gano con las compras que califican. A ti no te cuesta nada extra. <a class="lang" href="/az" hreflang="en" lang="en">🌐 English</a></div>
+<a class="hotbar" href="#wish">🔥 <b>Los 3 favoritos de Kaylah para mujeres</b> · En tendencia en Amazon ahora mismo →</a>
 
 <header>
   <div class="wrap">
@@ -334,16 +337,6 @@
 </header>
 
 <main>
-  <section style="padding-top:0">
-    <div class="wrap reveal">
-      <a class="banner" href="/az/es/hurricane-kit">
-        <span>Temporada de huracanes</span>
-        <h3>Mi kit para huracanes: 13 cosas que de verdad tengo</h3>
-        <p>Batería, solar, generador, refrigerador, radio CB, destilador. Carga todo antes de que llegue →</p>
-      </a>
-    </div>
-  </section>
-
   <section id="wish">
     <div class="wrap">
       <div class="reveal">
@@ -354,6 +347,16 @@
       <div class="grid" id="wishgrid"></div>
       <p class="asof" id="wishasof"></p>
       <p class="asof"><a href="/az/es/hot-picks" style="color:#f472b6;font-weight:700">Ver los favoritos de cada día →</a></p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap reveal">
+      <a class="banner" href="/az/es/hurricane-kit">
+        <span>Temporada de huracanes</span>
+        <h3>Mi kit para huracanes: 13 cosas que de verdad tengo</h3>
+        <p>Batería, solar, generador, refrigerador, radio CB, destilador. Carga todo antes de que llegue →</p>
+      </a>
     </div>
   </section>
 
