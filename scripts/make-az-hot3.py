@@ -41,7 +41,7 @@ T = {
         sub="Trending on Amazon right now. Checked daily from Amazon's best seller lists.",
         list_name="{name}: trending on Amazon right now",
         crumb="{name}", earlier="Earlier hot picks", earlier_sub="Every day's top three, newest first.",
-        buy_short="Buy", today="Today", all="All Hot Picks", still="🔥 Still hot", last="last {d}",
+        buy_short="Buy", share="📤 Share these picks", share_text="Kaylah's 3 Hot Picks for Women: trending on Amazon right now", today="Today", all="All Hot Picks", still="🔥 Still hot", last="last {d}",
         ndays=lambda n: f"{n} day in the top 3" if n == 1 else f"{n} days in the top 3",
         short_fmt=lambda d: d.strftime("%b %-d"), store="Gidgets & Gadgets",
         buy="🛒 Buy on Amazon →", buy_title="Buy on Amazon",
@@ -62,7 +62,7 @@ T = {
         sub="En tendencia en Amazon ahora mismo. Revisados cada día en las listas de más vendidos de Amazon.",
         list_name="{name}: tendencia en Amazon ahora mismo",
         crumb="{name}", earlier="Selecciones anteriores", earlier_sub="Las tres de cada día, la más reciente primero.",
-        buy_short="Comprar", today="Hoy", all="Todos los favoritos", still="🔥 Sigue en tendencia", last="último: {d}",
+        buy_short="Comprar", share="📤 Compartir estos favoritos", share_text="Los 3 favoritos de Kaylah para mujeres: en tendencia en Amazon ahora mismo", today="Hoy", all="Todos los favoritos", still="🔥 Sigue en tendencia", last="último: {d}",
         ndays=lambda n: f"{n} día en el top 3" if n == 1 else f"{n} días en el top 3",
         short_fmt=lambda d: f"{d.day} {MONTHS_ES[d.month-1][:3]}", store="Gidgets & Gadgets",
         buy="🛒 Comprar en Amazon →", buy_title="Comprar en Amazon",
@@ -235,6 +235,7 @@ def page(lang, days):
   <span class="eyebrow">{t['eyebrow'].format(date=date)}</span>
   <h1>{t['h1']} 🔥</h1>
   <p class="sub">{t['sub']}</p>
+  <p style="margin-top:1rem"><button class="sharebtn" type="button" data-share-url="{path}" data-share-title="{e(NAME[lang])}" data-share-text="{e(t['share_text'])}">{t['share']}</button></p>
 </div></header>
 <main class="wrap">
   <nav class="chips" aria-label="{e(t['list_name'])}">{chips}</nav>
@@ -245,6 +246,7 @@ def page(lang, days):
   </div>
   <p class="fine">{t['fine'].format(date=date)}</p>
 </main>
+<script src="/share.js" defer></script>
 <script>
 document.querySelector('.chips').addEventListener('click',function(ev){{
   var b=ev.target.closest('button'); if(!b) return;

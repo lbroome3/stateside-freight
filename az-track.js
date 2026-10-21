@@ -96,6 +96,8 @@
     return all.indexOf(t) + 1;
   }
 
+  // az-share.js logs Share taps through this.
+  window.azTrack = function (n, d) { track(n, d); };
   function track(name, data) {
     var d = Object.assign({ page: page }, campaign ? { campaign: campaign } : {}, vid ? { vid: vid } : {}, data || {});
     try { window.va("event", { name: name, data: d }); } catch (e) {}
