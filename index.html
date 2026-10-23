@@ -785,10 +785,6 @@ body.vo-playing section.step{padding-bottom:110px}
     <span class="eyebrow"><span class="n">06</span> The payoff</span>
     <h2 class="reveal">End-to-end. Transparent. <em>Backed by Landstar.</em></h2>
     <p class="lede reveal d1">No phone tag. An estimate on screen, a one-click dispatch request, and a tracking link for the move.</p>
-    <div class="hero-video reveal d2" style="margin:6px auto 30px;max-width:330px">
-      <div class="hv-label" style="justify-content:center"><span class="pulse"></span> A quick word from Agent LBR</div>
-      <video id="introVideo" src="assets/intro.mp4" poster="assets/intro-poster.jpg" controls playsinline preload="metadata"></video>
-    </div>
     <div class="payoff-ticks reveal d2">
       <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Online estimate</span>
       <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Truckload · container · drayage</span>
@@ -1068,18 +1064,6 @@ body.vo-playing section.step{padding-bottom:110px}
 <!-- Site chat: the GPTMarketing.us bot, replacing Tawk (Lewis, 10/15). Inbox: CRM /site-chat -->
 <script src="https://gptmarketing.us/w/gm.js" data-site="stateside" defer></script>
 
-<!-- intro video <-> walkthrough: never let both play at once -->
-<script>
-(function(){
-  var v=document.getElementById('introVideo'); if(!v)return;
-  var stopBtn=document.getElementById('stopBtn');
-  v.addEventListener('play',function(){ if(stopBtn)stopBtn.click(); window.scrollTo({top:0,behavior:'smooth'}); });
-  ['heroPlay','replayBtn','ppBtn','voGate'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el)el.addEventListener('click',function(){ try{v.pause();}catch(e){} });
-  });
-})();
-</script>
 <!-- gm-credit: GPTMarketing.us credit line (Lewis, 10/15) -->
 <div class="gm-credit" style="text-align:center;font:13px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;padding:14px 16px 18px;opacity:.75">Sponsored by <a href="https://gptmarketing.us" target="_blank" rel="sponsored noopener" style="color:inherit;font-weight:600;text-decoration:underline">GPTMarketing.us</a></div>
 <script src="/share.js" defer></script>
