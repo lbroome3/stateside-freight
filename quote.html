@@ -390,12 +390,12 @@
 'CARGO\n  Container: '+o.container+'\n  Weight:    '+(o.weight||'Not specified')+' lbs\n  Special:   '+(specials.length?specials.join(', '):'None')+'\n\n'+
 'INSTANT ESTIMATE\n  Ocean Freight:    '+money(ocean)+'  ('+transit+')\n  Domestic Drayage: '+money(dom)+'  (~'+miles+' mi)\n  Estimated Total:  '+money(total)+'\n\n'+
 'CONTACT\n  Name:    '+o.name+'\n  Company: '+(o.company||'N/A')+'\n  Email:   '+o.email+'\n  Phone:   '+(o.phone||'N/A')+'\n\n'+
-'----------------------------------------------------\nSubmitted via LewisBroome.ME quote page. Estimate only — confirm final rate.';
+'----------------------------------------------------\nSubmitted via the lewisbroome.com quote page. Estimate only — confirm final rate.';
     var subject='Freight Quote — '+usport+' → '+zip+' ('+o.name+')';
     var note=document.getElementById('sentNote');
     note.style.display='block'; note.className='sent'; note.innerHTML='<b>Sending your request…</b>One moment.';
 
-    pushLead({company_name:o.company||o.name,contact_name:o.name,email:o.email,phone:o.phone,hazmat:o.hazmat,commodity:o.pharma?'Pharma import':(o.hazmat?'Hazmat import':'Ocean container import'),source:'Container Quote (Website)',quote_link:'https://www.lewisbroome.com/quote.html',notes:'Ocean container quote\nLane: '+o.origin+' → '+usport+' → '+zip+'\nContainer: '+o.container+', '+(o.weight||'?')+' lbs\nSpecial: '+(specials.length?specials.join(', '):'None')+'\nEstimate: ocean '+money(ocean)+' + domestic '+money(dom)+' = '+money(total)})
+    pushLead({company_name:o.company||o.name,contact_name:o.name,email:o.email,phone:o.phone,hazmat:o.hazmat,commodity:o.pharma?'Pharma import':(o.hazmat?'Hazmat import':'Ocean container import'),source:'Container Quote (Website)',quote_link:'https://www.lewisbroome.com/quote.html',notes:'Ocean container quote\nLane: '+o.origin+' → '+usport+' → '+zip+'\nContainer: '+o.container+', '+(o.weight||'?')+' lbs\nSpecial: '+(specials.length?specials.join(', '):'None')+'\nEstimate: ocean '+money(ocean)+' + domestic '+money(dom)+' = '+money(total)+'\n\nTHE FULL QUOTE, AS THEY SAW IT\n'+body})
       .then(function(ok){
         if(ok){
           // The request is recorded and Lewis is alerted server-side within five minutes.
