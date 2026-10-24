@@ -207,4 +207,37 @@
       }
     });
   });
+
+  // THE BLUE FACEBOOK BUTTON, on every page (Lewis, 10/24: "Put the blue button on every page").
+  // A page's own Facebook link (footer or trust row) is drawn as the blue button; a page with
+  // none gets one at the foot of its footer, or of the page. The home page draws its own.
+  var FB = "https://www.facebook.com/profile.php?id=61592981752191";
+  var fcss = document.createElement("style");
+  fcss.textContent =
+    ".fbbtn{display:inline-flex!important;align-items:center;gap:8px;color:#fff!important;background:#1877f2!important;border:1px solid #1877f2;padding:6px 14px;border-radius:999px;font:700 .9rem Inter,system-ui,sans-serif;text-decoration:none!important;line-height:1.3}" +
+    ".fbbtn:hover{background:#166fe5!important}.fbbtn svg{flex:none}" +
+    ".fbwrap{text-align:center;padding:16px 16px 76px}";
+  document.head.appendChild(fcss);
+  var icon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8V6.5c0-.8.2-1.3 1.4-1.3H17V2.2C16.7 2.1 15.7 2 14.6 2 12.2 2 10.6 3.4 10.6 6.1V8H8v3.2h2.6V22H14V11.2h2.7l.4-3.2H14z"/></svg> ';
+  var label = es ? "Síguenos en Facebook" : "Follow us on Facebook";
+  var mine = document.querySelectorAll('a[href*="61592981752191"]');
+  if (mine.length) {
+    for (var i = 0; i < mine.length; i++) {
+      var a = mine[i];
+      if (/\bfb-link\b/.test(a.className) || /\bfbbtn\b/.test(a.className)) continue;
+      a.classList.add("fbbtn");
+      a.innerHTML = icon + label;
+    }
+  } else {
+    var b = document.createElement("a");
+    b.className = "fbbtn"; b.href = FB; b.target = "_blank"; b.rel = "noopener noreferrer";
+    b.innerHTML = icon + label;
+    var feet = document.querySelectorAll("footer");
+    var foot = feet.length ? feet[feet.length - 1] : null;
+    var wrap = document.createElement("div");
+    wrap.className = "fbwrap";
+    if (foot) wrap.style.padding = "12px 0 0";
+    wrap.appendChild(b);
+    (foot || document.body).appendChild(wrap);
+  }
 })();
