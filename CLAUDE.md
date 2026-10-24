@@ -92,7 +92,9 @@ with a line sending order, return and shipping questions to Amazon Customer Serv
 the English store pages, `make-az-hot3.py` (`cs_block`) and the Spanish pairs in `make-az-es.py`.
 
 The Facebook page (`https://www.facebook.com/profile.php?id=61592981752191`) is linked
-from every page's footer or trust row. It is managed by Muse, Lewis's Meta assistant; the
+from every page's footer or trust row, drawn as the blue "Follow us on Facebook" button by
+`share.js` (it restyles a page's own link, or adds the button when a page has none; Lewis,
+10/24). It is managed by Muse, Lewis's Meta assistant; the
 CRM's `api/_muse.js` drafts the posts and every post links back to a page here.
 
 The site chat is our own bot (it replaced Tawk.to on 10/15): the same one-line embed on the form
