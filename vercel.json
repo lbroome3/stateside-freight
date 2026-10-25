@@ -608,6 +608,81 @@
   ],
   "redirects": [
     {
+      "source": "/Kay50",
+      "destination": "https://family-tree-topaz-five.vercel.app/?play=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/Kay50/",
+      "destination": "https://family-tree-topaz-five.vercel.app/?play=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/Kay50/tv",
+      "destination": "https://family-tree-topaz-five.vercel.app/?tv=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/Kay50/TV",
+      "destination": "https://family-tree-topaz-five.vercel.app/?tv=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/Kay50/Tv",
+      "destination": "https://family-tree-topaz-five.vercel.app/?tv=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/kay50",
+      "destination": "https://family-tree-topaz-five.vercel.app/?play=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/kay50/",
+      "destination": "https://family-tree-topaz-five.vercel.app/?play=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/kay50/tv",
+      "destination": "https://family-tree-topaz-five.vercel.app/?tv=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/kay50/TV",
+      "destination": "https://family-tree-topaz-five.vercel.app/?tv=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/kay50/Tv",
+      "destination": "https://family-tree-topaz-five.vercel.app/?tv=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/KAY50",
+      "destination": "https://family-tree-topaz-five.vercel.app/?play=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/KAY50/",
+      "destination": "https://family-tree-topaz-five.vercel.app/?play=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/KAY50/tv",
+      "destination": "https://family-tree-topaz-five.vercel.app/?tv=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/KAY50/TV",
+      "destination": "https://family-tree-topaz-five.vercel.app/?tv=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/KAY50/Tv",
+      "destination": "https://family-tree-topaz-five.vercel.app/?tv=KAY50",
+      "permanent": false
+    },
+    {
       "source": "/:path*",
       "has": [
         {
