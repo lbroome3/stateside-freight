@@ -37,7 +37,7 @@
   var CRM = "https://broome-crm.vercel.app/api/az-event";
   // Associates tracking IDs, one per video (created 10/11 by Gizmo). A Short's own ?v= code
   // (its 11-character id) maps to the Shorts tag; nothing else is retagged.
-  var TAGS = { vidA: "broomevida-20", vidB: "broomevidb-20", vidC: "broomevidc-20", vid1: "broomevid1-20", vidR: "broomevidr-20", vidK: "broomevidk-20", vidJ: "broomevidj-20", vidM: "broomevidm-20", deals1014: "broomedeals-20", deals1015: "broomedeals-20", deals1016: "broomedeals-20", deals1019: "broomedeals-20", deals1020: "broomedeals-20", deals1021: "broomedeals-20", deals1022: "broomedeals-20", deals1023: "broomedeals-20", deals1024: "broomedeals-20", channel: "broomechannel-20" };
+  var TAGS = { vidA: "broomevida-20", vidB: "broomevidb-20", vidC: "broomevidc-20", vid1: "broomevid1-20", vidR: "broomevidr-20", vidK: "broomevidk-20", vidJ: "broomevidj-20", vidM: "broomevidm-20", deals1014: "broomedeals-20", deals1015: "broomedeals-20", deals1016: "broomedeals-20", deals1019: "broomedeals-20", deals1020: "broomedeals-20", deals1021: "broomedeals-20", deals1022: "broomedeals-20", deals1023: "broomedeals-20", deals1024: "broomedeals-20", deals1025: "broomedeals-20", channel: "broomechannel-20" };
   function tagFor(c) { return TAGS[c] || (/^[A-Za-z0-9_-]{11}$/.test(c) ? "broomeshorts-20" : ""); }
   var page = location.pathname, T0 = Date.now(), maxDepth = 0;
   var campaign = "";
