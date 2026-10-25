@@ -608,6 +608,31 @@
   ],
   "redirects": [
     {
+      "source": "/Kay50/host",
+      "destination": "https://kay50.lewisbroome.com/?host=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/kay50/host",
+      "destination": "https://kay50.lewisbroome.com/?host=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/KAY50/host",
+      "destination": "https://kay50.lewisbroome.com/?host=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/Kay50/Host",
+      "destination": "https://kay50.lewisbroome.com/?host=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/KAY50/HOST",
+      "destination": "https://kay50.lewisbroome.com/?host=KAY50",
+      "permanent": false
+    },
+    {
       "source": "/50",
       "destination": "https://kay50.lewisbroome.com/?play=KAY50",
       "permanent": false
