@@ -723,6 +723,21 @@
       "permanent": false
     },
     {
+      "source": "/:slug([Kk][Aa][Yy][^/]*)/:rest(.*[Tt][Vv].*)",
+      "destination": "https://kay50.lewisbroome.com/?tv=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/:slug([Kk][Aa][Yy][^/]*)",
+      "destination": "https://kay50.lewisbroome.com/?play=KAY50",
+      "permanent": false
+    },
+    {
+      "source": "/:slug([Kk][Aa][Yy][^/]*)/:rest*",
+      "destination": "https://kay50.lewisbroome.com/?play=KAY50",
+      "permanent": false
+    },
+    {
       "source": "/:path*",
       "has": [
         {
