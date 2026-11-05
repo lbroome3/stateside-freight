@@ -41,6 +41,14 @@
       "destination": "/surrogate-funding/road-to-launch.html"
     },
     {
+      "source": "/surrogate-funding/request-help",
+      "destination": "/surrogate-funding/request-help.html"
+    },
+    {
+      "source": "/surrogate-funding/reach-out",
+      "destination": "/surrogate-funding/reach-out.html"
+    },
+    {
       "source": "/privacy-policy",
       "destination": "/privacy.html"
     },

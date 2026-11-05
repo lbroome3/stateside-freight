@@ -46,10 +46,17 @@ PAGES = [
     ("road-to-launch", "Road to launch", "Road to Launch and 501(c)(3) Status | Surrogate Funding Foundation",
      "Every step of building Surrogate Funding Foundation, in order: what is done, what is under way, and our pending 501(c)(3) status.",
      ["ph-road", "road", "status"]),
+    ("request-help", "Request help", "Request Bail Help for a Small Bond | Surrogate Funding Foundation",
+     "Ask Surrogate Funding Foundation for help with a small bond on a non-violent charge. For the person held, or a family member or friend on their behalf. It is free.",
+     ["request-help"]),
+    ("reach-out", "Reach out", "Reach Out: Someone in Your Corner | Surrogate Funding Foundation",
+     "For young men in South Carolina who are struggling and want someone in their corner. Not a crisis line: call or text 988 if you need help right now.",
+     ["reach-out"]),
 ]
+FORMS = {"request-help", "reach-out"}  # carry sf-forms.css/js inline; no engage.js on purpose
 NAV = ["mission", "our-story", "programs", "bail-fund", "serve", "faq"]
 LABEL = {p[0]: p[1] for p in PAGES}
-EXTRA_NAV = []  # e.g. [("request-help", "Request help")] once that page exists
+EXTRA_NAV = [("request-help", "Request help"), ("reach-out", "Reach out")]
 
 def url(slug):
     return BASE + ("/" + slug if slug else "")
@@ -101,6 +108,7 @@ def footer():
     <div class="foot-top">
       <p class="foot-name">Surrogate Funding</p>
       <p class="motto">Faith. Family. Finances. Order. Loud and right.</p>
+      <p class="motto">Call or text <a href="tel:+18033611303" style="color:inherit">803-361-1303</a></p>
     </div>
     <nav class="foot-links" aria-label="All pages">
 {fl}
@@ -137,6 +145,10 @@ def build(i, page):
     body = fix_links(body)
     if slug == "give":
         body += '\n<script>\n' + open(os.path.join(SRC, "donate-script.js"), encoding="utf-8").read() + '</script>'
+    extra_head = ""
+    if slug in FORMS:
+        extra_head = '<meta name="referrer" content="no-referrer">\n<style>\n' + open(os.path.join(SRC, "sf-forms.css"), encoding="utf-8").read() + '</style>\n'
+        body += '\n<script>\n' + open(os.path.join(SRC, "sf-forms.js"), encoding="utf-8").read() + '</script>'
     og_img = BASE + "/og.jpg" if os.path.exists(os.path.join(ROOT, "surrogate-funding", "og.jpg")) else ""
     img_tags = (f'<meta property="og:image" content="{og_img}">\n' if og_img else "")
     html = f'''<!doctype html>
@@ -160,7 +172,7 @@ def build(i, page):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/surrogate-funding/sf.css">
 <style>:root{{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}}body{{margin:0}}img{{max-width:100%}}[hidden]{{display:none!important}}</style>
-<script type="application/ld+json">
+{extra_head}<script type="application/ld+json">
 {ld(slug, title, desc)}
 </script>
 </head>
@@ -175,6 +187,7 @@ def build(i, page):
 
 {footer()}
 <script src="/surrogate-funding/sf.js" defer></script>
+<script src="/share.js" defer></script>
 </body>
 </html>
 '''

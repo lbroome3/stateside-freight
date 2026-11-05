@@ -1,0 +1,70 @@
+<!-- Surrogate Funding · Reach out (youth). Body fragment: sections only. Served at /surrogate-funding/reach-out. -->
+<section class="band form-hero" aria-labelledby="page-title">
+  <div class="wrap">
+    <p class="label">For young men</p>
+    <h1 id="page-title">You don't have to carry this alone.</h1>
+    <p>If you've been feeling low, angry, lost, or like nobody is in your corner, tell us. A man who has been where you are will reach back. No judgment, no cost, no one gets in trouble for asking.</p>
+  </div>
+</section>
+
+<div class="crisis" role="region" aria-label="If you need help right now">
+  <div class="wrap">
+    <p class="label">If you need help right now</p>
+    <div class="crisis-grid">
+      <a class="line" href="tel:988"><b>988</b><span>Call or text the Suicide &amp; Crisis Lifeline, 24/7, free</span></a>
+      <a class="line" href="tel:911"><b>911</b><span>If you or someone else is in danger right now</span></a>
+    </div>
+    <small>This page is <strong>not</strong> a crisis line. We are a small group of volunteers and it can take us a day or two to answer. If you are thinking about hurting yourself, please call or text 988 now.</small>
+  </div>
+</div>
+
+<section class="intake" aria-labelledby="form-title">
+  <div class="wrap">
+    <aside>
+      <h2 id="form-title">What happens when you reach out</h2>
+      <ul>
+        <li>A man from Surrogate Funding reads what you wrote. Only our team sees it.</li>
+        <li>We reach you the way you asked, usually within a day or two.</li>
+        <li>If you want, we connect you with a mentor who meets you where you are: church, a gym, a kitchen table.</li>
+        <li>If you're under 18, we'll ask to bring a parent or guardian into it. We never meet a young man alone.</li>
+      </ul>
+      <p class="note">You can use a nickname. Don't send Social Security numbers or passwords. What you write stays private with Surrogate Funding Foundation, except if we believe you or someone else is in danger, when we'll do what it takes to keep you safe.</p>
+    </aside>
+
+    <form class="sf-form" data-kind="reach" data-turnstile-sitekey="" novalidate aria-label="Reach out">
+      <fieldset>
+        <legend>Reach out</legend>
+        <div class="row2">
+          <label class="f"><span>First name <i>(or nickname)</i></span><input name="first_name" autocomplete="given-name" required maxlength="40"><small class="err"></small></label>
+          <label class="f"><span>Your age</span>
+            <select name="age_range" required><option value="">Choose</option><option>12-14</option><option>15-17</option><option>18-21</option><option>22-25</option><option>26 or older</option></select><small class="err"></small></label>
+        </div>
+        <label class="f"><span>Best way to reach you</span>
+          <select name="contact_method" required><option value="">Choose</option><option value="text">Text me</option><option value="call">Call me</option><option value="email">Email me</option></select><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(803) 555-0100"><small class="err"></small></label>
+          <label class="f"><span>Email</span><input name="email" type="email" autocomplete="email" maxlength="160"><small class="err"></small></label>
+        </div>
+        <label class="f"><span>What's going on?</span><textarea name="message" required maxlength="2000" placeholder="In your own words. As much or as little as you want."></textarea><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>Parent or guardian name <i>(optional)</i></span><input name="guardian_name" maxlength="120"><small class="err"></small></label>
+          <label class="f"><span>Their phone <i>(optional)</i></span><input name="guardian_phone" type="tel" inputmode="tel"><small class="err"></small></label>
+        </div>
+        <label class="check"><input type="checkbox" name="consent_contact" value="true"><span>It's OK for someone from Surrogate Funding to reach out to me.<small class="err"></small></span></label>
+      </fieldset>
+
+      <div class="hp" aria-hidden="true"><label>Company website<input name="company_website" tabindex="-1" autocomplete="off"></label></div>
+      <div id="turnstile"></div>
+      <button type="submit" class="give-btn">Send</button>
+      <p class="fail" role="alert"></p>
+      <p class="form-note">Not a crisis service. Replies can take a day or two. In an emergency call 911; if you're thinking about hurting yourself, call or text 988.</p>
+    </form>
+
+    <div class="sent" id="sent" hidden aria-live="polite">
+      <p class="label">Got it</p>
+      <h2>We heard you.</h2>
+      <p>Someone from Surrogate Funding will reach out the way you asked, usually within a day or two. Until then: if things get heavy, call or text <a href="tel:988">988</a> any time, day or night. You matter.</p>
+      <p><a href="/surrogate-funding">Back to Surrogate Funding</a></p>
+    </div>
+  </div>
+</section>

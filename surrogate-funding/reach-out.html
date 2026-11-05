@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reach Out: Someone in Your Corner | Surrogate Funding Foundation</title>
+<meta name="description" content="For young men in South Carolina who are struggling and want someone in their corner. Not a crisis line: call or text 988 if you need help right now.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.lewisbroome.com/surrogate-funding/reach-out">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Surrogate Funding Foundation">
+<meta property="og:title" content="Reach Out: Someone in Your Corner | Surrogate Funding Foundation">
+<meta property="og:description" content="For young men in South Carolina who are struggling and want someone in their corner. Not a crisis line: call or text 988 if you need help right now.">
+<meta property="og:url" content="https://www.lewisbroome.com/surrogate-funding/reach-out">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/surrogate-funding/sf.css">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="referrer" content="no-referrer">
+<style>
+/* Surrogate Funding intake forms (request-help, reach-out). Shares the page's tokens. */
+.form-hero .wrap { padding-block: clamp(56px, 8vw, 104px) clamp(40px, 6vw, 72px); display: grid; gap: 18px; max-width: 820px; }
+.form-hero h1 { font-size: clamp(36px, 5.2vw, 64px); line-height: 1.04; letter-spacing: -.01em; }
+.form-hero p { color: var(--band-soft); font-size: 19px; max-width: 58ch; }
+.crisis { background: var(--band-2); border-top: 1px solid var(--band-rule); border-bottom: 1px solid var(--band-rule); color: var(--band-fg); }
+.crisis .wrap { padding-block: 22px; display: grid; gap: 14px; }
+.crisis-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.crisis a.line { display: grid; gap: 4px; text-decoration: none; border: 1px solid var(--band-brass); border-radius: 3px; padding: 14px 16px; }
+.crisis a.line b { font-family: var(--display); font-size: 28px; line-height: 1; color: var(--band-brass); }
+.crisis a.line span { font-size: 15px; color: var(--band-fg); }
+.crisis small { color: var(--band-soft); font-size: 14px; }
+.intake { padding-block: clamp(48px, 7vw, 96px); }
+.intake .wrap { display: grid; gap: clamp(32px, 5vw, 64px); grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); align-items: start; }
+@media (max-width: 860px) { .intake .wrap { grid-template-columns: 1fr; } }
+.intake aside { display: grid; gap: 20px; font-size: 16px; color: var(--ink-soft); }
+.intake aside h2 { font-size: clamp(28px, 3.4vw, 40px); color: var(--ink); }
+.intake aside ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.intake aside .note { border-left: 2px solid var(--brass); padding-left: 14px; }
+.sf-form { border: 1px solid var(--rule); background: var(--paper-2); padding: clamp(22px, 3.5vw, 40px); border-radius: 3px; display: grid; gap: 22px; }
+.sf-form fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 16px; }
+.sf-form legend { font-family: var(--display); font-size: 24px; padding: 0; margin-bottom: 8px; color: var(--ink); }
+.row2 { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+.f { display: grid; gap: 6px; }
+.f > span { font-size: 14px; font-weight: 600; letter-spacing: .02em; color: var(--ink); }
+.f > span i { font-style: normal; font-weight: 400; color: var(--ink-soft); }
+.f input, .f select, .f textarea { font: inherit; font-size: 17px; padding: 12px 13px; border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); color: var(--ink); width: 100%; }
+.f textarea { min-height: 120px; resize: vertical; }
+.f input:focus, .f select:focus, .f textarea:focus { outline: none; border-color: var(--ink); }
+.f.bad input, .f.bad select, .f.bad textarea { border-color: #a4362a; }
+.err { font-size: 13.5px; color: #a4362a; min-height: 0; }
+.err:empty { display: none; }
+.check { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; font-size: 15.5px; color: var(--ink); }
+.check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--brass); }
+.check.bad { color: #a4362a; }
+.hp { position: absolute; left: -9999px; top: -9999px; height: 0; width: 0; overflow: hidden; }
+.sf-form .give-btn { width: 100%; }
+.sf-form .give-btn[disabled] { opacity: .6; cursor: wait; }
+.form-note { font-size: 13.5px; color: var(--ink-soft); }
+.sent { border: 1px solid var(--brass); background: var(--paper-2); padding: clamp(24px, 4vw, 44px); border-radius: 3px; display: grid; gap: 14px; }
+.sent h2 { font-size: clamp(28px, 3.6vw, 44px); }
+.sent p { color: var(--ink-soft); font-size: 17px; }
+.fail { font-size: 15px; color: #a4362a; }
+.top .back { font-size: 14px; color: var(--band-soft); text-decoration: none; }
+.top .back:hover { color: var(--band-fg); }
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "NGO",
+   "@id": "https://www.lewisbroome.com/surrogate-funding#org",
+   "name": "Surrogate Funding Foundation",
+   "alternateName": "Surrogate Funding",
+   "url": "https://www.lewisbroome.com/surrogate-funding",
+   "description": "Surrogate Funding Foundation mentors boys and young men in Richland County and the Midlands so they never see the inside of a cell, and runs a small community bail fund for people held on $70 to $300 bonds.",
+   "founder": {
+    "@type": "Person",
+    "name": "Lewis Broome"
+   },
+   "areaServed": [
+    {
+     "@type": "AdministrativeArea",
+     "name": "Richland County, South Carolina"
+    },
+    {
+     "@type": "State",
+     "name": "South Carolina"
+    }
+   ],
+   "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "SC",
+    "addressCountry": "US"
+   },
+   "foundingDate": "2026",
+   "sponsor": {
+    "@type": "Organization",
+    "name": "GPT Marketing",
+    "url": "https://gptmarketing.us"
+   }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://www.lewisbroome.com/surrogate-funding/reach-out#page",
+   "url": "https://www.lewisbroome.com/surrogate-funding/reach-out",
+   "name": "Reach Out: Someone in Your Corner | Surrogate Funding Foundation",
+   "description": "For young men in South Carolina who are struggling and want someone in their corner. Not a crisis line: call or text 988 if you need help right now.",
+   "isPartOf": {
+    "@id": "https://www.lewisbroome.com/surrogate-funding#org"
+   },
+   "about": {
+    "@id": "https://www.lewisbroome.com/surrogate-funding#org"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Surrogate Funding",
+     "item": "https://www.lewisbroome.com/surrogate-funding"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Reach out",
+     "item": "https://www.lewisbroome.com/surrogate-funding/reach-out"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<!-- GENERATED by scripts/make-surrogate.py from scripts/surrogate/. Do not hand-edit. -->
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/surrogate-funding"><b>Surrogate Funding</b><span>South Carolina</span></a>
+    <nav class="nav" aria-label="Pages">
+      <a href="/surrogate-funding/mission">Mission</a>
+      <a href="/surrogate-funding/our-story">Our story</a>
+      <a href="/surrogate-funding/programs">Programs</a>
+      <a href="/surrogate-funding/bail-fund">Bail fund</a>
+      <a href="/surrogate-funding/serve">Serve</a>
+      <a href="/surrogate-funding/faq">Questions</a>
+      <a href="/surrogate-funding/request-help">Request help</a>
+      <a href="/surrogate-funding/reach-out" aria-current="page">Reach out</a>
+    </nav>
+    <div class="top-r">
+      <span class="status">501(c)(3) pending</span>
+      <a class="btn btn-solid btn-sm" href="/surrogate-funding/give">Donate</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- Surrogate Funding · Reach out (youth). Body fragment: sections only. Served at /surrogate-funding/reach-out. -->
+<section class="band form-hero" aria-labelledby="page-title">
+  <div class="wrap">
+    <p class="label">For young men</p>
+    <h1 id="page-title">You don't have to carry this alone.</h1>
+    <p>If you've been feeling low, angry, lost, or like nobody is in your corner, tell us. A man who has been where you are will reach back. No judgment, no cost, no one gets in trouble for asking.</p>
+  </div>
+</section>
+
+<div class="crisis" role="region" aria-label="If you need help right now">
+  <div class="wrap">
+    <p class="label">If you need help right now</p>
+    <div class="crisis-grid">
+      <a class="line" href="tel:988"><b>988</b><span>Call or text the Suicide &amp; Crisis Lifeline, 24/7, free</span></a>
+      <a class="line" href="tel:911"><b>911</b><span>If you or someone else is in danger right now</span></a>
+    </div>
+    <small>This page is <strong>not</strong> a crisis line. We are a small group of volunteers and it can take us a day or two to answer. If you are thinking about hurting yourself, please call or text 988 now.</small>
+  </div>
+</div>
+
+<section class="intake" aria-labelledby="form-title">
+  <div class="wrap">
+    <aside>
+      <h2 id="form-title">What happens when you reach out</h2>
+      <ul>
+        <li>A man from Surrogate Funding reads what you wrote. Only our team sees it.</li>
+        <li>We reach you the way you asked, usually within a day or two.</li>
+        <li>If you want, we connect you with a mentor who meets you where you are: church, a gym, a kitchen table.</li>
+        <li>If you're under 18, we'll ask to bring a parent or guardian into it. We never meet a young man alone.</li>
+      </ul>
+      <p class="note">You can use a nickname. Don't send Social Security numbers or passwords. What you write stays private with Surrogate Funding Foundation, except if we believe you or someone else is in danger, when we'll do what it takes to keep you safe.</p>
+    </aside>
+
+    <form class="sf-form" data-kind="reach" data-turnstile-sitekey="" novalidate aria-label="Reach out">
+      <fieldset>
+        <legend>Reach out</legend>
+        <div class="row2">
+          <label class="f"><span>First name <i>(or nickname)</i></span><input name="first_name" autocomplete="given-name" required maxlength="40"><small class="err"></small></label>
+          <label class="f"><span>Your age</span>
+            <select name="age_range" required><option value="">Choose</option><option>12-14</option><option>15-17</option><option>18-21</option><option>22-25</option><option>26 or older</option></select><small class="err"></small></label>
+        </div>
+        <label class="f"><span>Best way to reach you</span>
+          <select name="contact_method" required><option value="">Choose</option><option value="text">Text me</option><option value="call">Call me</option><option value="email">Email me</option></select><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(803) 555-0100"><small class="err"></small></label>
+          <label class="f"><span>Email</span><input name="email" type="email" autocomplete="email" maxlength="160"><small class="err"></small></label>
+        </div>
+        <label class="f"><span>What's going on?</span><textarea name="message" required maxlength="2000" placeholder="In your own words. As much or as little as you want."></textarea><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>Parent or guardian name <i>(optional)</i></span><input name="guardian_name" maxlength="120"><small class="err"></small></label>
+          <label class="f"><span>Their phone <i>(optional)</i></span><input name="guardian_phone" type="tel" inputmode="tel"><small class="err"></small></label>
+        </div>
+        <label class="check"><input type="checkbox" name="consent_contact" value="true"><span>It's OK for someone from Surrogate Funding to reach out to me.<small class="err"></small></span></label>
+      </fieldset>
+
+      <div class="hp" aria-hidden="true"><label>Company website<input name="company_website" tabindex="-1" autocomplete="off"></label></div>
+      <div id="turnstile"></div>
+      <button type="submit" class="give-btn">Send</button>
+      <p class="fail" role="alert"></p>
+      <p class="form-note">Not a crisis service. Replies can take a day or two. In an emergency call 911; if you're thinking about hurting yourself, call or text 988.</p>
+    </form>
+
+    <div class="sent" id="sent" hidden aria-live="polite">
+      <p class="label">Got it</p>
+      <h2>We heard you.</h2>
+      <p>Someone from Surrogate Funding will reach out the way you asked, usually within a day or two. Until then: if things get heavy, call or text <a href="tel:988">988</a> any time, day or night. You matter.</p>
+      <p><a href="/surrogate-funding">Back to Surrogate Funding</a></p>
+    </div>
+  </div>
+</section>
+
+<script>
+// Surrogate Funding intake: posts a form to /api/sf-intake with the bot trap, the fill timer and
+// (when a site key is set) Cloudflare Turnstile. Same answer either way; errors shown per field.
+(function () {
+  var form = document.querySelector("form.sf-form");
+  if (!form) return;
+  var t0 = Date.now();
+  var siteKey = form.getAttribute("data-turnstile-sitekey") || "";
+  var tsToken = "";
+  if (siteKey) {
+    var s = document.createElement("script");
+    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=sfTurnstileReady";
+    s.async = true; s.defer = true;
+    window.sfTurnstileReady = function () {
+      window.turnstile.render("#turnstile", { sitekey: siteKey, callback: function (t) { tsToken = t; }, "expired-callback": function () { tsToken = ""; } });
+    };
+    document.head.appendChild(s);
+  }
+  function setErr(name, msg) {
+    var el = form.querySelector('[name="' + name + '"]');
+    var wrap = el ? el.closest(".f, .check") : null;
+    if (wrap) { wrap.classList.toggle("bad", !!msg); var e = wrap.querySelector(".err"); if (e) e.textContent = msg || ""; }
+  }
+  function clearErrs() { form.querySelectorAll(".bad").forEach(function (w) { w.classList.remove("bad"); }); form.querySelectorAll(".err").forEach(function (e) { e.textContent = ""; }); }
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    clearErrs();
+    var btn = form.querySelector('button[type="submit"]');
+    var fail = form.querySelector(".fail");
+    if (fail) fail.textContent = "";
+    var body = { kind: form.getAttribute("data-kind"), fill_ms: Date.now() - t0, turnstile_token: tsToken };
+    new FormData(form).forEach(function (v, k) { body[k] = v; });
+    form.querySelectorAll('input[type="checkbox"]').forEach(function (c) { body[c.name] = c.checked; });
+    if (siteKey && !tsToken) { if (fail) fail.textContent = "Please finish the \"I'm human\" check first."; return; }
+    btn.disabled = true;
+    fetch("/api/sf-intake", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return { ok: r.ok }; }).then(function (d) { d.status = r.status; return d; }); })
+      .then(function (d) {
+        if (d.ok) {
+          var sent = document.getElementById("sent");
+          form.hidden = true; sent.hidden = false;
+          sent.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+        var errs = d.errors || {};
+        var first = null;
+        Object.keys(errs).forEach(function (k) { setErr(k, errs[k]); if (!first) first = form.querySelector('[name="' + k + '"]'); });
+        if (errs.turnstile && fail) fail.textContent = errs.turnstile;
+        if (!Object.keys(errs).length && fail) fail.textContent = "We couldn't save that just now. Please try again in a minute, or call or text 803-361-1303.";
+        if (first && first.focus) first.focus();
+        if (window.turnstile && siteKey) { window.turnstile.reset(); tsToken = ""; }
+      })
+      .catch(function () { if (fail) fail.textContent = "We couldn't reach our server. Please try again, or call or text 803-361-1303."; })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+  <div class="wrap next">
+    <a href="/surrogate-funding/mission"><small>Next</small><b>Mission</b></a>
+    <a class="btn btn-solid" href="/surrogate-funding/give" style="color:var(--band)">Make a founding gift</a>
+  </div>
+</main>
+
+<footer class="band">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-name">Surrogate Funding</p>
+      <p class="motto">Faith. Family. Finances. Order. Loud and right.</p>
+      <p class="motto">Call or text <a href="tel:+18033611303" style="color:inherit">803-361-1303</a></p>
+    </div>
+    <nav class="foot-links" aria-label="All pages">
+        <a href="/surrogate-funding">Home</a>
+        <a href="/surrogate-funding/mission">Mission</a>
+        <a href="/surrogate-funding/our-story">Our story</a>
+        <a href="/surrogate-funding/programs">Programs</a>
+        <a href="/surrogate-funding/bail-fund">Bail fund</a>
+        <a href="/surrogate-funding/serve">Serve</a>
+        <a href="/surrogate-funding/faq">Questions</a>
+        <a href="/surrogate-funding/road-to-launch">Road to launch</a>
+        <a href="/surrogate-funding/give">Give</a>
+        <a href="/surrogate-funding/request-help">Request help</a>
+        <a href="/surrogate-funding/reach-out">Reach out</a>
+    </nav>
+    <div class="foot-bottom">
+      <span>Surrogate Funding Foundation · A South Carolina nonprofit corporation in formation · 501(c)(3) status pending</span>
+      <a class="sponsor" href="https://gptmarketing.us" target="_blank" rel="noopener">Sponsored by <b>GPT Marketing</b></a>
+      <span>Richland County &amp; the Midlands · © 2026 Surrogate Funding Foundation</span>
+    </div>
+  </div>
+</footer>
+<script src="/surrogate-funding/sf.js" defer></script>
+<script src="/share.js" defer></script>
+</body>
+</html>

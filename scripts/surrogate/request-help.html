@@ -1,0 +1,85 @@
+<!-- Surrogate Funding · Request bail help. Body fragment: sections only. Served at /surrogate-funding/request-help. -->
+<section class="band form-hero" aria-labelledby="page-title">
+  <div class="wrap">
+    <p class="label">Community bail fund</p>
+    <h1 id="page-title">Ask for help with a bond.</h1>
+    <p>If you, or someone you love, is being held on a <strong>non-violent</strong> charge over a bond you cannot pay, tell us here. A family member, friend, pastor or attorney can fill this out for the person inside. We read every request ourselves.</p>
+    <p style="font-size:15px">Our fund is small and opens fully after our 501(c)(3) is approved. We can't promise every bond, but we can promise a real person will read this and answer.</p>
+  </div>
+</section>
+
+<section class="intake" aria-labelledby="form-title">
+  <div class="wrap">
+    <aside>
+      <h2 id="form-title">What we need to know</h2>
+      <ul>
+        <li>The <strong>full legal name</strong> and <strong>inmate or booking number</strong> of the person held. We verify both with the facility.</li>
+        <li>The jail, the county, and the charge or charges.</li>
+        <li>The bond amount, if you know it. We focus on bonds of a few hundred dollars.</li>
+        <li>A phone number or email where we can reach <em>you</em>.</li>
+      </ul>
+      <p class="note">We help with <strong>non-violent charges only</strong>. Please don't send Social Security numbers or any ID numbers other than the inmate number. Everything you send stays private with Surrogate Funding Foundation and is never sold or shared.</p>
+      <p>If you'd rather talk, call or text <a href="tel:+18033611303"><strong>803-361-1303</strong></a>.</p>
+    </aside>
+
+    <form class="sf-form" data-kind="bail" data-turnstile-sitekey="" novalidate aria-label="Bail assistance request">
+      <fieldset>
+        <legend>The person being held</legend>
+        <label class="f"><span>Full legal name</span><input name="held_full_name" autocomplete="off" required maxlength="120" placeholder="First, middle, last, as booked"><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>Inmate or booking number</span><input name="inmate_number" autocomplete="off" required maxlength="30" inputmode="text"><small class="err"></small></label>
+          <label class="f"><span>Date booked <i>(if known)</i></span><input name="date_booked" type="date"><small class="err"></small></label>
+        </div>
+        <label class="f"><span>Jail or detention center</span><input name="facility" required maxlength="120" placeholder="e.g. Alvin S. Glenn Detention Center"><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>County</span><input name="county" required maxlength="60" placeholder="Richland"><small class="err"></small></label>
+          <label class="f"><span>State</span>
+            <select name="state"><option value="SC" selected>South Carolina</option><option value="NC">North Carolina</option><option value="GA">Georgia</option><option value="OTHER">Other</option></select><small class="err"></small></label>
+        </div>
+        <label class="f"><span>Charge or charges</span><textarea name="charges" required maxlength="600" placeholder="What the booking sheet says"></textarea><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>Bond amount <i>(if known)</i></span><input name="bond_amount" inputmode="decimal" placeholder="$"><small class="err"></small></label>
+          <label class="f"><span>Is this a child support hold?</span>
+            <select name="child_support_hold" required><option value="">Choose</option><option value="yes">Yes</option><option value="no">No</option><option value="not sure">Not sure</option></select><small class="err"></small></label>
+        </div>
+        <label class="check"><input type="checkbox" name="nonviolent_attested" value="true"><span>I confirm the charge or charges are <strong>non-violent</strong>. No charge involves violence, a weapon, or harm to a child.<small class="err"></small></span></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>About you</legend>
+        <label class="f"><span>Who is filling this out?</span>
+          <select name="submitter_relationship" required>
+            <option value="">Choose</option>
+            <option value="self">I am the person being held</option>
+            <option value="family">Family member</option>
+            <option value="spouse or partner">Spouse or partner</option>
+            <option value="friend">Friend</option>
+            <option value="attorney">Attorney</option>
+            <option value="clergy or mentor">Pastor, clergy or mentor</option>
+            <option value="other">Other</option>
+          </select><small class="err"></small></label>
+        <label class="f"><span>Your name</span><input name="submitter_name" autocomplete="name" required maxlength="120"><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>Your phone</span><input name="submitter_phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(803) 555-0100"><small class="err"></small></label>
+          <label class="f"><span>Your email <i>(optional)</i></span><input name="submitter_email" type="email" autocomplete="email" maxlength="160"><small class="err"></small></label>
+        </div>
+        <label class="f"><span>Best time to reach you <i>(optional)</i></span><input name="best_time" maxlength="80" placeholder="Evenings after 6"><small class="err"></small></label>
+        <label class="f"><span>Tell us what happened <i>(optional)</i></span><textarea name="story" maxlength="2000" placeholder="Work, family, what the hold is costing. Whatever you want us to know. No Social Security numbers, please."></textarea><small class="err"></small></label>
+        <label class="check"><input type="checkbox" name="consent_contact" value="true"><span>You may contact me about this request by phone, text or email.<small class="err"></small></span></label>
+      </fieldset>
+
+      <div class="hp" aria-hidden="true"><label>Company website<input name="company_website" tabindex="-1" autocomplete="off"></label></div>
+      <div id="turnstile"></div>
+      <button type="submit" class="give-btn">Send my request</button>
+      <p class="fail" role="alert"></p>
+      <p class="form-note">Sending this is not a promise of bail. We verify the booking with the facility, and if we can help we'll call you. Your information stays private and is never sold or shared.</p>
+    </form>
+
+    <div class="sent" id="sent" hidden aria-live="polite">
+      <p class="label">Received</p>
+      <h2>We have your request.</h2>
+      <p>A real person at Surrogate Funding will read it, verify the booking with the facility, and reach you at the number or email you gave. If something changes, such as a court date or a bond reduction, call or text <a href="tel:+18033611303">803-361-1303</a>.</p>
+      <p><a href="/surrogate-funding">Back to Surrogate Funding</a></p>
+    </div>
+  </div>
+</section>

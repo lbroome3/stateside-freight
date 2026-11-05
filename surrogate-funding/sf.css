@@ -496,3 +496,15 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
 .bond a { color: var(--ink); }
 @media (max-width: 900px) { .finder-row { grid-template-columns: 1fr 1fr; } .bond-list { grid-template-columns: 1fr; } .bond:nth-child(even) { padding-left: 0; border-left: 0; } }
 @media (max-width: 480px) { .finder-row { grid-template-columns: 1fr; } }
+
+/* Eight nav links: keep each on one line and make room at laptop widths */
+.nav a { white-space: nowrap; }
+@media (max-width: 1440px) { .nav { gap: 20px; } .top .status { display: none; } }
+@media (max-width: 1240px) { .nav { gap: 14px; font-size: 13px; } .mark span { display: none; } }
+@media (max-width: 1060px) { .nav { gap: 11px; font-size: 12.5px; } }
+/* Phones and tablets: the page links become a swipeable strip under the name */
+@media (max-width: 900px) {
+  .top .wrap { flex-wrap: wrap; row-gap: 0; }
+  .top .nav { display: flex; order: 3; width: 100%; overflow-x: auto; gap: 18px; font-size: 14px; padding: 2px 0 12px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .top .nav::-webkit-scrollbar { display: none; }
+}
