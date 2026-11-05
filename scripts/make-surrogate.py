@@ -27,7 +27,7 @@ PAGES = [
      ["ph-mission", "watch", "mission", "clip-pillars", "serve"]),
     ("our-story", "Our story", "Wounded in the House of a Friend: Our Founder's Story | Surrogate Funding Foundation",
      "Lewis Broome came up in the projects, built a house at 21, and learned betrayal the hard way. He started Surrogate Funding so young men learn it from a mentor, not a cell.",
-     ["story"]),
+     ["story", "why-surrogate"]),
     ("programs", "Programs", "Crossroads Mentoring Circle and Programs | Surrogate Funding Foundation",
      "The Crossroads mentoring circle, one-on-one mentors for a year, money and work skills, the community bail fund, and the Loud and Right livestream.",
      ["ph-programs", "programs", "clip-crossroads", "evidence"]),
