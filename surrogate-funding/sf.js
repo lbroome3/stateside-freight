@@ -9,6 +9,8 @@
   /* When Muse's videos arrive, put the files in /surrogate-funding/media/ and set these. */
   var HERO_VIDEO = "";          /* e.g. "/surrogate-funding/media/hero.mp4" */
   var HERO_POSTER = "";         /* e.g. "/surrogate-funding/media/hero.jpg" */
+  /* Muse's hero loop has its headline burned in, so the home hero uses its text-free still until a clean loop arrives. */
+  var HERO_IMAGE = "/surrogate-funding/media/hero.jpg";
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -87,8 +89,12 @@
   }
 
   document.querySelectorAll("[data-bg]").forEach(function (host) {
-    if (HERO_VIDEO && host.hasAttribute("data-video") && !reduce) startVideo(host);
-    else startField(host);
+    if (HERO_VIDEO && host.hasAttribute("data-video") && !reduce) { startVideo(host); return; }
+    if (HERO_IMAGE && host.hasAttribute("data-video")) {
+      var ph = document.createElement("div"); ph.className = "bg-photo"; ph.setAttribute("aria-hidden", "true");
+      ph.style.backgroundImage = "url(" + HERO_IMAGE + ")"; host.prepend(ph);
+    }
+    startField(host);
   });
 
 
@@ -147,6 +153,17 @@
     [city, low].forEach(function (x) { x.addEventListener("change", render); });
     q.addEventListener("input", render);
   })();
+
+  /* ---------- Short films: play while on screen ---------- */
+  document.querySelectorAll("video[data-clip]").forEach(function (v) {
+    if (reduce || !("IntersectionObserver" in window)) { v.controls = true; return; }
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { v.preload = "auto"; var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); }
+        else v.pause();
+      });
+    }, { threshold: .4 }).observe(v);
+  });
 
   /* ---------- Scroll reveals ---------- */
   function fmt(n, d) { return n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }); }

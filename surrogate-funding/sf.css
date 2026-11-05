@@ -508,3 +508,24 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
   .top .nav { display: flex; order: 3; width: 100%; overflow-x: auto; gap: 18px; font-size: 14px; padding: 2px 0 12px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .top .nav::-webkit-scrollbar { display: none; }
 }
+
+/* Logo */
+.mark { display: inline-flex; align-items: center; gap: 12px; }
+.mark-emblem { width: 40px; height: 40px; flex: none; }
+.foot-lockup { width: 220px; height: auto; display: block; }
+@media (max-width: 480px) { .mark-emblem { width: 34px; height: 34px; } }
+
+/* Hero photograph with a slow push-in */
+.bg-photo { position: absolute; inset: -4%; z-index: -2; background: center 60% / cover no-repeat; opacity: .5; }
+@media (prefers-reduced-motion: no-preference) { .bg-photo { animation: kb 38s ease-in-out infinite alternate; } }
+@keyframes kb { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(-1.5%, -1%); } }
+
+/* Short vertical films */
+.clip-band { background: var(--band-2, var(--band)); }
+.clip-wrap { display: grid; grid-template-columns: 1fr minmax(220px, 320px); gap: clamp(28px, 6vw, 88px); align-items: center; padding-block: clamp(56px, 8vw, 104px); }
+.clip-text h2 { font-size: clamp(30px, 3.6vw, 48px); line-height: 1.05; margin: 14px 0 16px; }
+.clip-text p:last-child { color: var(--band-soft); max-width: 46ch; }
+.clip { margin: 0; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--band-brass) 45%, transparent); box-shadow: 0 30px 80px -30px rgba(0,0,0,.6); background: #0b1430; }
+.clip video { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 760px) { .clip-wrap { grid-template-columns: 1fr; } .clip { max-width: 300px; } }
+.mark b { white-space: nowrap; }

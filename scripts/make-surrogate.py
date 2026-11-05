@@ -24,16 +24,16 @@ PAGES = [
      ["hero", "paths", "home-numbers", "home-meter", "home-teasers", "home-give"]),
     ("mission", "Mission", "Our Mission and Four Pillars | Surrogate Funding Foundation",
      "We stand at the crossroads for young men in South Carolina: mentoring in faith, family, finances, and order, and bringing people home from jail over small bonds.",
-     ["ph-mission", "mission", "serve"]),
+     ["ph-mission", "mission", "clip-pillars", "serve"]),
     ("our-story", "Our story", "Wounded in the House of a Friend: Our Founder's Story | Surrogate Funding Foundation",
      "Lewis Broome came up in the projects, built a house at 21, and learned betrayal the hard way. He started Surrogate Funding so young men learn it from a mentor, not a cell.",
      ["story"]),
     ("programs", "Programs", "Crossroads Mentoring Circle and Programs | Surrogate Funding Foundation",
      "The Crossroads mentoring circle, one-on-one mentors for a year, money and work skills, the community bail fund, and the Loud and Right livestream.",
-     ["ph-programs", "programs", "evidence"]),
+     ["ph-programs", "programs", "clip-crossroads", "evidence"]),
     ("bail-fund", "Bail fund", "Community Bail Fund for $70 to $300 Bonds | Surrogate Funding Foundation",
      "Some people sit in jail for months over a $70 bond. Our community bail fund posts small bonds for people held only because they cannot pay, and refunded bail brings the next person home.",
-     ["bail-meter", "bailfund", "bonds"]),
+     ["bail-meter", "bailfund", "clip-bail-fund", "bonds"]),
     ("serve", "Serve", "Mentor a Young Man in South Carolina | Surrogate Funding Foundation",
      "Retired military and men who have walked the road: mentor a young man, lead a circle session, host a circle, or join our founding board.",
      ["ph-serve", "stand"]),
@@ -67,7 +67,7 @@ def href(slug):
 def ld(slug, title, desc):
     org = {
         "@type": "NGO", "@id": BASE + "#org", "name": ORG, "alternateName": "Surrogate Funding",
-        "url": BASE, "description": PAGES[0][3],
+        "url": BASE, "description": PAGES[0][3], "logo": BASE + "/media/icon-512.png",
         "founder": {"@type": "Person", "name": "Lewis Broome"},
         "areaServed": [{"@type": "AdministrativeArea", "name": "Richland County, South Carolina"},
                        {"@type": "State", "name": "South Carolina"}],
@@ -89,7 +89,7 @@ def header(slug):
         f'      <a href="{href(s)}"{" aria-current=\"page\"" if s == slug else ""}>{l}</a>' for s, l in links)
     return f'''<header class="top">
   <div class="wrap">
-    <a class="mark" href="{href("")}"><b>Surrogate Funding</b><span>South Carolina</span></a>
+    <a class="mark" href="{href("")}"><img class="mark-emblem" src="/surrogate-funding/media/emblem.png" alt="" width="40" height="40"><b>Surrogate Funding</b><span>South Carolina</span></a>
     <nav class="nav" aria-label="Pages">
 {nav}
     </nav>
@@ -106,7 +106,7 @@ def footer():
     return f'''<footer class="band">
   <div class="wrap">
     <div class="foot-top">
-      <p class="foot-name">Surrogate Funding</p>
+      <p class="foot-name"><img class="foot-lockup" src="/surrogate-funding/media/lockup-gold.png" alt="Surrogate Funding Foundation" width="260" height="246"></p>
       <p class="motto">Faith. Family. Finances. Order. Loud and right.</p>
       <p class="motto">Call or text <a href="tel:+18033611303" style="color:inherit">803-361-1303</a></p>
     </div>
@@ -167,6 +167,8 @@ def build(i, page):
 <meta property="og:url" content="{url(slug)}">
 {img_tags}<meta name="twitter:card" content="summary_large_image">
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" type="image/png" sizes="32x32" href="/surrogate-funding/media/favicon-32.png">
+<link rel="apple-touch-icon" href="/surrogate-funding/media/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600&display=swap">
