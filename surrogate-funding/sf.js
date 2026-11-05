@@ -7,8 +7,8 @@
   "use strict";
 
   /* When Muse's videos arrive, put the files in /surrogate-funding/media/ and set these. */
-  var HERO_VIDEO = "";          /* e.g. "/surrogate-funding/media/hero.mp4" */
-  var HERO_POSTER = "";         /* e.g. "/surrogate-funding/media/hero.jpg" */
+  var HERO_VIDEO = "/surrogate-funding/media/hero.mp4";          /* e.g. "/surrogate-funding/media/hero.mp4" */
+  var HERO_POSTER = "/surrogate-funding/media/hero.jpg";         /* e.g. "/surrogate-funding/media/hero.jpg" */
   /* Muse's hero loop has its headline burned in, so the home hero uses its text-free still until a clean loop arrives. */
   var HERO_IMAGE = "/surrogate-funding/media/hero.jpg";
 
