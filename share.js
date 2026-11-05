@@ -37,6 +37,18 @@
     ".homesheet button{margin-top:.6rem;width:100%;border:0;border-radius:10px;padding:.6rem;font:800 .9rem Inter,system-ui,sans-serif;background:#ff9900;color:#111;cursor:pointer}";
   document.head.appendChild(css);
 
+  // APOLLO WEBSITE VISITORS (Lewis, 11/4: "maximize these 14 days"). Apollo's tracker names
+  // the companies that visit; it rides this script because this script is already on every
+  // page (email-signature excepted). Apollo's own snippet, verbatim but for the cache-buster.
+  // Appears on the Apollo Trial page in the CRM; no data is sent anywhere else.
+  try {
+    var ap = document.createElement("script");
+    ap.src = "https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache=" + Math.random().toString(36).substring(7);
+    ap.async = true; ap.defer = true;
+    ap.onload = function () { try { window.trackingFunctions.onLoad({ appId: "6a48486378b39b00106fd3ed" }); } catch (e) {} };
+    document.head.appendChild(ap);
+  } catch (e) {}
+
   function link(btn) {
     var canon = document.querySelector('link[rel="canonical"]');
     var u = new URL(btn.getAttribute("data-share-url") || (canon && canon.href) || location.pathname, location.origin);
