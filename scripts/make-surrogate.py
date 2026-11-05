@@ -149,8 +149,12 @@ def build(i, page):
     if slug in FORMS:
         extra_head = '<meta name="referrer" content="no-referrer">\n<style>\n' + open(os.path.join(SRC, "sf-forms.css"), encoding="utf-8").read() + '</style>\n'
         body += '\n<script>\n' + open(os.path.join(SRC, "sf-forms.js"), encoding="utf-8").read() + '</script>'
-    og_img = BASE + "/og.jpg" if os.path.exists(os.path.join(ROOT, "surrogate-funding", "og.jpg")) else ""
-    img_tags = (f'<meta property="og:image" content="{og_img}">\n' if og_img else "")
+    # each page gets its own share card when surrogate-funding/og/<slug>.jpg exists; home uses og.jpg
+    if slug and os.path.exists(os.path.join(ROOT, "surrogate-funding", "og", slug + ".jpg")):
+        og_img = BASE + "/og/" + slug + ".jpg"
+    else:
+        og_img = BASE + "/og.jpg" if os.path.exists(os.path.join(ROOT, "surrogate-funding", "og.jpg")) else ""
+    img_tags = (f'<meta property="og:image" content="{og_img}">\n<meta property="og:image:secure_url" content="{og_img}">\n<meta property="og:image:type" content="image/jpeg">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="{title}">\n<meta name="twitter:image" content="{og_img}">\n<meta name="twitter:title" content="{title}">\n<meta name="twitter:description" content="{desc}">\n' if og_img else "")
     html = f'''<!doctype html>
 <html lang="en">
 <head>
