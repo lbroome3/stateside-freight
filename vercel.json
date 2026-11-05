@@ -9,6 +9,38 @@
       "destination": "/surrogate-funding.html"
     },
     {
+      "source": "/surrogate-funding/mission",
+      "destination": "/surrogate-funding/mission.html"
+    },
+    {
+      "source": "/surrogate-funding/our-story",
+      "destination": "/surrogate-funding/our-story.html"
+    },
+    {
+      "source": "/surrogate-funding/programs",
+      "destination": "/surrogate-funding/programs.html"
+    },
+    {
+      "source": "/surrogate-funding/bail-fund",
+      "destination": "/surrogate-funding/bail-fund.html"
+    },
+    {
+      "source": "/surrogate-funding/serve",
+      "destination": "/surrogate-funding/serve.html"
+    },
+    {
+      "source": "/surrogate-funding/give",
+      "destination": "/surrogate-funding/give.html"
+    },
+    {
+      "source": "/surrogate-funding/faq",
+      "destination": "/surrogate-funding/faq.html"
+    },
+    {
+      "source": "/surrogate-funding/road-to-launch",
+      "destination": "/surrogate-funding/road-to-launch.html"
+    },
+    {
       "source": "/privacy-policy",
       "destination": "/privacy.html"
     },
