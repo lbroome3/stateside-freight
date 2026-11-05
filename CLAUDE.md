@@ -103,6 +103,9 @@ data-site="stateside" defer>`. It answers from the agency's facts in the CRM's
 `api/gm-chat.js` (never a rate, never a promised truck), turns a name plus a phone or email
 into a "lewisbroome.com · Chat" lead, and Lewis answers live from the CRM's `/site-chat`,
 which is also where the early alert opens.
+The Surrogate Funding pages carry the same embed with `data-site="surrogate"` (added in
+`scripts/make-surrogate.py`, 11/5): their visitors push to Lewis as "Surrogate Funding" and their
+chats land in their own inbox (GPT Analytics `#sf-chat`, `#sf-traffic`), never mixed with freight.
 
 ---
 
