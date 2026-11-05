@@ -1,0 +1,45 @@
+/* Surrogate Funding intake forms (request-help, reach-out). Shares the page's tokens. */
+.form-hero .wrap { padding-block: clamp(56px, 8vw, 104px) clamp(40px, 6vw, 72px); display: grid; gap: 18px; max-width: 820px; }
+.form-hero h1 { font-size: clamp(36px, 5.2vw, 64px); line-height: 1.04; letter-spacing: -.01em; }
+.form-hero p { color: var(--band-soft); font-size: 19px; max-width: 58ch; }
+.crisis { background: var(--band-2); border-top: 1px solid var(--band-rule); border-bottom: 1px solid var(--band-rule); color: var(--band-fg); }
+.crisis .wrap { padding-block: 22px; display: grid; gap: 14px; }
+.crisis-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.crisis a.line { display: grid; gap: 4px; text-decoration: none; border: 1px solid var(--band-brass); border-radius: 3px; padding: 14px 16px; }
+.crisis a.line b { font-family: var(--display); font-size: 28px; line-height: 1; color: var(--band-brass); }
+.crisis a.line span { font-size: 15px; color: var(--band-fg); }
+.crisis small { color: var(--band-soft); font-size: 14px; }
+.intake { padding-block: clamp(48px, 7vw, 96px); }
+.intake .wrap { display: grid; gap: clamp(32px, 5vw, 64px); grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); align-items: start; }
+@media (max-width: 860px) { .intake .wrap { grid-template-columns: 1fr; } }
+.intake aside { display: grid; gap: 20px; font-size: 16px; color: var(--ink-soft); }
+.intake aside h2 { font-size: clamp(28px, 3.4vw, 40px); color: var(--ink); }
+.intake aside ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.intake aside .note { border-left: 2px solid var(--brass); padding-left: 14px; }
+.sf-form { border: 1px solid var(--rule); background: var(--paper-2); padding: clamp(22px, 3.5vw, 40px); border-radius: 3px; display: grid; gap: 22px; }
+.sf-form fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 16px; }
+.sf-form legend { font-family: var(--display); font-size: 24px; padding: 0; margin-bottom: 8px; color: var(--ink); }
+.row2 { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+.f { display: grid; gap: 6px; }
+.f > span { font-size: 14px; font-weight: 600; letter-spacing: .02em; color: var(--ink); }
+.f > span i { font-style: normal; font-weight: 400; color: var(--ink-soft); }
+.f input, .f select, .f textarea { font: inherit; font-size: 17px; padding: 12px 13px; border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); color: var(--ink); width: 100%; }
+.f textarea { min-height: 120px; resize: vertical; }
+.f input:focus, .f select:focus, .f textarea:focus { outline: none; border-color: var(--ink); }
+.f.bad input, .f.bad select, .f.bad textarea { border-color: #a4362a; }
+.err { font-size: 13.5px; color: #a4362a; min-height: 0; }
+.err:empty { display: none; }
+.check { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; font-size: 15.5px; color: var(--ink); }
+.check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--brass); }
+.check.bad { color: #a4362a; }
+.hp { position: absolute; left: -9999px; top: -9999px; height: 0; width: 0; overflow: hidden; }
+.sf-form .give-btn { width: 100%; }
+.sf-form .give-btn[disabled] { opacity: .6; cursor: wait; }
+.form-note { font-size: 13.5px; color: var(--ink-soft); }
+.sent { border: 1px solid var(--brass); background: var(--paper-2); padding: clamp(24px, 4vw, 44px); border-radius: 3px; display: grid; gap: 14px; }
+.sent h2 { font-size: clamp(28px, 3.6vw, 44px); }
+.sent p { color: var(--ink-soft); font-size: 17px; }
+.fail { font-size: 15px; color: #a4362a; }
+.top .back { font-size: 14px; color: var(--band-soft); text-decoration: none; }
+.top .back:hover { color: var(--band-fg); }

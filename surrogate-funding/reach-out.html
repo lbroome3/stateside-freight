@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Reach out · Surrogate Funding</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="For young men in South Carolina who are struggling and want someone in their corner. Not a crisis line: call or text 988 if you need help right now.">
+<link rel="canonical" href="https://www.lewisbroome.com/surrogate-funding/reach-out">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Reach out · Surrogate Funding">
+<meta property="og:description" content="For young men in South Carolina who are struggling and want someone in their corner. Not a crisis line: call or text 988 if you need help right now.">
+<meta property="og:url" content="https://www.lewisbroome.com/surrogate-funding/reach-out">
+<meta name="twitter:card" content="summary">
+<meta name="referrer" content="no-referrer">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: indigo bands (South Carolina's old indigo crop) framing stone-paper reading sections; one crossroads motif in brass. */
+:root {
+  --paper: #eef0f3;
+  --paper-2: #e3e6ec;
+  --ink: #161c33;
+  --ink-soft: #4a5068;
+  --rule: #c9cdd8;
+  --brass: #8a6a2e;
+  --band: #121a35;
+  --band-2: #1b2547;
+  --band-fg: #eef0f3;
+  --band-soft: #aab1c8;
+  --band-brass: #c9a45e;
+  --band-rule: #34406a;
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1226; --paper-2: #121935; --ink: #e9ebf1; --ink-soft: #a4abc2;
+    --rule: #2b3458; --brass: #cfab66;
+    --band: #070b1a; --band-2: #0f1630; --band-fg: #eef0f3; --band-soft: #a4abc2;
+    --band-brass: #d4b06b; --band-rule: #2b3458;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1226; --paper-2: #121935; --ink: #e9ebf1; --ink-soft: #a4abc2;
+  --rule: #2b3458; --brass: #cfab66;
+  --band: #070b1a; --band-2: #0f1630; --band-fg: #eef0f3; --band-soft: #a4abc2;
+  --band-brass: #d4b06b; --band-rule: #2b3458;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--band);
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--band-brass); outline-offset: 3px; }
+
+.wrap {
+  max-width: 1160px; margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+@media (max-width: 480px) {
+  .wrap { padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+}
+
+.label {
+  font-family: var(--body); font-size: 12px; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--brass);
+}
+.band .label { color: var(--band-brass); }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(34px, 4.6vw, 58px); line-height: 1.06; letter-spacing: -.01em; }
+h3 { font-size: 26px; line-height: 1.2; }
+p { margin: 0; }
+em { font-style: italic; }
+
+/* ---------- Header ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--band) 94%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--band-rule);
+  color: var(--band-fg);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 14px; }
+.mark { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.mark b { font-family: var(--display); font-weight: 600; font-size: 21px; letter-spacing: .01em; }
+.mark span { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--band-soft); }
+.nav { display: flex; gap: 26px; font-size: 14px; }
+.nav a { text-decoration: none; color: var(--band-soft); transition: color .2s; }
+.nav a:hover { color: var(--band-fg); }
+.status {
+  font-size: 12px; font-weight: 500; letter-spacing: .04em; white-space: nowrap;
+  border: 1px solid var(--band-brass); color: var(--band-brass);
+  padding: 5px 12px; border-radius: 999px;
+}
+@media (max-width: 900px) { .nav { display: none; } }
+@media (max-width: 600px) { .cross { display: none; } }
+@media (max-width: 480px) { .mark span { display: none; } .status { font-size: 11px; padding: 4px 10px; } }
+
+/* ---------- Bands ---------- */
+.band { background: var(--band); color: var(--band-fg); }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; overflow: hidden; }
+.hero .wrap { position: relative; padding-block: clamp(72px, 11vw, 140px) clamp(64px, 9vw, 120px); }
+.cross { position: absolute; inset: 0; pointer-events: none; }
+.cross::before, .cross::after {
+  content: ""; position: absolute; background: var(--band-brass); opacity: .5;
+}
+.cross::before { width: 1px; top: 0; bottom: 0; right: 22%; }
+.cross::after { height: 1px; left: 0; right: 0; top: 64%; }
+.cross i {
+  position: absolute; right: calc(22% - 5px); top: calc(64% - 5px);
+  width: 11px; height: 11px; border: 1px solid var(--band-brass); transform: rotate(45deg);
+  background: var(--band);
+}
+.hero h1 {
+  font-size: clamp(46px, 8.4vw, 112px); line-height: .98; letter-spacing: -.02em;
+  font-weight: 500; max-width: 11ch; position: relative;
+}
+.hero h1 em { color: var(--band-brass); font-weight: 400; }
+.hero .lede {
+  margin-top: 34px; max-width: 54ch; font-size: clamp(18px, 1.6vw, 21px);
+  color: var(--band-soft); line-height: 1.6; position: relative;
+}
+.hero .lede strong { color: var(--band-fg); font-weight: 500; }
+.ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; position: relative; }
+.btn {
+  display: inline-block; text-decoration: none; font-size: 15px; font-weight: 600;
+  letter-spacing: .02em; padding: 15px 26px; border-radius: 2px;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.btn-solid { background: var(--band-brass); color: var(--band); border: 1px solid var(--band-brass); }
+.btn-solid:hover { background: var(--band-fg); border-color: var(--band-fg); }
+.btn-line { border: 1px solid var(--band-rule); color: var(--band-fg); }
+.btn-line:hover { border-color: var(--band-fg); }
+.hero-foot {
+  margin-top: clamp(56px, 8vw, 96px); display: flex; flex-wrap: wrap; gap: 10px 36px;
+  font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--band-soft);
+  position: relative;
+}
+.hero-foot b { color: var(--band-brass); font-weight: 600; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .rise.d1 { animation-delay: .12s; } .rise.d2 { animation-delay: .24s; } .rise.d3 { animation-delay: .36s; }
+  .cross::before { animation: drawV 1.4s .2s cubic-bezier(.2,.7,.2,1) both; transform-origin: top; }
+  .cross::after { animation: drawH 1.4s .4s cubic-bezier(.2,.7,.2,1) both; transform-origin: left; }
+  @keyframes rise { from { opacity: .001; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes drawV { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @keyframes drawH { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+
+/* ---------- Sections ---------- */
+section { scroll-margin-top: 70px; }
+.sec { padding-block: clamp(72px, 9vw, 128px); }
+.sec-head { display: grid; gap: 18px; max-width: 760px; margin-bottom: clamp(40px, 5vw, 64px); }
+.sec-head p { color: var(--ink-soft); font-size: 19px; max-width: 60ch; }
+.band .sec-head p { color: var(--band-soft); }
+
+/* Mission */
+.mission { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+.mission-statement {
+  font-family: var(--display); font-size: clamp(26px, 2.7vw, 36px); line-height: 1.32; font-weight: 400;
+}
+.mission-statement em { color: var(--brass); }
+.vision { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--rule); color: var(--ink-soft); max-width: 58ch; }
+.vision b { color: var(--ink); font-weight: 600; }
+.pillars { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); border-top: 1px solid var(--ink); margin-top: clamp(56px, 7vw, 88px); }
+.pillar { padding: 26px 24px 0 0; display: grid; gap: 10px; align-content: start; }
+.pillar + .pillar { padding-left: 24px; border-left: 1px solid var(--rule); }
+.pillar h3 { font-size: 30px; }
+.pillar p { color: var(--ink-soft); font-size: 15.5px; }
+@media (max-width: 900px) {
+  .mission { grid-template-columns: 1fr; }
+  .pillars { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .pillar:nth-child(3) { padding-left: 0; border-left: 0; }
+  .pillar { padding-bottom: 26px; }
+}
+@media (max-width: 480px) {
+  .pillars { grid-template-columns: 1fr; }
+  .pillar, .pillar + .pillar { padding-left: 0; border-left: 0; border-bottom: 1px solid var(--rule); }
+}
+
+/* Story */
+.story { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: start; }
+.verse {
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(44px, 6.4vw, 92px); line-height: 1.02; letter-spacing: -.015em;
+}
+.verse span { color: var(--band-brass); }
+.verse-ref { margin-top: 24px; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--band-soft); }
+.story-text { display: grid; gap: 22px; font-size: 18px; color: var(--band-soft); max-width: 58ch; }
+.story-text p:first-child::first-letter {
+  font-family: var(--display); float: left; font-size: 72px; line-height: .82;
+  padding: 6px 12px 0 0; color: var(--band-brass);
+}
+.story-text strong { color: var(--band-fg); font-weight: 500; }
+.sign { margin-top: 10px; display: grid; gap: 2px; }
+.sign b { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 26px; color: var(--band-fg); }
+.sign span { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--band-brass); }
+@media (max-width: 900px) { .story { grid-template-columns: 1fr; } }
+
+/* Who we serve */
+.serve { border-top: 1px solid var(--ink); }
+.serve-row {
+  display: grid; grid-template-columns: minmax(0, 1.3fr) 150px minmax(0, 1.6fr); gap: 28px;
+  padding-block: 26px; border-bottom: 1px solid var(--rule); align-items: baseline;
+}
+.serve-row h3 { font-size: 25px; }
+.ages { font-variant-numeric: tabular-nums lining-nums; font-size: 14px; letter-spacing: .08em; color: var(--brass); font-weight: 600; text-transform: uppercase; }
+.serve-row p { color: var(--ink-soft); }
+@media (max-width: 760px) { .serve-row { grid-template-columns: 1fr; gap: 6px; } }
+
+/* Programs */
+.programs { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.prog { padding: 34px 30px 38px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; gap: 14px; align-content: start; }
+.prog .label { font-size: 11px; }
+.prog p { color: var(--ink-soft); font-size: 16px; }
+.prog.flag { grid-column: span 2; background: var(--paper-2); }
+.prog.flag h3 { font-size: clamp(30px, 3.2vw, 42px); }
+.prog.flag p { font-size: 18px; max-width: 54ch; }
+.topics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.topics span { font-size: 13px; border: 1px solid var(--rule); padding: 4px 12px; border-radius: 999px; color: var(--ink); }
+.safety { margin-top: 36px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; max-width: 860px; color: var(--ink-soft); font-size: 15.5px; }
+.safety .label { padding-top: 3px; }
+@media (max-width: 900px) { .programs { grid-template-columns: 1fr 1fr; } .prog.flag { grid-column: span 2; } }
+@media (max-width: 600px) { .programs { grid-template-columns: 1fr; } .prog.flag { grid-column: auto; } .safety { grid-template-columns: 1fr; gap: 6px; } }
+
+/* Bail fund */
+.bail { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center; }
+.fig {
+  font-family: var(--display); font-weight: 500; line-height: .9; letter-spacing: -.03em;
+  font-size: clamp(80px, 13vw, 184px); font-variant-numeric: lining-nums;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 .12em;
+}
+.fig small { font-size: .32em; font-style: italic; font-weight: 400; color: var(--band-brass); letter-spacing: 0; }
+.fig-cap { margin-top: 18px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--band-soft); }
+.bail-text { display: grid; gap: 20px; color: var(--band-soft); font-size: 18px; max-width: 54ch; }
+.bail-text strong { color: var(--band-fg); font-weight: 500; }
+.steps { display: grid; gap: 0; margin-top: 8px; border-top: 1px solid var(--band-rule); }
+.steps div { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding-block: 14px; border-bottom: 1px solid var(--band-rule); font-size: 16px; }
+.steps i { font-style: normal; font-family: var(--display); color: var(--band-brass); font-size: 20px; line-height: 1.3; }
+.soon { display: inline-block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--band-brass); border: 1px solid var(--band-brass); padding: 4px 12px; border-radius: 999px; justify-self: start; }
+@media (max-width: 900px) { .bail { grid-template-columns: 1fr; } }
+
+/* Stand with us */
+.stand { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(36px, 6vw, 88px); align-items: start; }
+.stand h3 { font-size: 34px; margin-bottom: 14px; }
+.stand-col > p { color: var(--ink-soft); }
+.roles { margin-top: 24px; display: grid; border-top: 1px solid var(--rule); }
+.roles div { padding-block: 16px; border-bottom: 1px solid var(--rule); display: grid; gap: 2px; }
+.roles b { font-weight: 600; }
+.roles span { color: var(--ink-soft); font-size: 15.5px; }
+.gifts { margin-top: 24px; display: grid; border-top: 1px solid var(--ink); }
+.gift { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding-block: 18px; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.gift b { font-family: var(--display); font-weight: 500; font-size: 34px; font-variant-numeric: lining-nums tabular-nums; }
+.gift span { color: var(--ink-soft); }
+.note { margin-top: 18px; font-size: 14px; color: var(--ink-soft); }
+@media (max-width: 900px) { .stand { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .gift { grid-template-columns: 92px 1fr; gap: 14px; } .gift b { font-size: 28px; } }
+
+/* Status */
+.status-band { background: var(--band-2); }
+.status-wrap { display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 4vw, 56px); align-items: center; padding-block: clamp(48px, 6vw, 72px); }
+.seal {
+  width: 132px; height: 132px; border-radius: 50%; border: 1px solid var(--band-brass);
+  display: grid; place-items: center; text-align: center; position: relative;
+  font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--band-brass); line-height: 1.5;
+}
+.seal::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 1px dashed var(--band-rule); }
+.seal b { display: block; font-family: var(--display); font-size: 25px; letter-spacing: 0; text-transform: none; color: var(--band-fg); font-weight: 500; }
+.status-text h3 { font-size: clamp(26px, 3vw, 36px); margin-bottom: 12px; }
+.status-text p { color: var(--band-soft); max-width: 70ch; }
+@media (max-width: 600px) { .status-wrap { grid-template-columns: 1fr; } .seal { width: 112px; height: 112px; } }
+
+.top-r { display: flex; align-items: center; gap: 14px; }
+.btn-sm { padding: 9px 18px; font-size: 13.5px; }
+@media (max-width: 480px) { .top .status { display: none; } }
+
+/* Paths */
+.paths { background: var(--band-2); }
+.paths .wrap { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); }
+.path {
+  display: grid; gap: 6px; padding: 26px 24px 28px; text-decoration: none; color: var(--band-fg);
+  border-left: 1px solid var(--band-rule); transition: background .2s;
+}
+.path:last-child { border-right: 1px solid var(--band-rule); }
+.path:hover { background: color-mix(in srgb, var(--band-brass) 10%, transparent); }
+.path small { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--band-soft); }
+.path b { font-family: var(--display); font-weight: 500; font-size: 23px; line-height: 1.2; }
+.path b::after { content: " \2192"; color: var(--band-brass); font-family: var(--body); font-size: 18px; }
+@media (max-width: 900px) {
+  .paths .wrap { grid-template-columns: 1fr 1fr; }
+  .path:nth-child(odd) { border-left: 0; }
+  .path:last-child { border-right: 0; }
+  .path:nth-child(-n+2) { border-bottom: 1px solid var(--band-rule); }
+}
+@media (max-width: 480px) { .path { padding: 20px 14px 22px; } .path b { font-size: 19px; } }
+
+/* Donate */
+.donate { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(36px, 6vw, 88px); align-items: start; }
+.give-card { border: 1px solid var(--band-rule); background: var(--paper); color: var(--ink); padding: clamp(24px, 3.5vw, 40px); border-radius: 3px; display: grid; gap: 22px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.55); }
+.freq { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); border-radius: 2px; }
+.freq button { font: inherit; font-size: 15px; font-weight: 600; padding: 12px 10px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.freq button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.amts { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+.amts button {
+  font-family: var(--display); font-size: 26px; font-weight: 500; font-variant-numeric: lining-nums tabular-nums;
+  padding: 14px 6px; border: 1px solid var(--rule); background: transparent; color: var(--ink); cursor: pointer; border-radius: 2px;
+  transition: border-color .15s, background .15s;
+}
+.amts button:hover { border-color: var(--ink); }
+.amts button[aria-pressed="true"] { border-color: var(--brass); background: color-mix(in srgb, var(--brass) 14%, transparent); }
+.other { display: flex; align-items: center; border: 1px solid var(--rule); border-radius: 2px; padding-left: 14px; }
+.other span { font-family: var(--display); font-size: 22px; color: var(--ink-soft); }
+.other input { flex: 1; min-width: 0; font: inherit; font-size: 17px; padding: 13px 12px; border: 0; background: transparent; color: var(--ink); outline: none; }
+.other:focus-within { border-color: var(--ink); }
+.impact { border-top: 1px solid var(--rule); padding-top: 18px; display: grid; gap: 4px; min-height: 92px; }
+.impact b { font-family: var(--display); font-weight: 500; font-size: 22px; line-height: 1.3; }
+.impact span { color: var(--ink-soft); font-size: 15px; }
+.give-btn { font: inherit; font-size: 17px; font-weight: 600; letter-spacing: .02em; padding: 18px; border: 0; border-radius: 2px; background: var(--ink); color: var(--paper); cursor: pointer; transition: background .2s; }
+.give-btn:hover { background: var(--brass); }
+.give-note { font-size: 13.5px; color: var(--ink-soft); text-align: center; }
+.give-soon { border: 1px solid var(--brass); background: color-mix(in srgb, var(--brass) 10%, transparent); padding: 16px 18px; font-size: 15px; border-radius: 2px; }
+.give-soon b { display: block; margin-bottom: 4px; }
+.promises { display: grid; gap: 0; border-top: 1px solid var(--band-rule); margin-top: 28px; }
+.promises div { padding-block: 18px; border-bottom: 1px solid var(--band-rule); display: grid; gap: 4px; }
+.promises b { font-weight: 600; color: var(--band-fg); }
+.promises span { color: var(--band-soft); font-size: 15.5px; }
+@media (max-width: 900px) { .donate { grid-template-columns: 1fr; } }
+@media (max-width: 380px) { .amts { grid-template-columns: 1fr 1fr; } }
+
+/* Road to launch */
+.road { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); border-top: 1px solid var(--rule); position: relative; }
+.stop { padding: 22px 16px 0 0; display: grid; gap: 8px; align-content: start; position: relative; }
+.stop::before { content: ""; position: absolute; top: -6px; left: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 1px solid var(--ink-soft); }
+.stop.done::before { background: var(--brass); border-color: var(--brass); }
+.stop.now::before { background: var(--paper); border: 2px solid var(--brass); }
+.stop small { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+.stop.done small, .stop.now small { color: var(--brass); }
+.stop b { font-family: var(--display); font-weight: 500; font-size: 19px; line-height: 1.25; }
+@media (max-width: 1000px) {
+  .road { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid var(--rule); margin-left: 6px; }
+  .stop { padding: 0 0 22px 24px; }
+  .stop::before { top: 4px; left: -6px; }
+}
+
+/* Inside, right now */
+.seen { margin-top: clamp(56px, 7vw, 96px); padding-top: 28px; border-top: 1px solid var(--band-rule); display: grid; gap: 28px; }
+.seen-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(24px, 4vw, 48px); }
+.seen article { display: grid; gap: 12px; align-content: start; }
+.seen h3 { font-style: italic; font-size: 28px; color: var(--band-fg); }
+.seen p { color: var(--band-soft); font-size: 16.5px; }
+.better { font-family: var(--display); font-size: clamp(22px, 2.4vw, 30px); line-height: 1.35; color: var(--band-fg); max-width: 40ch; }
+.better em { color: var(--band-brass); }
+@media (max-width: 900px) { .seen-grid { grid-template-columns: 1fr; } }
+
+/* Footer */
+footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
+.foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: end; border-bottom: 1px solid var(--band-rule); padding-bottom: 28px; }
+.foot-name { font-family: var(--display); font-size: clamp(34px, 5vw, 56px); line-height: 1; font-weight: 500; }
+.motto { font-family: var(--display); font-style: italic; font-size: 20px; color: var(--band-brass); }
+.foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; font-size: 13px; color: var(--band-soft); }
+</style>
+<style>
+/* Surrogate Funding intake forms (request-help, reach-out). Shares the page's tokens. */
+.form-hero .wrap { padding-block: clamp(56px, 8vw, 104px) clamp(40px, 6vw, 72px); display: grid; gap: 18px; max-width: 820px; }
+.form-hero h1 { font-size: clamp(36px, 5.2vw, 64px); line-height: 1.04; letter-spacing: -.01em; }
+.form-hero p { color: var(--band-soft); font-size: 19px; max-width: 58ch; }
+.crisis { background: var(--band-2); border-top: 1px solid var(--band-rule); border-bottom: 1px solid var(--band-rule); color: var(--band-fg); }
+.crisis .wrap { padding-block: 22px; display: grid; gap: 14px; }
+.crisis-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.crisis a.line { display: grid; gap: 4px; text-decoration: none; border: 1px solid var(--band-brass); border-radius: 3px; padding: 14px 16px; }
+.crisis a.line b { font-family: var(--display); font-size: 28px; line-height: 1; color: var(--band-brass); }
+.crisis a.line span { font-size: 15px; color: var(--band-fg); }
+.crisis small { color: var(--band-soft); font-size: 14px; }
+.intake { padding-block: clamp(48px, 7vw, 96px); }
+.intake .wrap { display: grid; gap: clamp(32px, 5vw, 64px); grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); align-items: start; }
+@media (max-width: 860px) { .intake .wrap { grid-template-columns: 1fr; } }
+.intake aside { display: grid; gap: 20px; font-size: 16px; color: var(--ink-soft); }
+.intake aside h2 { font-size: clamp(28px, 3.4vw, 40px); color: var(--ink); }
+.intake aside ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.intake aside .note { border-left: 2px solid var(--brass); padding-left: 14px; }
+.sf-form { border: 1px solid var(--rule); background: var(--paper-2); padding: clamp(22px, 3.5vw, 40px); border-radius: 3px; display: grid; gap: 22px; }
+.sf-form fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 16px; }
+.sf-form legend { font-family: var(--display); font-size: 24px; padding: 0; margin-bottom: 8px; color: var(--ink); }
+.row2 { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+.f { display: grid; gap: 6px; }
+.f > span { font-size: 14px; font-weight: 600; letter-spacing: .02em; color: var(--ink); }
+.f > span i { font-style: normal; font-weight: 400; color: var(--ink-soft); }
+.f input, .f select, .f textarea { font: inherit; font-size: 17px; padding: 12px 13px; border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); color: var(--ink); width: 100%; }
+.f textarea { min-height: 120px; resize: vertical; }
+.f input:focus, .f select:focus, .f textarea:focus { outline: none; border-color: var(--ink); }
+.f.bad input, .f.bad select, .f.bad textarea { border-color: #a4362a; }
+.err { font-size: 13.5px; color: #a4362a; min-height: 0; }
+.err:empty { display: none; }
+.check { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; font-size: 15.5px; color: var(--ink); }
+.check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--brass); }
+.check.bad { color: #a4362a; }
+.hp { position: absolute; left: -9999px; top: -9999px; height: 0; width: 0; overflow: hidden; }
+.sf-form .give-btn { width: 100%; }
+.sf-form .give-btn[disabled] { opacity: .6; cursor: wait; }
+.form-note { font-size: 13.5px; color: var(--ink-soft); }
+.sent { border: 1px solid var(--brass); background: var(--paper-2); padding: clamp(24px, 4vw, 44px); border-radius: 3px; display: grid; gap: 14px; }
+.sent h2 { font-size: clamp(28px, 3.6vw, 44px); }
+.sent p { color: var(--ink-soft); font-size: 17px; }
+.fail { font-size: 15px; color: #a4362a; }
+.top .back { font-size: 14px; color: var(--band-soft); text-decoration: none; }
+.top .back:hover { color: var(--band-fg); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/surrogate-funding"><b>Surrogate Funding</b><span>South Carolina</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="/surrogate-funding#mission">Mission</a>
+      <a href="/surrogate-funding#story">Our story</a>
+      <a href="/surrogate-funding#programs">Programs</a>
+      <a href="/surrogate-funding#bail-fund">Bail fund</a>
+      <a href="/surrogate-funding#stand">Serve</a>
+      <a href="/surrogate-funding#road">Road to launch</a>
+    </nav>
+    <div class="top-r">
+      <span class="status">501(c)(3) pending</span>
+      <a class="btn btn-solid btn-sm" href="/surrogate-funding#donate">Donate</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- Surrogate Funding · Reach out (youth). Body fragment: sections only. Served at /surrogate-funding/reach-out. -->
+<section class="band form-hero" aria-labelledby="page-title">
+  <div class="wrap">
+    <p class="label">For young men</p>
+    <h1 id="page-title">You don't have to carry this alone.</h1>
+    <p>If you've been feeling low, angry, lost, or like nobody is in your corner, tell us. A man who has been where you are will reach back. No judgment, no cost, no one gets in trouble for asking.</p>
+  </div>
+</section>
+
+<div class="crisis" role="region" aria-label="If you need help right now">
+  <div class="wrap">
+    <p class="label">If you need help right now</p>
+    <div class="crisis-grid">
+      <a class="line" href="tel:988"><b>988</b><span>Call or text the Suicide &amp; Crisis Lifeline, 24/7, free</span></a>
+      <a class="line" href="tel:911"><b>911</b><span>If you or someone else is in danger right now</span></a>
+    </div>
+    <small>This page is <strong>not</strong> a crisis line. We are a small group of volunteers and it can take us a day or two to answer. If you are thinking about hurting yourself, please call or text 988 now.</small>
+  </div>
+</div>
+
+<section class="intake" aria-labelledby="form-title">
+  <div class="wrap">
+    <aside>
+      <h2 id="form-title">What happens when you reach out</h2>
+      <ul>
+        <li>A man from Surrogate Funding reads what you wrote. Only our team sees it.</li>
+        <li>We reach you the way you asked, usually within a day or two.</li>
+        <li>If you want, we connect you with a mentor who meets you where you are: church, a gym, a kitchen table.</li>
+        <li>If you're under 18, we'll ask to bring a parent or guardian into it. We never meet a young man alone.</li>
+      </ul>
+      <p class="note">You can use a nickname. Don't send Social Security numbers or passwords. What you write stays private with Surrogate Funding Foundation, except if we believe you or someone else is in danger, when we'll do what it takes to keep you safe.</p>
+    </aside>
+
+    <form class="sf-form" data-kind="reach" data-turnstile-sitekey="" novalidate aria-label="Reach out">
+      <fieldset>
+        <legend>Reach out</legend>
+        <div class="row2">
+          <label class="f"><span>First name <i>(or nickname)</i></span><input name="first_name" autocomplete="given-name" required maxlength="40"><small class="err"></small></label>
+          <label class="f"><span>Your age</span>
+            <select name="age_range" required><option value="">Choose</option><option>12-14</option><option>15-17</option><option>18-21</option><option>22-25</option><option>26 or older</option></select><small class="err"></small></label>
+        </div>
+        <label class="f"><span>Best way to reach you</span>
+          <select name="contact_method" required><option value="">Choose</option><option value="text">Text me</option><option value="call">Call me</option><option value="email">Email me</option></select><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(803) 555-0100"><small class="err"></small></label>
+          <label class="f"><span>Email</span><input name="email" type="email" autocomplete="email" maxlength="160"><small class="err"></small></label>
+        </div>
+        <label class="f"><span>What's going on?</span><textarea name="message" required maxlength="2000" placeholder="In your own words. As much or as little as you want."></textarea><small class="err"></small></label>
+        <div class="row2">
+          <label class="f"><span>Parent or guardian name <i>(optional)</i></span><input name="guardian_name" maxlength="120"><small class="err"></small></label>
+          <label class="f"><span>Their phone <i>(optional)</i></span><input name="guardian_phone" type="tel" inputmode="tel"><small class="err"></small></label>
+        </div>
+        <label class="check"><input type="checkbox" name="consent_contact" value="true"><span>It's OK for someone from Surrogate Funding to reach out to me.<small class="err"></small></span></label>
+      </fieldset>
+
+      <div class="hp" aria-hidden="true"><label>Company website<input name="company_website" tabindex="-1" autocomplete="off"></label></div>
+      <div id="turnstile"></div>
+      <button type="submit" class="give-btn">Send</button>
+      <p class="fail" role="alert"></p>
+      <p class="form-note">Not a crisis service. Replies can take a day or two. In an emergency call 911; if you're thinking about hurting yourself, call or text 988.</p>
+    </form>
+
+    <div class="sent" id="sent" hidden aria-live="polite">
+      <p class="label">Got it</p>
+      <h2>We heard you.</h2>
+      <p>Someone from Surrogate Funding will reach out the way you asked, usually within a day or two. Until then: if things get heavy, call or text <a href="tel:988">988</a> any time, day or night. You matter.</p>
+      <p><a href="/surrogate-funding">Back to Surrogate Funding</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="band">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-name">Surrogate Funding</p>
+      <p class="motto">Faith. Family. Finances. Order. Loud and right.</p>
+    </div>
+    <div class="foot-bottom">
+      <span>Surrogate Funding Foundation · A South Carolina nonprofit corporation in formation · 501(c)(3) status pending</span>
+      <span>Richland County &amp; the Midlands · © 2026 Surrogate Funding Foundation</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Surrogate Funding intake: posts a form to /api/sf-intake with the bot trap, the fill timer and
+// (when a site key is set) Cloudflare Turnstile. Same answer either way; errors shown per field.
+(function () {
+  var form = document.querySelector("form.sf-form");
+  if (!form) return;
+  var t0 = Date.now();
+  var siteKey = form.getAttribute("data-turnstile-sitekey") || "";
+  var tsToken = "";
+  if (siteKey) {
+    var s = document.createElement("script");
+    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=sfTurnstileReady";
+    s.async = true; s.defer = true;
+    window.sfTurnstileReady = function () {
+      window.turnstile.render("#turnstile", { sitekey: siteKey, callback: function (t) { tsToken = t; }, "expired-callback": function () { tsToken = ""; } });
+    };
+    document.head.appendChild(s);
+  }
+  function setErr(name, msg) {
+    var el = form.querySelector('[name="' + name + '"]');
+    var wrap = el ? el.closest(".f, .check") : null;
+    if (wrap) { wrap.classList.toggle("bad", !!msg); var e = wrap.querySelector(".err"); if (e) e.textContent = msg || ""; }
+  }
+  function clearErrs() { form.querySelectorAll(".bad").forEach(function (w) { w.classList.remove("bad"); }); form.querySelectorAll(".err").forEach(function (e) { e.textContent = ""; }); }
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    clearErrs();
+    var btn = form.querySelector('button[type="submit"]');
+    var fail = form.querySelector(".fail");
+    if (fail) fail.textContent = "";
+    var body = { kind: form.getAttribute("data-kind"), fill_ms: Date.now() - t0, turnstile_token: tsToken };
+    new FormData(form).forEach(function (v, k) { body[k] = v; });
+    form.querySelectorAll('input[type="checkbox"]').forEach(function (c) { body[c.name] = c.checked; });
+    if (siteKey && !tsToken) { if (fail) fail.textContent = "Please finish the \"I'm human\" check first."; return; }
+    btn.disabled = true;
+    fetch("/api/sf-intake", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return { ok: r.ok }; }).then(function (d) { d.status = r.status; return d; }); })
+      .then(function (d) {
+        if (d.ok) {
+          var sent = document.getElementById("sent");
+          form.hidden = true; sent.hidden = false;
+          sent.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+        var errs = d.errors || {};
+        var first = null;
+        Object.keys(errs).forEach(function (k) { setErr(k, errs[k]); if (!first) first = form.querySelector('[name="' + k + '"]'); });
+        if (errs.turnstile && fail) fail.textContent = errs.turnstile;
+        if (!Object.keys(errs).length && fail) fail.textContent = "We couldn't save that just now. Please try again in a minute, or call or text 803-361-1303.";
+        if (first && first.focus) first.focus();
+        if (window.turnstile && siteKey) { window.turnstile.reset(); tsToken = ""; }
+      })
+      .catch(function () { if (fail) fail.textContent = "We couldn't reach our server. Please try again, or call or text 803-361-1303."; })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+<script src="/share.js" defer></script>
+</body>
+</html>
