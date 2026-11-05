@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/surrogate-funding",
+      "destination": "/surrogate-funding.html"
+    },
+    {
+      "source": "/surrogate-funding/",
+      "destination": "/surrogate-funding.html"
+    },
+    {
       "source": "/privacy-policy",
       "destination": "/privacy.html"
     },

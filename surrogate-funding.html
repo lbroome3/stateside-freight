@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Surrogate Funding</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Surrogate Funding Foundation mentors boys and young men in South Carolina so they never see the inside of a cell, and runs a small community bail fund for people held on $70 to $300 bonds. 501(c)(3) status pending.">
+<link rel="canonical" href="https://www.lewisbroome.com/surrogate-funding">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Surrogate Funding">
+<meta property="og:description" content="A man in his corner before the system. Mentoring young men in Richland County and the Midlands, and bringing people home from jail over small bonds.">
+<meta property="og:url" content="https://www.lewisbroome.com/surrogate-funding">
+<meta name="twitter:card" content="summary">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: indigo bands (South Carolina's old indigo crop) framing stone-paper reading sections; one crossroads motif in brass. */
+:root {
+  --paper: #eef0f3;
+  --paper-2: #e3e6ec;
+  --ink: #161c33;
+  --ink-soft: #4a5068;
+  --rule: #c9cdd8;
+  --brass: #8a6a2e;
+  --band: #121a35;
+  --band-2: #1b2547;
+  --band-fg: #eef0f3;
+  --band-soft: #aab1c8;
+  --band-brass: #c9a45e;
+  --band-rule: #34406a;
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1226; --paper-2: #121935; --ink: #e9ebf1; --ink-soft: #a4abc2;
+    --rule: #2b3458; --brass: #cfab66;
+    --band: #070b1a; --band-2: #0f1630; --band-fg: #eef0f3; --band-soft: #a4abc2;
+    --band-brass: #d4b06b; --band-rule: #2b3458;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1226; --paper-2: #121935; --ink: #e9ebf1; --ink-soft: #a4abc2;
+  --rule: #2b3458; --brass: #cfab66;
+  --band: #070b1a; --band-2: #0f1630; --band-fg: #eef0f3; --band-soft: #a4abc2;
+  --band-brass: #d4b06b; --band-rule: #2b3458;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--band);
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--band-brass); outline-offset: 3px; }
+
+.wrap {
+  max-width: 1160px; margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+@media (max-width: 480px) {
+  .wrap { padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+}
+
+.label {
+  font-family: var(--body); font-size: 12px; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--brass);
+}
+.band .label { color: var(--band-brass); }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(34px, 4.6vw, 58px); line-height: 1.06; letter-spacing: -.01em; }
+h3 { font-size: 26px; line-height: 1.2; }
+p { margin: 0; }
+em { font-style: italic; }
+
+/* ---------- Header ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--band) 94%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--band-rule);
+  color: var(--band-fg);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 14px; }
+.mark { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.mark b { font-family: var(--display); font-weight: 600; font-size: 21px; letter-spacing: .01em; }
+.mark span { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--band-soft); }
+.nav { display: flex; gap: 26px; font-size: 14px; }
+.nav a { text-decoration: none; color: var(--band-soft); transition: color .2s; }
+.nav a:hover { color: var(--band-fg); }
+.status {
+  font-size: 12px; font-weight: 500; letter-spacing: .04em; white-space: nowrap;
+  border: 1px solid var(--band-brass); color: var(--band-brass);
+  padding: 5px 12px; border-radius: 999px;
+}
+@media (max-width: 900px) { .nav { display: none; } }
+@media (max-width: 600px) { .cross { display: none; } }
+@media (max-width: 480px) { .mark span { display: none; } .status { font-size: 11px; padding: 4px 10px; } }
+
+/* ---------- Bands ---------- */
+.band { background: var(--band); color: var(--band-fg); }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; overflow: hidden; }
+.hero .wrap { position: relative; padding-block: clamp(72px, 11vw, 140px) clamp(64px, 9vw, 120px); }
+.cross { position: absolute; inset: 0; pointer-events: none; }
+.cross::before, .cross::after {
+  content: ""; position: absolute; background: var(--band-brass); opacity: .5;
+}
+.cross::before { width: 1px; top: 0; bottom: 0; right: 22%; }
+.cross::after { height: 1px; left: 0; right: 0; top: 64%; }
+.cross i {
+  position: absolute; right: calc(22% - 5px); top: calc(64% - 5px);
+  width: 11px; height: 11px; border: 1px solid var(--band-brass); transform: rotate(45deg);
+  background: var(--band);
+}
+.hero h1 {
+  font-size: clamp(46px, 8.4vw, 112px); line-height: .98; letter-spacing: -.02em;
+  font-weight: 500; max-width: 11ch; position: relative;
+}
+.hero h1 em { color: var(--band-brass); font-weight: 400; }
+.hero .lede {
+  margin-top: 34px; max-width: 54ch; font-size: clamp(18px, 1.6vw, 21px);
+  color: var(--band-soft); line-height: 1.6; position: relative;
+}
+.hero .lede strong { color: var(--band-fg); font-weight: 500; }
+.ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; position: relative; }
+.btn {
+  display: inline-block; text-decoration: none; font-size: 15px; font-weight: 600;
+  letter-spacing: .02em; padding: 15px 26px; border-radius: 2px;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.btn-solid { background: var(--band-brass); color: var(--band); border: 1px solid var(--band-brass); }
+.btn-solid:hover { background: var(--band-fg); border-color: var(--band-fg); }
+.btn-line { border: 1px solid var(--band-rule); color: var(--band-fg); }
+.btn-line:hover { border-color: var(--band-fg); }
+.hero-foot {
+  margin-top: clamp(56px, 8vw, 96px); display: flex; flex-wrap: wrap; gap: 10px 36px;
+  font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--band-soft);
+  position: relative;
+}
+.hero-foot b { color: var(--band-brass); font-weight: 600; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .rise.d1 { animation-delay: .12s; } .rise.d2 { animation-delay: .24s; } .rise.d3 { animation-delay: .36s; }
+  .cross::before { animation: drawV 1.4s .2s cubic-bezier(.2,.7,.2,1) both; transform-origin: top; }
+  .cross::after { animation: drawH 1.4s .4s cubic-bezier(.2,.7,.2,1) both; transform-origin: left; }
+  @keyframes rise { from { opacity: .001; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes drawV { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @keyframes drawH { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+
+/* ---------- Sections ---------- */
+section { scroll-margin-top: 70px; }
+.sec { padding-block: clamp(72px, 9vw, 128px); }
+.sec-head { display: grid; gap: 18px; max-width: 760px; margin-bottom: clamp(40px, 5vw, 64px); }
+.sec-head p { color: var(--ink-soft); font-size: 19px; max-width: 60ch; }
+.band .sec-head p { color: var(--band-soft); }
+
+/* Mission */
+.mission { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+.mission-statement {
+  font-family: var(--display); font-size: clamp(26px, 2.7vw, 36px); line-height: 1.32; font-weight: 400;
+}
+.mission-statement em { color: var(--brass); }
+.vision { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--rule); color: var(--ink-soft); max-width: 58ch; }
+.vision b { color: var(--ink); font-weight: 600; }
+.pillars { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); border-top: 1px solid var(--ink); margin-top: clamp(56px, 7vw, 88px); }
+.pillar { padding: 26px 24px 0 0; display: grid; gap: 10px; align-content: start; }
+.pillar + .pillar { padding-left: 24px; border-left: 1px solid var(--rule); }
+.pillar h3 { font-size: 30px; }
+.pillar p { color: var(--ink-soft); font-size: 15.5px; }
+@media (max-width: 900px) {
+  .mission { grid-template-columns: 1fr; }
+  .pillars { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .pillar:nth-child(3) { padding-left: 0; border-left: 0; }
+  .pillar { padding-bottom: 26px; }
+}
+@media (max-width: 480px) {
+  .pillars { grid-template-columns: 1fr; }
+  .pillar, .pillar + .pillar { padding-left: 0; border-left: 0; border-bottom: 1px solid var(--rule); }
+}
+
+/* Story */
+.story { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: start; }
+.verse {
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(44px, 6.4vw, 92px); line-height: 1.02; letter-spacing: -.015em;
+}
+.verse span { color: var(--band-brass); }
+.verse-ref { margin-top: 24px; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--band-soft); }
+.story-text { display: grid; gap: 22px; font-size: 18px; color: var(--band-soft); max-width: 58ch; }
+.story-text p:first-child::first-letter {
+  font-family: var(--display); float: left; font-size: 72px; line-height: .82;
+  padding: 6px 12px 0 0; color: var(--band-brass);
+}
+.story-text strong { color: var(--band-fg); font-weight: 500; }
+.sign { margin-top: 10px; display: grid; gap: 2px; }
+.sign b { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 26px; color: var(--band-fg); }
+.sign span { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--band-brass); }
+@media (max-width: 900px) { .story { grid-template-columns: 1fr; } }
+
+/* Who we serve */
+.serve { border-top: 1px solid var(--ink); }
+.serve-row {
+  display: grid; grid-template-columns: minmax(0, 1.3fr) 150px minmax(0, 1.6fr); gap: 28px;
+  padding-block: 26px; border-bottom: 1px solid var(--rule); align-items: baseline;
+}
+.serve-row h3 { font-size: 25px; }
+.ages { font-variant-numeric: tabular-nums lining-nums; font-size: 14px; letter-spacing: .08em; color: var(--brass); font-weight: 600; text-transform: uppercase; }
+.serve-row p { color: var(--ink-soft); }
+@media (max-width: 760px) { .serve-row { grid-template-columns: 1fr; gap: 6px; } }
+
+/* Programs */
+.programs { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.prog { padding: 34px 30px 38px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; gap: 14px; align-content: start; }
+.prog .label { font-size: 11px; }
+.prog p { color: var(--ink-soft); font-size: 16px; }
+.prog.flag { grid-column: span 2; background: var(--paper-2); }
+.prog.flag h3 { font-size: clamp(30px, 3.2vw, 42px); }
+.prog.flag p { font-size: 18px; max-width: 54ch; }
+.topics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.topics span { font-size: 13px; border: 1px solid var(--rule); padding: 4px 12px; border-radius: 999px; color: var(--ink); }
+.safety { margin-top: 36px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; max-width: 860px; color: var(--ink-soft); font-size: 15.5px; }
+.safety .label { padding-top: 3px; }
+@media (max-width: 900px) { .programs { grid-template-columns: 1fr 1fr; } .prog.flag { grid-column: span 2; } }
+@media (max-width: 600px) { .programs { grid-template-columns: 1fr; } .prog.flag { grid-column: auto; } .safety { grid-template-columns: 1fr; gap: 6px; } }
+
+/* Bail fund */
+.bail { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center; }
+.fig {
+  font-family: var(--display); font-weight: 500; line-height: .9; letter-spacing: -.03em;
+  font-size: clamp(80px, 13vw, 184px); font-variant-numeric: lining-nums;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 .12em;
+}
+.fig small { font-size: .32em; font-style: italic; font-weight: 400; color: var(--band-brass); letter-spacing: 0; }
+.fig-cap { margin-top: 18px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--band-soft); }
+.bail-text { display: grid; gap: 20px; color: var(--band-soft); font-size: 18px; max-width: 54ch; }
+.bail-text strong { color: var(--band-fg); font-weight: 500; }
+.steps { display: grid; gap: 0; margin-top: 8px; border-top: 1px solid var(--band-rule); }
+.steps div { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding-block: 14px; border-bottom: 1px solid var(--band-rule); font-size: 16px; }
+.steps i { font-style: normal; font-family: var(--display); color: var(--band-brass); font-size: 20px; line-height: 1.3; }
+.soon { display: inline-block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--band-brass); border: 1px solid var(--band-brass); padding: 4px 12px; border-radius: 999px; justify-self: start; }
+@media (max-width: 900px) { .bail { grid-template-columns: 1fr; } }
+
+/* Stand with us */
+.stand { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(36px, 6vw, 88px); align-items: start; }
+.stand h3 { font-size: 34px; margin-bottom: 14px; }
+.stand-col > p { color: var(--ink-soft); }
+.roles { margin-top: 24px; display: grid; border-top: 1px solid var(--rule); }
+.roles div { padding-block: 16px; border-bottom: 1px solid var(--rule); display: grid; gap: 2px; }
+.roles b { font-weight: 600; }
+.roles span { color: var(--ink-soft); font-size: 15.5px; }
+.gifts { margin-top: 24px; display: grid; border-top: 1px solid var(--ink); }
+.gift { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding-block: 18px; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.gift b { font-family: var(--display); font-weight: 500; font-size: 34px; font-variant-numeric: lining-nums tabular-nums; }
+.gift span { color: var(--ink-soft); }
+.note { margin-top: 18px; font-size: 14px; color: var(--ink-soft); }
+@media (max-width: 900px) { .stand { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .gift { grid-template-columns: 92px 1fr; gap: 14px; } .gift b { font-size: 28px; } }
+
+/* Status */
+.status-band { background: var(--band-2); }
+.status-wrap { display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 4vw, 56px); align-items: center; padding-block: clamp(48px, 6vw, 72px); }
+.seal {
+  width: 132px; height: 132px; border-radius: 50%; border: 1px solid var(--band-brass);
+  display: grid; place-items: center; text-align: center; position: relative;
+  font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--band-brass); line-height: 1.5;
+}
+.seal::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 1px dashed var(--band-rule); }
+.seal b { display: block; font-family: var(--display); font-size: 25px; letter-spacing: 0; text-transform: none; color: var(--band-fg); font-weight: 500; }
+.status-text h3 { font-size: clamp(26px, 3vw, 36px); margin-bottom: 12px; }
+.status-text p { color: var(--band-soft); max-width: 70ch; }
+@media (max-width: 600px) { .status-wrap { grid-template-columns: 1fr; } .seal { width: 112px; height: 112px; } }
+
+.top-r { display: flex; align-items: center; gap: 14px; }
+.btn-sm { padding: 9px 18px; font-size: 13.5px; }
+@media (max-width: 480px) { .top .status { display: none; } }
+
+/* Paths */
+.paths { background: var(--band-2); }
+.paths .wrap { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); }
+.path {
+  display: grid; gap: 6px; padding: 26px 24px 28px; text-decoration: none; color: var(--band-fg);
+  border-left: 1px solid var(--band-rule); transition: background .2s;
+}
+.path:last-child { border-right: 1px solid var(--band-rule); }
+.path:hover { background: color-mix(in srgb, var(--band-brass) 10%, transparent); }
+.path small { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--band-soft); }
+.path b { font-family: var(--display); font-weight: 500; font-size: 23px; line-height: 1.2; }
+.path b::after { content: " \2192"; color: var(--band-brass); font-family: var(--body); font-size: 18px; }
+@media (max-width: 900px) {
+  .paths .wrap { grid-template-columns: 1fr 1fr; }
+  .path:nth-child(odd) { border-left: 0; }
+  .path:last-child { border-right: 0; }
+  .path:nth-child(-n+2) { border-bottom: 1px solid var(--band-rule); }
+}
+@media (max-width: 480px) { .path { padding: 20px 14px 22px; } .path b { font-size: 19px; } }
+
+/* Donate */
+.donate { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(36px, 6vw, 88px); align-items: start; }
+.give-card { border: 1px solid var(--band-rule); background: var(--paper); color: var(--ink); padding: clamp(24px, 3.5vw, 40px); border-radius: 3px; display: grid; gap: 22px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.55); }
+.freq { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); border-radius: 2px; }
+.freq button { font: inherit; font-size: 15px; font-weight: 600; padding: 12px 10px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.freq button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.amts { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+.amts button {
+  font-family: var(--display); font-size: 26px; font-weight: 500; font-variant-numeric: lining-nums tabular-nums;
+  padding: 14px 6px; border: 1px solid var(--rule); background: transparent; color: var(--ink); cursor: pointer; border-radius: 2px;
+  transition: border-color .15s, background .15s;
+}
+.amts button:hover { border-color: var(--ink); }
+.amts button[aria-pressed="true"] { border-color: var(--brass); background: color-mix(in srgb, var(--brass) 14%, transparent); }
+.other { display: flex; align-items: center; border: 1px solid var(--rule); border-radius: 2px; padding-left: 14px; }
+.other span { font-family: var(--display); font-size: 22px; color: var(--ink-soft); }
+.other input { flex: 1; min-width: 0; font: inherit; font-size: 17px; padding: 13px 12px; border: 0; background: transparent; color: var(--ink); outline: none; }
+.other:focus-within { border-color: var(--ink); }
+.impact { border-top: 1px solid var(--rule); padding-top: 18px; display: grid; gap: 4px; min-height: 92px; }
+.impact b { font-family: var(--display); font-weight: 500; font-size: 22px; line-height: 1.3; }
+.impact span { color: var(--ink-soft); font-size: 15px; }
+.give-btn { font: inherit; font-size: 17px; font-weight: 600; letter-spacing: .02em; padding: 18px; border: 0; border-radius: 2px; background: var(--ink); color: var(--paper); cursor: pointer; transition: background .2s; }
+.give-btn:hover { background: var(--brass); }
+.give-note { font-size: 13.5px; color: var(--ink-soft); text-align: center; }
+.give-soon { border: 1px solid var(--brass); background: color-mix(in srgb, var(--brass) 10%, transparent); padding: 16px 18px; font-size: 15px; border-radius: 2px; }
+.give-soon b { display: block; margin-bottom: 4px; }
+.promises { display: grid; gap: 0; border-top: 1px solid var(--band-rule); margin-top: 28px; }
+.promises div { padding-block: 18px; border-bottom: 1px solid var(--band-rule); display: grid; gap: 4px; }
+.promises b { font-weight: 600; color: var(--band-fg); }
+.promises span { color: var(--band-soft); font-size: 15.5px; }
+@media (max-width: 900px) { .donate { grid-template-columns: 1fr; } }
+@media (max-width: 380px) { .amts { grid-template-columns: 1fr 1fr; } }
+
+/* Road to launch */
+.road { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); border-top: 1px solid var(--rule); position: relative; }
+.stop { padding: 22px 16px 0 0; display: grid; gap: 8px; align-content: start; position: relative; }
+.stop::before { content: ""; position: absolute; top: -6px; left: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 1px solid var(--ink-soft); }
+.stop.done::before { background: var(--brass); border-color: var(--brass); }
+.stop.now::before { background: var(--paper); border: 2px solid var(--brass); }
+.stop small { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+.stop.done small, .stop.now small { color: var(--brass); }
+.stop b { font-family: var(--display); font-weight: 500; font-size: 19px; line-height: 1.25; }
+@media (max-width: 1000px) {
+  .road { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid var(--rule); margin-left: 6px; }
+  .stop { padding: 0 0 22px 24px; }
+  .stop::before { top: 4px; left: -6px; }
+}
+
+/* Inside, right now */
+.seen { margin-top: clamp(56px, 7vw, 96px); padding-top: 28px; border-top: 1px solid var(--band-rule); display: grid; gap: 28px; }
+.seen-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(24px, 4vw, 48px); }
+.seen article { display: grid; gap: 12px; align-content: start; }
+.seen h3 { font-style: italic; font-size: 28px; color: var(--band-fg); }
+.seen p { color: var(--band-soft); font-size: 16.5px; }
+.better { font-family: var(--display); font-size: clamp(22px, 2.4vw, 30px); line-height: 1.35; color: var(--band-fg); max-width: 40ch; }
+.better em { color: var(--band-brass); }
+@media (max-width: 900px) { .seen-grid { grid-template-columns: 1fr; } }
+
+/* Footer */
+footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
+.foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: end; border-bottom: 1px solid var(--band-rule); padding-bottom: 28px; }
+.foot-name { font-family: var(--display); font-size: clamp(34px, 5vw, 56px); line-height: 1; font-weight: 500; }
+.motto { font-family: var(--display); font-style: italic; font-size: 20px; color: var(--band-brass); }
+.foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; font-size: 13px; color: var(--band-soft); }
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top"><b>Surrogate Funding</b><span>South Carolina</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#mission">Mission</a>
+      <a href="#story">Our story</a>
+      <a href="#programs">Programs</a>
+      <a href="#bail-fund">Bail fund</a>
+      <a href="#stand">Serve</a>
+      <a href="#road">Road to launch</a>
+    </nav>
+    <div class="top-r">
+      <span class="status">501(c)(3) pending</span>
+      <a class="btn btn-solid btn-sm" href="#donate">Donate</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Hero -->
+  <section class="band hero" aria-labelledby="hero-title">
+    <div class="cross" aria-hidden="true"><i></i></div>
+    <div class="wrap">
+      <p class="label rise">Mentoring young men · Richland County &amp; the Midlands</p>
+      <h1 id="hero-title" class="rise d1" style="margin-top:22px">A man in his corner <em>before</em> the system.</h1>
+      <p class="lede rise d2"><strong>Surrogate Funding keeps young men in South Carolina out of jail.</strong> We pair boys and young men with mentors who have walked the road, and we build them up in faith, family, finances, and order, so they never see the inside of a cell.</p>
+      <div class="ctas rise d3">
+        <a class="btn btn-solid" href="#donate">Make a founding gift</a>
+        <a class="btn btn-line" href="#story">Read our story</a>
+      </div>
+      <div class="hero-foot rise d3">
+        <span><b>Ages</b> 12 to 25</span>
+        <span><b>Bonds</b> $70 to $300</span>
+        <span><b>Est.</b> 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paths -->
+  <nav class="band paths" aria-label="Find your way in">
+    <div class="wrap">
+      <a class="path" href="#donate"><small>I want to</small><b>Give</b></a>
+      <a class="path" href="#stand"><small>I want to</small><b>Mentor</b></a>
+      <a class="path" href="#serve"><small>I'm looking for</small><b>Help for my son</b></a>
+      <a class="path" href="#bail-fund"><small>I need to</small><b>Bring someone home</b></a>
+    </div>
+  </nav>
+
+  <!-- Mission -->
+  <section id="mission" class="sec" aria-labelledby="mission-title">
+    <div class="wrap">
+      <div class="mission">
+        <div class="sec-head" style="margin-bottom:0">
+          <p class="label">Our mission</p>
+          <h2 id="mission-title">We stand at the crossroads.</h2>
+        </div>
+        <div>
+          <p class="mission-statement">Surrogate Funding stands at the crossroads for young men. We mentor them so they <em>see the trap before they step in it.</em> And when a man is locked up over a few hundred dollars, we bring him home.</p>
+          <p class="vision"><b>Our vision.</b> Every young man in the Midlands has a man in his corner who tells him the truth before the streets, the wrong friends, or the system do.</p>
+        </div>
+      </div>
+
+      <div class="pillars" aria-label="Four pillars">
+        <div class="pillar"><p class="label">Pillar</p><h3>Faith</h3><p>A young man who knows his purpose is harder to lead astray.</p></div>
+        <div class="pillar"><p class="label">Pillar</p><h3>Family</h3><p>Fathers, mentors, and brothers who show up.</p></div>
+        <div class="pillar"><p class="label">Pillar</p><h3>Finances</h3><p>Money skills, a first job, and no small debts that turn into jail time.</p></div>
+        <div class="pillar"><p class="label">Pillar</p><h3>Order</h3><p>Discipline, structure, and choosing your circle with wisdom.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section id="story" class="band sec" aria-labelledby="story-title">
+    <div class="wrap">
+      <div class="story">
+        <div>
+          <p class="label" id="story-title">The founder's story</p>
+          <p class="verse" style="margin-top:26px">Wounded in the house of <span>a friend.</span></p>
+          <p class="verse-ref">After Zechariah 13:6</p>
+        </div>
+        <div class="story-text">
+          <p>I came up in the projects. At 21, I built a house from the ground up in a neighborhood where my neighbors were retired military men. I thought I was doing everything right. I had a mentor, a man I prayed with and broke bread with. Then someone lied on me, and he believed it without ever asking me. I had to prove my own innocence before he would even call me back.</p>
+          <p>That is when I learned what Zechariah meant by being wounded in the house of a friend. <strong>Nobody taught me how to see betrayal coming, how to choose my circle, or how to protect what I was building.</strong> I learned it the hard way.</p>
+          <p>I started Surrogate Funding so young men learn it from someone who has been there, not from a courtroom or a cell. Faith, family, finances, and order. Loud and right.</p>
+          <div class="sign"><b>Lewis Broome</b><span>Founder</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who we serve -->
+  <section id="serve" class="sec" aria-labelledby="serve-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label">Who we serve</p>
+        <h2 id="serve-title">Reached before the system gets them.</h2>
+        <p>We start in Richland County and the Midlands. Most of our work goes to boys and young men at the age where one decision, or one wrong friend, can set the course of a life.</p>
+      </div>
+      <div class="serve">
+        <div class="serve-row"><h3>Boys at risk</h3><span class="ages">Ages 12 to 17</span><p>A man who shows up, somewhere to be after school, and help staying in school.</p></div>
+        <div class="serve-row"><h3>Young men at the crossroads</h3><span class="ages">Ages 18 to 25</span><p>Discernment about friends and betrayal, a first job, money skills, and a plan.</p></div>
+        <div class="serve-row"><h3>Young men already touched by the system</h3><span class="ages">Ages 14 to 25</span><p>On probation, in diversion, or just released. A mentor, so the first charge is the last one.</p></div>
+        <div class="serve-row"><h3>Adults held on small bonds</h3><span class="ages">Any age</span><p>$70 to $300 to get home before they lose a job, their housing, or their kids.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs -->
+  <section id="programs" class="sec" style="padding-top:0" aria-labelledby="programs-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label">Programs</p>
+        <h2 id="programs-title">Men who have walked the road, walking beside the next ones.</h2>
+      </div>
+      <div class="programs">
+        <article class="prog flag">
+          <p class="label">Our first program</p>
+          <h3>The Crossroads mentoring circle</h3>
+          <p>A weekly gathering for young men ages 12 to 25, led by men who have been through it. Straight talk, real stories, and a room where someone expects you to show up.</p>
+          <div class="topics" aria-label="Topics">
+            <span>Faith</span><span>Choosing your circle</span><span>Betrayal and loyalty</span><span>Respect</span><span>Handling anger</span><span>Police and court</span>
+          </div>
+        </article>
+        <article class="prog">
+          <p class="label">One to one</p>
+          <h3>A mentor for a year</h3>
+          <p>Every young man is matched with one mentor who checks in every week for at least a year.</p>
+        </article>
+        <article class="prog">
+          <p class="label">Finances</p>
+          <h3>Money and work skills</h3>
+          <p>Budgeting, bank accounts, credit, and help landing a first job or a trade apprenticeship.</p>
+        </article>
+        <article class="prog">
+          <p class="label">Second chances</p>
+          <h3>Community bail fund</h3>
+          <p>Small bonds posted for people held only because they cannot pay. <a href="#bail-fund">How it works</a>.</p>
+        </article>
+        <article class="prog">
+          <p class="label">Livestream</p>
+          <h3>Loud and Right</h3>
+          <p>Real stories and straight talk for young men, streamed for anyone who needs to hear it.</p>
+        </article>
+      </div>
+      <div class="safety">
+        <p class="label">Our standard</p>
+        <p>Every mentor passes a background check and completes training. No mentor is ever alone with a minor, and a parent or guardian signs consent before a young man joins.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bail fund -->
+  <section id="bail-fund" class="band sec" aria-labelledby="bail-title">
+    <div class="wrap">
+      <div class="bail">
+        <div>
+          <p class="label">The community bail fund</p>
+          <p class="fig" style="margin-top:22px" aria-label="Seventy to three hundred dollars">$70<small>to</small>$300</p>
+          <p class="fig-cap">The bonds that keep people in jail</p>
+        </div>
+        <div class="bail-text">
+          <h2 id="bail-title" style="font-size:clamp(30px,3.6vw,46px)">No one should lose a job, a home, or their children over a few hundred dollars.</h2>
+          <p>One man sat in jail for three months <strong>because he couldn't pay a $70 bond.</strong> He is not the only one. While people wait, the job goes, the rent goes, and sometimes their children go with it.</p>
+          <div class="steps">
+            <div><i>1</i><span>We post small bonds for people held only because they cannot pay.</span></div>
+            <div><i>2</i><span>They go home to their families and keep their court dates.</span></div>
+            <div><i>3</i><span>When the case ends, the refunded bail returns to the fund and brings the next person home.</span></div>
+          </div>
+          <span class="soon">Opening after our 501(c)(3) is approved</span>
+        </div>
+      </div>
+      <div class="seen">
+        <p class="label">Inside, right now</p>
+        <div class="seen-grid">
+          <article>
+            <h3>The sink</h3>
+            <p>In some cells the sink barely runs. A man can't wash his face without laying his rag on the steel edge where every other man's rag has been. People wait in conditions like that for days over a bond smaller than a phone bill.</p>
+          </article>
+          <article>
+            <h3>The father</h3>
+            <p>Some are fathers held over child support who can't raise a $300 bond. While they sit, the arrears keep growing. They lose the job that paid the support, and no one hires them after. It becomes almost a life sentence.</p>
+          </article>
+          <article>
+            <h3>The old man in D block</h3>
+            <p>In one county jail, an older man with dementia kept trying to walk out of his block into sections where he wasn't safe. He didn't know he was in jail. The men around him had to explain that he couldn't help himself.</p>
+          </article>
+        </div>
+        <p class="better"><em>We are not against the system.</em> We are building a better one, where no one loses their life over a few hundred dollars.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donate -->
+  <section id="donate" class="band sec" aria-labelledby="donate-title">
+    <div class="wrap">
+      <div class="donate">
+        <div>
+          <p class="label">Make a founding gift</p>
+          <h2 id="donate-title" style="margin-top:18px">Every dollar has a name on it.</h2>
+          <p style="margin-top:22px;color:var(--band-soft);font-size:19px;max-width:52ch">Choose what you give and see exactly what it does. Founding gifts pay for the first season of the Crossroads circle, the background checks for our first mentors, and the first bonds we post.</p>
+          <div class="promises">
+            <div><b>Open books</b><span>We will publish every young man served, every bond posted, and every dollar spent, here on this page.</span></div>
+            <div><b>Free to every family</b><span>No young man or family ever pays for mentoring, and no one we bail out ever owes us a fee.</span></div>
+            <div><b>Straight about taxes</b><span>Surrogate Funding Foundation's 501(c)(3) status is pending. Gifts are not tax-deductible until the IRS approves it, and we will tell every founding donor the day it does.</span></div>
+            <div><b>Your privacy</b><span>We never sell or share a donor's name or contact information.</span></div>
+          </div>
+        </div>
+
+        <form class="give-card" id="give-form" aria-label="Choose your gift" novalidate>
+          <div class="freq" role="group" aria-label="How often">
+            <button type="button" id="freq-monthly" data-freq="monthly" aria-pressed="true">Monthly</button>
+            <button type="button" id="freq-once" data-freq="once" aria-pressed="false">One time</button>
+          </div>
+          <div class="amts" role="group" aria-label="Amount">
+            <button type="button" id="amt-25" data-amt="25" aria-pressed="false">$25</button>
+            <button type="button" id="amt-50" data-amt="50" aria-pressed="false">$50</button>
+            <button type="button" id="amt-100" data-amt="100" aria-pressed="true">$100</button>
+            <button type="button" id="amt-300" data-amt="300" aria-pressed="false">$300</button>
+            <button type="button" id="amt-500" data-amt="500" aria-pressed="false">$500</button>
+            <button type="button" id="amt-1000" data-amt="1000" aria-pressed="false">$1,000</button>
+          </div>
+          <label class="other" for="amt-other"><span>$</span><input id="amt-other" inputmode="numeric" placeholder="Other amount" aria-label="Other amount in dollars"></label>
+          <div class="impact" aria-live="polite">
+            <b id="impact-main">Brings someone home on a small bond.</b>
+            <span id="impact-sub">Every month, one more person home with their family.</span>
+          </div>
+          <button type="submit" class="give-btn" id="give-btn">Give $100 monthly</button>
+          <div class="give-soon" id="give-soon" hidden>
+            <b>Online giving opens soon.</b>
+            Our secure checkout goes live as soon as our nonprofit bank account and charity registration are in place. Thank you for being ready to stand with us.
+          </div>
+          <p class="give-note">Gifts go to Surrogate Funding Foundation · Secure checkout · Cancel a monthly gift anytime</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Serve -->
+  <section id="stand" class="sec" aria-labelledby="stand-title">
+    <div class="wrap">
+      <div class="stand">
+        <div class="sec-head" style="margin-bottom:0">
+          <p class="label">Serve</p>
+          <h2 id="stand-title">Be the man in someone's corner.</h2>
+          <p>We need men of discipline and order. Retired military and men who have walked the road are exactly who young men need to see.</p>
+        </div>
+        <div class="roles" style="margin-top:0">
+          <div><b>Mentor a young man</b><span>One hour a week, for a year. Background check and training provided.</span></div>
+          <div><b>Lead a circle session</b><span>Bring your story to the Crossroads circle.</span></div>
+          <div><b>Open your doors</b><span>Churches, schools, gyms, and barbershops: host a circle in your space.</span></div>
+          <div><b>Join our founding board</b><span>Help build Surrogate Funding from the ground up.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Road to launch -->
+  <section id="road" class="sec" style="padding-top:0" aria-labelledby="road-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label">The road to launch</p>
+        <h2 id="road-title">Where we are today.</h2>
+        <p>Founding donors see the work from the first brick. This is every step, in order, and where we stand on each.</p>
+      </div>
+      <div class="road">
+        <div class="stop done"><small>Done</small><b>Mission and name set</b></div>
+        <div class="stop done"><small>Done</small><b>Bylaws written</b></div>
+        <div class="stop now"><small>Under way</small><b>Founding board forming</b></div>
+        <div class="stop now"><small>Under way</small><b>South Carolina incorporation</b></div>
+        <div class="stop"><small>Pending</small><b>IRS 501(c)(3) approval</b></div>
+        <div class="stop"><small>Early 2027</small><b>First Crossroads circle</b></div>
+        <div class="stop"><small>After approval</small><b>Bail fund opens</b></div>
+      </div>
+    </div>
+  </section>
+  <!-- Status -->
+  <section class="band status-band" aria-labelledby="status-title">
+    <div class="wrap status-wrap">
+      <div class="seal" aria-hidden="true"><div>Status<b>Pending</b>501(c)(3)</div></div>
+      <div class="status-text">
+        <h3 id="status-title">Nonprofit status coming soon.</h3>
+        <p>Surrogate Funding Foundation is forming as a South Carolina nonprofit corporation, and our application for federal 501(c)(3) tax-exempt status is on its way to the IRS. Until it is approved, gifts are not tax-deductible. We will announce it here the day it comes through.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-name">Surrogate Funding</p>
+      <p class="motto">Faith. Family. Finances. Order. Loud and right.</p>
+    </div>
+    <div class="foot-bottom">
+      <span>Surrogate Funding Foundation · A South Carolina nonprofit corporation in formation · 501(c)(3) status pending</span>
+      <span>Richland County &amp; the Midlands · © 2026 Surrogate Funding Foundation</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Set DONATE_URL to the checkout link from the giving platform (Zeffy, Givebutter, etc.)
+   once the bank account and SC charity registration are in place. While it is empty,
+   the Give button shows the "opens soon" note instead of taking money. */
+const DONATE_URL = "";
+
+(function () {
+  const form = document.getElementById('give-form');
+  const freqBtns = form.querySelectorAll('[data-freq]');
+  const amtBtns = form.querySelectorAll('[data-amt]');
+  const other = document.getElementById('amt-other');
+  const main = document.getElementById('impact-main');
+  const sub = document.getElementById('impact-sub');
+  const btn = document.getElementById('give-btn');
+  const soon = document.getElementById('give-soon');
+  let freq = 'monthly', amt = 100;
+
+  const fmt = n => '$' + n.toLocaleString('en-US');
+  function impact(a) {
+    if (a >= 1000) return 'Founding sponsor: background checks and training for new mentors.';
+    if (a >= 500) return 'Runs the Crossroads circle for a season: the room, the meals, the materials.';
+    if (a >= 300) return 'Covers the largest small bond we post.';
+    if (a >= 100) return 'Brings someone home on a small bond.';
+    if (a >= 50) return 'Feeds the whole Crossroads circle for a week.';
+    if (a >= 1) return 'Puts a workbook and a meal in front of a young man.';
+    return 'Choose an amount to see what it does.';
+  }
+  function render() {
+    main.textContent = impact(amt);
+    if (!amt) { sub.textContent = ''; btn.textContent = 'Give'; return; }
+    if (freq === 'monthly') {
+      sub.textContent = fmt(amt) + ' a month is ' + fmt(amt * 12) + ' a year, enough to keep the work steady through every season.';
+      btn.textContent = 'Give ' + fmt(amt) + ' monthly';
+    } else {
+      sub.textContent = 'A one-time founding gift, put to work right away.';
+      btn.textContent = 'Give ' + fmt(amt);
+    }
+  }
+  freqBtns.forEach(b => b.addEventListener('click', () => {
+    freq = b.dataset.freq;
+    freqBtns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    render();
+  }));
+  amtBtns.forEach(b => b.addEventListener('click', () => {
+    amt = Number(b.dataset.amt); other.value = '';
+    amtBtns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    render();
+  }));
+  other.addEventListener('input', () => {
+    other.value = other.value.replace(/[^0-9]/g, '').slice(0, 7);
+    amt = Number(other.value) || 0;
+    amtBtns.forEach(x => x.setAttribute('aria-pressed', 'false'));
+    render();
+  });
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!amt) { other.focus(); return; }
+    if (DONATE_URL) {
+      const u = new URL(DONATE_URL);
+      u.searchParams.set('amount', amt);
+      u.searchParams.set('frequency', freq);
+      const a = document.createElement('a');
+      a.href = u.toString(); a.target = '_blank'; a.rel = 'noopener';
+      document.body.appendChild(a); a.click(); a.remove();
+    } else {
+      soon.hidden = false;
+    }
+  });
+  render();
+})();
+</script>
+</body>
+</html>
