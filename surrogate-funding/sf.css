@@ -529,3 +529,9 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
 .clip video { width: 100%; height: 100%; object-fit: cover; display: block; }
 @media (max-width: 760px) { .clip-wrap { grid-template-columns: 1fr; } .clip { max-width: 300px; } }
 .mark b { white-space: nowrap; }
+
+/* Mission film */
+.watch .wrap { padding-block: clamp(56px, 8vw, 104px); }
+.watch h2 { font-size: clamp(30px, 3.6vw, 48px); }
+.watch-film { margin: 28px 0 0; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--band-brass) 45%, transparent); box-shadow: 0 30px 80px -30px rgba(0,0,0,.6); background: #0b1430; }
+.watch-film video { width: 100%; height: 100%; display: block; object-fit: cover; }

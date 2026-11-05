@@ -21,10 +21,10 @@ def frag(name):
 PAGES = [
     ("", "Home", "Surrogate Funding Foundation | Mentoring Young Men in South Carolina",
      "Surrogate Funding Foundation mentors boys and young men in Richland County and the Midlands so they never see the inside of a cell, and runs a small community bail fund for people held on $70 to $300 bonds.",
-     ["hero", "paths", "home-numbers", "home-meter", "home-teasers", "home-give"]),
+     ["hero", "paths", "watch", "home-numbers", "home-meter", "home-teasers", "home-give"]),
     ("mission", "Mission", "Our Mission and Four Pillars | Surrogate Funding Foundation",
      "We stand at the crossroads for young men in South Carolina: mentoring in faith, family, finances, and order, and bringing people home from jail over small bonds.",
-     ["ph-mission", "mission", "clip-pillars", "serve"]),
+     ["ph-mission", "watch", "mission", "clip-pillars", "serve"]),
     ("our-story", "Our story", "Wounded in the House of a Friend: Our Founder's Story | Surrogate Funding Foundation",
      "Lewis Broome came up in the projects, built a house at 21, and learned betrayal the hard way. He started Surrogate Funding so young men learn it from a mentor, not a cell.",
      ["story"]),
