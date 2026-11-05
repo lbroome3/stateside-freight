@@ -245,6 +245,8 @@ const TIER_URLS = {
   form.addEventListener('submit', e => {
     e.preventDefault();
     if (!amt) { other.focus(); return; }
+    /* Gift button tap -> the CRM's Surrogate Funding tab ("Gift button taps", by amount). */
+    try { if (window.gmTrack) window.gmTrack('donate', '$' + amt); } catch (x) {}
     if (DONATE_URL) {
       const a = document.createElement('a');
       a.href = TIER_URLS[amt] || DONATE_URL; a.target = '_blank'; a.rel = 'noopener';
