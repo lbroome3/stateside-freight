@@ -391,7 +391,7 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
     </nav>
     <div class="top-r">
       <span class="status">501(c)(3) pending</span>
-      <a class="btn btn-solid btn-sm" href="#donate">Donate</a>
+      <a class="btn btn-solid btn-sm" href="https://square.link/u/4jNLO1b2" target="_blank" rel="noopener">Donate</a>
     </div>
   </div>
 </header>
@@ -405,7 +405,7 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
       <h1 id="hero-title" class="rise d1" style="margin-top:22px">A man in his corner <em>before</em> the system.</h1>
       <p class="lede rise d2"><strong>Surrogate Funding keeps young men in South Carolina out of jail.</strong> We pair boys and young men with mentors who have walked the road, and we build them up in faith, family, finances, and order, so they never see the inside of a cell.</p>
       <div class="ctas rise d3">
-        <a class="btn btn-solid" href="#donate">Make a founding gift</a>
+        <a class="btn btn-solid" href="https://square.link/u/4jNLO1b2" target="_blank" rel="noopener">Make a founding gift</a>
         <a class="btn btn-line" href="#story">Read our story</a>
       </div>
       <div class="hero-foot rise d3">
@@ -419,7 +419,7 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
   <!-- Paths -->
   <nav class="band paths" aria-label="Find your way in">
     <div class="wrap">
-      <a class="path" href="#donate"><small>I want to</small><b>Give</b></a>
+      <a class="path" href="https://square.link/u/4jNLO1b2" target="_blank" rel="noopener"><small>I want to</small><b>Give</b></a>
       <a class="path" href="#stand"><small>I want to</small><b>Mentor</b></a>
       <a class="path" href="#serve"><small>I'm looking for</small><b>Help for my son</b></a>
       <a class="path" href="#bail-fund"><small>I need to</small><b>Bring someone home</b></a>
@@ -587,10 +587,6 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
         </div>
 
         <form class="give-card" id="give-form" aria-label="Choose your gift" novalidate>
-          <div class="freq" role="group" aria-label="How often">
-            <button type="button" id="freq-monthly" data-freq="monthly" aria-pressed="true">Monthly</button>
-            <button type="button" id="freq-once" data-freq="once" aria-pressed="false">One time</button>
-          </div>
           <div class="amts" role="group" aria-label="Amount">
             <button type="button" id="amt-25" data-amt="25" aria-pressed="false">$25</button>
             <button type="button" id="amt-50" data-amt="50" aria-pressed="false">$50</button>
@@ -604,12 +600,12 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
             <b id="impact-main">Brings someone home on a small bond.</b>
             <span id="impact-sub">Every month, one more person home with their family.</span>
           </div>
-          <button type="submit" class="give-btn" id="give-btn">Give $100 monthly</button>
+          <button type="submit" class="give-btn" id="give-btn">Give $100</button>
           <div class="give-soon" id="give-soon" hidden>
             <b>Online giving opens soon.</b>
             Our secure checkout goes live as soon as our nonprofit bank account and charity registration are in place. Thank you for being ready to stand with us.
           </div>
-          <p class="give-note">Gifts go to Surrogate Funding Foundation · Secure checkout · Cancel a monthly gift anytime</p>
+          <p class="give-note">Gifts go to Surrogate Funding Foundation · Secure checkout by Square · You'll confirm your amount on Square's page</p>
         </form>
       </div>
     </div>
@@ -682,7 +678,7 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
 /* Set DONATE_URL to the checkout link from the giving platform (Zeffy, Givebutter, etc.)
    once the bank account and SC charity registration are in place. While it is empty,
    the Give button shows the "opens soon" note instead of taking money. */
-const DONATE_URL = "";
+const DONATE_URL = "https://square.link/u/4jNLO1b2";
 
 (function () {
   const form = document.getElementById('give-form');
@@ -693,7 +689,7 @@ const DONATE_URL = "";
   const sub = document.getElementById('impact-sub');
   const btn = document.getElementById('give-btn');
   const soon = document.getElementById('give-soon');
-  let freq = 'monthly', amt = 100;
+  let freq = 'once', amt = 100;
 
   const fmt = n => '$' + n.toLocaleString('en-US');
   function impact(a) {
@@ -736,11 +732,8 @@ const DONATE_URL = "";
     e.preventDefault();
     if (!amt) { other.focus(); return; }
     if (DONATE_URL) {
-      const u = new URL(DONATE_URL);
-      u.searchParams.set('amount', amt);
-      u.searchParams.set('frequency', freq);
       const a = document.createElement('a');
-      a.href = u.toString(); a.target = '_blank'; a.rel = 'noopener';
+      a.href = DONATE_URL; a.target = '_blank'; a.rel = 'noopener';
       document.body.appendChild(a); a.click(); a.remove();
     } else {
       soon.hidden = false;
