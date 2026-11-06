@@ -507,6 +507,48 @@ DJI = [
      "out.textContent=h>=48?'unos '+Math.round(h/24)+' días':(h>=1?'unas '+(Math.round(h*10)/10)+' horas':'unos '+Math.round(h*60)+' minutos');"),
 ]
 
+# Black Friday 2026 section (Lewis, 11/6: "Start pushing Black Friday Deals").
+AZ += [
+    ('<a href="https://www.amazon.com/s?k=portable+power+station+solar+generator&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🔋</i>Power stations &amp; solar</a>',
+     '<a href="https://www.amazon.com/s?k=portable+power+station+solar+generator&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>🔋</i>Estaciones de energía y solar</a>'),
+    ('<a href="https://www.amazon.com/s?k=wireless+earbuds+headphones&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🎧</i>Earbuds &amp; headphones</a>',
+     '<a href="https://www.amazon.com/s?k=wireless+earbuds+headphones&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>🎧</i>Audífonos</a>'),
+    ('<a href="https://www.amazon.com/s?k=Meta+Quest+VR+headset&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🥽</i>VR &amp; Meta Quest</a>',
+     '<a href="https://www.amazon.com/s?k=Meta+Quest+VR+headset&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>🥽</i>Realidad virtual y Meta Quest</a>'),
+    ('<a href="https://www.amazon.com/s?k=DJI+drone+camera&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🚁</i>Drones &amp; cameras</a>',
+     '<a href="https://www.amazon.com/s?k=DJI+drone+camera&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>🚁</i>Drones y cámaras</a>'),
+    ('<a href="https://www.amazon.com/s?k=car+truck+gadgets+dash+cam&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🚙</i>Car, truck &amp; Jeep</a>',
+     '<a href="https://www.amazon.com/s?k=car+truck+gadgets+dash+cam&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>🚙</i>Auto, camioneta y Jeep</a>'),
+    ('<a href="https://www.amazon.com/s?k=smart+home+devices&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🏠</i>Smart home</a>',
+     '<a href="https://www.amazon.com/s?k=smart+home+devices&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>🏠</i>Casa inteligente</a>'),
+    ('<a href="https://www.amazon.com/s?k=kitchen+gadgets+appliances&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🍹</i>Kitchen &amp; bar</a>',
+     '<a href="https://www.amazon.com/s?k=kitchen+gadgets+appliances&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>🍹</i>Cocina y bar</a>'),
+    ('<a href="https://www.amazon.com/s?k=computer+monitor+trading+desk+setup&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🖥️</i>Trading desk &amp; monitors</a>',
+     '<a href="https://www.amazon.com/s?k=computer+monitor+trading+desk+setup&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>🖥️</i>Escritorio de trading y monitores</a>'),
+    ('<a href="https://www.amazon.com/s?k=phone+charger+power+bank&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>📱</i>Phone chargers &amp; power banks</a>',
+     '<a href="https://www.amazon.com/s?k=phone+charger+power+bank&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>📱</i>Cargadores y baterías portátiles</a>'),
+    ('<a href="https://www.amazon.com/s?k=electric+scooter+e-bike&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🛴</i>Electric rides</a>',
+     '<a href="https://www.amazon.com/s?k=electric+scooter+e-bike&amp;tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener"><i>🛴</i>Scooters y bicis eléctricas</a>'),
+    ('<a class="bfbtn" href="#bf">🖤 Black Friday Deals</a>',
+     '<a class="bfbtn" href="#bf">🖤 Ofertas de Black Friday</a>'),
+    ('<h2>Black Friday Gadget Deals</h2>',
+     '<h2>Ofertas de gadgets de Black Friday</h2>'),
+    ("Black Friday is Friday, Nov 27. Cyber Monday is Nov 30. Amazon's early deals are already dropping, so tap a category and grab it before it sells out.",
+     'Black Friday es el viernes 27 de noviembre. Cyber Monday es el 30 de noviembre. Las ofertas anticipadas de Amazon ya empezaron: toca una categoría y aprovecha antes de que se agoten.'),
+    ('<span class="bfcount" id="bfcount">🖤 Black Friday is Fri, Nov 27</span>',
+     '<span class="bfcount" id="bfcount">🖤 Black Friday es el viernes 27 de nov.</span>'),
+    ('<a class="bfmain" href="https://www.amazon.com/deals?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🖤 Shop every Black Friday deal on Amazon →</a>',
+     '<a class="bfmain" href="https://www.amazon.com/deals?tag=broomepicks-20&amp;language=es_US" target="_blank" rel="sponsored noopener">🖤 Ver todas las ofertas de Black Friday en Amazon →</a>'),
+    ('Prices change by the hour, so Amazon shows the real price before you pay. Many of <a href="#all" style="color:var(--amz);font-weight:700">the gadgets I own</a> drop in price this week too. Tap any Buy button to check.',
+     'Los precios cambian cada hora; Amazon te muestra el precio real antes de pagar. Muchos de <a href="#all" style="color:var(--amz);font-weight:700">los gadgets que tengo</a> también bajan de precio esta semana. Toca cualquier botón de compra para revisar.'),
+    ("c.textContent='💻 Cyber Monday deals are live now';",
+     "c.textContent='💻 Las ofertas de Cyber Monday ya están activas';"),
+    ("c.textContent='🖤 Black Friday deals are live now';",
+     "c.textContent='🖤 Las ofertas de Black Friday ya están activas';"),
+    ("c.textContent=d===1?'🖤 Black Friday is tomorrow':'🖤 '+d+' days to Black Friday';",
+     "c.textContent=d===1?'🖤 Black Friday es mañana':'🖤 Faltan '+d+' días para Black Friday';"),
+]
+
 # The GPTMarketing.us credit line every page carries (Lewis, 10/15).
 CREDIT = [(">Sponsored by <a", ">Patrocinado por <a")]
 AZ += CREDIT

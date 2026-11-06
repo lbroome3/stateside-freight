@@ -74,6 +74,15 @@
   .search button{background:var(--amz);color:#111;border:0;border-radius:12px;padding:.7rem 1rem;font-weight:800;font-family:inherit;cursor:pointer;white-space:nowrap}
   .deals{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;max-width:560px}
   .deals a{flex:1 1 150px;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:1.5px solid rgba(255,153,0,.55);background:rgba(255,153,0,.12);color:var(--ink);font-weight:800;border-radius:12px;padding:.65rem .9rem;white-space:nowrap}
+  #bf{padding-top:1.4rem}
+  .bfbox{background:linear-gradient(135deg,rgba(0,0,0,.72),rgba(30,20,0,.72));border:1.5px solid rgba(255,153,0,.7);border-radius:20px;padding:1.3rem 1.1rem;backdrop-filter:blur(10px);box-shadow:0 0 40px rgba(255,153,0,.18)}
+  .bfbox .eyebrow2{font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--amz)}
+  .bfbox h2{margin:.3rem 0 .2rem}
+  .bfcount{display:inline-block;margin:.5rem 0 1rem;background:var(--amz);color:#111;font-weight:900;border-radius:999px;padding:.35rem .9rem;font-size:.95rem}
+  .bfmain{display:flex;width:100%;max-width:560px;justify-content:center;background:var(--amz);color:#111;font-weight:900;font-size:1.1rem;border-radius:14px;padding:1rem;box-shadow:0 8px 30px rgba(255,153,0,.35)}
+  .bfcats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.55rem;margin-top:1rem}
+  .bfcats a{display:flex;align-items:center;gap:.5rem;border:1.5px solid rgba(255,153,0,.45);background:rgba(255,153,0,.10);color:var(--ink);font-weight:800;border-radius:12px;padding:.75rem .8rem;font-size:.95rem;line-height:1.2}
+  .bfcats a i{font-style:normal;font-size:1.3rem}
   .clip{color:var(--ink-2);font-size:.78rem;margin-top:.45rem}
   .small-note{color:var(--ink-2);font-size:.82rem;margin-top:.5rem;max-width:560px}
   .finder{display:flex;align-items:center;gap:.8rem;margin:0 0 1rem}
@@ -328,6 +337,7 @@
     <div class="deals">
       <a href="https://www.amazon.com/coupons?tag=broomepicks-20" target="_blank" rel="sponsored noopener">✂️ Amazon Coupons</a>
       <a href="https://www.amazon.com/deals?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🔥 Today's Deals</a>
+      <a class="bfbtn" href="#bf">🖤 Black Friday Deals</a>
     </div>
     <p class="small-note">Amazon's own coupons and deals, updated every day. Clip a coupon and save at checkout.</p>
     <div class="stats">
@@ -339,6 +349,31 @@
 </header>
 
 <main>
+  <section id="bf">
+    <div class="wrap reveal">
+      <div class="bfbox">
+        <span class="eyebrow2">🖤 Black Friday 2026</span>
+        <h2>Black Friday Gadget Deals</h2>
+        <p class="sub">Black Friday is Friday, Nov 27. Cyber Monday is Nov 30. Amazon's early deals are already dropping, so tap a category and grab it before it sells out.</p>
+        <span class="bfcount" id="bfcount">🖤 Black Friday is Fri, Nov 27</span>
+        <a class="bfmain" href="https://www.amazon.com/deals?tag=broomepicks-20" target="_blank" rel="sponsored noopener">🖤 Shop every Black Friday deal on Amazon →</a>
+        <div class="bfcats">
+          <a href="https://www.amazon.com/s?k=portable+power+station+solar+generator&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🔋</i>Power stations &amp; solar</a>
+          <a href="https://www.amazon.com/s?k=wireless+earbuds+headphones&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🎧</i>Earbuds &amp; headphones</a>
+          <a href="https://www.amazon.com/s?k=Meta+Quest+VR+headset&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🥽</i>VR &amp; Meta Quest</a>
+          <a href="https://www.amazon.com/s?k=DJI+drone+camera&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🚁</i>Drones &amp; cameras</a>
+          <a href="https://www.amazon.com/s?k=car+truck+gadgets+dash+cam&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🚙</i>Car, truck &amp; Jeep</a>
+          <a href="https://www.amazon.com/s?k=smart+home+devices&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🏠</i>Smart home</a>
+          <a href="https://www.amazon.com/s?k=kitchen+gadgets+appliances&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🍹</i>Kitchen &amp; bar</a>
+          <a href="https://www.amazon.com/s?k=computer+monitor+trading+desk+setup&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🖥️</i>Trading desk &amp; monitors</a>
+          <a href="https://www.amazon.com/s?k=phone+charger+power+bank&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>📱</i>Phone chargers &amp; power banks</a>
+          <a href="https://www.amazon.com/s?k=electric+scooter+e-bike&amp;tag=broomepicks-20" target="_blank" rel="sponsored noopener"><i>🛴</i>Electric rides</a>
+        </div>
+        <p class="small-note">Prices change by the hour, so Amazon shows the real price before you pay. Many of <a href="#all" style="color:var(--amz);font-weight:700">the gadgets I own</a> drop in price this week too. Tap any Buy button to check.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="wish">
     <div class="wrap">
       <div class="reveal">
@@ -972,6 +1007,15 @@
 </script>
 <!-- gm-credit: GPTMarketing.us credit line (Lewis, 10/15) -->
 <div class="gm-credit" style="text-align:center;font:13px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;padding:14px 16px 18px;opacity:.75">Sponsored by <a href="https://gptmarketing.us" target="_blank" rel="sponsored noopener" style="color:inherit;font-weight:600;text-decoration:underline">GPTMarketing.us</a></div>
+<script>
+/* Black Friday countdown (Nov 27, 2026) and Cyber Monday (Nov 30). The section hides itself after Dec 1. */
+(function(){var c=document.getElementById('bfcount');if(!c)return;
+var bf=new Date('2026-11-27T00:00:00-05:00'),cm=new Date('2026-11-30T00:00:00-05:00'),end=new Date('2026-12-02T00:00:00-05:00'),n=new Date(),d=Math.ceil((bf-n)/864e5);
+if(n>=end){var s=document.getElementById('bf');if(s)s.style.display='none';var b=document.querySelector('.bfbtn');if(b)b.style.display='none';return;}
+if(n>=cm)c.textContent='💻 Cyber Monday deals are live now';
+else if(n>=bf)c.textContent='🖤 Black Friday deals are live now';
+else c.textContent=d===1?'🖤 Black Friday is tomorrow':'🖤 '+d+' days to Black Friday';})();
+</script>
 <script src="/share.js" defer></script>
 </body>
 </html>
