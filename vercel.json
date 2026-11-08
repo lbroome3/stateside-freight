@@ -213,6 +213,14 @@
       "destination": "/bco-dispatch.html"
     },
     {
+      "source": "/bbg",
+      "destination": "/bbg.html"
+    },
+    {
+      "source": "/bbg/",
+      "destination": "/bbg.html"
+    },
+    {
       "source": "/infinity",
       "destination": "/infinity.html"
     },
