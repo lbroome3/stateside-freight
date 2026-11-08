@@ -121,7 +121,17 @@
 <main id="top">
   <!-- Hero -->
   <section class="band hero" data-bg data-video aria-labelledby="hero-title">
-    <div class="wrap">
+    <div class="wrap hero-grid">
+      <figure class="hero-ad rise" aria-label="Watch: Stand in his corner, a 90-second message from Surrogate Funding Foundation">
+        <div class="hero-ad-frame">
+          <video id="sfAd" autoplay muted playsinline preload="metadata" poster="/surrogate-funding/media/donation-ad.jpg" width="720" height="1280">
+            <source src="/surrogate-funding/media/donation-ad.mp4" type="video/mp4">
+          </video>
+          <button type="button" class="hero-ad-sound" id="sfAdSound" aria-label="Play with sound"><span aria-hidden="true">&#128266;</span> Tap for sound</button>
+        </div>
+        <figcaption>Stand in his corner &middot; <a href="https://youtube.com/shorts/h40-E57SfhM" target="_blank" rel="noopener">Share on YouTube</a></figcaption>
+      </figure>
+      <div class="hero-copy">
       <p class="label rise">Mentoring young men · Richland County &amp; the Midlands</p>
       <h1 id="hero-title" class="rise d1" style="margin-top:22px">A man in his corner <em>before</em> the system.</h1>
       <p class="lede rise d2"><strong>Surrogate Funding keeps young men in South Carolina out of jail.</strong> We pair boys and young men with mentors who have walked the road, and we build them up in faith, family, finances, and order, so they never see the inside of a cell.</p>
@@ -134,9 +144,18 @@
         <span><b>Bonds</b> $70 to $300</span>
         <span><b>Est.</b> 2026</span>
       </div>
+      </div>
     </div>
   </section>
 
+  <script>
+  (function(){var v=document.getElementById("sfAd"),b=document.getElementById("sfAdSound");if(!v||!b)return;
+    function on(){v.muted=false;v.currentTime=0;v.controls=true;var p=v.play();if(p&&p.catch)p.catch(function(){});b.hidden=true;if(window.gmTrack)try{gmTrack("ad_sound","donation-ad")}catch(e){}}
+    b.addEventListener("click",on);
+    v.addEventListener("volumechange",function(){if(!v.muted)b.hidden=true;});
+    v.addEventListener("ended",function(){v.controls=true;});
+  })();
+  </script>
 
   <!-- Paths -->
   <nav class="band paths" aria-label="Find your way in">
