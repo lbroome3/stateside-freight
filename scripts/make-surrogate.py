@@ -13,6 +13,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "scripts", "surrogate")
 BASE = "https://www.lewisbroome.com/surrogate-funding"
 ORG = "Surrogate Funding Foundation"
+# Founding board, as Lewis set it 2026-11-08. No home or mailing address ever goes on the site.
+BOARD = [("Lewis Broome III", "Founder, President"), ("Aloysius Anderson", "Founding Director"),
+         ("Steven Batts", "Director, Treasurer"), ("Master Tracy Goodwin", "Director"),
+         ("Dr. Demarius Gaither", "Director"), ("Kaylah Dodd", "Director, Secretary")]
 
 def frag(name):
     return open(os.path.join(SRC, name + ".html"), encoding="utf-8").read()
@@ -20,19 +24,19 @@ def frag(name):
 # slug, nav label, <title>, meta description, page fragments
 PAGES = [
     ("", "Home", "Surrogate Funding Foundation | Mentoring Young Men in South Carolina",
-     "Surrogate Funding Foundation mentors boys and young men in Richland County and the Midlands so they never see the inside of a cell, and runs a small community bail fund for people held on $70 to $300 bonds.",
+     "Prevention first: Surrogate Funding Foundation mentors boys and young men in Richland County and the Midlands early, before the system reaches them, and posts small cash bonds in its own name, with no fees, so a $70 to $300 bond does not tear a family apart.",
      ["hero", "paths", "watch", "home-numbers", "home-meter", "home-teasers", "home-give"]),
     ("mission", "Mission", "Our Mission and Four Pillars | Surrogate Funding Foundation",
      "We stand at the crossroads for young men in South Carolina: mentoring in faith, family, finances, and order, and bringing people home from jail over small bonds.",
      ["ph-mission", "watch", "mission", "clip-pillars", "serve"]),
-    ("our-story", "Our story", "Wounded in the House of a Friend: Our Founder's Story | Surrogate Funding Foundation",
-     "Lewis Broome came up in the projects, built a house at 21, and learned betrayal the hard way. He started Surrogate Funding so young men learn it from a mentor, not a cell.",
-     ["story", "why-surrogate"]),
+    ("our-story", "Our story", "Our Founder's Story and Founding Board | Surrogate Funding Foundation",
+     "Lewis Broome III watched a $1,400 shortfall become $4,900 plus fees. In that cell, young men asked him how to live. Meet the founder and the founding board reaching young men before the system does.",
+     ["story", "board", "why-surrogate"]),
     ("programs", "Programs", "Crossroads Mentoring Circle and Programs | Surrogate Funding Foundation",
      "The Crossroads mentoring circle, one-on-one mentors for a year, money and work skills, the community bail fund, and the Loud and Right livestream.",
      ["ph-programs", "programs", "clip-crossroads", "evidence"]),
     ("bail-fund", "Bail fund", "Community Bail Fund for $70 to $300 Bonds | Surrogate Funding Foundation",
-     "Some people sit in jail for months over a $70 bond. Our community bail fund posts small bonds for people held only because they cannot pay, and refunded bail brings the next person home.",
+     "Some people sit in jail for months over a $70 bond. Our community bail fund posts small cash bonds in the Foundation's name, with no fees, for people held only because they cannot pay. Refunded bail brings the next person home.",
      ["bail-meter", "bailfund", "clip-bail-fund", "bonds"]),
     ("serve", "Serve", "Mentor a Young Man in South Carolina | Surrogate Funding Foundation",
      "Retired military and men who have walked the road: mentor a young man, lead a circle session, host a circle, or join our founding board.",
@@ -68,7 +72,8 @@ def ld(slug, title, desc):
     org = {
         "@type": "NGO", "@id": BASE + "#org", "name": ORG, "alternateName": "Surrogate Funding",
         "url": BASE, "description": PAGES[0][3], "logo": BASE + "/media/icon-512.png",
-        "founder": {"@type": "Person", "name": "Lewis Broome"},
+        "founder": {"@type": "Person", "name": "Lewis Broome III", "jobTitle": "Founder and President"},
+        "member": [{"@type": "OrganizationRole", "roleName": r, "member": {"@type": "Person", "name": n}} for n, r in BOARD],
         "areaServed": [{"@type": "AdministrativeArea", "name": "Richland County, South Carolina"},
                        {"@type": "State", "name": "South Carolina"}],
         "address": {"@type": "PostalAddress", "addressRegion": "SC", "addressCountry": "US"},

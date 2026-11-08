@@ -568,3 +568,19 @@ footer .wrap { padding-block: 56px 48px; display: grid; gap: 28px; }
   .hero-grid .hero-copy { order: 2; justify-self: stretch; }
   .hero-ad-frame { height: auto; width: min(100%, 420px, calc(72vh * 9 / 16)); }
 }
+
+/* Founding board (our-story) */
+.board { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+.member { display: flex; gap: 18px; align-items: center; padding: 26px 24px; background: var(--paper-2); border-top: 2px solid var(--brass, #a8843f); }
+.member h3 { font-size: 24px; line-height: 1.15; }
+.member .role { margin-top: 6px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--brass, #a8843f); font-weight: 600; }
+.mono { flex: none; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: var(--band); color: var(--band-brass); border: 1px solid var(--band-brass); font-family: var(--display); font-style: italic; font-size: 21px; letter-spacing: .02em; }
+.member.lead { background: var(--band); }
+.member.lead h3 { color: var(--band-fg); }
+.member.lead .role { color: var(--band-brass); }
+.board-note { margin-top: 26px; color: var(--ink-soft); font-size: 15.5px; }
+.board-note a { color: var(--brass, #a8843f); font-weight: 600; }
+.bail-terms { margin-top: 22px; padding: 18px 20px; border-left: 3px solid var(--band-brass); background: rgba(201,164,94,.08); font-size: 16px; color: var(--band-soft); }
+.bail-terms b { color: var(--band-fg); }
+@media (max-width: 900px) { .board { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .board { grid-template-columns: 1fr; } .member { padding: 20px 18px; } }
