@@ -1,4 +1,4 @@
-/* home-3d.js — the 3D layer on the trucking home page (/).
+/* home-3d.js — the 3D layer on the trucking home page (/) and /BCOonboarding.
    1. Hero: a spinning 3D globe with freight lanes running out of Myrtle Beach to the
       cities and ports the agency serves (U.S., Canada, Mexico), trucks moving along them.
    2. The four "need" cards and the four network stats stand up in 3D as they scroll in.
