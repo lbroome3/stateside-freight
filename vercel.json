@@ -213,6 +213,14 @@
       "destination": "/bco-dispatch.html"
     },
     {
+      "source": "/nationalalert",
+      "destination": "/nationalalert.html"
+    },
+    {
+      "source": "/nationalalert/",
+      "destination": "/nationalalert.html"
+    },
+    {
       "source": "/bbg",
       "destination": "/bbg.html"
     },
