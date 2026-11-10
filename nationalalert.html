@@ -244,6 +244,11 @@ nav.main a:hover{color:var(--text)}
 .box p{color:var(--muted);margin:8px 0 0}
 .ph{margin-top:18px;border:1px dashed rgba(255,59,48,.4);border-radius:14px;padding:16px;font-size:14px;color:#F3B7B3;background:rgba(255,59,48,.05)}
 .vids{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.pv{margin-top:22px;max-width:980px}
+.pv video{display:block;width:100%;border-radius:16px;border:1px solid var(--line);background:#0C1424;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.pv-h{aspect-ratio:16/9}
+.pv-v{display:none!important;aspect-ratio:9/16;height:68vh;width:auto!important;max-width:100%;margin:0 auto}
+@media(max-width:700px){.pv-h{display:none!important}.pv-v{display:block!important}}
 .vid{margin:0}
 .vid video{display:block;width:100%;aspect-ratio:16/9;border-radius:12px;border:1px solid var(--line);background:#0C1424;object-fit:cover}
 .vid figcaption{margin-top:7px;font-size:12.5px;line-height:1.35;color:var(--text,#E8EEF8)}
@@ -365,6 +370,17 @@ footer .made{font-size:12.5px;color:var(--dim)}
   </div>
 </div>
 
+
+<section class="sec promo" id="promo" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="kicker">Watch · 37 seconds</div>
+    <h2>Meet National Alert.</h2>
+    <div class="pv">
+      <video class="pv-h" controls playsinline preload="none" poster="/nationalalert-media/na-promo-h.jpg" src="/nationalalert-media/na-promo-h.mp4"></video>
+      <video class="pv-v" controls playsinline preload="none" poster="/nationalalert-media/na-promo-v.jpg" src="/nationalalert-media/na-promo-v.mp4"></video>
+    </div>
+  </div>
+</section>
 
 <section class="sec founder" id="about">
   <div class="wrap">
