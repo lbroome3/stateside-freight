@@ -244,9 +244,11 @@ nav.main a:hover{color:var(--text)}
 .box p{color:var(--muted);margin:8px 0 0}
 .ph{margin-top:18px;border:1px dashed rgba(255,59,48,.4);border-radius:14px;padding:16px;font-size:14px;color:#F3B7B3;background:rgba(255,59,48,.05)}
 .vids{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
-.vid{aspect-ratio:16/10;border-radius:12px;border:1px solid var(--line);background:linear-gradient(135deg,#17233D,#0C1424);display:grid;place-items:center;position:relative}
-.vid svg{width:34px;height:34px;opacity:.75}
-.vid small{position:absolute;left:10px;bottom:8px;font-size:11.5px;color:var(--muted)}
+.vid{margin:0}
+.vid video{display:block;width:100%;aspect-ratio:16/9;border-radius:12px;border:1px solid var(--line);background:#0C1424;object-fit:cover}
+.vid figcaption{margin-top:7px;font-size:12.5px;line-height:1.35;color:var(--text,#E8EEF8)}
+.vid figcaption span{color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:11px;margin-left:4px}
+@media(max-width:560px){.vids{grid-template-columns:1fr}}
 @media(max-width:800px){.duo{grid-template-columns:1fr}}
 
 
@@ -527,8 +529,8 @@ footer .made{font-size:12.5px;color:var(--dim)}
       <h3>Training videos</h3>
       <p>How-to videos for your system, in one place, so you never have to dig for the manual. Your installer will also walk you through it in person.</p>
       <div class="vids">
-        <div class="vid"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><small>Your video here</small></div>
-        <div class="vid"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><small>Your video here</small></div>
+        <figure class="vid"><video controls playsinline preload="none" poster="/nationalalert-media/na-training-arming.jpg" src="/nationalalert-media/na-training-arming.mp4"></video><figcaption>Arming your system: Stay vs. Away <span>0:54</span></figcaption></figure>
+        <figure class="vid"><video controls playsinline preload="none" poster="/nationalalert-media/na-training-false-alarm.jpg" src="/nationalalert-media/na-training-false-alarm.mp4"></video><figcaption>Set off the alarm by accident? <span>0:55</span></figcaption></figure>
       </div>
     </div>
   </div>
