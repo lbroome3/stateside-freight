@@ -1,5 +1,5 @@
 /*
- * az-track.js — private traffic analytics for the gadget pages (/az, /az/hurricane-kit, /az/dji-power-1000).
+ * az-track.js — private traffic analytics for the gadget pages (/az, /az/power-outage-kit, /az/dji-power-1000).
  *
  * Lewis, 10/11: "monitor the traffic as folks enter the site, give me analytics so I can see it
  * on my side only, pipe it to my CMS. That way I know what product to push more." And later:

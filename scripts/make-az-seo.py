@@ -3,13 +3,13 @@
 make-az-seo.py — the search-engine layer on the six store pages.
 
 Lewis, 10/13: "I need to do a Google index. SEO index each item meta tag". For each of
-az.html, az-hurricane-kit.html, az-dji-power-1000.html and their az-es-* twins it writes,
+az.html, az-power-outage-kit.html, az-dji-power-1000.html and their az-es-* twins it writes,
 between marker comments (so reruns replace, never stack):
 
   <!-- seo:head -->   x-default hreflang, og:site_name, og:image when missing, Twitter card,
                       and JSON-LD: the site, Lewis, the page, its breadcrumb and an ItemList
                       of every gadget on it (name, photo, link to that gadget's card).
-  <!-- seo:index -->  (store and hurricane kit only) a plain-HTML list of every gadget by
+  <!-- seo:index -->  (store and power outage kit only) a plain-HTML list of every gadget by
                       category, so the full brand + model names are in the page source and
                       not only in what the JavaScript draws. Each name jumps to its card
                       (#p-ASIN); each Buy goes to Amazon with tag=broomepicks-20.
@@ -204,8 +204,8 @@ def put(src, name, block, anchor):
 PAGES = [  # file, lang, path, English path, page type, items, grouped index, breadcrumb name
     ("az.html", "en", "/az", "/az", "CollectionPage", "store", True, None),
     ("az-es.html", "es", "/az/es", "/az", "CollectionPage", "store", True, None),
-    ("az-hurricane-kit.html", "en", "/az/hurricane-kit", "/az/hurricane-kit", "CollectionPage", "kit", False, "My Hurricane Kit"),
-    ("az-es-hurricane-kit.html", "es", "/az/es/hurricane-kit", "/az/hurricane-kit", "CollectionPage", "kit", False, "Mi kit para huracanes"),
+    ("az-power-outage-kit.html", "en", "/az/power-outage-kit", "/az/power-outage-kit", "CollectionPage", "kit", False, "My Power Outage Kit"),
+    ("az-es-power-outage-kit.html", "es", "/az/es/power-outage-kit", "/az/power-outage-kit", "CollectionPage", "kit", False, "Mi kit para apagones"),
     ("az-dji-power-1000.html", "en", "/az/dji-power-1000", "/az/dji-power-1000", "WebPage", None, False, "DJI Power 1000"),
     ("az-es-dji-power-1000.html", "es", "/az/es/dji-power-1000", "/az/dji-power-1000", "WebPage", None, False, "DJI Power 1000"),
 ]

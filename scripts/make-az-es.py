@@ -3,7 +3,7 @@
 make-az-es.py — builds the Spanish store pages from the English ones.
 
   az.html                → az-es.html                → /az/es
-  az-hurricane-kit.html  → az-es-hurricane-kit.html  → /az/es/hurricane-kit
+  az-power-outage-kit.html  → az-es-power-outage-kit.html  → /az/es/power-outage-kit
   az-dji-power-1000.html → az-es-dji-power-1000.html → /az/es/dji-power-1000
 
 Lewis, 10/13: "please make a spanish version". Brand and model names stay exactly as on
@@ -45,7 +45,7 @@ def common(html, en_path, es_path):
                         '<meta property="og:locale" content="es_US" />\n<meta property="og:type"', 1)
     html = html.replace("</style>", LANG_CSS + "</style>", 1)
     # Internal links go to the Spanish pages.
-    for p in ("/az/hurricane-kit", "/az/dji-power-1000", "/az/hot-picks"):
+    for p in ("/az/power-outage-kit", "/az/dji-power-1000", "/az/hot-picks"):
         html = html.replace(f'href="{p}"', f'href="/az/es{p[3:]}"')
     html = html.replace('href="/az"', 'href="/az/es"')
     # Amazon opens in Spanish; the tag stays exactly as it was.
@@ -115,10 +115,10 @@ AZ = [
     ("</b>gadgets I own</div>", "</b>gadgets míos</div>"),
     ("</b>in the video</div>", "</b>en el video</div>"),
     ("</b>battery ran the whole beach day</div>", "</b>batería para todo el día de playa</div>"),
-    ("<span>Hurricane season</span>", "<span>Temporada de huracanes</span>"),
-    ("<h3>My hurricane kit: 13 things I actually own</h3>", "<h3>Mi kit para huracanes: 13 cosas que de verdad tengo</h3>"),
-    ("<p>Battery, solar, generator, fridge, CB radio, distiller. Charge up before it hits →</p>",
-     "<p>Batería, solar, generador, refrigerador, radio CB, destilador. Carga todo antes de que llegue →</p>"),
+    ("<span>Power grid outage</span>", "<span>Apagones</span>"),
+    ("<h3>My power outage kit: 13 things I actually own</h3>", "<h3>Mi kit para apagones: 13 cosas que de verdad tengo</h3>"),
+    ("<p>Battery, solar, generator, fridge, CB radio, distiller. Charge up before the grid goes down →</p>",
+     "<p>Batería, solar, generador, refrigerador, radio CB, destilador. Carga todo antes de que se caiga la red →</p>"),
     ('<span class="eyebrow2">🔥 Hot picks</span>', '<span class="eyebrow2">🔥 Favoritos</span>'),
     ("<h2>Kaylah's 3 Hot Picks for Women</h2>", "<h2>Los 3 favoritos de Kaylah para mujeres</h2>"),
     ("🔥 <b>Kaylah's 3 Hot Picks for Women</b> · Trending on Amazon right now →</a>", "🔥 <b>Los 3 favoritos de Kaylah para mujeres</b> · En tendencia en Amazon ahora mismo →</a>"),
@@ -299,19 +299,19 @@ AZ = [
     ("encodeURIComponent('Demo request: '+prod)", "encodeURIComponent('Demo request (Spanish): '+prod)"),
 ]
 
-# ---------------------------------------------------------------- /az/hurricane-kit
+# ---------------------------------------------------------------- /az/power-outage-kit
 KIT = [
-    ("<title>My Hurricane Kit — Beach-Tested Gear I Actually Own | Lewis Broome</title>",
-     "<title>Mi kit para huracanes — Equipo probado en la playa que de verdad tengo | Lewis Broome</title>"),
-    ('content="Lewis Broome\'s hurricane kit from Myrtle Beach: DJI Power 1000, solar, a 2,500W inverter generator, a 12V fridge, CB radio, lanterns, water distiller and more. Every item owned and used. Buy on Amazon."',
-     'content="El kit para huracanes de Lewis Broome en Myrtle Beach: DJI Power 1000, panel solar, generador inverter de 2,500W, refrigerador de 12V, radio CB, lámparas, destilador de agua y más. Todo es suyo y lo usa. Compra en Amazon."'),
-    ('content="My Hurricane Kit — 13 Things I Actually Own"', 'content="Mi kit para huracanes — 13 cosas que de verdad tengo"'),
-    ('content="Charge it before the storm, solar after, talk when the towers are down. Beach-tested in Myrtle Beach."',
-     'content="Carga antes de la tormenta, solar después, comunícate cuando caen las torres. Probado en la playa en Myrtle Beach."'),
-    ("<i></i> Hurricane season · Myrtle Beach, SC", "<i></i> Temporada de huracanes · Myrtle Beach, SC"),
-    ("<h1>It's hurricane season.<br /><span>Be prepared.</span></h1>", "<h1>Llegó la temporada de huracanes.<br /><span>Prepárate.</span></h1>"),
-    ("This is the kit I actually own, tested on the beach running off one battery. Charge it before the storm, solar after, talk when the towers are down. Every button buys it on Amazon.",
-     "Este es el kit que de verdad tengo, probado en la playa con una sola batería. Carga antes de la tormenta, solar después, comunícate cuando caen las torres. Cada botón lo compra en Amazon."),
+    ("<title>My Power Outage Kit — Gear I Actually Own for When the Grid Goes Down | Lewis Broome</title>",
+     "<title>Mi kit para apagones — Equipo que de verdad tengo para cuando se cae la red | Lewis Broome</title>"),
+    ('content="Lewis Broome\'s power outage kit from Myrtle Beach: DJI Power 1000, solar, a 2,500W inverter generator, a 12V fridge, CB radio, lanterns, water distiller and more. Ready for when the power grid goes down. Every item owned and used. Buy on Amazon."',
+     'content="El kit para apagones de Lewis Broome en Myrtle Beach: DJI Power 1000, panel solar, generador inverter de 2,500W, refrigerador de 12V, radio CB, lámparas, destilador de agua y más. Listo para cuando se cae la red eléctrica. Todo es suyo y lo usa. Compra en Amazon."'),
+    ('content="My Power Outage Kit — 13 Things I Actually Own"', 'content="Mi kit para apagones — 13 cosas que de verdad tengo"'),
+    ('content="Charge it while the grid is up, solar when it goes down, talk when the cell towers are out. Beach-tested in Myrtle Beach."',
+     'content="Carga mientras hay luz, solar cuando se va, comunícate cuando caen las torres de celular. Probado en la playa en Myrtle Beach."'),
+    ("<i></i> Power outage ready · Myrtle Beach, SC", "<i></i> Listo para apagones · Myrtle Beach, SC"),
+    ("<h1>When the grid goes down,<br /><span>be ready.</span></h1>", "<h1>Cuando se cae la red,<br /><span>prepárate.</span></h1>"),
+    ("This is the kit I actually own, tested on the beach running off one battery. Charge it while the grid is up, solar when it goes down, talk when the cell towers are out. Every button buys it on Amazon.",
+     "Este es el kit que de verdad tengo, probado en la playa con una sola batería. Carga mientras hay luz, solar cuando se va, comunícate cuando caen las torres de celular. Cada botón lo compra en Amazon."),
     ("🛒 Shop the whole kit</button>", "🛒 Compra todo el kit</button>"),
     ('href="#kit">See all 13 items</a>', 'href="#kit">Ver las 13 cosas</a>'),
     ("</b>Wh in the battery</div>", "</b>Wh en la batería</div>"),
@@ -320,8 +320,8 @@ KIT = [
     ("</b>items, all mine</div>", "</b>cosas, todas mías</div>"),
     ("<h2>The plan</h2><p class=\"sub\">Three moves. The gear below is what makes each one work.</p>",
      "<h2>El plan</h2><p class=\"sub\">Tres pasos. El equipo de abajo es lo que hace funcionar cada uno.</p>"),
-    ("<h3>Charge up before it hits</h3><p>DJI Power 1000 full from the wall in about 70 minutes. Phones, watch bank, lithium AAs topped off.</p>",
-     "<h3>Carga todo antes de que llegue</h3><p>El DJI Power 1000 se llena desde la pared en unos 70 minutos. Teléfonos, batería del reloj y pilas AA de litio, todo cargado.</p>"),
+    ("<h3>Charge up while the power is on</h3><p>DJI Power 1000 full from the wall in about 70 minutes. Phones, watch bank, lithium AAs topped off.</p>",
+     "<h3>Carga todo mientras hay luz</h3><p>El DJI Power 1000 se llena desde la pared en unos 70 minutos. Teléfonos, batería del reloj y pilas AA de litio, todo cargado.</p>"),
     ("<h3>Run the essentials</h3><p>Fridge, fan, Wi-Fi, lights, the distiller. Generator for the long haul; the DJI runs inside, silent.</p>",
      "<h3>Mantén lo esencial</h3><p>Refrigerador, ventilador, Wi-Fi, luces, el destilador. El generador para apagones largos; el DJI funciona adentro, sin ruido.</p>"),
     ("<h3>Stay connected</h3><p>CB radio when the cell towers are down, Starlink Mini for internet from the sky, power from the truck.</p>",
@@ -338,7 +338,7 @@ KIT = [
     ('<span class="tag">Long outage</span>', '<span class="tag">Apagón largo</span>'),
     ('<span class="chip">2,500 W start</span><span class="chip">Gas</span>', '<span class="chip">2,500 W de arranque</span><span class="chip">Gasolina</span>'),
     ('alt="DOKIO folding solar panel"', 'alt="Panel solar plegable DOKIO"'),
-    ('<span class="tag">After the storm</span>', '<span class="tag">Después de la tormenta</span>'),
+    ('<span class="tag">When the grid is down</span>', '<span class="tag">Cuando no hay luz</span>'),
     ('<span class="chip">6 lb, folds</span>', '<span class="chip">6 lb, plegable</span>'),
     ("<h2>The whole kit</h2><p class=\"sub\">Thirteen things, all mine, all live on Amazon today.</p>",
      "<h2>Todo el kit</h2><p class=\"sub\">Trece cosas, todas mías, todas disponibles hoy en Amazon.</p>"),
@@ -350,8 +350,8 @@ KIT = [
     ("<a href=\"/az/es/dji-power-1000\">DJI Power 1000 deep dive</a>", "<a href=\"/az/es/dji-power-1000\">DJI Power 1000 a fondo</a>"),
     ("<p style=\"margin-top:.6rem\">Myrtle Beach, SC. As an Amazon Associate I earn from qualifying purchases.</p>",
      "<p style=\"margin-top:.6rem\">Myrtle Beach, SC. Como Asociado de Amazon gano con las compras que califican.</p>"),
-    ('<span>🌀 <b>My hurricane kit</b> · 13 items</span><button type="button" data-open-kit>Shop it</button>',
-     '<span>🌀 <b>Mi kit para huracanes</b> · 13 cosas</span><button type="button" data-open-kit>Comprar</button>'),
+    ('<span>⚡ <b>My power outage kit</b> · 13 items</span><button type="button" data-open-kit>Shop it</button>',
+     '<span>⚡ <b>Mi kit para apagones</b> · 13 cosas</span><button type="button" data-open-kit>Comprar</button>'),
     ('aria-label="Shop the whole kit">', 'aria-label="Compra todo el kit">'),
     ("<h3>Shop the whole kit</h3>", "<h3>Compra todo el kit</h3>"),
     ("Each button opens that item on Amazon. Grab what you're missing.", "Cada botón abre esa cosa en Amazon. Consigue lo que te falte."),
@@ -449,7 +449,7 @@ DJI = [
     ("Estimate: 1,024 Wh × 85% usable ÷ watts. Wattages are typical. Check the label on your device.",
      "Estimado: 1,024 Wh × 85% utilizable ÷ watts. Los watts son típicos. Revisa la etiqueta de tu aparato."),
     ("<h2>The rest of my storm kit</h2>", "<h2>El resto de mi kit para tormentas</h2>"),
-    ("See the full hurricane kit page →", "Ver la página completa del kit para huracanes →"),
+    ("See my full power outage kit →", "Ver mi kit completo para apagones →"),
     ("Everything here is mine. Every button goes straight to Amazon to buy.", "Todo aquí es mío. Cada botón te lleva directo a Amazon para comprar."),
     ("<span class=\"own\">I own this</span>", "<span class=\"own\">Es mío</span>"),
     ("🛒 Buy on Amazon →", "🛒 Comprar en Amazon →"),
@@ -557,7 +557,7 @@ DJI += CREDIT
 
 PAGES = [
     ("az.html", "az-es.html", "/az", "/az/es", AZ),
-    ("az-hurricane-kit.html", "az-es-hurricane-kit.html", "/az/hurricane-kit", "/az/es/hurricane-kit", KIT),
+    ("az-power-outage-kit.html", "az-es-power-outage-kit.html", "/az/power-outage-kit", "/az/es/power-outage-kit", KIT),
     ("az-dji-power-1000.html", "az-es-dji-power-1000.html", "/az/dji-power-1000", "/az/es/dji-power-1000", DJI),
 ]
 

@@ -93,12 +93,12 @@
       "destination": "/az-es.html"
     },
     {
-      "source": "/az/es/hurricane-kit",
-      "destination": "/az-es-hurricane-kit.html"
+      "source": "/az/es/power-outage-kit",
+      "destination": "/az-es-power-outage-kit.html"
     },
     {
       "source": "/az/es/kit",
-      "destination": "/az-es-hurricane-kit.html"
+      "destination": "/az-es-power-outage-kit.html"
     },
     {
       "source": "/az/es/hurricane",
@@ -109,16 +109,32 @@
       "destination": "/az-es-dji-power-1000.html"
     },
     {
-      "source": "/az/hurricane-kit",
-      "destination": "/az-hurricane-kit.html"
+      "source": "/az/es/apagones",
+      "destination": "/az-es-power-outage-kit.html"
+    },
+    {
+      "source": "/az/es/outage",
+      "destination": "/az-es-power-outage-kit.html"
+    },
+    {
+      "source": "/az/blackout",
+      "destination": "/az-power-outage-kit.html"
+    },
+    {
+      "source": "/az/outage",
+      "destination": "/az-power-outage-kit.html"
+    },
+    {
+      "source": "/az/power-outage-kit",
+      "destination": "/az-power-outage-kit.html"
     },
     {
       "source": "/az/kit",
-      "destination": "/az-hurricane-kit.html"
+      "destination": "/az-power-outage-kit.html"
     },
     {
-      "source": "/AZ/hurricane-kit",
-      "destination": "/az-hurricane-kit.html"
+      "source": "/AZ/power-outage-kit",
+      "destination": "/az-power-outage-kit.html"
     },
     {
       "source": "/az/dji-power-1000",
@@ -671,6 +687,31 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/az/hurricane-kit",
+      "destination": "/az/power-outage-kit",
+      "permanent": true
+    },
+    {
+      "source": "/AZ/hurricane-kit",
+      "destination": "/az/power-outage-kit",
+      "permanent": true
+    },
+    {
+      "source": "/az/es/hurricane-kit",
+      "destination": "/az/es/power-outage-kit",
+      "permanent": true
+    },
+    {
+      "source": "/az-hurricane-kit.html",
+      "destination": "/az/power-outage-kit",
+      "permanent": true
+    },
+    {
+      "source": "/az-es-hurricane-kit.html",
+      "destination": "/az/es/power-outage-kit",
+      "permanent": true
+    },
     {
       "source": "/Kay50/host",
       "destination": "https://kay50.lewisbroome.com/?host=KAY50",
