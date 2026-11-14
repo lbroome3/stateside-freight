@@ -118,6 +118,20 @@
         "caption": "Lewis Broome III on the phones.",
         "width": 1320,
         "height": 1275
+      },
+      {
+        "@type": "ImageObject",
+        "url": "https://www.lewisbroome.com/assets/lewis-broome/lewis-broome-iii-studio-headshot-gray-suit.jpg",
+        "caption": "Lewis Broome III, studio headshot.",
+        "width": 393,
+        "height": 338
+      },
+      {
+        "@type": "ImageObject",
+        "url": "https://www.lewisbroome.com/assets/lewis-broome/lewis-broome-iii-drone-myrtle-beach.jpg",
+        "caption": "Lewis Broome III flying the drone on Myrtle Beach.",
+        "width": 1017,
+        "height": 1278
       }
     ],
     "jobTitle": "Independent Landstar Agent; Founder of GPT Marketing",
@@ -145,6 +159,79 @@
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.lewisbroome.com/" },
     { "@type": "ListItem", "position": 2, "name": "Lewis Broome III", "item": "https://www.lewisbroome.com/lewis-broome" }
   ] }
+]
+</script>
+
+<script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Lewis Broome III, your hazmat shipping expert",
+  "description": "Lewis Broome III, independent Landstar agent, on reliable hazmat transportation. Book a truck at lewisbroome.com.",
+  "thumbnailUrl": "https://www.lewisbroome.com/assets/lewis-broome/video/lewis-broome-iii-hazmat-shipping-expert.jpg",
+  "contentUrl": "https://www.lewisbroome.com/assets/lewis-broome/video/lewis-broome-iii-hazmat-shipping-expert.mp4",
+  "uploadDate": "2026-11-14",
+  "duration": "PT10S",
+  "embedUrl": "https://www.lewisbroome.com/lewis-broome#videos",
+  "actor": {
+   "@id": "https://www.lewisbroome.com/#lewis-broome"
+  },
+  "creator": {
+   "@id": "https://www.lewisbroome.com/#lewis-broome"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Lewis Broome III, Landstar agent",
+  "description": "Lewis Broome III with a Landstar truck: freight, done the modern way.",
+  "thumbnailUrl": "https://www.lewisbroome.com/assets/lewis-broome/video/lewis-broome-iii-landstar-agent.jpg",
+  "contentUrl": "https://www.lewisbroome.com/assets/lewis-broome/video/lewis-broome-iii-landstar-agent.mp4",
+  "uploadDate": "2026-11-14",
+  "duration": "PT10S",
+  "embedUrl": "https://www.lewisbroome.com/lewis-broome#videos",
+  "actor": {
+   "@id": "https://www.lewisbroome.com/#lewis-broome"
+  },
+  "creator": {
+   "@id": "https://www.lewisbroome.com/#lewis-broome"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Lewis Broome III, The Closer",
+  "description": "Lewis Broome III, The Closer, closes another one.",
+  "thumbnailUrl": "https://www.lewisbroome.com/assets/lewis-broome/video/lewis-broome-iii-the-closer.jpg",
+  "contentUrl": "https://www.lewisbroome.com/assets/lewis-broome/video/lewis-broome-iii-the-closer.mp4",
+  "uploadDate": "2026-11-14",
+  "duration": "PT6S",
+  "embedUrl": "https://www.lewisbroome.com/lewis-broome#videos",
+  "actor": {
+   "@id": "https://www.lewisbroome.com/#lewis-broome"
+  },
+  "creator": {
+   "@id": "https://www.lewisbroome.com/#lewis-broome"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Lewis Broome III says hello",
+  "description": "A quick hello from Lewis Broome III, founder of GPT Marketing.",
+  "thumbnailUrl": "https://www.lewisbroome.com/assets/lewis-broome/video/lewis-broome-iii-hello.jpg",
+  "contentUrl": "https://www.lewisbroome.com/assets/lewis-broome/video/lewis-broome-iii-hello.mp4",
+  "uploadDate": "2026-11-14",
+  "duration": "PT10S",
+  "embedUrl": "https://www.lewisbroome.com/lewis-broome#videos",
+  "actor": {
+   "@id": "https://www.lewisbroome.com/#lewis-broome"
+  },
+  "creator": {
+   "@id": "https://www.lewisbroome.com/#lewis-broome"
+  }
+ }
 ]
 </script>
 
@@ -200,6 +287,12 @@ h2{font-family:Archivo;font-weight:800;font-size:clamp(1.6rem,3.6vw,2.2rem);line
 .gallery img{display:block;width:100%;height:auto}
 .gallery figcaption{font-size:.86rem;color:var(--ink-2);padding:10px 12px;font-weight:600}
 .portrait{background:#fff}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.vids figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(10,31,51,.06)}
+.vids video{display:block;width:100%;aspect-ratio:9/12;object-fit:cover;background:#081a2c}
+.vids figcaption{font-size:.84rem;color:var(--ink-2);padding:10px 12px}
+.vids figcaption b{color:var(--ink)}
+.vids .ai{display:inline-block;margin-top:4px;font-size:.7rem;font-weight:700;color:var(--ink-2);background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
 footer{background:var(--navy);color:rgba(255,255,255,.6);font-size:.82rem;padding:28px 0 100px}
 footer a{color:rgba(255,255,255,.8)}
 @media (max-width:760px){
@@ -210,6 +303,7 @@ footer a{color:rgba(255,255,255,.8)}
   .facts{grid-template-columns:repeat(2,1fr)}
   header.top nav{display:none}
   .gallery{columns:2;column-gap:10px}
+  .vids{grid-template-columns:1fr 1fr;gap:10px}
   .gallery figure{margin-bottom:10px}
   .gallery figcaption{font-size:.76rem;padding:8px}
 }
@@ -304,15 +398,30 @@ footer a{color:rgba(255,255,255,.8)}
     <p class="sub">Lewis Broome III at work and around Myrtle Beach. Since 1999, the closer behind LewisBroome.com.</p>
     <div class="gallery">
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-the-closer-suit.jpg" alt="Lewis Broome III, The Closer, in a navy suit with arms crossed" width="435" height="1220" loading="lazy" decoding="async" /><figcaption>Lewis Broome III, “The Closer.” The original LewisBroome.com photo.</figcaption></figure>
+      <figure><img src="/assets/lewis-broome/lewis-broome-iii-studio-headshot-gray-suit.jpg" alt="Lewis Broome III studio headshot in a gray suit" width="393" height="338" loading="lazy" decoding="async" /><figcaption>Lewis Broome III, studio headshot.</figcaption></figure>
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-tesla-blue-polo.jpg" alt="Lewis Broome III in a blue polo, Myrtle Beach SC" width="1200" height="1600" loading="lazy" decoding="async" /><figcaption>Lewis Broome III on the road in Myrtle Beach.</figcaption></figure>
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-fireworks-store.jpg" alt="Lewis Broome III at a fireworks store" width="745" height="1512" loading="lazy" decoding="async" /><figcaption>Lewis Broome III on the fireworks side of the business.</figcaption></figure>
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-myrtle-beach-skywheel.jpg" alt="Lewis Broome III at the Myrtle Beach SkyWheel" width="1600" height="1200" loading="lazy" decoding="async" /><figcaption>Lewis Broome III at the SkyWheel, Myrtle Beach boardwalk.</figcaption></figure>
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-myrtle-beach-oceanfront.jpg" alt="Lewis Broome III on the beach in Myrtle Beach, South Carolina" width="1600" height="1200" loading="lazy" decoding="async" /><figcaption>Lewis Broome III on the beach in Myrtle Beach.</figcaption></figure>
+      <figure><img src="/assets/lewis-broome/lewis-broome-iii-drone-myrtle-beach.jpg" alt="Lewis Broome III flying a drone on Myrtle Beach" width="1017" height="1278" loading="lazy" decoding="async" /><figcaption>Lewis Broome III flying the drone on Myrtle Beach.</figcaption></figure>
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-boat-radio.jpg" alt="Lewis Broome III on the boat radio" width="1200" height="1600" loading="lazy" decoding="async" /><figcaption>Lewis Broome III on the water, radio in hand.</figcaption></figure>
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-tesla-black-polo.jpg" alt="Lewis Broome III, Landstar agent, in a black polo" width="1600" height="1200" loading="lazy" decoding="async" /><figcaption>Lewis Broome III between calls.</figcaption></figure>
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-myrtle-beach-hat.jpg" alt="Lewis Broome III in a Myrtle Beach hat" width="1200" height="1600" loading="lazy" decoding="async" /><figcaption>Lewis Broome III, Myrtle Beach, SC.</figcaption></figure>
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-game-day.jpg" alt="Lewis Broome III watching the game" width="1200" height="1600" loading="lazy" decoding="async" /><figcaption>Lewis Broome III on game day.</figcaption></figure>
       <figure><img src="/assets/lewis-broome/lewis-broome-iii-headset.jpg" alt="Lewis Broome III on a headset taking calls" width="1320" height="1275" loading="lazy" decoding="async" /><figcaption>Lewis Broome III on the phones.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="videos">
+  <div class="wrap">
+    <h2>Videos of Lewis Broome</h2>
+    <p class="sub">Short videos featuring Lewis Broome III.</p>
+    <div class="vids">
+      <figure><video src="/assets/lewis-broome/video/lewis-broome-iii-hazmat-shipping-expert.mp4" poster="/assets/lewis-broome/video/lewis-broome-iii-hazmat-shipping-expert.jpg" controls playsinline preload="none" title="Lewis Broome III, your hazmat shipping expert"></video><figcaption><b>Lewis Broome III, your hazmat shipping expert</b><br>Lewis Broome III, independent Landstar agent, on reliable hazmat transportation. Book a truck at lewisbroome.com. <span class="ai">Video ad</span></figcaption></figure>
+      <figure><video src="/assets/lewis-broome/video/lewis-broome-iii-landstar-agent.mp4" poster="/assets/lewis-broome/video/lewis-broome-iii-landstar-agent.jpg" controls playsinline preload="none" title="Lewis Broome III, Landstar agent"></video><figcaption><b>Lewis Broome III, Landstar agent</b><br>Lewis Broome III with a Landstar truck: freight, done the modern way. <span class="ai">AI-made video</span></figcaption></figure>
+      <figure><video src="/assets/lewis-broome/video/lewis-broome-iii-the-closer.mp4" poster="/assets/lewis-broome/video/lewis-broome-iii-the-closer.jpg" controls playsinline preload="none" title="Lewis Broome III, The Closer"></video><figcaption><b>Lewis Broome III, The Closer</b><br>Lewis Broome III, The Closer, closes another one. <span class="ai">AI-made video</span></figcaption></figure>
+      <figure><video src="/assets/lewis-broome/video/lewis-broome-iii-hello.mp4" poster="/assets/lewis-broome/video/lewis-broome-iii-hello.jpg" controls playsinline preload="none" title="Lewis Broome III says hello"></video><figcaption><b>Lewis Broome III says hello</b><br>A quick hello from Lewis Broome III, founder of GPT Marketing. <span class="ai">AI-made video</span></figcaption></figure>
     </div>
   </div>
 </section>
