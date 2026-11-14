@@ -261,6 +261,30 @@
       "destination": "/littlejohn.html"
     },
     {
+      "source": "/lewis-broome",
+      "destination": "/lewis-broome.html"
+    },
+    {
+      "source": "/lewis-broome/",
+      "destination": "/lewis-broome.html"
+    },
+    {
+      "source": "/Lewis-Broome",
+      "destination": "/lewis-broome.html"
+    },
+    {
+      "source": "/lewis-broome-iii",
+      "destination": "/lewis-broome.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/lewis-broome.html"
+    },
+    {
+      "source": "/about/",
+      "destination": "/lewis-broome.html"
+    },
+    {
       "source": "/videos",
       "destination": "/videos.html"
     },
