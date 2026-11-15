@@ -253,3 +253,55 @@
     (foot || document.body).appendChild(wrap);
   }
 })();
+
+/*
+ * PULL DOWN TO REFRESH (Lewis, 11/15: "Refresh on the pull down. Make that active.")
+ * Safari and Chrome already do this themselves, so it only turns on where the browser has none:
+ * Facebook / Instagram / Messenger / LinkedIn in-app browsers (where Muse's posts open the site)
+ * and the store saved to the home screen. Same feel as the CRM app's: pull from the very top
+ * with one finger, past the line, let go, the page reloads.
+ */
+(function () {
+  var ua = navigator.userAgent || "";
+  var inApp = /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Messenger|LinkedInApp/i.test(ua);
+  var home = navigator.standalone === true ||
+    (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
+  if (!(inApp || home) || !("ontouchstart" in window)) return;
+  var TH = 80, MAX = 120, y0 = null, d = 0, busy = false;
+  var pill = document.createElement("div");
+  pill.setAttribute("aria-live", "polite");
+  pill.style.cssText = "position:fixed;left:50%;top:0;z-index:2147483646;transform:translate(-50%,-60px);" +
+    "background:#0A2240;color:#fff;font:700 14px/1 system-ui,-apple-system,sans-serif;padding:9px 16px;" +
+    "border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.3);pointer-events:none;transition:opacity .15s;opacity:0";
+  document.body.appendChild(pill);
+  function show(px, txt) {
+    pill.textContent = txt;
+    pill.style.opacity = px ? "1" : "0";
+    pill.style.transform = "translate(-50%," + (px ? Math.max(8, px - 30) : -60) + "px)";
+  }
+  function scrolledInside(el) {
+    for (; el && el !== document.body; el = el.parentElement) if (el.scrollTop > 0) return true;
+    return false;
+  }
+  document.addEventListener("touchstart", function (e) {
+    if (busy || e.touches.length !== 1 || window.scrollY > 0 || scrolledInside(e.target)) return;
+    y0 = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener("touchmove", function (e) {
+    if (y0 == null) return;
+    var dy = e.touches[0].clientY - y0;
+    if (dy < -10 || window.scrollY > 0) { y0 = null; d = 0; show(0, ""); return; }
+    if (dy <= 0) return;                               // a finger's jitter at the start is not a scroll up
+    d = Math.min(MAX, dy * 0.5);
+    show(d, d >= TH ? "↻ Let go to refresh" : "↓ Pull to refresh");
+    if (d > 8 && e.cancelable) e.preventDefault();
+  }, { passive: false });
+  function end() {
+    if (y0 == null) return;
+    y0 = null;
+    if (d >= TH) { busy = true; show(TH, "↻ Refreshing…"); setTimeout(function () { location.reload(); }, 150); }
+    else { d = 0; show(0, ""); }
+  }
+  document.addEventListener("touchend", end);
+  document.addEventListener("touchcancel", end);
+})();
