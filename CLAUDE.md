@@ -34,6 +34,19 @@ driver pages) and a `fill_ms` timer go with every submission; the CRM refuses an
 that fills the trap or submits in under a few seconds. Never remove them, never make the
 trap visible, never autofill it in a test.
 
+**Every freight form opens the face scan before it sends.** `facescan.js` sits beside `engage.js`
+on the six freight form pages and the CRM's portal request page (`<script src="/facescan.js"
+data-form="…" defer>`; truckload adds `data-click="#saSubmit"` because Create account has no
+`<form>`). Lewis, 11/16: "add it to the other sites minus the drivers licences … it makes it super
+bot proof" / "i want this video". Pressing Send opens a nine-second scan (video plus three photos,
+no license), posts it to `/api/face-scan`, then lets the page's own submit run. The CRM keeps the
+video in a private bucket, pushes Lewis labeled by site, and adds the link to the lead's notes.
+It FAILS OPEN: any error, or a device with no camera, lets the form send (flagged "no camera").
+Someone who cancels or refuses the camera is pushed to Lewis as "stopped at the face scan" with
+the name and phone typed so far. It captures; it does not detect a face or match an ID, so never
+call it identity verification on a page. The notice on its first screen (what is recorded, who
+gets it) stays. Not on `bath.html` or the Surrogate Funding pages.
+
 **No physical address.** Lewis, 9/25: "I don't have a physical address anymore. Just use
 Myrtle Beach SC." Every page, the structured-data address, the geo tags, the email signature and the
 Gizmo knowledge base say "Myrtle Beach, SC" with no street and no ZIP (changed 10/3 on his
