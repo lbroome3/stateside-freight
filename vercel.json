@@ -457,6 +457,10 @@
       "destination": "https://broome-crm.vercel.app/api/portal-page"
     },
     {
+      "source": "/agent-onboarding/:token",
+      "destination": "https://broome-crm.vercel.app/api/agent-onboard?t=:token"
+    },
+    {
       "source": "/api/customer-portal",
       "destination": "https://broome-crm.vercel.app/api/customer-portal"
     },

@@ -58,6 +58,7 @@ shows live freight.
 | `BCOonboarding.html` | `/BCOonboarding` | Lease on with Landstar. Tuesday's post. |
 | `2seats.html` | `/2seats` | Two company trucks, two seats. Driver application. |
 | `portal.html` | `/portal` → CRM | Client account setup (the HTML here is a fallback; `/portal` is proxied). |
+| (CRM page) | `/agent-onboarding/:token` → CRM | A satellite agent's private onboarding link (Lewis, 11/16): information, pay, agreement, W-9, face scan, signature. Served by the CRM's `api/agent-onboard.js`; `/agent-onboarding/preview` shows it with sample data and records nothing. Not in the sitemap, noindex. |
 | `loads.html` | `/loads` | Open loads this week, live from the public board. Monday's post. |
 | `trucks.html` | `/trucks` | Trucks empty today and capacity. Thursday's post. |
 | `week.html` | `/week` | Loads, miles, states since Monday. Friday's post. |
