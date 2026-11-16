@@ -91,7 +91,7 @@ decision card): the Amazon store pages carry "📞 Customer service: 706-417-909
 with a line sending order, return and shipping questions to Amazon Customer Service. It lives in
 the English store pages, `make-az-hot3.py` (`cs_block`) and the Spanish pairs in `make-az-es.py`.
 
-The Facebook page (`https://www.facebook.com/profile.php?id=61592981752191`) is linked
+The Facebook page (`https://www.facebook.com/profile.php?id=100063503293306`) is linked
 from every page's footer or trust row, drawn as the blue "Follow us on Facebook" button by
 `share.js` (it restyles a page's own link, or adds the button when a page has none; Lewis,
 10/24). It is managed by Muse, Lewis's Meta assistant; the
