@@ -45,7 +45,10 @@ It FAILS OPEN: any error, or a device with no camera, lets the form send (flagge
 Someone who cancels or refuses the camera is pushed to Lewis as "stopped at the face scan" with
 the name and phone typed so far. It captures; it does not detect a face or match an ID, so never
 call it identity verification on a page. The notice on its first screen (what is recorded, who
-gets it) stays. Not on `bath.html` or the Surrogate Funding pages.
+gets it) stays. Not on `bath.html`. Surrogate Funding (Lewis, 11/16: "add Surrogate Funding"): on the
+bail request form only, with the Foundation's own logo and name (`data-logo`, `data-org`, set in
+`scripts/make-surrogate.py`, which needs Python 3.12). NOT on `reach-out`: that form takes nicknames
+and minors; do not add a face recording there without Lewis saying so for that form.
 
 **No physical address.** Lewis, 9/25: "I don't have a physical address anymore. Just use
 Myrtle Beach SC." Every page, the structured-data address, the geo tags, the email signature and the

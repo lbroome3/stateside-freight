@@ -151,6 +151,9 @@ def build(i, page):
     if slug == "give":
         body += '\n<script>\n' + open(os.path.join(SRC, "donate-script.js"), encoding="utf-8").read() + '</script>'
     extra_head = ""
+    # The face scan before the bail request sends (Lewis, 11/16: "add Surrogate Funding"). NOT on reach-out:
+    # that form takes nicknames and minors, and nobody there is asked for their face without Lewis saying so.
+    scan = '<script src="/facescan.js" data-form="Bail help request" data-logo="/surrogate-funding/media/icon-512.png" data-org="Surrogate Funding Foundation" defer></script>\n' if slug == "request-help" else ""
     if slug in FORMS:
         extra_head = '<meta name="referrer" content="no-referrer">\n<style>\n' + open(os.path.join(SRC, "sf-forms.css"), encoding="utf-8").read() + '</style>\n'
         body += '\n<script>\n' + open(os.path.join(SRC, "sf-forms.js"), encoding="utf-8").read() + '</script>'
@@ -200,7 +203,7 @@ def build(i, page):
 <!-- Visitor alerts + live chat: the GPT Marketing embed, site key "surrogate" so these visitors and
      chats ring Lewis as Surrogate Funding, never mixed with the freight site (Lewis, 11/5). -->
 <script src="https://gptmarketing.us/w/gm.js" data-site="surrogate" defer></script>
-<script src="/surrogate-funding/sf.js" defer></script>
+{scan}<script src="/surrogate-funding/sf.js" defer></script>
 <script src="/surrogate-funding/sf-3d.js" defer></script>
 <script src="/share.js" defer></script>
 </body>

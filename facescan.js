@@ -7,6 +7,7 @@
  *
  * <script src="/facescan.js" data-form="Request a Truck" [data-click="#saSubmit"] [data-need="#saName,#saEmail"] defer></script>
  *   data-click: a button that sends without a <form> (truckload's Create account).
+ *   data-logo, data-org: another site's logo and name on the scan (the Surrogate Funding bail form).
  *   data-need:  fields that must be filled before the scan opens, so the page shows its own errors first.
  *
  * When the visitor presses Send, this opens a full-screen scan first: the camera in a circle, blue
@@ -23,7 +24,7 @@
  * FAIL OPEN: any error in here lets the form send. A broken scan must never cost Lewis a lead.
  */
 (function () {
-  var me = document.currentScript, FORM = (me && me.getAttribute("data-form")) || document.title, CLICK = me && me.getAttribute("data-click"), NEED = ((me && me.getAttribute("data-need")) || "").split(",").filter(Boolean);
+  var me = document.currentScript, FORM = (me && me.getAttribute("data-form")) || document.title, CLICK = me && me.getAttribute("data-click"), LOGO = (me && me.getAttribute("data-logo")) || "/landstar-logo.png", ORG = (me && me.getAttribute("data-org")) || "Lewis Broome, Landstar Agency LBR", NEED = ((me && me.getAttribute("data-need")) || "").split(",").filter(Boolean);
   var passed = false, busy = false, pending = null;
   function q(root, sels) { for (var i = 0; i < sels.length; i++) { var e = root.querySelector(sels[i]); if (e && e.value && String(e.value).trim()) return String(e.value).trim().slice(0, 160); } return ""; }
   function who(root) {
@@ -68,10 +69,10 @@
   }
   function open() {
     css(); ov = document.createElement("div"); ov.id = "fs-ov";
-    ov.innerHTML = '<div class="in"><span class="pl"><img src="/landstar-logo.png" alt="Landstar Agent"></span><h2>One quick step: confirm you\'re a real person</h2>' +
+    ov.innerHTML = '<div class="in"><span class="pl"><img src="' + LOGO + '" alt=""></span><h2>One quick step: confirm you\'re a real person</h2>' +
       '<div class="sc" id="fs-sc"><div class="rb r1"></div><div class="rb r2"></div><div class="tk"><svg viewBox="0 0 100 100"><circle class="b" cx="50" cy="50" r="47.5"/><circle class="f" id="fs-fg" cx="50" cy="50" r="47.5"/></svg></div><div class="fc"><video id="fs-v" autoplay playsinline muted></video><div class="ln"></div></div></div>' +
       '<div class="hd" id="fs-hd">A 9-second face scan</div><div class="sb" id="fs-sb"></div>' +
-      '<p id="fs-nt">🔴 This records a short video and three photos of your face to confirm a real person is sending this request. They go only to Lewis Broome, Landstar Agency LBR, with your request. By tapping Begin face scan you agree to this.</p>' +
+      '<p id="fs-nt">🔴 This records a short video and three photos of your face to confirm a real person is sending this request. They go only to ' + ORG + ', with your request. By tapping Begin face scan you agree to this.</p>' +
       '<button class="go" id="fs-go">Begin face scan</button><button class="no" id="fs-no">Cancel</button>' +
       '<p>Prefer to talk? <a href="tel:+18033611303">Call 803-361-1303</a></p></div>';
     document.body.appendChild(ov);
