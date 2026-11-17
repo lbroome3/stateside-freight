@@ -108,6 +108,13 @@ decision card): the Amazon store pages carry "📞 Customer service: 706-417-909
 with a line sending order, return and shipping questions to Amazon Customer Service. It lives in
 the English store pages, `make-az-hot3.py` (`cs_block`) and the Spanish pairs in `make-az-es.py`.
 
+**TrueShipping.us is the name we push** (Lewis, 11/17: "i want to start pushing Trueshipping.us").
+It is a forward set at the registrar, not a host on this project: the bare address opens the Request
+a Truck page and any path on it 404s, so print it bare, never `TrueShipping.us/anything`. `share.js`
+draws the gold "TrueShipping.us" pill beside the Facebook button on the freight pages (not the store,
+bath or Surrogate Funding); the email signatures, the 3PL series posts and the same-day post say it
+too. Canonicals, structured-data URLs and links to any other page stay `www.lewisbroome.com`.
+
 The Facebook page (`https://www.facebook.com/profile.php?id=100063503293306`) is linked
 from every page's footer or trust row, drawn as the blue "Follow us on Facebook" button by
 `share.js` (it restyles a page's own link, or adds the button when a page has none; Lewis,

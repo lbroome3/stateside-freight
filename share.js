@@ -252,6 +252,24 @@
     wrap.appendChild(b);
     (foot || document.body).appendChild(wrap);
   }
+
+  // TRUESHIPPING.US, on the freight pages (Lewis, 11/17: "i want to start pushing
+  // Trueshipping.us"). The agency's own address, which forwards to Request a Truck, drawn as a
+  // gold pill beside the Facebook button. Not on the store, the bath page or Surrogate Funding.
+  if (/^\/(index|home-classic|truckload|quote|fireworks-import|customs-bond|BCOonboarding|2seats|loads|trucks|week|bco-dispatch|videos)?(\.html)?\/?$/i.test(location.pathname)) {
+    var fbs = document.querySelectorAll(".fbbtn,.fb-link");
+    var at = fbs.length ? fbs[fbs.length - 1] : null;
+    if (at && at.parentNode) {
+      var ts = document.createElement("a");
+      ts.className = "tsbtn"; ts.href = "/truckload";
+      ts.setAttribute("aria-label", "TrueShipping.us, request a truck");
+      ts.textContent = "\uD83D\uDE9B TrueShipping.us";
+      var tcss = document.createElement("style");
+      tcss.textContent = ".tsbtn{display:inline-flex!important;align-items:center;gap:6px;color:#0a1633!important;background:linear-gradient(180deg,#f7d57c,#e0ae3c)!important;border:1px solid #e0ae3c;padding:6px 14px;border-radius:999px;font:800 .9rem Inter,system-ui,sans-serif;text-decoration:none!important;line-height:1.2;margin:4px 8px 4px 0;vertical-align:middle;white-space:nowrap}";
+      document.head.appendChild(tcss);
+      at.parentNode.insertBefore(ts, at);
+    }
+  }
 })();
 
 /*
