@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/home",
+      "destination": "/index.html"
+    },
+    {
       "source": "/surrogate-funding",
       "destination": "/surrogate-funding.html"
     },
@@ -715,6 +719,149 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "/truckload",
+      "permanent": false
+    },
+    {
+      "source": "/az",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/az",
+      "permanent": false
+    },
+    {
+      "source": "/az/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/az/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/AZ",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/AZ",
+      "permanent": false
+    },
+    {
+      "source": "/AZ/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/AZ/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/Bath",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/Bath",
+      "permanent": false
+    },
+    {
+      "source": "/bath",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/bath",
+      "permanent": false
+    },
+    {
+      "source": "/surrogate-funding",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/surrogate-funding",
+      "permanent": false
+    },
+    {
+      "source": "/surrogate-funding/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/surrogate-funding/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/lewis-broome",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/lewis-broome",
+      "permanent": false
+    },
+    {
+      "source": "/ours",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/ours",
+      "permanent": false
+    },
+    {
+      "source": "/Kay50",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/Kay50",
+      "permanent": false
+    },
+    {
+      "source": "/kay50",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "https://www.lewisbroome.com/kay50",
+      "permanent": false
+    },
     {
       "source": "/az/hurricane-kit",
       "destination": "/az/power-outage-kit",
