@@ -461,6 +461,14 @@
       "destination": "https://broome-crm.vercel.app/api/portal-page"
     },
     {
+      "source": "/shift",
+      "destination": "https://broome-crm.vercel.app/api/agent-onboard?t=shift"
+    },
+    {
+      "source": "/shift/preview",
+      "destination": "https://broome-crm.vercel.app/api/agent-onboard?t=shift-preview"
+    },
+    {
       "source": "/agent-onboarding/:token",
       "destination": "https://broome-crm.vercel.app/api/agent-onboard?t=:token"
     },

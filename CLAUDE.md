@@ -75,6 +75,7 @@ shows live freight.
 | `2seats.html` | `/2seats` | Two company trucks, two seats. Driver application. |
 | `portal.html` | `/portal` → CRM | Client account setup (the HTML here is a fallback; `/portal` is proxied). |
 | (CRM page) | `/agent-onboarding/:token` → CRM | A satellite agent's private onboarding link (Lewis, 11/16): information, pay, agreement, W-9, face scan, signature. Served by the CRM's `api/agent-onboard.js`; `/agent-onboarding/preview` shows it with sample data and records nothing. Not in the sitemap, noindex. |
+| (CRM page) | `/shift` → CRM | The Off-Season Shift sign-up (Lewis, 11/17): Myron's onboarding opened to the public for Myrtle Beach bartenders and servers who answer the recruiting ad. Information, pay, Logistics Coordinator agreement, W-9, license, face scan, signature. Served by the CRM's `api/agent-onboard.js` (`?t=shift`); `/shift/preview` shows it with sample data and records nothing. The face scan is REQUIRED here, no skip (Lewis: "That's an absolute must"). Commission only: "Not a guarantee of earnings" stays, and no earnings figure goes on it beyond the one worked example. Noindex, not in the sitemap. |
 | `loads.html` | `/loads` | Open loads this week, live from the public board. Monday's post. |
 | `trucks.html` | `/trucks` | Trucks empty today and capacity. Thursday's post. |
 | `week.html` | `/week` | Loads, miles, states since Monday. Friday's post. |
