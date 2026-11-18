@@ -728,6 +728,303 @@
   ],
   "redirects": [
     {
+      "source": "/truckload",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/truckload",
+      "permanent": true
+    },
+    {
+      "source": "/truckload.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/truckload",
+      "permanent": true
+    },
+    {
+      "source": "/quote",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/quote",
+      "permanent": true
+    },
+    {
+      "source": "/quote.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/quote",
+      "permanent": true
+    },
+    {
+      "source": "/fireworks-import",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/fireworks-import",
+      "permanent": true
+    },
+    {
+      "source": "/fireworks-import.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/fireworks-import",
+      "permanent": true
+    },
+    {
+      "source": "/customs-bond",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/customs-bond",
+      "permanent": true
+    },
+    {
+      "source": "/customs-bond.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/customs-bond",
+      "permanent": true
+    },
+    {
+      "source": "/BCOonboarding",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/BCOonboarding",
+      "permanent": true
+    },
+    {
+      "source": "/BCOonboarding.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/BCOonboarding",
+      "permanent": true
+    },
+    {
+      "source": "/2seats",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/2seats",
+      "permanent": true
+    },
+    {
+      "source": "/2seats.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/2seats",
+      "permanent": true
+    },
+    {
+      "source": "/loads",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/loads",
+      "permanent": true
+    },
+    {
+      "source": "/loads.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/loads",
+      "permanent": true
+    },
+    {
+      "source": "/trucks",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/trucks",
+      "permanent": true
+    },
+    {
+      "source": "/trucks.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/trucks",
+      "permanent": true
+    },
+    {
+      "source": "/week",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/week",
+      "permanent": true
+    },
+    {
+      "source": "/week.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/week",
+      "permanent": true
+    },
+    {
+      "source": "/videos",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/videos",
+      "permanent": true
+    },
+    {
+      "source": "/videos.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/videos",
+      "permanent": true
+    },
+    {
+      "source": "/bco-dispatch",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/bco-dispatch",
+      "permanent": true
+    },
+    {
+      "source": "/bco-dispatch.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/bco-dispatch",
+      "permanent": true
+    },
+    {
+      "source": "/home-classic",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/home",
+      "permanent": true
+    },
+    {
+      "source": "/home-classic.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/home",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/home",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "/lewis-broome",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/home",
+      "permanent": true
+    },
+    {
       "source": "/",
       "has": [
         {

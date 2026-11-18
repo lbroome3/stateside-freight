@@ -9,3 +9,4 @@ Allow: /
 Disallow: /d/
 
 Sitemap: https://www.lewisbroome.com/sitemap.xml
+Sitemap: https://www.trueshipping.us/sitemap-trucking.xml

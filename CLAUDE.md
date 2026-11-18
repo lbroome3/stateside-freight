@@ -1,4 +1,4 @@
-# lewisbroome.com — the marketing and quoting site
+# lewisbroome.com and TrueShipping.us — the marketing and quoting site
 
 Lewis Broome's public site for Stateside International Logistics, Landstar Agency LBR.
 Static HTML on Vercel, deployed from `main`. The CRM is a separate repo
@@ -109,12 +109,18 @@ decision card): the Amazon store pages carry "📞 Customer service: 706-417-909
 with a line sending order, return and shipping questions to Amazon Customer Service. It lives in
 the English store pages, `make-az-hot3.py` (`cs_block`) and the Spanish pairs in `make-az-es.py`.
 
-**TrueShipping.us is the name we push** (Lewis, 11/17: "i want to start pushing Trueshipping.us").
-It is a forward set at the registrar, not a host on this project: the bare address opens the Request
-a Truck page and any path on it 404s, so print it bare, never `TrueShipping.us/anything`. `share.js`
-draws the gold "TrueShipping.us" pill beside the Facebook button on the freight pages (not the store,
-bath or Surrogate Funding); the email signatures, the 3PL series posts and the same-day post say it
-too. Canonicals, structured-data URLs and links to any other page stay `www.lewisbroome.com`.
+**TrueShipping.us is the trucking site's address** (Lewis, 11/17: "i want to start pushing Trueshipping.us" /
+"Everything trucking related to trueshipping.us"). Since 11/18 it is a real host on this project (GoDaddy DNS
+points at Vercel; `trueshipping.us` forwards to `www.trueshipping.us`). The trucking pages (home, truckload, quote,
+fireworks-import, customs-bond, BCOonboarding, 2seats, loads, trucks, week, videos, bco-dispatch) carry
+`https://www.trueshipping.us/...` in their canonical, og:url and structured data, and are listed in
+`sitemap-trucking.xml`. In `vercel.json`, host rules do the rest: on `www.lewisbroome.com` those paths 301 to the
+same path on TrueShipping.us and `/` opens Lewis's own page (`/lewis-broome`); on `www.trueshipping.us` `/` opens
+Request a Truck, `/home` is the home page, and the store, bath, Surrogate Funding and Lewis's page forward back to
+`www.lewisbroome.com`. Everything else stays `www.lewisbroome.com`: the store, bath, Surrogate Funding, `/shift`,
+and every CRM link already in someone's inbox (`/j/`, `/rc/`, `/track`, `/portal`, `/agent-onboarding`, `/api`).
+A new trucking page gets its TrueShipping.us canonical, a line in `sitemap-trucking.xml` and a host redirect.
+`share.js` draws the gold "TrueShipping.us" pill beside the Facebook button on the trucking pages.
 
 The Facebook page (`https://www.facebook.com/profile.php?id=100063503293306`) is linked
 from every page's footer or trust row, drawn as the blue "Follow us on Facebook" button by
