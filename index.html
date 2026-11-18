@@ -88,6 +88,8 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 /* ---------- top bar ---------- */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,3vw,34px);transition:background .35s,box-shadow .35s}
 .topbar.solid{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);box-shadow:var(--shadow-sm)}
+/* over a dark section, once the page has moved: dark glass, so the hero headline never runs under the logo (Lewis, 11/18) */
+.topbar.dim{background:rgba(8,26,44,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 6px 20px rgba(0,0,0,.28)}
 .brand{display:flex;align-items:center;gap:11px}
 .brand .mark{width:44px;height:44px;border-radius:11px;flex:none;background:#fff;display:flex;align-items:center;justify-content:center;padding:5px;box-shadow:0 6px 16px rgba(8,26,44,.25)}
 .brand .mark img,.foot-brand .mark img,.mock-brandline .mk img{width:100%;height:100%;object-fit:contain;display:block}
@@ -102,6 +104,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .top-cta{background:linear-gradient(135deg,var(--amber),var(--amber-700));color:#fff;font-weight:800;font-size:.9rem;padding:11px 22px;border-radius:999px;box-shadow:0 8px 20px rgba(14,128,212,.35);transition:transform .25s,box-shadow .25s;display:inline-block}
 .top-cta:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(14,128,212,.45)}
 @media(max-width:640px){.top-phone span{display:none}}
+@media(max-width:480px){.topbar{padding:10px 14px}.brand{gap:8px}.brand-text span{display:none}.brand-text b{font-size:.92rem}.top-actions{gap:12px}.top-cta{padding:9px 14px;font-size:.82rem;white-space:nowrap}}
 
 /* ---------- numbered rail (desktop) ---------- */
 .rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail-w);z-index:55;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;pointer-events:none}
@@ -879,21 +882,21 @@ body.vo-playing section.step{padding-bottom:110px}
       <p class="lede reveal d1">Stateside International Logistics is a team: the people below, plus our own autonomous agents that quote, track and answer around the clock. A person confirms every rate and every truck.</p>
       <div class="team-grid">
         <div class="team-card reveal d1">
-          <img src="/assets/lewis-broome-iii.jpg" alt="Lewis Broome III" width="86" height="86" loading="lazy">
+          <img src="/assets/team/sm/lewis-broome-iii.jpg" alt="Lewis Broome III" width="86" height="86" loading="lazy">
           <span class="tag">Person</span>
           <b>Lewis Broome III</b>
           <span class="role">Director of Autonomous Super Intelligence Freight Operations</span>
           <p>Landstar agent since 2017. Runs the agency and the Landstar network behind every load.</p>
         </div>
         <div class="team-card reveal d1">
-          <img src="/assets/team/kaylah-broome.jpg" alt="Kaylah Broome" width="86" height="86" loading="lazy">
+          <img src="/assets/team/sm/kaylah-broome.jpg" alt="Kaylah Broome" width="86" height="86" loading="lazy">
           <span class="tag">Person</span>
           <b>Kaylah Broome</b>
           <span class="role">Director of Operations / CFO</span>
           <p>Runs the agency's day-to-day operations and its finances.</p>
         </div>
         <div class="team-card reveal d2">
-          <img src="/assets/team/myron-chinn-landstar-agent.png" alt="Myron Chinn" width="86" height="86" loading="lazy">
+          <img src="/assets/team/sm/myron-chinn-landstar-agent.jpg" alt="Myron Chinn" width="86" height="86" loading="lazy">
           <span class="tag">Person</span>
           <b>Myron Chinn</b>
           <span class="role">Director of Business Development · Special Projects</span>
@@ -901,7 +904,7 @@ body.vo-playing section.step{padding-bottom:110px}
           <a class="call" href="tel:+18434693431">📞 Call Myron</a><span style="font-size:.85rem;color:rgba(255,255,255,.7)">(843) 469-3431</span>
         </div>
         <div class="team-card reveal d3">
-          <img src="/assets/team/cronin-ai.png" alt="Cronin, the agency's AI" width="86" height="86" loading="lazy" style="border-color:#d4a72c;background:#1a1405">
+          <img src="/assets/team/sm/cronin-ai.jpg" alt="Cronin, the agency's AI" width="86" height="86" loading="lazy" style="border-color:#d4a72c;background:#1a1405">
           <span class="tag">Autonomous agents</span>
           <b>Stateside's Super Intelligence agents</b>
           <span class="role">Quoting · tracking · site chat · follow-up</span>
@@ -976,7 +979,10 @@ body.vo-playing section.step{padding-bottom:110px}
     railLinks.forEach(function(a){a.classList.toggle('active',a.dataset.t===railId)});
     document.body.classList.toggle('on-dark',!!(sec&&sec.classList.contains('dark')));
     if(topbar)topbar.classList.toggle('solid',!(sec&&sec.classList.contains('dark')));
+    dimTop();
   }
+  function dimTop(){if(topbar)topbar.classList.toggle('dim',!topbar.classList.contains('solid')&&(window.scrollY||document.documentElement.scrollTop)>8);}
+  addEventListener('scroll',dimTop,{passive:true});
   var so=new IntersectionObserver(function(es){
     es.forEach(function(e){if(e.isIntersecting)setActive(e.target.id)});
   },{rootMargin:'-45% 0px -45% 0px'});
