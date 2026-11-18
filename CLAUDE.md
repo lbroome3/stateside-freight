@@ -105,7 +105,7 @@ would sit on the Amazon Coupons / Today's Deals buttons, a `.btn` or the search 
 **The site speaks as the team, not as Lewis** (Lewis, 11/18: "I'm no longer a one-man show" / "Contact the team" /
 "let them know it's a combination of autonomous agents and humans, actual personnel"). The home page's `#team` block
 (and the long-form page's `#about`) shows the people with their titles (Lewis Broome III, Director of Autonomous Super
-Intelligence Freight Operations; Kayla Broome, Director of Operations / CFO; Myron Chinn, Director of Business Development · Special Projects) and one card for the
+Intelligence Freight Operations; Kaylah Broome, Director of Operations / CFO; Myron Chinn, Director of Business Development · Special Projects) and one card for the
 agency's own autonomous agents. Copy says "the team" / "our team" / "Contact the team", never "Call Lewis". His name
 stays on his own page (`/lewis-broome`), in the URL, in structured data and on his card in the team block. The
 recorded narration (`data-narr`, `assets/vo*`) is his voice and was left as recorded. A new team member gets a card
