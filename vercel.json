@@ -732,6 +732,17 @@
   ],
   "redirects": [
     {
+      "source": "/home",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/index.html",
       "has": [
         {
@@ -739,7 +750,7 @@
           "value": "www.trueshipping.us"
         }
       ],
-      "destination": "/home",
+      "destination": "/",
       "permanent": false
     },
     {
@@ -1014,7 +1025,7 @@
           "value": "www.lewisbroome.com"
         }
       ],
-      "destination": "https://www.trueshipping.us/home",
+      "destination": "https://www.trueshipping.us/",
       "permanent": true
     },
     {
@@ -1036,19 +1047,8 @@
           "value": "www.lewisbroome.com"
         }
       ],
-      "destination": "https://www.trueshipping.us/home",
+      "destination": "https://www.trueshipping.us/",
       "permanent": true
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.trueshipping.us"
-        }
-      ],
-      "destination": "/truckload",
-      "permanent": false
     },
     {
       "source": "/az",

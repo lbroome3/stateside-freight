@@ -115,8 +115,8 @@ points at Vercel; `trueshipping.us` forwards to `www.trueshipping.us`). The truc
 fireworks-import, customs-bond, BCOonboarding, 2seats, loads, trucks, week, videos, bco-dispatch) carry
 `https://www.trueshipping.us/...` in their canonical, og:url and structured data, and are listed in
 `sitemap-trucking.xml`. In `vercel.json`, host rules do the rest: on `www.lewisbroome.com` those paths 301 to the
-same path on TrueShipping.us and `/` opens Lewis's own page (`/lewis-broome`); on `www.trueshipping.us` `/` opens
-Request a Truck, `/home` is the home page, and the store, bath, Surrogate Funding and Lewis's page forward back to
+same path on TrueShipping.us and `/` opens Lewis's own page (`/lewis-broome`); on `www.trueshipping.us` `/` is
+the home page (Lewis, 11/17, when the bare name still opened Request a Truck: "still goes to this page first"), and the store, bath, Surrogate Funding and Lewis's page forward back to
 `www.lewisbroome.com`. Everything else stays `www.lewisbroome.com`: the store, bath, Surrogate Funding, `/shift`,
 and every CRM link already in someone's inbox (`/j/`, `/rc/`, `/track`, `/portal`, `/agent-onboarding`, `/api`).
 A new trucking page gets its TrueShipping.us canonical, a line in `sitemap-trucking.xml` and a host redirect.
