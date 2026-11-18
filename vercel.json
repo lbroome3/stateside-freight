@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/home-classic",
+      "destination": "/home-classic.html"
+    },
+    {
       "source": "/home",
       "destination": "/index.html"
     },
@@ -728,6 +732,17 @@
   ],
   "redirects": [
     {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.trueshipping.us"
+        }
+      ],
+      "destination": "/home",
+      "permanent": false
+    },
+    {
       "source": "/truckload",
       "has": [
         {
@@ -977,7 +992,7 @@
           "value": "www.lewisbroome.com"
         }
       ],
-      "destination": "https://www.trueshipping.us/home",
+      "destination": "https://www.trueshipping.us/home-classic",
       "permanent": true
     },
     {
@@ -988,7 +1003,7 @@
           "value": "www.lewisbroome.com"
         }
       ],
-      "destination": "https://www.trueshipping.us/home",
+      "destination": "https://www.trueshipping.us/home-classic",
       "permanent": true
     },
     {
