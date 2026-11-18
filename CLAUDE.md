@@ -109,7 +109,7 @@ Intelligence Freight Operations; Kaylah Broome, Director of Operations / CFO; My
 agency's own autonomous agents. Copy says "the team" / "our team" / "Contact the team", never "Call Lewis". His name
 stays on his own page (`/lewis-broome`), in the URL, in structured data and on his card in the team block. The
 recorded narration (`data-narr`, `assets/vo*`) is his voice and was left as recorded. A new team member gets a card
-and a photo under `assets/team/`; publish only a title and a photo, never a personal phone.
+and a photo under `assets/team/`; publish only a title and a photo, never a personal phone unless Lewis says so for that person (11/18: Myron's cell, 843-469-3431, is on his card as "Call Myron"; Kaylah has no phone).
 
 The agency line is **803-361-1303**, everywhere: pages, navs, structured data, posts
 (Lewis, 10/7: "Use 803-361-1303" — one number so Google sees a consistent business).
