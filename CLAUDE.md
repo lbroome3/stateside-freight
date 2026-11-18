@@ -102,6 +102,15 @@ Picks"). Both pills lift above the /az kit bar by its real height, and fade out 
 would sit on the Amazon Coupons / Today's Deals buttons, a `.btn` or the search box (Lewis,
 10/21: never block them on first load); they show once the page scrolls them clear.
 
+**The site speaks as the team, not as Lewis** (Lewis, 11/18: "I'm no longer a one-man show" / "Contact the team" /
+"let them know it's a combination of autonomous agents and humans, actual personnel"). The home page's `#team` block
+(and the long-form page's `#about`) shows the people with their titles (Lewis Broome III, Director of Autonomous Super
+Intelligence Freight Operations; Myron Chinn, Director of Business Development · Special Projects) and one card for the
+agency's own autonomous agents. Copy says "the team" / "our team" / "Contact the team", never "Call Lewis". His name
+stays on his own page (`/lewis-broome`), in the URL, in structured data and on his card in the team block. The
+recorded narration (`data-narr`, `assets/vo*`) is his voice and was left as recorded. A new team member gets a card
+and a photo under `assets/team/`; publish only a title and a photo, never a personal phone.
+
 The agency line is **803-361-1303**, everywhere: pages, navs, structured data, posts
 (Lewis, 10/7: "Use 803-361-1303" — one number so Google sees a consistent business).
 The old (706) 417-9097 must not come back on a freight page. The one exception (Lewis, 10/21, on a
