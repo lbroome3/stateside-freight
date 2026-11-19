@@ -59,6 +59,7 @@
     var seeds=C.map(function(_,i){return (i*0.137)%1;});
     var vis=true; if('IntersectionObserver' in window) new IntersectionObserver(function(e){vis=e[0].isIntersecting;}).observe(hero);
     function draw(){
+      if(window.__g2dStop){ cv.style.display='none'; return; }   /* the WebGL globe (truck-3d.js) took over */
       if(!vis){ requestAnimationFrame(draw); return; }
       t+=1/60; if(!still){ lon0=-98+Math.sin(t*0.15)*16; lat0=38+Math.sin(t*0.11)*5; }
       var R=W*0.48, ox=W/2, oy=W/2+R*0.1;
