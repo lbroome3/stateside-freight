@@ -417,6 +417,17 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
    ============================================================ */
 .vo-stop{position:fixed;bottom:20px;left:16px;z-index:80;display:none;align-items:center;gap:7px;background:rgba(8,26,44,.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 14px;box-shadow:var(--shadow-lg);color:#fff;font-weight:700;font-size:.8rem;cursor:pointer}
 body.vo-playing .vo-stop{display:flex}
+/* countdown (Lewis, 11/19: "put a timer on the site, countdown showing what's left ... when will the page change automatically") */
+.vo-timer{position:fixed;top:calc(var(--hdrH,70px) + 8px);left:50%;transform:translate(-50%,-6px);z-index:61;display:none;align-items:center;gap:7px;padding:7px 14px 9px;border-radius:999px;background:rgba(8,26,44,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(124,196,255,.3);box-shadow:0 10px 30px rgba(0,0,0,.35);color:#cfe6ff;font-size:.8rem;font-weight:700;white-space:nowrap;opacity:0;transition:opacity .3s,transform .3s;overflow:hidden}
+body.vo-playing .vo-timer{display:flex}
+.vo-timer.show{opacity:1;transform:translate(-50%,0)}
+.vo-timer b{font:800 1rem/1 'Archivo',system-ui,sans-serif;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.3px}
+.vo-timer #vtNext{font-variant-numeric:tabular-nums}
+.vo-timer .vt-sep{opacity:.5}
+.vt-dot{width:8px;height:8px;border-radius:50%;background:#ff5a5a;box-shadow:0 0 0 0 rgba(255,90,90,.6);animation:pulse 1.6s infinite}
+.vt-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.1)}
+.vt-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffd166,#5ab4ff);transition:width .25s linear}
+@media(max-width:600px){.vo-timer{font-size:.72rem;gap:5px;padding:6px 11px 8px}.vo-timer b{font-size:.9rem}}
 .vo-stop:hover{background:rgba(8,26,44,1);border-color:rgba(255,255,255,.3)}
 
 
@@ -533,7 +544,7 @@ body.vo-playing section.step{padding-bottom:110px}
 <section class="step dark" id="s01" data-narr="Getting a freight quote today means phone tag, waiting on callbacks, and pricing nobody explains. It shouldn't. Let me show you how fast this should be.">
   <span class="ghost" aria-hidden="true">01</span>
   <div class="wrap">
-    <span class="hero-eyebrow reveal in"><span class="pulse"></span> Independent Landstar Agency · Super Intelligence tools · A 60-second walkthrough</span>
+    <span class="hero-eyebrow reveal in"><span class="pulse"></span> Independent Landstar Agency · Super Intelligence tools · A 2-minute walkthrough</span>
     <h1 class="reveal in d1">Getting a truck shouldn't take <em>three phone calls</em> and a day of waiting.</h1>
     <p class="lede reveal in d2">Phone tag. "We'll get back to you." Pricing that appears out of nowhere. That's freight quoting today — and it's broken. Let me show you how fast this should be.</p>
     <div class="hero-actions reveal in d3">
@@ -949,12 +960,13 @@ body.vo-playing section.step{padding-bottom:110px}
   <div class="vo-gate-inner">
     <span class="vo-gate-btn"><svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
     <h3>Play the walkthrough</h3>
-    <p>60 seconds, narrated — tap anywhere to start with sound.</p>
+    <p>2 minutes, narrated — tap anywhere to start with sound.</p>
   </div>
 </div>
 
 <!-- ============ WALKTHROUGH PLAYER ============ -->
 <div class="captions" id="captions" aria-live="polite"></div>
+<div class="vo-timer" id="voTimer" aria-live="off"><span class="vt-dot"></span><b id="vtLeft">2:00</b><span class="vt-l">left</span><span class="vt-sep">·</span><span id="vtNext">Next section in 0:08</span><i class="vt-bar"><i id="vtFill"></i></i></div>
 <button class="vo-stop" id="stopBtn" type="button" aria-label="Stop the walkthrough" title="Stop the walkthrough"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg><span>Stop tour</span></button>
 
 <script>
@@ -1046,6 +1058,42 @@ body.vo-playing section.step{padding-bottom:110px}
      dwell(text) = how long to hold a section when there's NO audio
                    (reading pace ~11 chars/sec, generous floor) */
   var GAP=1400, VOEXT='.mp3', panTimer=null;
+  /* recorded clip lengths (seconds, ffprobe of assets/vo/*.mp3) — the countdown's plan; the live clip's real
+     duration replaces its entry the moment it starts playing */
+  var CLIP={s01:8.7,s02:10.5,s03:19.2,s04:19.8,s05:6.2,s05a:6.5,s05b:8.5,s05c:5.7,s05d:6.1,s05e:6.2,s06:10.3};
+  var stopAt=0, stopMs=0, tmr=$('voTimer'), vtL=$('vtLeft'), vtN=$('vtNext'), vtF=$('vtFill'), tick=null;
+  function planMs(j){var e=stops[j];return unlocked&&CLIP[e.id]?CLIP[e.id]*1000:dwell(e.getAttribute('data-narr'));}
+  function totalMs(){var t=0;for(var j=0;j<stops.length;j++)t+=planMs(j)+(j<stops.length-1?GAP:0);return t;}
+  function fmt(ms){var s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+('0'+s%60).slice(-2);}
+  function drawTimer(){
+    if(!tmr)return;
+    var hb=$('topbar');if(hb)document.documentElement.style.setProperty('--hdrH',hb.offsetHeight+'px');
+    var inStop=Math.max(0,stopMs-(Date.now()-stopAt)),left=inStop;
+    for(var j=idx+1;j<stops.length;j++)left+=GAP+planMs(j);
+    var tot=totalMs();
+    vtL.textContent=fmt(left);
+    vtN.textContent=idx>=stops.length-1?('Ends on the team in '+fmt(inStop)):('Next section in '+fmt(inStop+GAP));
+    vtF.style.width=Math.min(100,(1-left/tot)*100).toFixed(1)+'%';
+    tmr.classList.add('show');
+  }
+  function startTick(){if(!tick)tick=setInterval(drawTimer,250);drawTimer();}
+  function stopTick(){if(tick){clearInterval(tick);tick=null;}if(tmr)tmr.classList.remove('show');}
+  /* the last section ends framed on the team, the whole staff centred (Lewis, 11/19: "make that whole entire
+     page of the staff the centerpiece. It has to be framed that way") */
+  function frameTeam(smooth,pass){
+    var t=document.getElementById('team');if(!t)return;
+    var hb=$('topbar'),hdr=hb?hb.offsetHeight:70,room=window.innerHeight-hdr-70;
+    var y0=window.scrollY,top=function(el){return el.getBoundingClientRect().top+y0;};
+    var bottom=t.querySelector('.team-contact'),endY=bottom?top(bottom)+bottom.offsetHeight:top(t)+t.offsetHeight;
+    var starts=[t,t.querySelector('h2'),t.querySelector('.team-grid')],from=top(t);
+    for(var k=0;k<starts.length;k++){if(starts[k]&&endY-top(starts[k])<=room){from=top(starts[k]);break;}from=starts[k]?top(starts[k]):from;}
+    var h=endY-from,y=Math.max(0,from-hdr-Math.max(0,(room-h)/2)-8);
+    window.scrollTo({top:y,behavior:smooth?'smooth':'instant'});
+    if(!pass){try{document.dispatchEvent(new CustomEvent('team:frame'));}catch(e){}}
+    /* lazy images and reveals above can still shift the page while it glides: re-aim once it settles */
+    if((pass||0)<3)setTimeout(function(){frameTeam(smooth,(pass||0)+1);},smooth?1100:250);
+  }
+  window.__frameTeam=frameTeam;
   function dwell(text){return Math.max(7500,text.length*90);}
 
   /* playStop drives exactly ONE advance per section via the `done` guard,
@@ -1053,14 +1101,16 @@ body.vo-playing section.step{padding-bottom:110px}
      timer goes through the single `timer` var (cleared first) so nothing
      stacks or double-fires. */
   function playStop(i){
-    if(i>=stops.length){stop();return}
+    if(i>=stops.length){stop();frameTeam(true);return}
     idx=i;var el=stops[i],text=el.getAttribute('data-narr');
     el.scrollIntoView({behavior:'smooth',block:'start'});
+    stopAt=Date.now();stopMs=planMs(i);startTick();
     caption(text);
     clearTimer();
     /* a section taller than the screen gets one slow glide to its bottom edge
        mid-narration, so nothing the voice mentions stays below the fold */
     function schedulePan(totalMs){
+      if(el.querySelector('#team')){panTimer=setTimeout(function(){if(playing&&idx===i)frameTeam(true);},Math.max(2200,totalMs*.4));return;}
       var extra=el.offsetHeight-window.innerHeight+120;
       if(extra>40){panTimer=setTimeout(function(){
         if(playing&&idx===i)window.scrollTo({top:el.offsetTop+extra,behavior:'smooth'});
@@ -1076,7 +1126,7 @@ body.vo-playing section.step{padding-bottom:110px}
        advances; a speech ERROR does NOT insta-advance (that was the old
        "too fast" bug) — it holds for reading time instead. */
     function toSpeech(){
-      if(spoke||done||!playing)return;spoke=true;clearTimer();schedulePan(dwell(text));
+      if(spoke||done||!playing)return;spoke=true;clearTimer();stopAt=Date.now();stopMs=dwell(text);schedulePan(dwell(text));
       if(synth){
         try{synth.cancel();}catch(e){}
         var u=new SpeechSynthesisUtterance(text);
@@ -1095,7 +1145,7 @@ body.vo-playing section.step{padding-bottom:110px}
     if(!unlocked){timer=setTimeout(advance,dwell(text));schedulePan(dwell(text));return;}
 
     /* Unlocked: play the recorded clip; its real duration paces the tour. */
-    vo.onplaying=function(){audioOk=true;caption(text);schedulePan(isFinite(vo.duration)&&vo.duration>1?vo.duration*1000:dwell(text));};
+    vo.onplaying=function(){audioOk=true;caption(text);if(isFinite(vo.duration)&&vo.duration>1){stopAt=Date.now()-vo.currentTime*1000;stopMs=vo.duration*1000;}schedulePan(isFinite(vo.duration)&&vo.duration>1?vo.duration*1000:dwell(text));};
     vo.onended=advance;
     vo.onerror=toSpeech;
     try{
@@ -1113,7 +1163,7 @@ body.vo-playing section.step{padding-bottom:110px}
     playStop(fromStart?0:idx);
   }
   function pause(){
-    setPP(false);clearTimer();releaseWake();
+    setPP(false);clearTimer();releaseWake();stopTick();
     vo.onended=null;vo.onerror=null;vo.onplaying=null;
     try{vo.pause();vo.currentTime=0;}catch(e){}
     if(synth){try{synth.cancel();}catch(e){}}

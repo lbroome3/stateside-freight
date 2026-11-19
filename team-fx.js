@@ -52,6 +52,12 @@
     ".tfx .team-contact a{animation:tfxBtn 3s ease-in-out infinite}",
     ".tfx .team-contact a+a{animation-delay:1.5s}",
     "@keyframes tfxBtn{0%,100%{box-shadow:0 6px 18px rgba(14,128,212,.25)}50%{box-shadow:0 0 0 6px rgba(124,196,255,.18),0 10px 34px rgba(14,128,212,.55)}}",
+    /* phone: one swipe row so the whole team fits one screen; it steps person to person on its own */
+    "@media (max-width:760px){.tfx .team-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:6px 9% 14px;margin:22px -16px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}.tfx .team-grid::-webkit-scrollbar{display:none}.tfx .team-card{flex:0 0 82%;scroll-snap-align:center;min-height:0}.tfx .team-card p{font-size:.86rem}}",
+    ".tfx-dots{display:none;justify-content:center;gap:7px;margin-top:4px}",
+    ".tfx-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.3);cursor:pointer;transition:width .3s,background .3s}",
+    ".tfx-dots button.on{width:22px;border-radius:5px;background:#5ab4ff}",
+    "@media (max-width:760px){.tfx-dots{display:flex}.tfx .team-block h2{font-size:clamp(1.5rem,7vw,2rem)}}",
     "@media (prefers-reduced-motion:reduce){.tfx *{animation:none!important;transition:none!important}.tfx .team-card.tfx-wait{opacity:1;transform:none}}"
   ].join("\n");
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
@@ -95,33 +101,75 @@
     })();
   }
 
-  // Fly in, one after another, when the section reaches the screen; then start the hello bubbles.
+  // Fly in, one after another, when the team is actually in the middle of the screen (Lewis, 11/19: "By the
+  // time I get down there, it's already loaded") — and again each time the walkthrough frames the team.
+  var grid = team.querySelector(".team-grid");
+  var phone = function () { return window.matchMedia("(max-width:760px)").matches; };
   cards.forEach(function (c) { c.classList.remove("reveal", "d1", "d2", "d3"); if (!still) c.classList.add("tfx-wait"); });
-  var started = false;
-  function start() {
-    if (started) return; started = true;
+  var hiTimer = null, stepTimer = null, k = 0, touched = false;
+  function flyIn() {
     cards.forEach(function (c, i) {
-      setTimeout(function () { c.classList.remove("tfx-wait"); c.classList.add("tfx-go"); }, still ? 0 : i * 180);
+      c.classList.remove("tfx-go"); if (!still) c.classList.add("tfx-wait"); void c.offsetWidth;
+      setTimeout(function () { c.classList.remove("tfx-wait"); c.classList.add("tfx-go"); }, still ? 0 : 150 + i * 200);
     });
-    if (!still && bubbles.length) {
-      var k = 0;
-      setTimeout(function cycle() {
-        bubbles.forEach(function (b) { b.classList.remove("on"); });
-        bubbles[k % bubbles.length].classList.add("on");
-        k++; setTimeout(cycle, 2600);
-      }, cards.length * 180 + 500);
+  }
+  function hello(n) {
+    bubbles.forEach(function (b) { b.classList.remove("on"); });
+    var card = cards[n % cards.length], b = card && card.querySelector(".tfx-hi");
+    if (b) b.classList.add("on");
+  }
+  function cycle() {
+    clearTimeout(hiTimer);
+    if (phone() && grid && !touched) {
+      var c = cards[k % cards.length];
+      grid.scrollTo({ left: c.offsetLeft - (grid.clientWidth - c.offsetWidth) / 2, behavior: "smooth" });
     }
+    hello(k); setDot(k % cards.length); k++;
+    hiTimer = setTimeout(cycle, 2600);
+  }
+  var dots = document.createElement("div"); dots.className = "tfx-dots";
+  cards.forEach(function (c, i) {
+    var d = document.createElement("button"); d.type = "button"; d.setAttribute("aria-label", "Show card " + (i + 1));
+    d.addEventListener("click", function () { touched = true; k = i; grid.scrollTo({ left: c.offsetLeft - (grid.clientWidth - c.offsetWidth) / 2, behavior: "smooth" }); hello(i); setDot(i); });
+    dots.appendChild(d);
+  });
+  if (grid) grid.insertAdjacentElement("afterend", dots);
+  function setDot(n) { [].forEach.call(dots.children, function (d, i) { d.classList.toggle("on", i === n); }); }
+  if (grid) {
+    ["touchstart", "pointerdown", "wheel"].forEach(function (ev) { grid.addEventListener(ev, function () { touched = true; }, { passive: true }); });
+    grid.addEventListener("scroll", function () {
+      if (!phone()) return;
+      var mid = grid.scrollLeft + grid.clientWidth / 2, best = 0, bd = 1e9;
+      cards.forEach(function (c, i) { var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
+      setDot(best);
+    }, { passive: true });
+  }
+  var running = false;
+  function start() {
+    flyIn();
+    if (still) return;
+    k = 0; touched = false;
+    clearTimeout(hiTimer); hiTimer = setTimeout(cycle, 150 + cards.length * 200 + 400);
+    running = true;
   }
   if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { start(); io.disconnect(); } }); }, { threshold: 0.2 });
-    io.observe(team);
+    // the team block crosses the middle third of the screen = the visitor is really looking at it
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !running) start();
+        if (!e.isIntersecting && running) { running = false; clearTimeout(hiTimer); }
+      });
+    }, { rootMargin: "-38% 0px -38% 0px", threshold: 0 });
+    io.observe(grid || team);
   } else start();
+  document.addEventListener("team:frame", function () { setTimeout(start, 500); });
+  setDot(0);
 
   // 3D tilt: pointer on a computer, the phone's tilt on a phone (Android; iPhone needs a permission tap, so it simply stays flat).
   if (still) return;
   cards.forEach(function (c) {
     c.addEventListener("pointermove", function (e) {
-      if (e.pointerType === "touch") return;
+      if (e.pointerType === "touch" || phone()) return;
       var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
       c.style.setProperty("--mx", (x * 100) + "%"); c.style.setProperty("--my", (y * 100) + "%");
       c.style.transform = "rotateY(" + ((x - .5) * 14) + "deg) rotateX(" + ((.5 - y) * 12) + "deg) translateZ(6px)";
@@ -134,7 +182,7 @@
     raf = requestAnimationFrame(function () {
       raf = 0;
       var gx = Math.max(-1, Math.min(1, e.gamma / 30)), gy = Math.max(-1, Math.min(1, ((e.beta || 45) - 45) / 30));
-      cards.forEach(function (c) { if (c.classList.contains("tfx-go")) c.style.transform = "rotateY(" + (gx * 8) + "deg) rotateX(" + (-gy * 6) + "deg)"; });
+      if (phone()) return; cards.forEach(function (c) { if (c.classList.contains("tfx-go")) c.style.transform = "rotateY(" + (gx * 8) + "deg) rotateX(" + (-gy * 6) + "deg)"; });
     });
   });
 })();
