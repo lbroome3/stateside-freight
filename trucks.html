@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Trucks Available Today — Landstar Agency LBR | TrueShipping.us</title>
-<meta name="description" content="Trucks going empty today and capacity ready this week with Landstar Agency LBR: 53 ft vans, hazmat endorsed, tracked live. Need a reload or a truck? Call or text 803-361-1303.">
+<meta name="description" content="Trucks going empty today and capacity ready this week with Landstar Agency LBR: 53 ft vans, hazmat endorsed, tracked live. Need a reload or a truck? Call or text 706-417-9097.">
 <meta property="og:title" content="Trucks available — Landstar Agency LBR">
-<meta property="og:description" content="Trucks empty today and capacity ready this week. 53 ft vans, hazmat endorsed. Call or text 803-361-1303.">
+<meta property="og:description" content="Trucks empty today and capacity ready this week. 53 ft vans, hazmat endorsed. Call or text 706-417-9097.">
 <meta property="og:image" content="https://www.trueshipping.us/assets/videos/poster-dispatch.jpg">
 <link rel="canonical" href="https://www.trueshipping.us/trucks">
 <meta property="og:url" content="https://www.trueshipping.us/trucks">
@@ -31,13 +31,13 @@
 <body>
 <div class="wrap">
 <h1>Trucks available</h1>
-<p class="muted">Landstar Agency LBR · Stateside International Logistics · Contact the team: <a href="tel:+18033611303">803-361-1303</a></p>
+<p class="muted">Landstar Agency LBR · Stateside International Logistics · Contact the team: <a href="tel:+17064179097">706-417-9097</a></p>
 
 <p>Trucks running for this agency come empty somewhere every day, and a truck that is empty near you is the cheapest truck you will get. Below is where they go empty today. If your dock is near one, say so and it is yours.</p>
 
 <div class="row">
  <a class="btn go" href="/truckload">🚛 Request a truck</a>
- <a class="btn" href="sms:+18033611303?body=I%20have%20a%20reload%20near%20one%20of%20your%20empty%20trucks">📱 Text 803-361-1303</a>
+ <a class="btn" href="sms:+17064179097?body=I%20have%20a%20reload%20near%20one%20of%20your%20empty%20trucks">📱 Text 706-417-9097</a>
 </div>
 
 <h2>Empty today</h2>
@@ -69,10 +69,10 @@
     if(!t.length){ box.innerHTML='<div class="card">No truck goes empty today. Capacity is ready this week; ask for a truck and a person confirms it.</div>'; }
     else box.innerHTML=t.map(function(x){
       return '<div class="card"><div class="lane">Empty in '+esc(x.city)+'</div><div class="meta">'+esc(x.day||'today')+' afternoon · '+esc(x.equipment||'53 ft van')+' · hazmat endorsed</div>'+
-        '<div class="row"><a class="btn go" href="sms:+18033611303?body='+encodeURIComponent('I have a reload out of '+x.city+' '+(x.day||'today'))+'">Text: I have a reload here</a></div></div>';
+        '<div class="row"><a class="btn go" href="sms:+17064179097?body='+encodeURIComponent('I have a reload out of '+x.city+' '+(x.day||'today'))+'">Text: I have a reload here</a></div></div>';
     }).join('');
     if(d&&d.date) stamp.textContent='Updated '+d.date+' · Landstar Agency LBR';
-  }catch(e){ box.innerHTML='<div class="card">Ask where the trucks are: <a href="tel:+18033611303">803-361-1303</a>.</div>'; }
+  }catch(e){ box.innerHTML='<div class="card">Ask where the trucks are: <a href="tel:+17064179097">706-417-9097</a>.</div>'; }
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 })();
 </script>

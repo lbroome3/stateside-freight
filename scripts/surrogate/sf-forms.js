@@ -45,11 +45,11 @@
         var first = null;
         Object.keys(errs).forEach(function (k) { setErr(k, errs[k]); if (!first) first = form.querySelector('[name="' + k + '"]'); });
         if (errs.turnstile && fail) fail.textContent = errs.turnstile;
-        if (!Object.keys(errs).length && fail) fail.textContent = "We couldn't save that just now. Please try again in a minute, or call or text 803-361-1303.";
+        if (!Object.keys(errs).length && fail) fail.textContent = "We couldn't save that just now. Please try again in a minute, or call or text 706-417-9097.";
         if (first && first.focus) first.focus();
         if (window.turnstile && siteKey) { window.turnstile.reset(); tsToken = ""; }
       })
-      .catch(function () { if (fail) fail.textContent = "We couldn't reach our server. Please try again, or call or text 803-361-1303."; })
+      .catch(function () { if (fail) fail.textContent = "We couldn't reach our server. Please try again, or call or text 706-417-9097."; })
       .then(function () { btn.disabled = false; });
   });
 })();

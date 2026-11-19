@@ -18,7 +18,7 @@
  * WHAT IT IS NOT. It captures; it does not match a face to an ID. The notice on the first screen says
  * what is recorded and who gets it, before the camera opens.
  * NO CAMERA ON THE DEVICE (many office computers): the request goes through, flagged "no camera".
- * CAMERA REFUSED: the request waits; the visitor can allow it, or call 803-361-1303.
+ * CAMERA REFUSED: the request waits; the visitor can allow it, or call 706-417-9097.
  * STOPPED AT THE SCAN (Cancel, camera refused, page closed): Lewis is told with the name and phone
  * typed so far, so he can call. "I can't miss an opportunity to retain a customer" (9/25).
  * FAIL OPEN: any error in here lets the form send. A broken scan must never cost Lewis a lead.
@@ -74,7 +74,7 @@
       '<div class="hd" id="fs-hd">A 9-second face scan</div><div class="sb" id="fs-sb"></div>' +
       '<p id="fs-nt">🔴 This records a short video and three photos of your face to confirm a real person is sending this request. They go only to ' + ORG + ', with your request. By tapping Begin face scan you agree to this.</p>' +
       '<button class="go" id="fs-go">Begin face scan</button><button class="no" id="fs-no">Cancel</button>' +
-      '<p>Prefer to talk? <a href="tel:+18033611303">Call 803-361-1303</a></p></div>';
+      '<p>Prefer to talk? <a href="tel:+17064179097">Call 706-417-9097</a></p></div>';
     document.body.appendChild(ov);
     ov.querySelector("#fs-no").onclick = function () { stopped("tapped Cancel"); busy = false; pending = null; close(); };
     ov.querySelector("#fs-go").onclick = begin;
@@ -92,7 +92,7 @@
       .catch(function (err) {
         var n = (err && err.name) || "";
         if (n === "NotFoundError" || n === "OverconstrainedError" || n === "NotReadableError") { hd.textContent = "No camera found. Sending your request…"; return send({ noCam: true, why: n }); }
-        stopped("camera not allowed"); go.disabled = false; go.textContent = "Try again"; hd.textContent = "Camera access is needed"; nt.textContent = "Please allow the camera for this page, then tap Try again. Or call 803-361-1303 and Lewis will take your request by phone.";
+        stopped("camera not allowed"); go.disabled = false; go.textContent = "Try again"; hd.textContent = "Camera access is needed"; nt.textContent = "Please allow the camera for this page, then tap Try again. Or call 706-417-9097 and Lewis will take your request by phone.";
       });
   }
   function run() {

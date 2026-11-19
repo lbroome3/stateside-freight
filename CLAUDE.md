@@ -111,12 +111,14 @@ stays on his own page (`/lewis-broome`), in the URL, in structured data and on h
 recorded narration (`data-narr`, `assets/vo*`) is his voice and was left as recorded. A new team member gets a card
 and a photo under `assets/team/`; publish only a title and a photo, never a personal phone unless Lewis says so for that person (11/18: Myron's cell, 843-469-3431, is on his card as "Call Myron"; Kaylah has no phone).
 
-The agency line is **803-361-1303**, everywhere: pages, navs, structured data, posts
-(Lewis, 10/7: "Use 803-361-1303" — one number so Google sees a consistent business).
-The old (706) 417-9097 must not come back on a freight page. The one exception (Lewis, 10/21, on a
-decision card): the Amazon store pages carry "📞 Customer service: 706-417-9097" in the footer,
-with a line sending order, return and shipping questions to Amazon Customer Service. It lives in
-the English store pages, `make-az-hot3.py` (`cs_block`) and the Spanish pairs in `make-az-es.py`.
+The contact line is **706-417-9097**, everywhere: pages, navs, structured data, posts, the CRM's
+signature cards and letters (Lewis, 11/19: "Update that phone number everywhere"; it replaced 803-361-1303,
+which was the one number from 10/7 to 11/19). 803-361-1303 must not come back on any page. Lewis changed his
+Google listing himself; never log in to a listing or account to change it (11/19: "some of those places I
+don't have access to anymore, I don't want to get blocked"). The Amazon store pages' "📞 Customer service:
+706-417-9097" footer (Lewis, 10/21) is the same number; it lives in the English store pages,
+`make-az-hot3.py` (`cs_block`) and the Spanish pairs in `make-az-es.py`. The recorded narration
+(`assets/vo*`) and images made before 11/19 may still say 803; remake an image when it is touched.
 
 **TrueShipping.us is the trucking site's address** (Lewis, 11/17: "i want to start pushing Trueshipping.us" /
 "Everything trucking related to trueshipping.us"). Since 11/18 it is a real host on this project (GoDaddy DNS

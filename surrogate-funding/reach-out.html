@@ -343,11 +343,11 @@
         var first = null;
         Object.keys(errs).forEach(function (k) { setErr(k, errs[k]); if (!first) first = form.querySelector('[name="' + k + '"]'); });
         if (errs.turnstile && fail) fail.textContent = errs.turnstile;
-        if (!Object.keys(errs).length && fail) fail.textContent = "We couldn't save that just now. Please try again in a minute, or call or text 803-361-1303.";
+        if (!Object.keys(errs).length && fail) fail.textContent = "We couldn't save that just now. Please try again in a minute, or call or text 706-417-9097.";
         if (first && first.focus) first.focus();
         if (window.turnstile && siteKey) { window.turnstile.reset(); tsToken = ""; }
       })
-      .catch(function () { if (fail) fail.textContent = "We couldn't reach our server. Please try again, or call or text 803-361-1303."; })
+      .catch(function () { if (fail) fail.textContent = "We couldn't reach our server. Please try again, or call or text 706-417-9097."; })
       .then(function () { btn.disabled = false; });
   });
 })();
@@ -363,7 +363,7 @@
     <div class="foot-top">
       <p class="foot-name"><img class="foot-lockup" src="/surrogate-funding/media/lockup-gold.png" alt="Surrogate Funding Foundation" width="260" height="246"></p>
       <p class="motto">Faith. Family. Finances. Order. Loud and right.</p>
-      <p class="motto">Call or text <a href="tel:+18033611303" style="color:inherit">803-361-1303</a></p>
+      <p class="motto">Call or text <a href="tel:+17064179097" style="color:inherit">706-417-9097</a></p>
     </div>
     <nav class="foot-links" aria-label="All pages">
         <a href="/surrogate-funding">Home</a>

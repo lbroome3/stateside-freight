@@ -245,7 +245,7 @@
         <li>A phone number or email where we can reach <em>you</em>.</li>
       </ul>
       <p class="note">We help with <strong>non-violent charges only</strong>. Please don't send Social Security numbers or any ID numbers other than the inmate number. Everything you send stays private with Surrogate Funding Foundation and is never sold or shared.</p>
-      <p>If you'd rather talk, call or text <a href="tel:+18033611303"><strong>803-361-1303</strong></a>.</p>
+      <p>If you'd rather talk, call or text <a href="tel:+17064179097"><strong>706-417-9097</strong></a>.</p>
     </aside>
 
     <form class="sf-form" data-kind="bail" data-turnstile-sitekey="" novalidate aria-label="Bail assistance request">
@@ -304,7 +304,7 @@
     <div class="sent" id="sent" hidden aria-live="polite">
       <p class="label">Received</p>
       <h2>We have your request.</h2>
-      <p>A real person at Surrogate Funding will read it, verify the booking with the facility, and reach you at the number or email you gave. If something changes, such as a court date or a bond reduction, call or text <a href="tel:+18033611303">803-361-1303</a>.</p>
+      <p>A real person at Surrogate Funding will read it, verify the booking with the facility, and reach you at the number or email you gave. If something changes, such as a court date or a bond reduction, call or text <a href="tel:+17064179097">706-417-9097</a>.</p>
       <p><a href="/surrogate-funding">Back to Surrogate Funding</a></p>
     </div>
   </div>
@@ -358,11 +358,11 @@
         var first = null;
         Object.keys(errs).forEach(function (k) { setErr(k, errs[k]); if (!first) first = form.querySelector('[name="' + k + '"]'); });
         if (errs.turnstile && fail) fail.textContent = errs.turnstile;
-        if (!Object.keys(errs).length && fail) fail.textContent = "We couldn't save that just now. Please try again in a minute, or call or text 803-361-1303.";
+        if (!Object.keys(errs).length && fail) fail.textContent = "We couldn't save that just now. Please try again in a minute, or call or text 706-417-9097.";
         if (first && first.focus) first.focus();
         if (window.turnstile && siteKey) { window.turnstile.reset(); tsToken = ""; }
       })
-      .catch(function () { if (fail) fail.textContent = "We couldn't reach our server. Please try again, or call or text 803-361-1303."; })
+      .catch(function () { if (fail) fail.textContent = "We couldn't reach our server. Please try again, or call or text 706-417-9097."; })
       .then(function () { btn.disabled = false; });
   });
 })();
@@ -378,7 +378,7 @@
     <div class="foot-top">
       <p class="foot-name"><img class="foot-lockup" src="/surrogate-funding/media/lockup-gold.png" alt="Surrogate Funding Foundation" width="260" height="246"></p>
       <p class="motto">Faith. Family. Finances. Order. Loud and right.</p>
-      <p class="motto">Call or text <a href="tel:+18033611303" style="color:inherit">803-361-1303</a></p>
+      <p class="motto">Call or text <a href="tel:+17064179097" style="color:inherit">706-417-9097</a></p>
     </div>
     <nav class="foot-links" aria-label="All pages">
         <a href="/surrogate-funding">Home</a>

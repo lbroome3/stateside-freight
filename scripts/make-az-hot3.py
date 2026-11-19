@@ -88,7 +88,7 @@ def load():
 
 
 def cs_block(cs, q, link):
-    # Customer service line (Lewis, 10/21: store pages only; freight pages keep 803-361-1303).
+    # Customer service line (Lewis, 10/21: store pages only; freight pages keep 706-417-9097).
     return ('<p class="cs" style="margin:0 0 .9rem"><a href="tel:+17064179097" style="display:inline-block;border:1.5px solid rgba(255,153,0,.6);border-radius:999px;padding:.55rem 1rem;font-weight:800;color:#fff;text-decoration:none">'
             + cs + '</a><small style="display:block;margin-top:.45rem">' + q
             + '<a href="https://www.amazon.com/gp/help/customer/display.html" target="_blank" rel="noopener" style="text-decoration:underline">' + link + '</a>.</small></p>')
