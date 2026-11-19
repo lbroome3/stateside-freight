@@ -279,6 +279,9 @@ h2{font-family:Archivo;font-weight:800;font-size:clamp(1.6rem,3.6vw,2.2rem);line
 .card h3{font-family:Archivo;font-size:1.25rem;line-height:1.2}
 .card p{color:var(--ink-2);font-size:.96rem}
 .card a.go{margin-top:auto;font-weight:800;text-decoration:none}
+.card .scope{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 6px}
+.card .scope a{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;background:var(--soft,#eef4fa);border:1px solid var(--line);color:var(--ink);font-weight:700;font-size:.84rem;text-decoration:none}
+.card .scope a:hover{border-color:#0e80d4;color:#0e80d4}
 .bio p{font-size:1.04rem;margin-bottom:14px;max-width:760px}
 .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
 .fact{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
@@ -395,6 +398,12 @@ footer a{color:rgba(255,255,255,.8)}
         <span class="role">Independent Landstar Agent</span>
         <h3>Stateside International Logistics</h3>
         <p>An independent Landstar agency in Myrtle Beach, SC. Truckload, hazmat, fireworks importing and container drayage, with online estimates, truck requests and live tracking on Landstar's network.</p>
+        <div class="scope" role="group" aria-label="Scope of shipping: land, air, sea and rail">
+          <a href="https://www.trueshipping.us/#mode-land">🚛 Land</a>
+          <a href="https://www.trueshipping.us/#mode-air">✈️ Air</a>
+          <a href="https://www.trueshipping.us/#mode-sea">🚢 Sea</a>
+          <a href="https://www.trueshipping.us/#mode-rail">🚆 Rail</a>
+        </div>
         <a class="go" href="https://www.trueshipping.us/">Get a freight quote &rarr;</a>
       </article>
       <article class="card">
