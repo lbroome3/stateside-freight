@@ -310,6 +310,32 @@ footer a{color:rgba(255,255,255,.8)}
   .gallery figure{margin-bottom:10px}
   .gallery figcaption{font-size:.76rem;padding:8px}
 }
+/* ── HIGH-TECH INTRO (Lewis, 11/19: "Give me a high-tech intro for lewisbroome.com") ── */
+.hero{position:relative;overflow:hidden;isolation:isolate}
+.hero canvas.net{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.7;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(124,196,255,.05) 0 1px,transparent 1px 4px)}
+.hud{position:absolute;width:26px;height:26px;border:2px solid rgba(124,196,255,.55);z-index:0;pointer-events:none}
+.hud.tl{top:14px;left:14px;border-right:0;border-bottom:0}.hud.tr{top:14px;right:14px;border-left:0;border-bottom:0}
+.hud.bl{bottom:14px;left:14px;border-right:0;border-top:0}.hud.br{bottom:14px;right:14px;border-left:0;border-top:0}
+.pwrap{position:relative;width:232px;height:232px;display:grid;place-items:center}
+.pwrap .portrait{position:relative;z-index:1}
+.ring{position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(124,196,255,.55);animation:spin 18s linear infinite}
+.ring.r2{inset:-12px;border:1px solid transparent;border-top-color:#7cc4ff;border-right-color:rgba(201,162,74,.9);animation:spin 5s linear infinite reverse}
+.portrait::after{content:"";position:absolute;left:0;right:0;height:38%;top:-40%;background:linear-gradient(180deg,transparent,rgba(124,196,255,.45),transparent);animation:scan 3.2s ease-in-out infinite}
+.portrait{position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes scan{0%{top:-40%}55%,100%{top:110%}}
+.kicker.typing::after{content:"▌";margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero h1{position:relative}
+.hero h1.glitch{animation:glitch .9s steps(2) 1}
+@keyframes glitch{0%{opacity:0;transform:translateX(-6px);text-shadow:3px 0 #7cc4ff,-3px 0 #c9a24a}30%{opacity:1;transform:translateX(4px)}60%{transform:translateX(-2px);text-shadow:-2px 0 #7cc4ff,2px 0 #c9a24a}100%{transform:none;text-shadow:none}}
+.status{display:flex;align-items:center;gap:8px;margin-top:16px;font:600 .78rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:1.5px;color:#9fd3ff;text-transform:uppercase}
+.status i{width:8px;height:8px;border-radius:50%;background:#2ee06a;box-shadow:0 0 10px #2ee06a;animation:blink 1.6s steps(1) infinite}
+.intro-in{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+.intro-in.on{opacity:1;transform:none}
+@media (max-width:760px){.pwrap{width:174px;height:174px}.hud{width:18px;height:18px}}
+@media (prefers-reduced-motion:reduce){.ring,.ring.r2,.portrait::after,.status i,.kicker.typing::after{animation:none}.hero h1.glitch{animation:none}.intro-in{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
@@ -328,18 +354,21 @@ footer a{color:rgba(255,255,255,.8)}
 
 <main>
 <section class="hero">
+  <canvas class="net" aria-hidden="true"></canvas>
+  <span class="hud tl" aria-hidden="true"></span><span class="hud tr" aria-hidden="true"></span><span class="hud bl" aria-hidden="true"></span><span class="hud br" aria-hidden="true"></span>
   <div class="wrap">
-    <div class="portrait"><img src="/assets/lewis-broome/lewis-broome-iii-landstar-agent-headshot.jpg" alt="Lewis Broome III, independent Landstar agent and founder of GPT Marketing, Myrtle Beach SC" width="436" height="436" /></div>
+    <div class="pwrap"><span class="ring" aria-hidden="true"></span><span class="ring r2" aria-hidden="true"></span><div class="portrait"><img src="/assets/lewis-broome/lewis-broome-iii-landstar-agent-headshot.jpg" alt="Lewis Broome III, independent Landstar agent and founder of GPT Marketing, Myrtle Beach SC" width="436" height="436" /></div></div>
     <div>
-      <span class="kicker">The Closer &middot; Myrtle Beach, South Carolina</span>
-      <h1>Lewis Broome III</h1>
-      <p class="lede">Independent Landstar agent, founder of GPT Marketing, and founder of the Surrogate Funding Foundation. I move freight, build marketing for small businesses, and help young men get a fair start.</p>
-      <div class="chips">
+      <span class="kicker" id="kicker" data-text="&gt; System online &middot; The Closer &middot; Myrtle Beach, SC">The Closer &middot; Myrtle Beach, South Carolina</span>
+      <h1 id="introName">Lewis Broome III</h1>
+      <p class="lede intro-in">Independent Landstar agent, founder of GPT Marketing, and founder of the Surrogate Funding Foundation. I move freight, build marketing for small businesses, and help young men get a fair start.</p>
+      <div class="chips intro-in">
         <span class="chip">Landstar Agent</span>
         <span class="chip">Founder, GPT Marketing</span>
         <span class="chip">Founder, Surrogate Funding Foundation</span>
       </div>
-      <div class="btns">
+      <div class="status intro-in" aria-label="Online"><i></i>Online &middot; Freight &middot; Marketing &middot; Community</div>
+      <div class="btns intro-in">
         <a class="btn solid" href="tel:18033611303">Call (803) 361-1303</a>
         <a class="btn ghost" href="https://www.linkedin.com/in/lewis-broome-iii-a177167a/" target="_blank" rel="noopener me">LinkedIn</a>
       </div>
@@ -453,6 +482,34 @@ footer a{color:rgba(255,255,255,.8)}
   </div>
 </footer>
 
+
+<script>
+/* High-tech intro: a live network behind the hero, a typed boot line, the name locking in. */
+(function(){
+  var hero=document.querySelector('.hero'); if(!hero) return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ins=hero.querySelectorAll('.intro-in');
+  function reveal(){ins.forEach(function(el,i){setTimeout(function(){el.classList.add('on')},reduce?0:i*140)})}
+  var k=document.getElementById('kicker'), h=document.getElementById('introName');
+  if(reduce){reveal();}else{
+    var t=document.createElement('textarea'); t.innerHTML=k.getAttribute('data-text'); var txt=t.value;
+    k.textContent=''; k.classList.add('typing'); var i=0;
+    (function type(){ if(i<=txt.length){k.textContent=txt.slice(0,i++); setTimeout(type,i<3?120:28);} else {setTimeout(function(){k.classList.remove('typing')},900); h.classList.add('glitch'); reveal();} })();
+  }
+  /* the network */
+  var c=hero.querySelector('canvas.net'); if(!c||!c.getContext) return; var x=c.getContext('2d'), pts=[], W=0, H=0, dpr=Math.min(2,window.devicePixelRatio||1);
+  function size(){W=hero.clientWidth;H=hero.clientHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);
+    var n=Math.round(Math.min(70,Math.max(26,W*H/14000)));pts=[];for(var j=0;j<n;j++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35})}
+  function draw(){x.clearRect(0,0,W,H);
+    for(var a=0;a<pts.length;a++){var p=pts[a];
+      if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;}
+      for(var b=a+1;b<pts.length;b++){var q=pts[b],dx=p.x-q.x,dy=p.y-q.y,d=dx*dx+dy*dy;if(d<14000){x.strokeStyle='rgba(124,196,255,'+(0.22*(1-d/14000))+')';x.lineWidth=1;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke();}}
+      x.fillStyle=a%9===0?'rgba(201,162,74,.9)':'rgba(124,196,255,.8)';x.beginPath();x.arc(p.x,p.y,a%9===0?2.2:1.5,0,6.283);x.fill();}
+    if(!reduce&&!document.hidden)requestAnimationFrame(draw)}
+  size(); draw(); var rt; addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();if(reduce)draw()},200)});
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&!reduce)requestAnimationFrame(draw)});
+})();
+</script>
 <script src="/share.js" defer></script>
 </body>
 </html>
