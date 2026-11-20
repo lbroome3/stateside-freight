@@ -158,14 +158,25 @@ tr.new td{animation:flash 1.6s ease}
       </div>
 
       <form id="signup" autocomplete="on" onsubmit="return false" data-no-facescan>
-        <label for="suCompany">Company name</label>
-        <input id="suCompany" name="company" autocomplete="organization" required placeholder="Your agency or company" />
+        <label for="suCompany">Business name</label>
+        <input id="suCompany" name="company" autocomplete="organization" required placeholder="Your agency's legal business name" />
         <div class="row2">
-          <div><label for="suName">Your name</label><input id="suName" name="name" autocomplete="name" placeholder="First and last" /></div>
+          <div><label for="suName">Full name</label><input id="suName" name="name" autocomplete="name" required placeholder="First and last" /></div>
           <div><label for="suPhone">Phone</label><input id="suPhone" name="phone" type="tel" autocomplete="tel" placeholder="Optional" /></div>
         </div>
         <label for="suEmail">Email</label>
         <input id="suEmail" name="email" type="email" autocomplete="email" required placeholder="you@company.com" />
+        <label for="suAddr">Business address</label>
+        <input id="suAddr" name="address" autocomplete="street-address" required placeholder="Street" />
+        <div class="row3" style="margin-top:8px">
+          <input id="suCity" name="city" autocomplete="address-level2" required placeholder="City" />
+          <input id="suState" name="state" autocomplete="address-level1" maxlength="2" required placeholder="ST" />
+          <input id="suZip" name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" required placeholder="ZIP" />
+        </div>
+        <div class="row2">
+          <div><label for="suDot">USDOT number</label><input id="suDot" name="dot" inputmode="numeric" required placeholder="1234567" /></div>
+          <div><label for="suMc">MC number</label><input id="suMc" name="mc" inputmode="numeric" required placeholder="MC 123456" /></div>
+        </div>
         <div class="row2">
           <div><label for="suPass">Create a password</label><input id="suPass" name="password" type="password" autocomplete="new-password" minlength="8" required placeholder="8+ characters" /></div>
           <div><label for="suPass2">Confirm password</label><input id="suPass2" type="password" autocomplete="new-password" minlength="8" required /></div>
@@ -173,7 +184,7 @@ tr.new td{animation:flash 1.6s ease}
         <input class="hp" type="text" name="company_website" id="suTrap" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button class="btn" id="suBtn" type="button" style="width:100%;margin-top:18px">Create my portal →</button>
         <div class="err" id="suErr"></div>
-        <p class="note">Before your account opens, a short face scan confirms a real person is signing up. It records a few seconds of video and three photos for our team only. No W-9, no paperwork: just your loads.</p>
+        <p class="note">We use your business name, address, DOT and MC numbers to set you up with Landstar as a broker partner. Before your account opens, a short face scan confirms a real person is signing up; it records a few seconds of video and three photos for our team only. No W-9 and no contract questions here.</p>
       </form>
 
       <form id="signin" class="hidden" autocomplete="on" onsubmit="return false" data-no-facescan>
@@ -299,11 +310,16 @@ tr.new td{animation:flash 1.6s ease}
   $("suBtn").addEventListener("click", function () {
     var err = $("suErr"); err.textContent = "";
     var c = $("suCompany").value.trim(), e = $("suEmail").value.trim(), p = $("suPass").value, p2 = $("suPass2").value;
-    if (!c || !e) { err.textContent = "Company name and email are required."; return; }
+    if (!c || !e) { err.textContent = "Business name and email are required."; return; }
+    if ($("suName").value.trim().split(/\s+/).length < 2) { err.textContent = "Please enter your full name."; return; }
+    if (!$("suAddr").value.trim() || !$("suCity").value.trim() || !/^[A-Za-z]{2}$/.test($("suState").value.trim()) || !/^\d{5}/.test($("suZip").value.trim())) { err.textContent = "Please enter the business address: street, city, state and ZIP."; return; }
+    if ($("suDot").value.replace(/\D/g, "").length < 5) { err.textContent = "Please enter your USDOT number."; return; }
+    if ($("suMc").value.replace(/\D/g, "").length < 4) { err.textContent = "Please enter your MC number."; return; }
     if (p.length < 8) { err.textContent = "Choose a password of at least 8 characters."; return; }
     if (p !== p2) { err.textContent = "The two passwords don't match."; return; }
     var b = $("suBtn"); b.disabled = true; b.textContent = "Creating your portal…";
-    call({ action: "signup", company: c, name: $("suName").value.trim(), phone: $("suPhone").value.trim(), email: e, password: p, company_website: $("suTrap").value, fill_ms: started ? Date.now() - started : 0 })
+    call({ action: "signup", company: c, name: $("suName").value.trim(), phone: $("suPhone").value.trim(), email: e, password: p,
+      address: $("suAddr").value.trim(), city: $("suCity").value.trim(), state: $("suState").value.trim(), zip: $("suZip").value.trim(), dot: $("suDot").value.trim(), mc: $("suMc").value.trim(), company_website: $("suTrap").value, fill_ms: started ? Date.now() - started : 0 })
       .then(function (d) { b.disabled = false; b.textContent = "Create my portal →"; if (d.token) { save(d.token); toast("Welcome aboard, " + (d.account.contact_name || d.account.company) + "!"); open(); } else if (d.error) err.textContent = d.error; else err.textContent = "Thanks. The team will reach out."; })
       .catch(function () { b.disabled = false; b.textContent = "Create my portal →"; err.textContent = "Connection problem. Try again or call 706-417-9097."; });
   });
@@ -325,9 +341,13 @@ tr.new td{animation:flash 1.6s ease}
       var a = d.account || {};
       $("hello").textContent = (a.company || "Partner") + "'s load desk";
       $("who").innerHTML = '<span class="co">' + esc(a.contact_name || a.email) + '</span><a class="btn ghost sm" href="tel:+17064179097">📞 Team</a>';
-      loads = d.loads || []; draw();
+      loads = d.loads || []; draw(); seen("Dashboard");
     });
   }
+  /* where he is (Lewis: "I need to know what page he's on and when he's on the site") */
+  var VIEWS = { add: "Add a load", speak: "Speak a load", bulk: "Bulk upload" };
+  function seen(v) { if (tok) call({ action: "seen", view: v }).catch(function () {}); }
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && tok && !$("dash").classList.contains("hidden")) seen("Back on the dashboard"); });
   function draw(newIds) {
     newIds = newIds || [];
     var today = new Date().toISOString().slice(0, 10);
@@ -367,6 +387,7 @@ tr.new td{animation:flash 1.6s ease}
   });
   function mode(k) {
     [].forEach.call(document.querySelectorAll(".mode"), function (m) { m.classList.toggle("on", m.getAttribute("data-mode") === k); });
+    seen(VIEWS[k] || k);
     $("pAdd").classList.toggle("hidden", k !== "add"); $("pSpeak").classList.toggle("hidden", k !== "speak"); $("pBulk").classList.toggle("hidden", k !== "bulk");
   }
 
@@ -493,6 +514,7 @@ tr.new td{animation:flash 1.6s ease}
 })();
 </script>
 <script src="/engage.js" data-form="Partner Portal" defer></script>
-<script src="/facescan.js" data-form="Partner Portal" data-click="#suBtn" data-need="#suCompany,#suEmail,#suPass" defer></script>
+<script src="/facescan.js" data-form="Partner Portal" data-click="#suBtn" data-need="#suCompany,#suName,#suEmail,#suAddr,#suCity,#suState,#suZip,#suDot,#suMc,#suPass" defer></script>
 <script src="/share.js" defer></script>
+<script src="https://gptmarketing.us/w/gm.js" data-site="stateside" defer></script>
 </body>
