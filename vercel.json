@@ -237,6 +237,14 @@
       "destination": "/bco-dispatch.html"
     },
     {
+      "source": "/partner",
+      "destination": "/partner.html"
+    },
+    {
+      "source": "/partner/",
+      "destination": "/partner.html"
+    },
+    {
       "source": "/nationalalert",
       "destination": "/nationalalert.html"
     },

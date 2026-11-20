@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Partner Load Portal | Stateside International Logistics · Landstar Agency LBR</title>
+<meta name="description" content="Private load portal for partner agencies of Stateside International Logistics, an independent Landstar agency. Add, speak or upload your available loads; they go straight to our desk." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="canonical" href="https://www.trueshipping.us/partner" />
+<meta name="theme-color" content="#071a2e" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Archivo:wght@700;800;900&display=swap" rel="stylesheet" />
+<!--
+  PARTNER LOAD PORTAL (Lewis, 11/20, for Patrick Hall of Red Wolf: "Create an impressive portal for him … it goes
+  right to my TMS"). The API is /api/partner-portal on the CRM (beacon-harmony-grid/api/partner-portal.js).
+  Sign-up is company, name, email, password: no W-9, no paperwork. The face scan opens before the account is created.
+  Loads land in Lewis's Tenders queue for review; nothing here posts to Landstar's board.
+-->
+<style>
+:root{--bg:#06162a;--bg2:#0a2340;--card:rgba(255,255,255,.06);--line:rgba(140,200,255,.18);--ink:#eaf3ff;--soft:#9fb7d3;--blue:#2f9bff;--blue2:#0e80d4;--gold:#ffd166;--green:#2ee077;--red:#ff6b6b;--amber:#ffb547}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:radial-gradient(1100px 600px at 85% -10%,#0d4a86 0,transparent 60%),radial-gradient(900px 600px at -10% 110%,#0b3a62 0,transparent 60%),var(--bg);min-height:100vh;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(120,180,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(120,180,255,.05) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at 50% 30%,#000 40%,transparent 85%)}
+a{color:#8fd0ff}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px clamp(14px,3vw,30px);background:rgba(6,22,42,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand .mk{background:#fff;border-radius:10px;padding:5px 9px;display:flex}
+.brand img{height:30px;width:auto;display:block}
+.brand b{display:block;font:800 1rem/1.1 Archivo,sans-serif;letter-spacing:.3px}
+.brand span{font-size:.66rem;letter-spacing:2.4px;text-transform:uppercase;color:var(--soft)}
+.top .who{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--soft)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:12px 20px;font:700 .95rem Inter,sans-serif;cursor:pointer;color:#fff;background:linear-gradient(180deg,var(--blue),var(--blue2));box-shadow:0 10px 26px rgba(14,128,212,.35);transition:transform .15s,box-shadow .2s;text-decoration:none}
+.btn:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(14,128,212,.5)}
+.btn:disabled{opacity:.55;cursor:default;transform:none}
+.btn.ghost{background:rgba(255,255,255,.07);box-shadow:none;border:1px solid var(--line)}
+.btn.green{background:linear-gradient(180deg,#22c55e,#16a34a);box-shadow:0 10px 26px rgba(34,197,94,.3)}
+.btn.red{background:rgba(255,107,107,.14);color:#ffb3b3;border:1px solid rgba(255,107,107,.35);box-shadow:none}
+.btn.sm{padding:8px 14px;font-size:.82rem}
+.wrap{position:relative;max-width:1120px;margin:0 auto;padding:28px clamp(14px,3vw,30px) 90px}
+/* ---- welcome / auth ---- */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;min-height:calc(100vh - 140px)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800;letter-spacing:2.6px;text-transform:uppercase;color:#8fd0ff;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04)}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(46,224,119,.6);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgba(46,224,119,0)}}
+h1{font:900 clamp(2.1rem,5vw,3.6rem)/1.02 Archivo,sans-serif;margin:16px 0 14px;letter-spacing:-1px}
+h1 em{font-style:normal;background:linear-gradient(90deg,#5ab4ff,#9ee3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{color:var(--soft);font-size:1.06rem;line-height:1.6;max-width:560px}
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;max-width:580px}
+.feat{display:flex;gap:11px;align-items:flex-start;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.feat .ic{font-size:1.4rem;line-height:1}
+.feat b{display:block;font-size:.92rem}
+.feat span{font-size:.8rem;color:var(--soft)}
+.panel{position:relative;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 30px 80px rgba(0,0,0,.35);padding:26px}
+.panel::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(90,180,255,.6),transparent 40%,rgba(255,209,102,.45));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.tabs{display:flex;gap:6px;padding:5px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid var(--line);margin-bottom:18px}
+.tabs button{flex:1;border:0;border-radius:999px;padding:10px 12px;background:transparent;color:var(--soft);font:700 .9rem Inter,sans-serif;cursor:pointer}
+.tabs button.on{background:linear-gradient(180deg,var(--blue),var(--blue2));color:#fff}
+label{display:block;font-size:.76rem;font-weight:700;color:var(--soft);margin:12px 0 6px;letter-spacing:.3px}
+input,select,textarea{width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:rgba(3,14,28,.55);color:var(--ink);font:500 .95rem Inter,sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:#5ab4ff;box-shadow:0 0 0 3px rgba(90,180,255,.2)}
+select option{background:#0a2340}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+.note{font-size:.78rem;color:var(--soft);line-height:1.5;margin-top:12px}
+.err{color:#ffb3b3;font-size:.86rem;font-weight:600;min-height:1.2em;margin-top:10px}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+/* ---- dashboard ---- */
+.dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.dash-head h2{font:900 clamp(1.6rem,3.4vw,2.3rem)/1.1 Archivo,sans-serif;margin:8px 0 4px}
+.dash-head p{margin:0;color:var(--soft)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+.stat{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--card);position:relative;overflow:hidden}
+.stat b{display:block;font:900 2rem/1 Archivo,sans-serif}
+.stat span{font-size:.78rem;color:var(--soft);font-weight:600}
+.stat::after{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(90,180,255,.25),transparent 70%)}
+.stat.g::after{background:radial-gradient(circle,rgba(46,224,119,.25),transparent 70%)}
+.stat.y::after{background:radial-gradient(circle,rgba(255,209,102,.25),transparent 70%)}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.mode{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--card);cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:border-color .2s,transform .2s,background .2s}
+.mode:hover{transform:translateY(-2px);border-color:rgba(90,180,255,.5)}
+.mode.on{background:linear-gradient(180deg,rgba(47,155,255,.22),rgba(47,155,255,.06));border-color:#5ab4ff}
+.mode .ic{font-size:1.6rem}
+.mode b{display:block;font-size:1rem;margin-top:6px}
+.mode span{font-size:.8rem;color:var(--soft)}
+.box{border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));padding:20px;margin-bottom:18px}
+.box h3{margin:0 0 4px;font:800 1.15rem Archivo,sans-serif}
+.box .sub{color:var(--soft);font-size:.86rem;margin:0 0 6px}
+.grid-form{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.grid-form .w2{grid-column:span 2}
+.grid-form .w4{grid-column:1/-1}
+.check{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--ink);margin-top:14px}
+.check input{width:18px;height:18px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.mic{width:120px;height:120px;border-radius:50%;border:0;cursor:pointer;margin:16px auto 8px;display:grid;place-items:center;font-size:2.6rem;background:radial-gradient(circle at 35% 30%,#5ab4ff,#0a5fa8);box-shadow:0 0 0 0 rgba(90,180,255,.5),0 18px 40px rgba(14,128,212,.45);color:#fff}
+.mic.live{animation:pulse 1.4s infinite;background:radial-gradient(circle at 35% 30%,#ff8a8a,#d62c2c)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.55)}70%{box-shadow:0 0 0 22px rgba(255,107,107,0)}100%{box-shadow:0 0 0 0 rgba(255,107,107,0)}}
+.heard{min-height:58px;padding:12px 14px;border-radius:12px;border:1px dashed var(--line);color:var(--ink);background:rgba(0,0,0,.2);font-size:.95rem;line-height:1.5}
+.drop{border:2px dashed rgba(90,180,255,.45);border-radius:16px;padding:30px 16px;text-align:center;cursor:pointer;background:rgba(47,155,255,.06);transition:background .2s}
+.drop.over{background:rgba(47,155,255,.16)}
+.drop b{display:block;font-size:1.05rem;margin-top:6px}
+.table-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:720px}
+th{text-align:left;font-size:.7rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--soft);padding:11px 12px;background:rgba(0,0,0,.25);position:sticky;top:0}
+td{padding:11px 12px;border-top:1px solid rgba(140,200,255,.1);vertical-align:middle}
+tr.new td{animation:flash 1.6s ease}
+@keyframes flash{0%{background:rgba(46,224,119,.25)}100%{background:transparent}}
+.lane b{display:block}
+.lane span{font-size:.76rem;color:var(--soft)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.3px;white-space:nowrap}
+.chip.review{background:rgba(255,209,102,.15);color:var(--gold)}
+.chip.covering{background:rgba(46,224,119,.15);color:var(--green)}
+.chip.removing{background:rgba(255,107,107,.15);color:#ffb3b3}
+.chip.haz{background:rgba(255,181,71,.18);color:var(--amber)}
+.chip i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.empty{padding:34px;text-align:center;color:var(--soft)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,30px);opacity:0;z-index:50;background:#0d2a48;border:1px solid rgba(90,180,255,.45);color:#fff;padding:13px 18px;border-radius:14px;font-weight:700;box-shadow:0 18px 40px rgba(0,0,0,.45);transition:all .35s;max-width:92vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.foot{text-align:center;color:var(--soft);font-size:.78rem;margin-top:30px;line-height:1.7}
+.hidden{display:none!important}
+.preview-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 10px;font-size:.88rem}
+@media (max-width:860px){.hero{grid-template-columns:1fr;min-height:0;gap:22px}.stats{grid-template-columns:1fr 1fr}.modes{grid-template-columns:1fr 1fr 1fr}.grid-form{grid-template-columns:1fr 1fr}.grid-form .w2{grid-column:1/-1}}
+@media (max-width:520px){.feats{grid-template-columns:1fr}.modes{grid-template-columns:1fr}.mode{display:flex;gap:12px;align-items:center}.mode b{margin:0}.top .who .co{display:none}.brand span{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="/partner" aria-label="Partner Load Portal">
+    <span class="mk"><img src="/assets/landstar-agent-logo.png" alt="Landstar Agent" width="105" height="32" /></span>
+    <span><b>STATESIDE</b><span>Partner Load Portal</span></span>
+  </a>
+  <div class="who" id="who"><a class="btn ghost sm" href="tel:+17064179097">📞 706-417-9097</a></div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= SIGN UP / SIGN IN ================= -->
+  <section class="hero" id="auth">
+    <div>
+      <span class="eyebrow"><i></i>Independent Landstar Agency · Agency LBR</span>
+      <h1>Your freight, <em>straight to our desk.</em></h1>
+      <p class="lede">A private portal for partner agencies. Add your available loads one at a time, say them out loud, or drop in a whole spreadsheet. Every load lands on our dispatch desk the second you send it, backed by Landstar's network and our own Super Intelligence tools.</p>
+      <div class="feats">
+        <div class="feat"><span class="ic">✍️</span><div><b>Add a load</b><span>Lane, dates, equipment, done.</span></div></div>
+        <div class="feat"><span class="ic">🎙️</span><div><b>Speak it in</b><span>Talk it through; we fill the form.</span></div></div>
+        <div class="feat"><span class="ic">📄</span><div><b>Bulk upload</b><span>CSV or Excel, hundreds at once.</span></div></div>
+        <div class="feat"><span class="ic">🗑️</span><div><b>Delete when it moves</b><span>No calls on freight that's gone.</span></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="tabs" role="tablist">
+        <button type="button" class="on" id="tabUp">Create account</button>
+        <button type="button" id="tabIn">Sign in</button>
+      </div>
+
+      <form id="signup" autocomplete="on" onsubmit="return false" data-no-facescan>
+        <label for="suCompany">Company name</label>
+        <input id="suCompany" name="company" autocomplete="organization" required placeholder="Your agency or company" />
+        <div class="row2">
+          <div><label for="suName">Your name</label><input id="suName" name="name" autocomplete="name" placeholder="First and last" /></div>
+          <div><label for="suPhone">Phone</label><input id="suPhone" name="phone" type="tel" autocomplete="tel" placeholder="Optional" /></div>
+        </div>
+        <label for="suEmail">Email</label>
+        <input id="suEmail" name="email" type="email" autocomplete="email" required placeholder="you@company.com" />
+        <div class="row2">
+          <div><label for="suPass">Create a password</label><input id="suPass" name="password" type="password" autocomplete="new-password" minlength="8" required placeholder="8+ characters" /></div>
+          <div><label for="suPass2">Confirm password</label><input id="suPass2" type="password" autocomplete="new-password" minlength="8" required /></div>
+        </div>
+        <input class="hp" type="text" name="company_website" id="suTrap" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button class="btn" id="suBtn" type="button" style="width:100%;margin-top:18px">Create my portal →</button>
+        <div class="err" id="suErr"></div>
+        <p class="note">Before your account opens, a short face scan confirms a real person is signing up. It records a few seconds of video and three photos for our team only. No W-9, no paperwork: just your loads.</p>
+      </form>
+
+      <form id="signin" class="hidden" autocomplete="on" onsubmit="return false" data-no-facescan>
+        <label for="inEmail">Email</label>
+        <input id="inEmail" type="email" autocomplete="email" placeholder="you@company.com" />
+        <label for="inPass">Password</label>
+        <input id="inPass" type="password" autocomplete="current-password" />
+        <button class="btn" id="inBtn" type="button" style="width:100%;margin-top:18px">Sign in →</button>
+        <div class="err" id="inErr"></div>
+        <p class="note">Forgot your password? Call or text the team at <a href="tel:+17064179097">706-417-9097</a>.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= DASHBOARD ================= -->
+  <section id="dash" class="hidden">
+    <div class="dash-head">
+      <div>
+        <span class="eyebrow"><i></i>Connected to the Stateside dispatch desk</span>
+        <h2 id="hello">Welcome</h2>
+        <p>Loads you send here go straight to our desk for coverage. Delete a load as soon as it moves.</p>
+      </div>
+      <a class="btn ghost sm" href="#" id="tplBtn">⬇ Spreadsheet template</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="stAll">0</b><span>Loads sent</span></div>
+      <div class="stat y"><b id="stReview">0</b><span>In review</span></div>
+      <div class="stat g"><b id="stCover">0</b><span>Covering</span></div>
+      <div class="stat"><b id="stToday">0</b><span>Sent today</span></div>
+    </div>
+
+    <div class="modes" role="tablist">
+      <button type="button" class="mode on" data-mode="add"><span class="ic">✍️</span><div><b>Add a load</b><span>Type it in</span></div></button>
+      <button type="button" class="mode" data-mode="speak"><span class="ic">🎙️</span><div><b>Speak a load</b><span>Say it, we fill it</span></div></button>
+      <button type="button" class="mode" data-mode="bulk"><span class="ic">📄</span><div><b>Bulk upload</b><span>CSV or Excel</span></div></button>
+    </div>
+
+    <!-- add -->
+    <div class="box" id="pAdd">
+      <h3>Add a load</h3>
+      <p class="sub" id="addSub">Fill in the lane and dates. Everything else helps us cover it faster.</p>
+      <form id="loadForm" onsubmit="return false" data-no-facescan>
+        <div class="grid-form">
+          <div class="w2"><label>Origin city</label><input name="originCity" placeholder="Tacoma" /></div>
+          <div><label>State</label><input name="originState" maxlength="2" placeholder="WA" /></div>
+          <div><label>Pickup date</label><input name="pickupDate" type="date" /></div>
+          <div class="w2"><label>Destination city</label><input name="destCity" placeholder="Boise" /></div>
+          <div><label>State</label><input name="destState" maxlength="2" placeholder="ID" /></div>
+          <div><label>Delivery date</label><input name="deliveryDate" type="date" /></div>
+          <div><label>Equipment</label><select name="equipment"><option value="FLATBED">Flatbed</option><option value="STEPDECK">Step deck</option><option value="CONESTOGA">Conestoga</option><option value="HOTSHOT">Hotshot</option><option value="VAN">Dry van</option><option value="REEFER">Reefer</option><option value="POWERONLY">Power only</option><option value="OTHER">Other</option></select></div>
+          <div><label>Load type</label><select name="loadType"><option value="FTL">Full truckload</option><option value="PARTIAL">Partial</option><option value="LTL">LTL</option></select></div>
+          <div><label>Weight (lb)</label><input name="weightLb" inputmode="numeric" placeholder="42000" /></div>
+          <div><label>Length (ft)</label><input name="lengthFt" inputmode="numeric" placeholder="48" /></div>
+          <div class="w2"><label>Commodity</label><input name="commodity" placeholder="Steel beams, lumber, machinery…" /></div>
+          <div><label>Rate ($)</label><input name="rate" inputmode="decimal" placeholder="Optional" /></div>
+          <div><label>Your ref / load #</label><input name="ref" placeholder="Optional" /></div>
+          <div class="w4"><label>Notes for the driver or our desk</label><textarea name="notes" rows="2" placeholder="Tarps, straps, appointment, contact on site…"></textarea></div>
+        </div>
+        <label class="check"><input type="checkbox" name="hazmat" /> Hazmat (placarded)</label>
+        <div class="actions"><button class="btn green" id="addBtn" type="button">🚀 Send to the desk</button><button class="btn ghost" type="reset">Clear</button></div>
+        <div class="err" id="addErr"></div>
+      </form>
+    </div>
+
+    <!-- speak -->
+    <div class="box hidden" id="pSpeak">
+      <h3>Speak a load</h3>
+      <p class="sub">Tap the mic and say it like you'd say it on the phone: <i>"Flatbed out of Tacoma, Washington, picking up tomorrow, going to Boise, Idaho, forty-two thousand pounds of steel, paying twenty-four hundred."</i></p>
+      <div style="text-align:center"><button class="mic" id="mic" type="button" aria-label="Start talking">🎙️</button><div class="note" id="micNote">Tap to talk. Tap again when you're done.</div></div>
+      <label for="heard">What we heard (you can type or fix it here)</label>
+      <textarea id="heard" class="heard" rows="3" placeholder="Your words appear here…"></textarea>
+      <div class="actions"><button class="btn" id="parseBtn" type="button">✨ Fill in the load</button></div>
+      <div class="err" id="spErr"></div>
+    </div>
+
+    <!-- bulk -->
+    <div class="box hidden" id="pBulk">
+      <h3>Bulk upload</h3>
+      <p class="sub">Drop your load list: CSV or Excel. We read the columns (origin, destination, pickup, equipment, weight, rate…), you check them, then send them all at once. <a href="#" id="tplBtn2">Download the template</a>.</p>
+      <div class="drop" id="drop"><div style="font-size:2rem">📄</div><b>Drop your file here, or tap to choose</b><span class="note">.csv, .xlsx or .xls · up to 300 loads</span><input type="file" id="file" accept=".csv,.xlsx,.xls,text/csv" class="hidden" /></div>
+      <div id="preview" class="hidden">
+        <div class="preview-tools"><span id="prevCount"></span><span><button class="btn ghost sm" id="bulkClear" type="button">Start over</button> <button class="btn green sm" id="bulkSend" type="button">🚀 Send all to the desk</button></span></div>
+        <div class="table-wrap"><table><thead><tr><th></th><th>Lane</th><th>Pickup</th><th>Equipment</th><th>Weight</th><th>Rate</th><th>Ref</th><th>Check</th></tr></thead><tbody id="prevBody"></tbody></table></div>
+      </div>
+      <div class="err" id="bkErr"></div>
+    </div>
+
+    <!-- loads -->
+    <div class="box">
+      <div class="preview-tools" style="margin-top:0"><div><h3>Your loads</h3><p class="sub" style="margin:0">Delete a load the moment it moves so nobody calls you about it.</p></div><button class="btn red sm hidden" id="delSel" type="button">🗑️ Delete selected</button></div>
+      <div class="table-wrap"><table><thead><tr><th><input type="checkbox" id="selAll" aria-label="Select all" /></th><th>Lane</th><th>Pickup</th><th>Equipment</th><th>Weight</th><th>Rate</th><th>Ref</th><th>Status</th><th></th></tr></thead><tbody id="loadsBody"><tr><td colspan="9" class="empty">No loads yet. Add your first one above.</td></tr></tbody></table></div>
+    </div>
+
+    <p class="foot">Stateside International Logistics · Independent Landstar Agency · Agency LBR · Myrtle Beach, SC<br>Questions? Call or text the team at <a href="tel:+17064179097">706-417-9097</a> · <a href="#" id="outBtn">Sign out</a></p>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+<script>
+(function () {
+  var API = "/api/partner-portal", KEY = "lbr_partner_token", tok = null, loads = [], started = 0;
+  var $ = function (id) { return document.getElementById(id); };
+  try { tok = localStorage.getItem(KEY); } catch (e) {}
+  function toast(t) { var el = $("toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(function () { el.classList.remove("on"); }, 3200); }
+  function call(body) {
+    return fetch(API, { method: "POST", headers: Object.assign({ "Content-Type": "application/json" }, tok ? { Authorization: "Bearer " + tok } : {}), body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (d) { d.__status = r.status; return d; }); });
+  }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function money(v) { return v ? "$" + Number(v).toLocaleString() : "—"; }
+  function lbs(v) { return v ? Number(v).toLocaleString() + " lb" : "—"; }
+  function day(s) { if (!s) return "—"; var d = new Date(s + "T12:00:00"); return isNaN(d) ? s : d.toLocaleDateString("en-US", { month: "short", day: "numeric" }); }
+  var EQ = { FLATBED: "Flatbed", STEPDECK: "Step deck", CONESTOGA: "Conestoga", HOTSHOT: "Hotshot", VAN: "Dry van", REEFER: "Reefer", POWERONLY: "Power only", OTHER: "Other" };
+  var LT = { FTL: "", PARTIAL: " · Partial", LTL: " · LTL" };
+
+  /* ---------- auth ---------- */
+  ["focusin", "keydown"].forEach(function (ev) { $("signup").addEventListener(ev, function () { if (!started) started = Date.now(); }); });
+  $("tabUp").onclick = function () { $("tabUp").classList.add("on"); $("tabIn").classList.remove("on"); $("signup").classList.remove("hidden"); $("signin").classList.add("hidden"); };
+  $("tabIn").onclick = function () { $("tabIn").classList.add("on"); $("tabUp").classList.remove("on"); $("signin").classList.remove("hidden"); $("signup").classList.add("hidden"); };
+  $("suBtn").addEventListener("click", function () {
+    var err = $("suErr"); err.textContent = "";
+    var c = $("suCompany").value.trim(), e = $("suEmail").value.trim(), p = $("suPass").value, p2 = $("suPass2").value;
+    if (!c || !e) { err.textContent = "Company name and email are required."; return; }
+    if (p.length < 8) { err.textContent = "Choose a password of at least 8 characters."; return; }
+    if (p !== p2) { err.textContent = "The two passwords don't match."; return; }
+    var b = $("suBtn"); b.disabled = true; b.textContent = "Creating your portal…";
+    call({ action: "signup", company: c, name: $("suName").value.trim(), phone: $("suPhone").value.trim(), email: e, password: p, company_website: $("suTrap").value, fill_ms: started ? Date.now() - started : 0 })
+      .then(function (d) { b.disabled = false; b.textContent = "Create my portal →"; if (d.token) { save(d.token); toast("Welcome aboard, " + (d.account.contact_name || d.account.company) + "!"); open(); } else if (d.error) err.textContent = d.error; else err.textContent = "Thanks. The team will reach out."; })
+      .catch(function () { b.disabled = false; b.textContent = "Create my portal →"; err.textContent = "Connection problem. Try again or call 706-417-9097."; });
+  });
+  $("inBtn").onclick = function () {
+    var err = $("inErr"); err.textContent = ""; var b = $("inBtn"); b.disabled = true;
+    call({ action: "login", email: $("inEmail").value.trim(), password: $("inPass").value })
+      .then(function (d) { b.disabled = false; if (d.token) { save(d.token); open(); } else err.textContent = d.error || "Could not sign in."; })
+      .catch(function () { b.disabled = false; err.textContent = "Connection problem. Try again."; });
+  };
+  $("inPass").addEventListener("keydown", function (e) { if (e.key === "Enter") $("inBtn").click(); });
+  function save(t) { tok = t; try { localStorage.setItem(KEY, t); } catch (e) {} }
+  $("outBtn").onclick = function (e) { e.preventDefault(); tok = null; try { localStorage.removeItem(KEY); } catch (x) {} location.reload(); };
+
+  /* ---------- dashboard ---------- */
+  function open() {
+    call({ action: "me" }).then(function (d) {
+      if (d.__status === 401) { tok = null; try { localStorage.removeItem(KEY); } catch (e) {} return; }
+      $("auth").classList.add("hidden"); $("dash").classList.remove("hidden");
+      var a = d.account || {};
+      $("hello").textContent = (a.company || "Partner") + "'s load desk";
+      $("who").innerHTML = '<span class="co">' + esc(a.contact_name || a.email) + '</span><a class="btn ghost sm" href="tel:+17064179097">📞 Team</a>';
+      loads = d.loads || []; draw();
+    });
+  }
+  function draw(newIds) {
+    newIds = newIds || [];
+    var today = new Date().toISOString().slice(0, 10);
+    $("stAll").textContent = loads.length;
+    $("stReview").textContent = loads.filter(function (l) { return l.status === "in review"; }).length;
+    $("stCover").textContent = loads.filter(function (l) { return l.status === "covering"; }).length;
+    $("stToday").textContent = loads.filter(function (l) { return String(l.added || "").slice(0, 10) === today; }).length;
+    var tb = $("loadsBody");
+    if (!loads.length) { tb.innerHTML = '<tr><td colspan="9" class="empty">No loads yet. Add your first one above.</td></tr>'; $("delSel").classList.add("hidden"); return; }
+    tb.innerHTML = loads.map(function (l) {
+      var chip = l.status === "covering" ? '<span class="chip covering"><i></i>Covering</span>' : l.status === "removing" ? '<span class="chip removing"><i></i>Removing</span>' : '<span class="chip review"><i></i>In review</span>';
+      return '<tr' + (newIds.indexOf(l.id) >= 0 ? ' class="new"' : "") + '><td><input type="checkbox" class="sel" value="' + esc(l.id) + '"></td>' +
+        '<td class="lane"><b>' + esc(l.origin) + ' → ' + esc(l.destination) + '</b><span>' + esc(l.commodity || "") + (l.hazmat ? ' <span class="chip haz">⚠ Hazmat</span>' : "") + '</span></td>' +
+        '<td>' + day(l.pickupDate) + '</td><td>' + esc(EQ[l.equipment] || l.equipment || "") + esc(LT[l.loadType] || "") + '</td><td>' + lbs(l.weightLb) + '</td><td>' + money(l.rate) + '</td><td>' + esc(l.ref || "—") + '</td><td>' + chip + '</td>' +
+        '<td><button class="btn red sm del" type="button" data-id="' + esc(l.id) + '" aria-label="Delete this load">🗑️</button></td></tr>';
+    }).join("");
+    [].forEach.call(tb.querySelectorAll(".del"), function (b) { b.onclick = function () { del([b.getAttribute("data-id")]); }; });
+    [].forEach.call(tb.querySelectorAll(".sel"), function (c) { c.onchange = selCount; });
+    selCount();
+  }
+  function selCount() { var n = document.querySelectorAll("#loadsBody .sel:checked").length; $("delSel").classList.toggle("hidden", !n); $("delSel").textContent = "🗑️ Delete selected (" + n + ")"; }
+  $("selAll").onchange = function () { var on = this.checked; [].forEach.call(document.querySelectorAll("#loadsBody .sel"), function (c) { c.checked = on; }); selCount(); };
+  $("delSel").onclick = function () { del([].map.call(document.querySelectorAll("#loadsBody .sel:checked"), function (c) { return c.value; })); };
+  function del(ids) {
+    if (!ids.length || !confirm(ids.length === 1 ? "Delete this load? Do this once it has moved." : "Delete these " + ids.length + " loads?")) return;
+    call({ action: "delete", ids: ids }).then(function (d) {
+      if (!d.ok) return toast(d.error || "Could not delete.");
+      loads = loads.filter(function (l) { return ids.indexOf(l.id) < 0 || l.status === "covering"; }).map(function (l) { return ids.indexOf(l.id) >= 0 ? Object.assign({}, l, { status: "removing" }) : l; });
+      $("selAll").checked = false; draw();
+      toast(d.flagged ? "Removed. Our desk was told to take down the ones already out for coverage." : "Removed from our desk.");
+    });
+  }
+
+  /* ---------- modes ---------- */
+  [].forEach.call(document.querySelectorAll(".mode"), function (m) {
+    m.onclick = function () { mode(m.getAttribute("data-mode")); };
+  });
+  function mode(k) {
+    [].forEach.call(document.querySelectorAll(".mode"), function (m) { m.classList.toggle("on", m.getAttribute("data-mode") === k); });
+    $("pAdd").classList.toggle("hidden", k !== "add"); $("pSpeak").classList.toggle("hidden", k !== "speak"); $("pBulk").classList.toggle("hidden", k !== "bulk");
+  }
+
+  /* ---------- add ---------- */
+  function formLoad() { var f = $("loadForm"), o = {}; [].forEach.call(f.elements, function (el) { if (el.name) o[el.name] = el.type === "checkbox" ? el.checked : el.value.trim(); }); return o; }
+  $("addBtn").onclick = function () {
+    var l = formLoad(), err = $("addErr"); err.textContent = "";
+    if (!l.originCity || !/^[A-Za-z]{2}$/.test(l.originState) || !l.destCity || !/^[A-Za-z]{2}$/.test(l.destState)) { err.textContent = "Origin and destination need a city and a 2-letter state."; return; }
+    var b = $("addBtn"); b.disabled = true; b.textContent = "Sending…";
+    l.via = $("addSub").getAttribute("data-via") || "form";
+    call({ action: "add", load: l }).then(function (d) {
+      b.disabled = false; b.textContent = "🚀 Send to the desk";
+      if (!d.ok) { err.textContent = (d.rejected && d.rejected[0] && d.rejected[0].error) || d.error || "Could not send."; return; }
+      if (!d.added) { err.textContent = (d.rejected[0] || {}).error || "Could not send."; return; }
+      loads = d.loads.concat(loads); draw(d.loads.map(function (x) { return x.id; }));
+      $("loadForm").reset(); $("addSub").removeAttribute("data-via"); $("addSub").textContent = "Fill in the lane and dates. Everything else helps us cover it faster.";
+      toast("🚛 Sent. It's on our desk now.");
+    }).catch(function () { b.disabled = false; b.textContent = "🚀 Send to the desk"; err.textContent = "Connection problem. Try again."; });
+  };
+
+  /* ---------- speak ---------- */
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition, rec = null, live = false, finalText = "";
+  if (!SR) $("micNote").textContent = "This browser can't listen. Type the load in the box below, then tap Fill in the load.";
+  $("mic").onclick = function () {
+    if (!SR) { $("heard").focus(); return; }
+    if (live) { rec.stop(); return; }
+    rec = new SR(); rec.lang = "en-US"; rec.continuous = true; rec.interimResults = true; finalText = $("heard").value ? $("heard").value + " " : "";
+    rec.onresult = function (e) { var interim = ""; for (var i = e.resultIndex; i < e.results.length; i++) { if (e.results[i].isFinal) finalText += e.results[i][0].transcript + " "; else interim += e.results[i][0].transcript; } $("heard").value = (finalText + interim).trim(); };
+    rec.onend = function () { live = false; $("mic").classList.remove("live"); $("micNote").textContent = "Got it. Fix anything below, then tap Fill in the load."; };
+    rec.onerror = function (e) { $("spErr").textContent = e.error === "not-allowed" ? "Allow the microphone, or type the load below." : ""; };
+    rec.start(); live = true; $("mic").classList.add("live"); $("micNote").textContent = "Listening… tap again when you're done."; $("spErr").textContent = "";
+  };
+  $("parseBtn").onclick = function () {
+    var t = $("heard").value.trim(), err = $("spErr"); err.textContent = "";
+    if (t.length < 8) { err.textContent = "Say or type the load first."; return; }
+    var b = $("parseBtn"); b.disabled = true; b.textContent = "Reading your load…";
+    call({ action: "speak", text: t }).then(function (d) {
+      b.disabled = false; b.textContent = "✨ Fill in the load";
+      if (!d.ok) { err.textContent = d.error || "Could not read that. Try again or type it."; return; }
+      var f = $("loadForm"), l = d.load || {};
+      Object.keys(l).forEach(function (k) { var el = f.elements[k]; if (!el || l[k] === "" || l[k] == null) return; if (el.type === "checkbox") el.checked = !!l[k]; else el.value = l[k]; });
+      $("addSub").setAttribute("data-via", "voice"); $("addSub").textContent = "✨ We filled this in from what you said" + (d.heard ? ": " + d.heard : ".") + " Check it, then send.";
+      mode("add"); window.scrollTo({ top: $("pAdd").getBoundingClientRect().top + scrollY - 90, behavior: "smooth" });
+    }).catch(function () { b.disabled = false; b.textContent = "✨ Fill in the load"; err.textContent = "Connection problem. Try again."; });
+  };
+
+  /* ---------- bulk ---------- */
+  var bulk = [];
+  var HEAD = [
+    ["originCity", /^(origin|pick ?up|shipper|from)( ?city)?$/i], ["originState", /^(origin|pick ?up|shipper|from) ?(state|st)$/i],
+    ["destCity", /^(dest(ination)?|deliver(y)?|consignee|to|drop)( ?city)?$/i], ["destState", /^(dest(ination)?|deliver(y)?|consignee|to|drop) ?(state|st)$/i],
+    ["pickupDate", /^(pick ?up|ship|ready|load)( ?date)?$/i], ["deliveryDate", /^(deliver(y)?|due|drop)( ?date)?$/i],
+    ["equipment", /^(equip(ment)?|trailer( ?type)?|truck( ?type)?)$/i], ["loadType", /^(load ?type|type|ftl ?\/ ?ltl|mode)$/i],
+    ["weightLb", /^(weight|wt|lbs?|weight ?\(lb\))$/i], ["lengthFt", /^(length|feet|ft|length ?\(ft\))$/i], ["commodity", /^(commodity|product|description|freight)$/i],
+    ["rate", /^(rate|pay|price|amount|linehaul)( ?\(\$\))?$/i], ["ref", /^(ref(erence)?|load ?#?|load ?number|po|pro|order)$/i], ["notes", /^(notes?|comments?|instructions?)$/i], ["hazmat", /^(haz(mat)?)$/i],
+  ];
+  var EQMAP = [[/step|sd\b/i, "STEPDECK"], [/conest/i, "CONESTOGA"], [/hot ?shot/i, "HOTSHOT"], [/reef|refrig/i, "REEFER"], [/van|dry/i, "VAN"], [/power/i, "POWERONLY"], [/flat|fb\b/i, "FLATBED"]];
+  function splitCitySt(v) { var m = String(v || "").match(/^\s*(.+?)[,\s]+([A-Za-z]{2})(?:\s+\d{5})?\s*$/); return m ? [m[1].trim(), m[2].toUpperCase()] : [String(v || "").trim(), ""]; }
+  function isoDay(v) { if (!v) return ""; if (typeof v === "number") { var d0 = new Date(Math.round((v - 25569) * 864e5)); return d0.toISOString().slice(0, 10); } var d = new Date(v); return isNaN(d) ? String(v) : d.toISOString().slice(0, 10); }
+  function mapRows(rows) {
+    if (!rows.length) return [];
+    var keys = Object.keys(rows[0]), map = {};
+    keys.forEach(function (k) { var kk = k.trim(); HEAD.some(function (h) { if (h[1].test(kk) && !map[h[0]]) { map[h[0]] = k; return true; } return false; }); });
+    return rows.map(function (r) {
+      var l = {}; Object.keys(map).forEach(function (f) { l[f] = r[map[f]]; });
+      if (l.originCity && !l.originState) { var o = splitCitySt(l.originCity); l.originCity = o[0]; l.originState = o[1]; }
+      if (l.destCity && !l.destState) { var d = splitCitySt(l.destCity); l.destCity = d[0]; l.destState = d[1]; }
+      var eq = String(l.equipment || ""); l.equipment = (EQMAP.filter(function (e) { return e[0].test(eq); })[0] || [0, "FLATBED"])[1];
+      var lt = String(l.loadType || ""); l.loadType = /ltl/i.test(lt) ? "LTL" : /partial|ptl/i.test(lt) ? "PARTIAL" : "FTL";
+      l.pickupDate = isoDay(l.pickupDate); l.deliveryDate = isoDay(l.deliveryDate);
+      l.hazmat = /^(y|yes|true|1|x)$/i.test(String(l.hazmat || "").trim());
+      ["originState", "destState"].forEach(function (k) { l[k] = String(l[k] || "").trim().toUpperCase(); });
+      l.via = "bulk";
+      l.ok = !!(l.originCity && /^[A-Z]{2}$/.test(l.originState) && l.destCity && /^[A-Z]{2}$/.test(l.destState));
+      return l;
+    }).filter(function (l) { return l.originCity || l.destCity; });
+  }
+  function readFile(f) {
+    $("bkErr").textContent = "";
+    if (!window.XLSX) { $("bkErr").textContent = "Still loading the reader. Try again in a second."; return; }
+    var rd = new FileReader();
+    rd.onload = function (e) {
+      try {
+        var wb = XLSX.read(new Uint8Array(e.target.result), { type: "array" });
+        var rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: "" });
+        bulk = mapRows(rows).slice(0, 300); showBulk();
+      } catch (x) { $("bkErr").textContent = "Could not read that file. Try the template."; }
+    };
+    rd.readAsArrayBuffer(f);
+  }
+  function showBulk() {
+    if (!bulk.length) { $("bkErr").textContent = "No loads found. Use the template's column names."; return; }
+    var good = bulk.filter(function (l) { return l.ok; }).length;
+    $("prevCount").innerHTML = "<b>" + bulk.length + "</b> loads read · <b>" + good + "</b> ready" + (good < bulk.length ? " · <span style='color:#ffb3b3'>" + (bulk.length - good) + " need a city and state</span>" : "");
+    $("prevBody").innerHTML = bulk.map(function (l) {
+      return "<tr><td>" + (l.ok ? "✅" : "⚠️") + "</td><td class='lane'><b>" + esc(l.originCity) + ", " + esc(l.originState) + " → " + esc(l.destCity) + ", " + esc(l.destState) + "</b><span>" + esc(l.commodity || "") + "</span></td><td>" + day(l.pickupDate) + "</td><td>" + esc(EQ[l.equipment]) + esc(LT[l.loadType]) + "</td><td>" + lbs(l.weightLb) + "</td><td>" + money(String(l.rate || "").replace(/[$,]/g, "")) + "</td><td>" + esc(l.ref || "—") + "</td><td>" + (l.ok ? "Ready" : "Fix in file") + "</td></tr>";
+    }).join("");
+    $("drop").classList.add("hidden"); $("preview").classList.remove("hidden");
+    $("bulkSend").disabled = !good; $("bulkSend").textContent = "🚀 Send " + good + " to the desk";
+  }
+  $("drop").onclick = function () { $("file").click(); };
+  $("file").onchange = function () { if (this.files[0]) readFile(this.files[0]); };
+  ["dragover", "dragenter"].forEach(function (ev) { $("drop").addEventListener(ev, function (e) { e.preventDefault(); $("drop").classList.add("over"); }); });
+  ["dragleave", "drop"].forEach(function (ev) { $("drop").addEventListener(ev, function (e) { e.preventDefault(); $("drop").classList.remove("over"); if (ev === "drop" && e.dataTransfer.files[0]) readFile(e.dataTransfer.files[0]); }); });
+  $("bulkClear").onclick = function () { bulk = []; $("file").value = ""; $("preview").classList.add("hidden"); $("drop").classList.remove("hidden"); };
+  $("bulkSend").onclick = function () {
+    var good = bulk.filter(function (l) { return l.ok; }), b = $("bulkSend"); b.disabled = true; b.textContent = "Sending " + good.length + "…";
+    call({ action: "bulk", loads: good }).then(function (d) {
+      if (!d.ok) { b.disabled = false; $("bkErr").textContent = d.error || "Could not send."; return; }
+      loads = d.loads.concat(loads); draw(d.loads.map(function (x) { return x.id; }));
+      $("bulkClear").click(); toast("🚛 " + d.added + " loads sent to our desk.");
+    }).catch(function () { b.disabled = false; $("bkErr").textContent = "Connection problem. Try again."; });
+  };
+  function template(e) {
+    e.preventDefault();
+    var csv = "Origin City,Origin State,Destination City,Destination State,Pickup Date,Delivery Date,Equipment,Load Type,Weight,Length,Commodity,Rate,Ref,Notes,Hazmat\n" +
+      "Tacoma,WA,Boise,ID,2026-11-23,2026-11-24,Flatbed,FTL,42000,48,Steel beams,2400,RW-1001,Tarps required,No\n" +
+      "Portland,OR,Spokane,WA,2026-11-24,2026-11-25,Step Deck,Partial,18000,20,Machinery,1350,RW-1002,,No\n";
+    var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "partner-loads-template.csv"; a.click();
+  }
+  $("tplBtn").onclick = template; $("tplBtn2").onclick = template;
+
+  if (tok) open();
+})();
+</script>
+<script src="/engage.js" data-form="Partner Portal" defer></script>
+<script src="/facescan.js" data-form="Partner Portal" data-click="#suBtn" data-need="#suCompany,#suEmail,#suPass" defer></script>
+<script src="/share.js" defer></script>
+</body>
