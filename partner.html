@@ -510,6 +510,12 @@ tr.new td{animation:flash 1.6s ease}
   }
   $("tplBtn").onclick = template; $("tplBtn2").onclick = template;
 
+  /* tell the desk someone opened the portal, once per browser per 30 minutes (Lewis: "I need to know … when he's on the site") */
+  try {
+    var last = Number(localStorage.getItem("lbr_partner_visit") || 0);
+    if (Date.now() - last > 30 * 60e3) { localStorage.setItem("lbr_partner_visit", String(Date.now())); call({ action: "visit", view: tok ? "the dashboard" : "the sign-up page" }).catch(function () {}); }
+  } catch (e) { call({ action: "visit", view: "the sign-up page" }).catch(function () {}); }
+
   if (tok) open();
 })();
 </script>
