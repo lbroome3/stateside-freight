@@ -65,6 +65,36 @@ h1 em{font-style:normal;background:linear-gradient(90deg,#5ab4ff,#9ee3ff);-webki
 .feat span{font-size:.8rem;color:var(--soft)}
 .feat.highway{max-width:580px;border-color:rgba(255,210,26,.45);background:linear-gradient(135deg,rgba(255,210,26,.10),var(--card))}
 .feat.highway a{color:#ffd21a}
+/* ── WOW INTRO (Lewis, 11/21: "create a wonderful, wow type of intro") ─────────────────────────────
+   A once-per-visit opening: freight lanes from across the country stream into the dispatch desk in
+   Myrtle Beach, trucks fan back out over the network, then the page reveals. Skippable; never shown to
+   reduced-motion visitors or to a partner already signed in. Behind the hero, a live network keeps moving. */
+#intro{position:fixed;inset:0;z-index:2147483000;background:radial-gradient(1200px 700px at 50% 45%,#0b2c55 0,#040d1c 70%);display:flex;align-items:center;justify-content:center;transition:opacity .8s ease,transform .8s ease;overflow:hidden}
+#intro.out{opacity:0;transform:scale(1.06);pointer-events:none}
+#intro canvas{position:absolute;inset:0;width:100%;height:100%}
+#intro .scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(124,196,255,.05) 0 1px,transparent 1px 4px)}
+#intro .hudtxt{position:absolute;left:clamp(16px,4vw,48px);top:clamp(16px,5vh,48px);font:600 clamp(.7rem,1.6vw,.95rem)/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;color:#9fd4ff;text-transform:uppercase;white-space:pre;text-shadow:0 0 12px rgba(47,155,255,.6)}
+#intro .hudtxt b{color:#2ee077}
+#intro .big{position:relative;text-align:center;padding:0 18px;opacity:0;transform:scale(1.25);transition:opacity .5s ease,transform .7s cubic-bezier(.2,1.4,.4,1)}
+#intro .big.on{opacity:1;transform:none}
+#intro .big img{height:clamp(34px,6vw,52px);background:#fff;border-radius:10px;padding:6px 10px;box-shadow:0 0 40px rgba(47,155,255,.5);margin-bottom:18px}
+#intro .big h2{font:900 clamp(2.1rem,7vw,5rem)/1.02 Archivo,Inter,sans-serif;margin:0;letter-spacing:-.02em;text-shadow:0 0 40px rgba(47,155,255,.45)}
+#intro .big h2 em{font-style:normal;background:linear-gradient(90deg,#ffd166,#fff3c4,#ffd166);-webkit-background-clip:text;background-clip:text;color:transparent}
+#intro .big p{margin:14px 0 0;font:600 clamp(.85rem,2.2vw,1.15rem)/1.4 Inter,sans-serif;color:#cfe3ff;letter-spacing:.04em}
+#intro .skip{position:absolute;right:clamp(14px,3vw,30px);bottom:clamp(14px,4vh,30px);background:rgba(255,255,255,.08);border:1px solid rgba(140,200,255,.3);color:#cfe3ff;font:600 .85rem Inter,sans-serif;padding:8px 14px;border-radius:99px;cursor:pointer}
+#intro .hud{position:absolute;width:28px;height:28px;border:2px solid rgba(124,196,255,.6)}
+#intro .hud.tl{top:12px;left:12px;border-right:0;border-bottom:0}#intro .hud.tr{top:12px;right:12px;border-left:0;border-bottom:0}
+#intro .hud.bl{bottom:12px;left:12px;border-right:0;border-top:0}#intro .hud.br{bottom:12px;right:12px;border-left:0;border-top:0}
+.hero{position:relative;isolation:isolate}
+.hero canvas.net{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.55;pointer-events:none}
+.hero h1.glitch{animation:glitch .9s steps(2) 1}
+@keyframes glitch{0%{opacity:0;transform:translateX(-6px);text-shadow:3px 0 #2f9bff,-3px 0 #ffd166}30%{opacity:1;transform:translateX(4px)}60%{transform:translateX(-2px);text-shadow:-2px 0 #2f9bff,2px 0 #ffd166}100%{transform:none;text-shadow:none}}
+.eyebrow.typing::after{content:"▌";margin-left:2px;animation:blk 1s steps(1) infinite}
+@keyframes blk{50%{opacity:0}}
+.intro-in{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.intro-in.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){#intro{display:none}.intro-in{opacity:1;transform:none;transition:none}.hero h1.glitch{animation:none}}
+
 .howvid{max-width:1100px;margin:10px auto 40px;padding:0 20px}.howvid h2{font-size:1.4rem;margin:0 0 12px}.howvid h2 span{color:var(--soft);font-weight:500;font-size:1rem}.howvid video{width:100%;border-radius:16px;border:1px solid var(--line);background:#000;display:block}
 #dash:not(.hidden)~.howvid,.dash-on .howvid{display:none}
 .panel{position:relative;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 30px 80px rgba(0,0,0,.35);padding:26px}
@@ -141,6 +171,13 @@ tr.new td{animation:flash 1.6s ease}
 </style>
 </head>
 <body>
+<div id="intro" aria-hidden="true" hidden>
+  <canvas></canvas><div class="scan"></div>
+  <i class="hud tl"></i><i class="hud tr"></i><i class="hud bl"></i><i class="hud br"></i>
+  <div class="hudtxt" id="introHud"></div>
+  <div class="big" id="introBig"><img src="/assets/landstar-agent-logo.png" alt="" /><h2>Your freight.<br /><em>Straight to our desk.</em></h2><p>3PLs &amp; freight forwarders · direct access to Landstar capacity</p></div>
+  <button class="skip" type="button" id="introSkip">Skip intro ›</button>
+</div>
 
 <header class="top">
   <a class="brand" href="/partner" aria-label="Partner Load Portal">
@@ -154,30 +191,31 @@ tr.new td{animation:flash 1.6s ease}
 
   <!-- ================= SIGN UP / SIGN IN ================= -->
   <section class="hero" id="auth">
+    <canvas class="net" aria-hidden="true"></canvas>
     <div>
-      <span class="eyebrow"><i></i>Independent Landstar Agency · Agency LBR</span>
-      <h1>Your freight, <em>straight to our desk.</em></h1>
-      <p class="lede">A private portal for 3PLs, freight forwarders and partner agencies: direct access to Landstar capacity, seamlessly. Add your available loads one at a time, say them out loud, or drop in a whole spreadsheet. Every load lands on our dispatch desk the second you send it, backed by Landstar's network and our own Super Intelligence tools.</p>
-      <div class="feats">
+      <span class="eyebrow" id="introKick" data-text="Independent Landstar Agency · Agency LBR"><i></i>Independent Landstar Agency · Agency LBR</span>
+      <h1 id="introName">Your freight, <em>straight to our desk.</em></h1>
+      <p class="lede intro-in">A private portal for 3PLs, freight forwarders and partner agencies: direct access to Landstar capacity, seamlessly. Add your available loads one at a time, say them out loud, or drop in a whole spreadsheet. Every load lands on our dispatch desk the second you send it, backed by Landstar's network and our own Super Intelligence tools.</p>
+      <div class="feats intro-in">
         <div class="feat" data-fab-avoid><span class="ic">✍️</span><div><b>Add a load</b><span>Lane, dates, equipment, done.</span></div></div>
         <div class="feat" data-fab-avoid><span class="ic">🎙️</span><div><b>Speak it in</b><span>Talk it through; we fill the form.</span></div></div>
         <div class="feat" data-fab-avoid><span class="ic">📄</span><div><b>Bulk upload</b><span>CSV or Excel, hundreds at once.</span></div></div>
         <div class="feat" data-fab-avoid><span class="ic">🗑️</span><div><b>Delete when it moves</b><span>No calls on freight that's gone.</span></div></div>
       </div>
-      <div class="feat soon" data-fab-avoid style="margin-top:14px;max-width:580px">
+      <div class="feat soon intro-in" data-fab-avoid style="margin-top:14px;max-width:580px">
         <span class="ic">📸</span>
         <div><b>Snap the bill of lading <i style="font-style:normal;font-size:.7rem;letter-spacing:.08em;padding:2px 7px;border-radius:99px;background:rgba(95,179,255,.18);color:#9fd4ff;margin-left:6px">COMING SOON</i></b>
           <span>The driver takes a picture of the BOL and it fills in the load on its own.</span></div>
       </div>
       <!-- Highway option (Lewis, 11/21: "highway option needs to be added to the website"): brokers who vet carriers on Highway onboard us there. -->
-      <div class="feat highway" id="highway" data-fab-avoid style="margin-top:14px;grid-column:1/-1">
+      <div class="feat highway intro-in" id="highway" data-fab-avoid style="margin-top:14px;grid-column:1/-1">
         <span class="ic">🛣️</span>
         <div><b>Onboard us through Highway</b>
           <span>Already vet your carriers on <a href="https://highway.com" target="_blank" rel="noopener">Highway</a>? Look us up as <b style="display:inline;color:inherit">Landstar Ranger, Inc.</b> (USDOT 241572 · MC 166960) and send your onboarding invite to <a href="mailto:lewis.broome@landstarmail.com">lewis.broome@landstarmail.com</a>. Prefer it here? Create your portal and our team handles the setup.</span></div>
       </div>
     </div>
 
-    <div class="panel">
+    <div class="panel intro-in">
       <div class="tabs" role="tablist">
         <button type="button" class="on" id="tabUp">Create account</button>
         <button type="button" id="tabIn">Sign in</button>
@@ -555,4 +593,69 @@ tr.new td{animation:flash 1.6s ease}
 <script src="/facescan.js" data-form="Partner Portal" data-click="#suBtn" data-need="#suCompany,#suName,#suEmail,#suAddr,#suCity,#suState,#suZip,#suDot,#suMc,#suPass" defer></script>
 <script src="/share.js" defer></script>
 <script src="https://gptmarketing.us/w/gm.js" data-site="stateside" defer></script>
+
+<script>
+/* WOW INTRO + live hero network (Lewis, 11/21). */
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero=document.getElementById('auth'), kick=document.getElementById('introKick'), name=document.getElementById('introName');
+  function revealHero(){
+    var ins=hero.querySelectorAll('.intro-in');
+    if(reduce){ins.forEach(function(el){el.classList.add('on')});return}
+    var txt=kick.getAttribute('data-text'),dot=kick.querySelector('i');kick.textContent='';if(dot)kick.appendChild(dot);var node=document.createTextNode('');kick.appendChild(node);kick.classList.add('typing');var i=0;
+    (function type(){if(i<=txt.length){node.nodeValue=txt.slice(0,i++);setTimeout(type,22)}else{setTimeout(function(){kick.classList.remove('typing')},800)}})();
+    name.classList.add('glitch');ins.forEach(function(el,j){setTimeout(function(){el.classList.add('on')},160+j*120)});
+  }
+  /* live network behind the hero */
+  (function(){var c=hero.querySelector('canvas.net');if(!c||!c.getContext)return;var x=c.getContext('2d'),pts=[],W=0,H=0,dpr=Math.min(2,window.devicePixelRatio||1);
+    function size(){W=hero.clientWidth;H=hero.clientHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);
+      var n=Math.round(Math.min(70,Math.max(26,W*H/14000)));pts=[];for(var j=0;j<n;j++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35})}
+    function draw(){x.clearRect(0,0,W,H);for(var a=0;a<pts.length;a++){var p=pts[a];if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
+      for(var b=a+1;b<pts.length;b++){var q=pts[b],dx=p.x-q.x,dy=p.y-q.y,d=dx*dx+dy*dy;if(d<14000){x.strokeStyle='rgba(124,196,255,'+(0.2*(1-d/14000))+')';x.lineWidth=1;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke()}}
+      x.fillStyle=a%9===0?'rgba(255,209,102,.9)':'rgba(124,196,255,.8)';x.beginPath();x.arc(p.x,p.y,a%9===0?2.2:1.5,0,6.283);x.fill()}
+      if(!reduce&&!document.hidden)requestAnimationFrame(draw)}
+    size();draw();var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();if(reduce)draw()},200)});
+    document.addEventListener('visibilitychange',function(){if(!document.hidden&&!reduce)requestAnimationFrame(draw)})})();
+
+  /* the opening: once per visit, never for a signed-in partner or a reduced-motion visitor */
+  var seen=false;try{seen=sessionStorage.getItem('lbr_partner_intro')==='1'||!!localStorage.getItem('lbr_partner_token')}catch(e){}
+  var ov=document.getElementById('intro');
+  if(reduce||seen||!ov){revealHero();return}
+  try{sessionStorage.setItem('lbr_partner_intro','1')}catch(e){}
+  ov.hidden=false;document.documentElement.style.overflow='hidden';
+  var done=false;function finish(){if(done)return;done=true;ov.classList.add('out');document.documentElement.style.overflow='';setTimeout(function(){ov.remove()},850);revealHero()}
+  document.getElementById('introSkip').onclick=finish;addEventListener('keydown',function k(e){if(e.key==='Escape'||e.key===' '){finish();removeEventListener('keydown',k)}});
+  var c=ov.querySelector('canvas'),x=c.getContext('2d'),dpr=Math.min(2,window.devicePixelRatio||1),W,H;
+  function fit(){W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}fit();addEventListener('resize',fit);
+  // freight cities (lon, lat); the desk is Myrtle Beach
+  var C=[[-122.3,47.6],[-122.7,45.5],[-122.4,37.8],[-118.2,34.1],[-112.1,33.4],[-111.9,40.8],[-104.9,39.7],[-106.5,31.8],[-97.3,32.8],[-95.4,29.8],[-98.5,29.4],[-94.6,39.1],[-93.3,45.0],[-87.6,41.9],[-90.0,35.1],[-86.8,36.2],[-84.4,33.7],[-81.7,30.3],[-80.2,25.8],[-82.5,27.9],[-80.8,35.2],[-77.4,37.5],[-75.2,39.9],[-74.0,40.7],[-71.1,42.4],[-83.0,42.3],[-81.1,32.1],[-90.1,30.0],[-86.2,39.8],[-97.5,35.5]];
+  var DESK=[-78.9,33.7];
+  function P(ll){var mw=Math.min(W*(W<700?.94:.86),H*1.55),mh=mw*.58,ox=(W-mw)/2,oy=(H-mh)/2+H*.04;return[ox+(ll[0]+125)/(125-66)*mw,oy+(49.5-ll[1])/(49.5-24.5)*mh]}
+  var t0=performance.now(),hud=document.getElementById('introHud'),big=document.getElementById('introBig');
+  var lines=['> Stateside dispatch desk · <b>online</b>','> Partner portal · <b>open</b>','> Linking Landstar capacity…'];
+  lines.forEach(function(l,i){setTimeout(function(){if(!done)hud.innerHTML=lines.slice(0,i+1).join('\n')},250+i*650)});
+  setTimeout(function(){if(!done){hud.innerHTML=lines.join('\n')+'  <b>✓</b>'}},2400);
+  setTimeout(function(){if(!done)big.classList.add('on')},2600);
+  setTimeout(finish,4700);
+  function arc(a,b,k,col,w){var mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2-Math.hypot(b[0]-a[0],b[1]-a[1])*.22;x.strokeStyle=col;x.lineWidth=w;x.beginPath();x.moveTo(a[0],a[1]);
+    for(var s=1;s<=24*k;s++){var u=s/24,iu=1-u;x.lineTo(iu*iu*a[0]+2*iu*u*mx+u*u*b[0],iu*iu*a[1]+2*iu*u*my+u*u*b[1])}x.stroke();
+    return function(u){var iu=1-u;return[iu*iu*a[0]+2*iu*u*mx+u*u*b[0],iu*iu*a[1]+2*iu*u*my+u*u*b[1]]}}
+  (function frame(now){if(done&&ov.classList.contains('out')&&now-t0>6000)return;var t=(now-t0)/1000;x.clearRect(0,0,W,H);
+    var d=P(DESK);
+    // city dots
+    C.forEach(function(ll,i){var p=P(ll),on=Math.min(1,Math.max(0,(t-.1-i*.03)*3));x.fillStyle='rgba(124,196,255,'+(.85*on)+')';x.beginPath();x.arc(p[0],p[1],2.2,0,6.283);x.fill()});
+    // inbound lanes: freight streaming to the desk
+    C.forEach(function(ll,i){var st=.3+i*.045,k=Math.min(1,Math.max(0,(t-st)/.7));if(k<=0)return;var at=arc(P(ll),d,k,'rgba(47,155,255,'+(.18+.25*k)+')',1.2);
+      if(k>=1){var u=((t-st-.7)*.6+i*.13)%1,q=at(u);x.fillStyle='rgba(159,212,255,.95)';x.beginPath();x.arc(q[0],q[1],2,0,6.283);x.fill()}});
+    // outbound trucks: gold, fanning back out over the network
+    if(t>1.9)C.forEach(function(ll,i){if(i%2)return;var u=Math.min(1,(t-1.9-(i%7)*.06)/1.1);if(u<=0)return;var at=arc(d,P(ll),0,'rgba(0,0,0,0)',0),q=at(u);
+      var g=x.createRadialGradient(q[0],q[1],0,q[0],q[1],9);g.addColorStop(0,'rgba(255,209,102,1)');g.addColorStop(1,'rgba(255,209,102,0)');x.fillStyle=g;x.beginPath();x.arc(q[0],q[1],9,0,6.283);x.fill()});
+    // the desk
+    var pulse=(t*1.4)%1;x.strokeStyle='rgba(255,209,102,'+(1-pulse)+')';x.lineWidth=2;x.beginPath();x.arc(d[0],d[1],6+pulse*34,0,6.283);x.stroke();
+    var g=x.createRadialGradient(d[0],d[1],0,d[0],d[1],16);g.addColorStop(0,'#fff6d5');g.addColorStop(.4,'#ffd166');g.addColorStop(1,'rgba(255,209,102,0)');x.fillStyle=g;x.beginPath();x.arc(d[0],d[1],16,0,6.283);x.fill();
+    x.font='700 11px ui-monospace,Menlo,monospace';x.fillStyle='rgba(255,209,102,.95)';var lab=W<700?'DISPATCH DESK':'DISPATCH DESK · MYRTLE BEACH',lw=x.measureText(lab).width;if(d[0]+18+lw<W-8){x.textAlign='left';x.fillText(lab,d[0]+14,d[1]+4)}else{x.textAlign='right';x.fillText(lab,d[0]-14,d[1]-12)}
+    if(big.classList.contains('on')){x.fillStyle='rgba(4,13,28,.45)';x.fillRect(0,0,W,H)}
+    requestAnimationFrame(frame)})(t0);
+})();
+</script>
 </body>
