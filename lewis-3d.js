@@ -108,7 +108,7 @@
       { label: "GPT Marketing", sub: "Websites & AI", href: "https://gptmarketing.us/", logo: "/assets/logos/gpt-marketing.png", r: 5.4, tilt: [1.35, -0.6], speed: -0.22, color: 0x9fd3ff, rgb: "159,211,255", phase: 2.1 },
       { label: "Surrogate Funding", sub: "Foundation", href: "/surrogate-funding", logo: "/assets/logos/surrogate-funding.png", r: 6.5, tilt: [1.0, 0.9], speed: 0.16, color: GOLD, rgb: "201,162,74", phase: 4.2 },
       /* Lewis, 11/21: "add the war room to the world in the cube" */
-      { label: "Zeus War Room", sub: "SPY · live 9:30 ET", href: "/zeus", logo: "/assets/logos/zeus.svg", zeus: true, r: 7.5, tilt: [1.25, -1.1], speed: -0.13, color: 0x8b7bff, rgb: "150,130,255", phase: 1.0 },
+      { label: "Zeus War Room", sub: "SPY · live 9:30 ET", href: "/zeus", logo: "/assets/logos/zeus-war-room.png", zeus: true, r: 7.5, tilt: [1.25, -1.1], speed: -0.13, color: 0x8b7bff, rgb: "150,130,255", phase: 1.0 },
     ];
     var labels = [];
     var layer = document.createElement("div"); layer.className = "gl-labels"; layer.setAttribute("aria-hidden", "true"); hero.appendChild(layer);
