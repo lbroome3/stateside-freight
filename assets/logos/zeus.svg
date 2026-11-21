@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Zeus War Room">
+  <defs>
+    <linearGradient id="h" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fd3ff"/><stop offset="1" stop-color="#8b7bff"/></linearGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6d0"/><stop offset=".5" stop-color="#ffd76a"/><stop offset="1" stop-color="#ffb43a"/></linearGradient>
+    <radialGradient id="c" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#2a1f6b"/><stop offset="1" stop-color="#060a18"/></radialGradient>
+  </defs>
+  <polygon points="64,4 116,34 116,94 64,124 12,94 12,34" fill="url(#c)" stroke="url(#h)" stroke-width="7" stroke-linejoin="round"/>
+  <polygon points="64,18 104,41 104,87 64,110 24,87 24,41" fill="none" stroke="#5fd3ff" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M72 20 L40 70 L60 70 L52 108 L88 54 L67 54 Z" fill="url(#b)" stroke="#fff3c4" stroke-width="2" stroke-linejoin="round"/>
+</svg>

@@ -283,6 +283,10 @@ h2{font-family:Archivo;font-weight:800;font-size:clamp(1.6rem,3.6vw,2.2rem);line
 .card h3{font-family:Archivo;font-size:1.25rem;line-height:1.2}
 .card p{color:var(--ink-2);font-size:.96rem}
 .card a.go{margin-top:auto;font-weight:800;text-decoration:none}
+.card .logo{height:44px;width:auto;max-width:160px;flex:none;align-self:flex-start;object-fit:contain;margin-bottom:4px}
+.chip img.ci{width:21px;height:21px;object-fit:contain;flex:none;vertical-align:-4px;margin-right:2px}
+.chip img.ci.lt{background:#fff;border-radius:50%;padding:1px}
+.gl-label{display:flex;align-items:center;gap:8px}.gl-label img{width:26px;height:26px;object-fit:contain;flex:none}.gl-label img.lt{background:#fff;border-radius:50%;padding:1px}
 .card.zeus{background:radial-gradient(120% 90% at 85% 0%,#2a1f6b 0%,#0b1430 55%,#060a18 100%);border-color:#3b3394;box-shadow:0 0 0 1px rgba(139,123,255,.25),0 10px 30px rgba(60,40,180,.3);grid-column:1/-1}
 .card.zeus .role{color:#b9adff}.card.zeus h3{color:#fff}.card.zeus p{color:#c9d3f5}.card.zeus a.go{color:#ffd76a}
 .card .scope-k{font-size:.74rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;color:var(--ink-2);margin-top:4px}
@@ -385,10 +389,10 @@ a.gl-label{pointer-events:auto;text-decoration:none;cursor:pointer}a.gl-label:ho
       <h1 id="introName">Lewis Broome III</h1>
       <p class="lede intro-in">Independent Landstar agent, partner in GPT Marketing, and founder of the Surrogate Funding Foundation. I move freight, build marketing for small businesses, and help young men get a fair start.</p>
       <div class="chips intro-in">
-        <a class="chip" href="https://www.trueshipping.us/">🚛 Landstar Agent <span aria-hidden="true">→</span></a>
-        <a class="chip" href="https://gptmarketing.us/">💻 GPT Marketing <span aria-hidden="true">→</span></a>
-        <a class="chip" href="/surrogate-funding">🤝 Surrogate Funding Foundation <span aria-hidden="true">→</span></a>
-        <a class="chip" href="/zeus">⚡ Zeus War Room <span aria-hidden="true">→</span></a>
+        <a class="chip" href="https://www.trueshipping.us/"><img class="ci" src="/assets/logos/landstar-star.png" alt=""> Landstar Agent <span aria-hidden="true">→</span></a>
+        <a class="chip" href="https://gptmarketing.us/"><img class="ci" src="/assets/logos/gpt-marketing.png" alt=""> GPT Marketing <span aria-hidden="true">→</span></a>
+        <a class="chip" href="/surrogate-funding"><img class="ci" src="/assets/logos/surrogate-funding.png" alt=""> Surrogate Funding Foundation <span aria-hidden="true">→</span></a>
+        <a class="chip" href="/zeus"><img class="ci" src="/assets/logos/zeus.svg" alt=""> Zeus War Room <span aria-hidden="true">→</span></a>
       </div>
       <div class="status intro-in"><i></i><span>Online &middot; <a href="https://www.trueshipping.us/">Freight</a> &middot; <a href="https://gptmarketing.us/">Marketing</a> &middot; <a href="/surrogate-funding">Community</a> &middot; <a href="/zeus">War Room</a></span></div>
       <div class="btns intro-in">
@@ -405,6 +409,7 @@ a.gl-label{pointer-events:auto;text-decoration:none;cursor:pointer}a.gl-label:ho
     <p class="sub">Five things, one person. Each has its own home on the web.</p>
     <div class="grid">
       <article class="card">
+        <img class="logo" src="/assets/landstar-logo.png" alt="Landstar Agent logo" width="145" height="44" loading="lazy">
         <span class="role">Independent Landstar Agent</span>
         <h3>Stateside International Logistics</h3>
         <p>An independent Landstar agency in Myrtle Beach, SC. Truckload, hazmat, fireworks importing and container drayage, with online estimates, truck requests and live tracking on Landstar's network.</p>
@@ -418,24 +423,28 @@ a.gl-label{pointer-events:auto;text-decoration:none;cursor:pointer}a.gl-label:ho
         <a class="go" href="https://www.trueshipping.us/">Get a freight quote &rarr;</a>
       </article>
       <article class="card">
+        <img class="logo" src="/assets/logos/gpt-marketing.png" alt="GPT Marketing logo" width="48" height="48" loading="lazy">
         <span class="role">Partner</span>
         <h3>GPT Marketing</h3>
         <p>Websites, social media graphics and short videos, and AI tools for small businesses, on simple monthly packages. Free market scan included.</p>
         <a class="go" href="https://gptmarketing.us/">Visit gptmarketing.us &rarr;</a>
       </article>
       <article class="card">
+        <img class="logo" src="/assets/logos/surrogate-funding.png" alt="Surrogate Funding Foundation emblem" width="48" height="48" loading="lazy">
         <span class="role">Founder &amp; President</span>
         <h3>Surrogate Funding Foundation</h3>
         <p>Prevention first: mentoring boys and young men in Richland County and the Midlands, and keeping families together when a small bond would tear them apart.</p>
         <a class="go" href="/surrogate-funding">Read the mission &rarr;</a>
       </article>
       <article class="card">
+        <img class="logo" src="/assets/landstar-logo.png" alt="Landstar Agent logo" width="145" height="44" loading="lazy">
         <span class="role">Owner-operators</span>
         <h3>Lease on with Landstar</h3>
         <p>Owner-operators and BCOs looking for steady freight can lease on with Landstar through Lewis's agency, with dispatch support.</p>
         <a class="go" href="/BCOonboarding">Owner-operator onboarding &rarr;</a>
       </article>
       <article class="card zeus">
+        <img class="logo" src="/assets/logos/zeus.svg" alt="Zeus War Room logo" width="48" height="48" loading="lazy">
         <span class="role">⚡ Zeus War Room · SPY</span>
         <h3>Zeus</h3>
         <p>The team's AI trading desk. Every weekday morning we prep the market together in the War Room, then trade SPY live at the 9:30 Eastern open. Step inside the server.</p>

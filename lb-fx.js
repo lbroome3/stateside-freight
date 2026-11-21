@@ -14,7 +14,7 @@
     ".lbfx-tilt::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(14,128,212,.12),transparent 45%);opacity:0;transition:opacity .3s;z-index:2}",
     ".lbfx-tilt:hover::after{opacity:1}",
     ".lbfx-tilt:hover{box-shadow:0 18px 44px rgba(10,31,51,.18)}",
-    ".card .role,.card h3{transform:translateZ(24px)}",
+    ".card .role,.card h3,.card .logo{transform:translateZ(24px)}",
     ".portrait img{animation:lbfxBreathe 4.4s ease-in-out infinite;transform-origin:50% 85%}",
     "@keyframes lbfxBreathe{0%,100%{transform:scale(1) rotate(0)}30%{transform:scale(1.04) rotate(-1.4deg)}65%{transform:scale(1.02) rotate(1.2deg)}}",
     ".lbfx-hi{position:absolute;right:-18px;top:6px;z-index:3;background:#fff;color:#0b1f33;font:800 .9rem/1 Inter,system-ui,sans-serif;padding:9px 13px;border-radius:14px 14px 4px 14px;box-shadow:0 12px 28px rgba(0,0,0,.35);white-space:nowrap;opacity:0;transform:translateY(8px) scale(.8);transform-origin:100% 100%;transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1.4);pointer-events:none}",

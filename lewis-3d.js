@@ -104,11 +104,11 @@
 
     /* four orbits, one business on each */
     var ORBITS = [
-      { label: "Freight", sub: "Landstar Agency LBR", href: "https://www.trueshipping.us/", r: 4.2, tilt: [1.15, 0.2], speed: 0.32, color: BLUE, rgb: "124,196,255", phase: 0 },
-      { label: "GPT Marketing", sub: "Websites & AI", href: "https://gptmarketing.us/", r: 5.4, tilt: [1.35, -0.6], speed: -0.22, color: 0x9fd3ff, rgb: "159,211,255", phase: 2.1 },
-      { label: "Surrogate Funding", sub: "Foundation", href: "/surrogate-funding", r: 6.5, tilt: [1.0, 0.9], speed: 0.16, color: GOLD, rgb: "201,162,74", phase: 4.2 },
+      { label: "Freight", sub: "Landstar Agency LBR", href: "https://www.trueshipping.us/", logo: "/assets/logos/landstar-star.png", r: 4.2, tilt: [1.15, 0.2], speed: 0.32, color: BLUE, rgb: "124,196,255", phase: 0 },
+      { label: "GPT Marketing", sub: "Websites & AI", href: "https://gptmarketing.us/", logo: "/assets/logos/gpt-marketing.png", r: 5.4, tilt: [1.35, -0.6], speed: -0.22, color: 0x9fd3ff, rgb: "159,211,255", phase: 2.1 },
+      { label: "Surrogate Funding", sub: "Foundation", href: "/surrogate-funding", logo: "/assets/logos/surrogate-funding.png", r: 6.5, tilt: [1.0, 0.9], speed: 0.16, color: GOLD, rgb: "201,162,74", phase: 4.2 },
       /* Lewis, 11/21: "add the war room to the world in the cube" */
-      { label: "⚡ Zeus War Room", sub: "SPY · live 9:30 ET", href: "/zeus", zeus: true, r: 7.5, tilt: [1.25, -1.1], speed: -0.13, color: 0x8b7bff, rgb: "150,130,255", phase: 1.0 },
+      { label: "Zeus War Room", sub: "SPY · live 9:30 ET", href: "/zeus", logo: "/assets/logos/zeus.svg", zeus: true, r: 7.5, tilt: [1.25, -1.1], speed: -0.13, color: 0x8b7bff, rgb: "150,130,255", phase: 1.0 },
     ];
     var labels = [];
     var layer = document.createElement("div"); layer.className = "gl-labels"; layer.setAttribute("aria-hidden", "true"); hero.appendChild(layer);
@@ -123,8 +123,8 @@
       var beamGeo = new T.BufferGeometry().setFromPoints([new T.Vector3(), new T.Vector3()]);
       var beam = new T.Line(beamGeo, new T.LineBasicMaterial({ color: o.color, transparent: true, opacity: 0.35, blending: T.AdditiveBlending }));
       beam.frustumCulled = false; scene.add(beam);
-      var el = document.createElement("a"); el.className = "gl-label" + (o.zeus ? " zeus" : ""); el.href = o.href; el.innerHTML = "<b></b><span></span>";
-      el.querySelector("b").textContent = o.label; el.querySelector("span").textContent = o.sub; layer.appendChild(el);
+      var el = document.createElement("a"); el.className = "gl-label" + (o.zeus ? " zeus" : ""); el.href = o.href; el.innerHTML = '<img alt=""' + (o.light ? ' class="lt"' : "") + '><div><b></b><span></span></div>';
+      el.querySelector("img").src = o.logo; el.querySelector("b").textContent = o.label; el.querySelector("span").textContent = o.sub; layer.appendChild(el);
       labels.push({ o: o, pivot: pivot, node: node, beam: beam, el: el });
     });
 
