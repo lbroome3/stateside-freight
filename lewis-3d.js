@@ -78,11 +78,37 @@
     var heartGold = new T.Sprite(new T.SpriteMaterial({ map: glowTexture("201,162,74"), blending: T.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0.55 }));
     heartGold.scale.set(3.2, 3.2, 1); core.add(heartGold);
 
-    /* three orbits, one business on each */
+    /* Lewis, 11/21: "a pulsating heartbeat inside of that square in the middle". A glowing heart
+       beats lub-dub (about 66 a minute) inside the gold shell, and each beat sends a ripple out. */
+    function heartTexture() {
+      var c = document.createElement("canvas"); c.width = c.height = 256; var g = c.getContext("2d");
+      g.translate(128, 136); g.shadowColor = "rgba(255,70,90,1)"; g.shadowBlur = 38;
+      g.beginPath(); g.moveTo(0, 62);
+      g.bezierCurveTo(-92, 2, -70, -78, 0, -40); g.bezierCurveTo(70, -78, 92, 2, 0, 62); g.closePath();
+      var grd = g.createRadialGradient(-12, -18, 4, 0, 0, 80);
+      grd.addColorStop(0, "#fff1f3"); grd.addColorStop(0.35, "#ff6b7d"); grd.addColorStop(1, "#c8142e");
+      g.fillStyle = grd; g.fill(); g.shadowBlur = 0; g.lineWidth = 3; g.strokeStyle = "rgba(255,215,140,.9)"; g.stroke();
+      return new T.CanvasTexture(c);
+    }
+    var beat = new T.Sprite(new T.SpriteMaterial({ map: heartTexture(), transparent: true, depthWrite: false, depthTest: false }));
+    beat.scale.set(1.25, 1.25, 1); beat.renderOrder = 5; core.add(beat);
+    var beatGlow = new T.Sprite(new T.SpriteMaterial({ map: glowTexture("255,80,100"), blending: T.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0 }));
+    beatGlow.scale.set(3, 3, 1); core.add(beatGlow);
+    var ripple = new T.Mesh(new T.RingGeometry(0.95, 1.0, 64), new T.MeshBasicMaterial({ color: 0xff6b7d, transparent: true, opacity: 0, side: T.DoubleSide, blending: T.AdditiveBlending, depthWrite: false }));
+    core.add(ripple);
+    function lubDub(t) {                 /* 0..1 strength: a strong beat, then a softer one */
+      var ph = (t % 0.91) / 0.91;        /* ~66 beats a minute */
+      var a = Math.exp(-Math.pow((ph - 0.06) / 0.045, 2)), b = 0.6 * Math.exp(-Math.pow((ph - 0.25) / 0.05, 2));
+      return Math.max(a, b);
+    }
+
+    /* four orbits, one business on each */
     var ORBITS = [
-      { label: "Freight", sub: "Landstar Agency LBR", r: 4.2, tilt: [1.15, 0.2], speed: 0.32, color: BLUE, rgb: "124,196,255", phase: 0 },
-      { label: "GPT Marketing", sub: "Websites & AI", r: 5.4, tilt: [1.35, -0.6], speed: -0.22, color: 0x9fd3ff, rgb: "159,211,255", phase: 2.1 },
-      { label: "Surrogate Funding", sub: "Foundation", r: 6.5, tilt: [1.0, 0.9], speed: 0.16, color: GOLD, rgb: "201,162,74", phase: 4.2 },
+      { label: "Freight", sub: "Landstar Agency LBR", href: "https://www.trueshipping.us/", r: 4.2, tilt: [1.15, 0.2], speed: 0.32, color: BLUE, rgb: "124,196,255", phase: 0 },
+      { label: "GPT Marketing", sub: "Websites & AI", href: "https://gptmarketing.us/", r: 5.4, tilt: [1.35, -0.6], speed: -0.22, color: 0x9fd3ff, rgb: "159,211,255", phase: 2.1 },
+      { label: "Surrogate Funding", sub: "Foundation", href: "/surrogate-funding", r: 6.5, tilt: [1.0, 0.9], speed: 0.16, color: GOLD, rgb: "201,162,74", phase: 4.2 },
+      /* Lewis, 11/21: "add the war room to the world in the cube" */
+      { label: "⚡ Zeus War Room", sub: "SPY · live 9:30 ET", href: "/zeus", zeus: true, r: 7.5, tilt: [1.25, -1.1], speed: -0.13, color: 0x8b7bff, rgb: "150,130,255", phase: 1.0 },
     ];
     var labels = [];
     var layer = document.createElement("div"); layer.className = "gl-labels"; layer.setAttribute("aria-hidden", "true"); hero.appendChild(layer);
@@ -97,7 +123,7 @@
       var beamGeo = new T.BufferGeometry().setFromPoints([new T.Vector3(), new T.Vector3()]);
       var beam = new T.Line(beamGeo, new T.LineBasicMaterial({ color: o.color, transparent: true, opacity: 0.35, blending: T.AdditiveBlending }));
       beam.frustumCulled = false; scene.add(beam);
-      var el = document.createElement("div"); el.className = "gl-label"; el.innerHTML = "<b></b><span></span>";
+      var el = document.createElement("a"); el.className = "gl-label" + (o.zeus ? " zeus" : ""); el.href = o.href; el.innerHTML = "<b></b><span></span>";
       el.querySelector("b").textContent = o.label; el.querySelector("span").textContent = o.sub; layer.appendChild(el);
       labels.push({ o: o, pivot: pivot, node: node, beam: beam, el: el });
     });
@@ -153,7 +179,12 @@
       shellA.rotation.y = t * 0.18; shellA.rotation.x = t * 0.07;
       shellDots.rotation.copy(shellA.rotation);
       shellB.rotation.y = -t * 0.35; shellB.rotation.z = t * 0.12;
-      var pulse = 1 + Math.sin(t * 2.2) * 0.08; heart.scale.set(6.5 * pulse, 6.5 * pulse, 1); heartGold.material.opacity = 0.45 + Math.sin(t * 1.4) * 0.15;
+      var hb = lubDub(t), pulse = 1 + hb * 0.12; heart.scale.set(6.5 * pulse, 6.5 * pulse, 1); heartGold.material.opacity = 0.4 + hb * 0.35;
+      var hs = 1.45 + hb * 0.45; beat.scale.set(hs, hs, 1);
+      beatGlow.material.opacity = 0.15 + hb * 0.75; beatGlow.scale.setScalar(2.4 + hb * 1.6);
+      var rp = (t % 0.91) / 0.91; ripple.scale.setScalar(0.6 + rp * 2.4); ripple.material.opacity = Math.max(0, 0.55 * (1 - rp / 0.7));
+      ripple.quaternion.copy(camera.quaternion);
+      shellB.scale.setScalar(1 + hb * 0.06);
       field.rotation.y = t * 0.012; field.rotation.x = Math.sin(t * 0.05) * 0.05;
       labels.forEach(function (L) {
         var a = L.o.phase + t * L.o.speed;
@@ -169,6 +200,7 @@
         var over = false;
         if (textCol) { var tr = textCol.getBoundingClientRect(), hr = hero.getBoundingClientRect(); over = x < tr.right - hr.left + 12 && y > tr.top - hr.top - 40 && y < tr.bottom - hr.top + 20; }
         L.el.style.opacity = over || s.z >= 1 ? "0" : v.z > -1 ? "1" : ".45";
+        L.el.style.pointerEvents = over || s.z >= 1 ? "none" : "";
       });
       renderer.render(scene, camera);
       requestAnimationFrame(frame);

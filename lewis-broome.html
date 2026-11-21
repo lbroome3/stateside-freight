@@ -283,6 +283,8 @@ h2{font-family:Archivo;font-weight:800;font-size:clamp(1.6rem,3.6vw,2.2rem);line
 .card h3{font-family:Archivo;font-size:1.25rem;line-height:1.2}
 .card p{color:var(--ink-2);font-size:.96rem}
 .card a.go{margin-top:auto;font-weight:800;text-decoration:none}
+.card.zeus{background:radial-gradient(120% 90% at 85% 0%,#2a1f6b 0%,#0b1430 55%,#060a18 100%);border-color:#3b3394;box-shadow:0 0 0 1px rgba(139,123,255,.25),0 10px 30px rgba(60,40,180,.3);grid-column:1/-1}
+.card.zeus .role{color:#b9adff}.card.zeus h3{color:#fff}.card.zeus p{color:#c9d3f5}.card.zeus a.go{color:#ffd76a}
 .card .scope-k{font-size:.74rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;color:var(--ink-2);margin-top:4px}
 .card .scope{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 6px}
 .card .scope a{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;background:var(--soft,#eef4fa);border:1px solid var(--line);color:var(--ink);font-weight:700;font-size:.84rem;text-decoration:none}
@@ -349,6 +351,8 @@ footer a{color:rgba(255,255,255,.8)}
 .hero canvas.gl{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;transition:opacity .8s}
 .hero.gl-on canvas.net{opacity:0;transition:opacity .8s}
 .gl-labels{position:absolute;inset:0;z-index:0;pointer-events:none}
+a.gl-label{pointer-events:auto;text-decoration:none;cursor:pointer}a.gl-label:hover{background:rgba(14,60,110,.75)}
+.gl-label.zeus{border-left-color:#a99bff;box-shadow:0 0 18px rgba(139,123,255,.45)}
 .gl-label{position:absolute;left:0;top:0;margin:-46px 0 0 14px;padding:6px 10px;border-left:2px solid #7cc4ff;background:rgba(8,26,44,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);white-space:nowrap;transition:opacity .4s;font:600 .68rem/1.25 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:1.2px;text-transform:uppercase;color:#cfe8ff}
 .gl-label b{display:block;font:800 .8rem/1.2 Inter,system-ui,sans-serif;letter-spacing:.3px;text-transform:none;color:#fff}
 .hero .wrap{position:relative;z-index:1}
@@ -384,8 +388,9 @@ footer a{color:rgba(255,255,255,.8)}
         <a class="chip" href="https://www.trueshipping.us/">🚛 Landstar Agent <span aria-hidden="true">→</span></a>
         <a class="chip" href="https://gptmarketing.us/">💻 GPT Marketing <span aria-hidden="true">→</span></a>
         <a class="chip" href="/surrogate-funding">🤝 Surrogate Funding Foundation <span aria-hidden="true">→</span></a>
+        <a class="chip" href="/zeus">⚡ Zeus War Room <span aria-hidden="true">→</span></a>
       </div>
-      <div class="status intro-in"><i></i><span>Online &middot; <a href="https://www.trueshipping.us/">Freight</a> &middot; <a href="https://gptmarketing.us/">Marketing</a> &middot; <a href="/surrogate-funding">Community</a></span></div>
+      <div class="status intro-in"><i></i><span>Online &middot; <a href="https://www.trueshipping.us/">Freight</a> &middot; <a href="https://gptmarketing.us/">Marketing</a> &middot; <a href="/surrogate-funding">Community</a> &middot; <a href="/zeus">War Room</a></span></div>
       <div class="btns intro-in">
         <a class="btn solid" href="tel:17064179097">Call (706) 417-9097</a>
         <a class="btn ghost" href="https://www.linkedin.com/in/lewis-broome-iii-a177167a/" target="_blank" rel="noopener me">LinkedIn</a>
@@ -397,7 +402,7 @@ footer a{color:rgba(255,255,255,.8)}
 <section class="block">
   <div class="wrap">
     <h2>What Lewis Broome does</h2>
-    <p class="sub">Four things, one person. Each has its own home on the web.</p>
+    <p class="sub">Five things, one person. Each has its own home on the web.</p>
     <div class="grid">
       <article class="card">
         <span class="role">Independent Landstar Agent</span>
@@ -429,6 +434,12 @@ footer a{color:rgba(255,255,255,.8)}
         <h3>Lease on with Landstar</h3>
         <p>Owner-operators and BCOs looking for steady freight can lease on with Landstar through Lewis's agency, with dispatch support.</p>
         <a class="go" href="/BCOonboarding">Owner-operator onboarding &rarr;</a>
+      </article>
+      <article class="card zeus">
+        <span class="role">⚡ Zeus War Room · SPY</span>
+        <h3>Zeus</h3>
+        <p>The team's AI trading desk. Every weekday morning we prep the market together in the War Room, then trade SPY live at the 9:30 Eastern open. Step inside the server.</p>
+        <a class="go" href="/zeus">Enter the War Room &rarr;</a>
       </article>
     </div>
   </div>
