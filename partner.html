@@ -54,6 +54,8 @@ h1 em{font-style:normal;background:linear-gradient(90deg,#5ab4ff,#9ee3ff);-webki
 .feat span{font-size:.8rem;color:var(--soft)}
 .feat.highway{max-width:580px;border-color:rgba(255,210,26,.45);background:linear-gradient(135deg,rgba(255,210,26,.10),var(--card))}
 .feat.highway a{color:#ffd21a}
+.howvid{max-width:1100px;margin:10px auto 40px;padding:0 20px}.howvid h2{font-size:1.4rem;margin:0 0 12px}.howvid h2 span{color:var(--soft);font-weight:500;font-size:1rem}.howvid video{width:100%;border-radius:16px;border:1px solid var(--line);background:#000;display:block}
+#dash:not(.hidden)~.howvid,.dash-on .howvid{display:none}
 .panel{position:relative;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 30px 80px rgba(0,0,0,.35);padding:26px}
 .panel::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(90,180,255,.6),transparent 40%,rgba(255,209,102,.45));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 .tabs{display:flex;gap:6px;padding:5px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid var(--line);margin-bottom:18px}
@@ -151,6 +153,11 @@ tr.new td{animation:flash 1.6s ease}
         <div class="feat" data-fab-avoid><span class="ic">📄</span><div><b>Bulk upload</b><span>CSV or Excel, hundreds at once.</span></div></div>
         <div class="feat" data-fab-avoid><span class="ic">🗑️</span><div><b>Delete when it moves</b><span>No calls on freight that's gone.</span></div></div>
       </div>
+      <div class="feat soon" data-fab-avoid style="margin-top:14px;max-width:580px">
+        <span class="ic">📸</span>
+        <div><b>Snap the bill of lading <i style="font-style:normal;font-size:.7rem;letter-spacing:.08em;padding:2px 7px;border-radius:99px;background:rgba(95,179,255,.18);color:#9fd4ff;margin-left:6px">COMING SOON</i></b>
+          <span>The driver takes a picture of the BOL and it fills in the load on its own.</span></div>
+      </div>
       <!-- Highway option (Lewis, 11/21: "highway option needs to be added to the website"): brokers who vet carriers on Highway onboard us there. -->
       <div class="feat highway" id="highway" data-fab-avoid style="margin-top:14px;grid-column:1/-1">
         <span class="ic">🛣️</span>
@@ -205,6 +212,12 @@ tr.new td{animation:flash 1.6s ease}
         <p class="note">Forgot your password? Call or text the team at <a href="tel:+17064179097">706-417-9097</a>.</p>
       </form>
     </div>
+  </section>
+
+  <!-- How it works video (Lewis, 11/21: "Add the video to the portal") -->
+  <section class="howvid" id="how">
+    <h2>See how it works <span>· 60 seconds</span></h2>
+    <video controls playsinline preload="none" poster="/assets/videos/poster-partner-portal.jpg" src="/assets/videos/partner-portal-wide.mp4"></video>
   </section>
 
   <!-- ================= DASHBOARD ================= -->
@@ -345,7 +358,7 @@ tr.new td{animation:flash 1.6s ease}
   function open() {
     call({ action: "me" }).then(function (d) {
       if (d.__status === 401) { tok = null; try { localStorage.removeItem(KEY); } catch (e) {} return; }
-      $("auth").classList.add("hidden"); $("dash").classList.remove("hidden");
+      $("auth").classList.add("hidden"); $("dash").classList.remove("hidden"); if ($("how")) $("how").classList.add("hidden");
       var a = d.account || {};
       $("hello").textContent = (a.company || "Partner") + "'s load desk";
       $("who").innerHTML = '<span class="co">' + esc(a.contact_name || a.email) + '</span><a class="btn ghost sm" href="tel:+17064179097">📞 Team</a>';
