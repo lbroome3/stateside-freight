@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Partner Load Portal | Stateside International Logistics · Landstar Agency LBR</title>
-<meta name="description" content="Private load portal for partner agencies of Stateside International Logistics, an independent Landstar agency. Add, speak or upload your available loads; they go straight to our desk." />
+<meta name="description" content="Private load portal for 3PLs, freight forwarders and partner agencies: direct access to Landstar capacity through Stateside International Logistics, an independent Landstar agency. Add, speak or upload loads, or onboard us through Highway." />
 <meta name="robots" content="noindex, nofollow" />
 <link rel="canonical" href="https://www.trueshipping.us/partner" />
 <meta name="theme-color" content="#071a2e" />
@@ -52,6 +52,8 @@ h1 em{font-style:normal;background:linear-gradient(90deg,#5ab4ff,#9ee3ff);-webki
 .feat .ic{font-size:1.4rem;line-height:1}
 .feat b{display:block;font-size:.92rem}
 .feat span{font-size:.8rem;color:var(--soft)}
+.feat.highway{max-width:580px;border-color:rgba(255,210,26,.45);background:linear-gradient(135deg,rgba(255,210,26,.10),var(--card))}
+.feat.highway a{color:#ffd21a}
 .panel{position:relative;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 30px 80px rgba(0,0,0,.35);padding:26px}
 .panel::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(90,180,255,.6),transparent 40%,rgba(255,209,102,.45));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 .tabs{display:flex;gap:6px;padding:5px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid var(--line);margin-bottom:18px}
@@ -142,12 +144,18 @@ tr.new td{animation:flash 1.6s ease}
     <div>
       <span class="eyebrow"><i></i>Independent Landstar Agency · Agency LBR</span>
       <h1>Your freight, <em>straight to our desk.</em></h1>
-      <p class="lede">A private portal for partner agencies. Add your available loads one at a time, say them out loud, or drop in a whole spreadsheet. Every load lands on our dispatch desk the second you send it, backed by Landstar's network and our own Super Intelligence tools.</p>
+      <p class="lede">A private portal for 3PLs, freight forwarders and partner agencies: direct access to Landstar capacity, seamlessly. Add your available loads one at a time, say them out loud, or drop in a whole spreadsheet. Every load lands on our dispatch desk the second you send it, backed by Landstar's network and our own Super Intelligence tools.</p>
       <div class="feats">
         <div class="feat" data-fab-avoid><span class="ic">✍️</span><div><b>Add a load</b><span>Lane, dates, equipment, done.</span></div></div>
         <div class="feat" data-fab-avoid><span class="ic">🎙️</span><div><b>Speak it in</b><span>Talk it through; we fill the form.</span></div></div>
         <div class="feat" data-fab-avoid><span class="ic">📄</span><div><b>Bulk upload</b><span>CSV or Excel, hundreds at once.</span></div></div>
         <div class="feat" data-fab-avoid><span class="ic">🗑️</span><div><b>Delete when it moves</b><span>No calls on freight that's gone.</span></div></div>
+      </div>
+      <!-- Highway option (Lewis, 11/21: "highway option needs to be added to the website"): brokers who vet carriers on Highway onboard us there. -->
+      <div class="feat highway" id="highway" data-fab-avoid style="margin-top:14px;grid-column:1/-1">
+        <span class="ic">🛣️</span>
+        <div><b>Onboard us through Highway</b>
+          <span>Already vet your carriers on <a href="https://highway.com" target="_blank" rel="noopener">Highway</a>? Look us up as <b style="display:inline;color:inherit">Landstar Ranger, Inc.</b> (USDOT 241572 · MC 166960) and send your onboarding invite to <a href="mailto:lewis.broome@landstarmail.com">lewis.broome@landstarmail.com</a>. Prefer it here? Create your portal and our team handles the setup.</span></div>
       </div>
     </div>
 
@@ -159,7 +167,7 @@ tr.new td{animation:flash 1.6s ease}
 
       <form id="signup" autocomplete="on" onsubmit="return false" data-no-facescan>
         <label for="suCompany">Business name</label>
-        <input id="suCompany" name="company" autocomplete="organization" required placeholder="Your agency's legal business name" />
+        <input id="suCompany" name="company" autocomplete="organization" required placeholder="Your company's legal business name" />
         <div class="row2">
           <div><label for="suName">Full name</label><input id="suName" name="name" autocomplete="name" required placeholder="First and last" /></div>
           <div><label for="suPhone">Phone</label><input id="suPhone" name="phone" type="tel" autocomplete="tel" placeholder="Optional" /></div>
