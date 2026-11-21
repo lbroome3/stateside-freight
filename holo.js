@@ -11,10 +11,12 @@
    Holds still for reduced-motion visitors (shows the button only). Once per visit, then the button. */
 (function () {
   var me = document.currentScript; if (!me) return;
-  var SRC = me.getAttribute("data-src"), AFTER = me.getAttribute("data-after");
+  var SRC = me.getAttribute("data-src"), AFTER = me.getAttribute("data-after"), DELAY = Number(me.getAttribute("data-delay") || 900);
+  // captions: data-caps='[[start, end, "line"], ...]' (seconds); the partner clip's are the default
   var CAPS = [[0, 2.7, "Freight forwarders, 3PLs: I got you covered."], [3.6, 8.6, "Instant access to Landstar's capacity, seamlessly."]];
+  try { if (me.getAttribute("data-caps")) CAPS = JSON.parse(me.getAttribute("data-caps")); } catch (e) {}
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var KEY = "lbr_holo_seen";
+  var KEY = "lbr_holo_seen:" + SRC;   // each clip remembers its own visit
 
   var css = document.createElement("style");
   css.textContent =
@@ -93,7 +95,7 @@
   var seen = false; try { seen = sessionStorage.getItem(KEY) === "1"; } catch (e) {}
   if (reduce || seen) { btn.classList.add("on"); return; }
   try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
-  function go() { setTimeout(function () { show(false); }, 900); }
+  function go() { setTimeout(function () { show(false); }, DELAY); }
   var gate = AFTER && document.querySelector(AFTER);
   if (gate && !gate.hidden && document.body.contains(gate)) {
     var t = setInterval(function () { var g = document.querySelector(AFTER); if (!g || g.hidden || g.classList.contains("out")) { clearInterval(t); go(); } }, 200);
