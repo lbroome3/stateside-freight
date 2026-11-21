@@ -1004,6 +1004,28 @@
       "permanent": true
     },
     {
+      "source": "/partner",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/partner",
+      "permanent": true
+    },
+    {
+      "source": "/partner.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/partner",
+      "permanent": true
+    },
+    {
       "source": "/home-classic",
       "has": [
         {
