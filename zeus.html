@@ -170,7 +170,7 @@ body.atcore #dock,body.atcore #cap{display:none!important}.panel{padding:12px 14
   <h2>Want a seat?</h2>
   <p>Call the team for details on joining the War Room.</p>
   <div class="cta"><a class="call" href="tel:17064179097">📞 Call 706-417-9097</a><a class="txt" href="sms:17064179097?&body=Zeus%20War%20Room%3A%20I%27d%20like%20the%20details.">💬 Text us</a></div>
-  <div class="again"><button type="button" id="bAgain">↺ Replay tour</button><button type="button" id="bIntro2">⚡ Replay intro</button></div>
+  <div class="again"><button type="button" id="bAgain">↺ Replay tour</button><button type="button" id="bIntro2">📈 How Zeus trades</button></div>
   <p class="fine">Education and community. Not financial or investment advice; trading involves risk, including the loss of money, and no result is promised. <a href="/lewis-broome">← lewisbroome.com</a></p>
 </section>
 
@@ -180,12 +180,13 @@ body.atcore #dock,body.atcore #cap{display:none!important}.panel{padding:12px 14
   <button type="button" id="bAuto">▶ Autopilot</button>
   <button type="button" id="bSound">🔊 Sound</button>
   <button type="button" id="bReplay">↺ Replay intro</button>
+  <button type="button" id="bHow">📈 How Zeus trades</button>
   <a class="callpill" id="bCall" href="tel:17064179097">📞 Call for details</a>
 </div>
 
 <div id="intro" role="dialog" aria-label="Zeus intro">
   <video id="introV" playsinline preload="auto" poster="/assets/zeus/zeus-ai-master-poster.jpg" src="/assets/zeus/zeus-ai-master.mp4"></video>
-  <div class="tag">⚡ Zeus · the team intro</div>
+  <div class="tag" id="introTag">⚡ Zeus · the team intro</div>
   <button type="button" class="skip" id="skip">Skip ▸</button>
 </div>
 
@@ -289,7 +290,8 @@ body.atcore #dock,body.atcore #cap{display:none!important}.panel{padding:12px 14
   };
   $("bSound").onclick = function () { vo.muted = !vo.muted; this.textContent = vo.muted ? "🔇 Muted" : "🔊 Sound"; };
   $("bReplay").onclick = function () { playIntro(); };
-  $("bIntro2").onclick = function () { playIntro(); };
+  $("bHow").onclick = function () { playIntro(false, 1); };
+  $("bIntro2").onclick = function () { playIntro(false, 1); };
   $("bAgain").onclick = function () { programmatic = true; window.scrollTo(0, 0); programmatic = false; P = targetP = 0; $("bAuto").onclick.call($("bAuto")); };
 
   /* ---------- boot sequence ---------- */
@@ -319,10 +321,29 @@ body.atcore #dock,body.atcore #cap{display:none!important}.panel{padding:12px 14
     playIntro(true);
   };
 
-  function playIntro(first) {
+  /* Two clips, one after the other, on the same video element (so iPhone keeps the sound):
+     the team intro, then "How Zeus trades" (Lewis, 11/21: "There's a video that you made that explains how
+     Zeus trades. That's the video that needs to be on the site." It is the Zeus Login Intro, with the
+     illustrative dollar figures taken out for the public site). */
+  var CLIPS = [
+    { src: "/assets/zeus/zeus-ai-master.mp4", poster: "/assets/zeus/zeus-ai-master-poster.jpg", tag: "⚡ Zeus · the team intro" },
+    { src: "/assets/zeus/how-zeus-trades.mp4", poster: "/assets/zeus/how-zeus-trades-poster.jpg", tag: "⚡ How Zeus trades" }
+  ], clip = 0;
+  function playClip(i) {
+    clip = i; var c = CLIPS[i];
+    if (iv.getAttribute("src") !== c.src) { iv.src = c.src; iv.poster = c.poster; }
+    $("introTag").textContent = c.tag;
+    iv.currentTime = 0; iv.muted = false;
+    var p = iv.play(); if (p && p.catch) p.catch(function () { iv.muted = true; iv.play().catch(nextClip); });
+  }
+  function playIntro(first, start) {
     touring = false; auto = false; try { vo.pause(); } catch (e) {}
-    $("intro").classList.add("on"); iv.currentTime = 0; iv.muted = false;
-    var p = iv.play(); if (p && p.catch) p.catch(function () { iv.muted = true; iv.play().catch(endIntro); });
+    $("intro").classList.add("on"); playClip(start || 0);
+  }
+  function nextClip() {
+    if (!$("intro").classList.contains("on")) return;
+    if (clip + 1 < CLIPS.length) { playClip(clip + 1); return; }
+    endIntro();
   }
   function endIntro() {
     if (!$("intro").classList.contains("on")) return;
@@ -330,14 +351,14 @@ body.atcore #dock,body.atcore #cap{display:none!important}.panel{padding:12px 14
     $("intro").classList.remove("on");
     startTour();
   }
-  iv.addEventListener("ended", endIntro);
-  $("skip").onclick = endIntro;
+  iv.addEventListener("ended", nextClip);
+  $("skip").onclick = nextClip;
 
   function startTour() {
     document.body.classList.remove("locked");
     programmatic = true; window.scrollTo(0, 0); setTimeout(function () { programmatic = false; }, 50);
     P = targetP = 0; bellDone = false; touring = true; auto = !reduce;
-    ["bSound", "bReplay", "bCall"].forEach(function (id) { $(id).classList.add("show"); });
+    ["bSound", "bReplay", "bHow", "bCall"].forEach(function (id) { $(id).classList.add("show"); });
     $("bAuto").classList.toggle("show", !auto);
     if (auto) { try { vo.currentTime = 0; var p = vo.play(); if (p && p.catch) p.catch(function () { fakeClock = performance.now(); }); } catch (e) { fakeClock = performance.now(); } }
     else $("hint").classList.add("on");
