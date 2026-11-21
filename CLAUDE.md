@@ -141,7 +141,7 @@ from every page's footer or trust row, drawn as the blue "Follow us on Facebook"
 CRM's `api/_muse.js` drafts the posts and every post links back to a page here.
 
 The site chat is our own bot (it replaced Tawk.to on 10/15): the same one-line embed on the form
-pages and the three live-board pages, `<script src="https://gptmarketing.us/w/gm.js"
+pages, the three live-board pages and Lewis's own page (`lewis-broome.html`, added 11/21 when he noticed it missing), `<script src="https://gptmarketing.us/w/gm.js"
 data-site="stateside" defer>`. It answers from the agency's facts in the CRM's
 `api/gm-chat.js` (never a rate, never a promised truck), turns a name plus a phone or email
 into a "lewisbroome.com · Chat" lead, and Lewis answers live from the CRM's `/site-chat`,
