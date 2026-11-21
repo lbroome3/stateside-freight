@@ -81,6 +81,8 @@ a{color:inherit}
 .cta a{flex:1 1 140px;text-align:center;text-decoration:none;font:800 15px Inter,sans-serif;padding:13px 14px;border-radius:12px}
 .cta .call{background:linear-gradient(135deg,#ffd76a,#ffb43a);color:#1b1200;box-shadow:0 0 24px rgba(255,200,90,.5)}
 .cta .txt{border:1px solid rgba(160,220,255,.6);color:#eaf6ff;background:rgba(20,50,90,.4)}
+.again{display:none;gap:8px;margin-top:8px}.again button{flex:1;font:800 12px Inter,sans-serif;padding:8px;border-radius:10px;border:1px solid rgba(160,220,255,.45);background:rgba(10,30,60,.5);color:#dff2ff;cursor:pointer}
+@media (max-width:640px){.again{display:flex}}
 .fine{margin-top:10px;font-size:11.5px;color:#8fa6c8;line-height:1.45}
 .fine a{color:#bfe6ff}
 /* captions */
@@ -120,7 +122,8 @@ a{color:inherit}
 #intro .skip{position:absolute;right:14px;top:calc(14px + env(safe-area-inset-top));font:800 13px Inter,sans-serif;padding:9px 14px;border-radius:99px;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.5);color:#fff;cursor:pointer}
 #intro .tag{position:absolute;left:14px;top:calc(16px + env(safe-area-inset-top));font:700 11px "JetBrains Mono",monospace;letter-spacing:2px;color:#bfe6ff;text-transform:uppercase}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-@media (max-width:640px){.panel{padding:12px 14px}.panel p{font-size:13.5px}#tele{display:none}#rail{right:8px}.panel{top:calc(70px + env(safe-area-inset-top))}#hudTL .brand{font-size:13px;letter-spacing:2px}#hudTR .clock{font-size:12px;letter-spacing:1px}#hudTR .mkt,#hudTL .stage{font-size:9.5px;letter-spacing:1px}#cap{bottom:calc(72px + env(safe-area-inset-bottom))}#dock{bottom:calc(150px + env(safe-area-inset-bottom))}#hint{bottom:calc(160px + env(safe-area-inset-bottom))}}
+@media (max-width:640px){#pCta{top:auto;bottom:calc(68px + env(safe-area-inset-bottom));transform:translate(-50%,10px)}#pCta.on{transform:translate(-50%,0)}#pCta .fine{font-size:10.5px;margin-top:8px}#pCta .who img{width:42px;height:42px}#pCta .who b{font-size:14px}#pCta h2{margin:4px 0}#pCta .cta a{padding:11px 10px;font-size:14px}
+body.atcore #dock,body.atcore #cap{display:none!important}.panel{padding:12px 14px}.panel p{font-size:13.5px}#tele{display:none}#rail{right:8px}.panel{top:calc(70px + env(safe-area-inset-top))}#hudTL .brand{font-size:13px;letter-spacing:2px}#hudTR .clock{font-size:12px;letter-spacing:1px}#hudTR .mkt,#hudTL .stage{font-size:9.5px;letter-spacing:1px}#cap{bottom:calc(72px + env(safe-area-inset-bottom))}#dock{bottom:calc(150px + env(safe-area-inset-bottom))}#hint{bottom:calc(160px + env(safe-area-inset-bottom))}}
 @media (prefers-reduced-motion:reduce){#boot .cronin,#boot .cronin img,#boot .logo,#enter.ready,#hint.on{animation:none}}
 </style>
 </head>
@@ -165,6 +168,7 @@ a{color:inherit}
   <h2>Want a seat?</h2>
   <p>Call the team for details on joining the War Room.</p>
   <div class="cta"><a class="call" href="tel:17064179097">📞 Call 706-417-9097</a><a class="txt" href="sms:17064179097?&body=Zeus%20War%20Room%3A%20I%27d%20like%20the%20details.">💬 Text us</a></div>
+  <div class="again"><button type="button" id="bAgain">↺ Replay tour</button><button type="button" id="bIntro2">⚡ Replay intro</button></div>
   <p class="fine">Education and community. Not financial or investment advice; trading involves risk, including the loss of money, and no result is promised. <a href="/lewis-broome">← lewisbroome.com</a></p>
 </section>
 
@@ -283,6 +287,8 @@ a{color:inherit}
   };
   $("bSound").onclick = function () { vo.muted = !vo.muted; this.textContent = vo.muted ? "🔇 Muted" : "🔊 Sound"; };
   $("bReplay").onclick = function () { playIntro(); };
+  $("bIntro2").onclick = function () { playIntro(); };
+  $("bAgain").onclick = function () { programmatic = true; window.scrollTo(0, 0); programmatic = false; P = targetP = 0; $("bAuto").onclick.call($("bAuto")); };
 
   /* ---------- boot sequence ---------- */
   var LINES = [
@@ -351,6 +357,7 @@ a{color:inherit}
       stageIdx = si;
       STAGES.forEach(function (s, k) { $(s.panel).classList.toggle("on", k === si); railBtns[k].classList.toggle("on", k === si); });
       $("stageName").textContent = si < 0 ? "Standby" : STAGES[si].name;
+      document.body.classList.toggle("atcore", si === STAGES.length - 1);
       if (si >= 0) buzz(12);
     }
     /* the bell */
@@ -553,11 +560,22 @@ a{color:inherit}
     var cg2 = new T.Sprite(new T.SpriteMaterial({ map: glow("255,255,255"), transparent: true, depthWrite: false, blending: T.AdditiveBlending })); cg2.scale.set(3, 3, 1); core.add(cg2);
     var rings = [];
     for (var ri = 0; ri < 3; ri++) { var rg = new T.Mesh(new T.TorusGeometry(4.3 + ri * .8, .025, 6, 120), new T.MeshBasicMaterial({ color: ri === 1 ? 0xffd76a : 0x8b7bff, transparent: true, opacity: .7 })); rg.rotation.set(Math.random() * 3, Math.random() * 3, 0); core.add(rg); rings.push(rg); }
-    var coreLbl = label("⚡ ZEUS", "#5fd3ff", 6); coreLbl.position.set(0, 5.3, 0); core.add(coreLbl);
+
     /* Zeus, the ultimate trader, lives in the core (Lewis, 11/21: "Use this as Zeus") */
     var croninMat = new T.SpriteMaterial({ map: new T.TextureLoader().load("/assets/zeus/cronin-holo.png"), transparent: true, depthWrite: false, depthTest: false, opacity: 0 });
-    var cronin = new T.Sprite(croninMat); cronin.scale.set(4.6, 4.6, 1); cronin.renderOrder = 10; core.add(cronin);
-    var cronLbl = label("ZEUS · THE ULTIMATE TRADER", "#ffd76a", 5.2); cronLbl.position.set(0, -3.4, 0); cronLbl.material.opacity = 0; cronLbl.material.depthTest = false; cronLbl.renderOrder = 11; core.add(cronLbl);
+    var cronin = new T.Sprite(croninMat); cronin.renderOrder = 10; core.add(cronin);
+    /* Lewis, 11/21: "I like seeing a heartbeat. Put the face off to the side." The heart beats lub-dub in
+       the middle of the core, with a ripple on every beat; Zeus's face floats off to one side. */
+    var heartTex = tex(256, 256, function (g) {
+      g.translate(128, 136); g.shadowColor = "rgba(255,70,90,1)"; g.shadowBlur = 38;
+      g.beginPath(); g.moveTo(0, 62); g.bezierCurveTo(-92, 2, -70, -78, 0, -40); g.bezierCurveTo(70, -78, 92, 2, 0, 62); g.closePath();
+      var gr = g.createRadialGradient(-12, -18, 4, 0, 0, 80); gr.addColorStop(0, "#fff1f3"); gr.addColorStop(.35, "#ff6b7d"); gr.addColorStop(1, "#c8142e");
+      g.fillStyle = gr; g.fill(); g.shadowBlur = 0; g.lineWidth = 3; g.strokeStyle = "rgba(255,215,140,.9)"; g.stroke();
+    });
+    var heart = new T.Sprite(new T.SpriteMaterial({ map: heartTex, transparent: true, depthWrite: false, depthTest: false })); heart.renderOrder = 12; core.add(heart);
+    var heartGlow = new T.Sprite(new T.SpriteMaterial({ map: glow("255,80,100"), transparent: true, depthWrite: false, blending: T.AdditiveBlending, opacity: 0 })); heartGlow.scale.set(4, 4, 1); core.add(heartGlow);
+    var ripple = new T.Mesh(new T.RingGeometry(.95, 1, 64), new T.MeshBasicMaterial({ color: 0xff6b7d, transparent: true, opacity: 0, side: T.DoubleSide, blending: T.AdditiveBlending, depthWrite: false })); core.add(ripple);
+    var cronLbl = label("ZEUS · THE ULTIMATE TRADER", "#ffd76a", 5.2); cronLbl.position.set(0, 3.9, 0); cronLbl.material.opacity = 0; cronLbl.material.depthTest = false; cronLbl.renderOrder = 11; core.add(cronLbl);
     /* lightning that arcs into the core */
     var boltMat = new T.LineBasicMaterial({ color: 0xcfe8ff, transparent: true, opacity: 0, blending: T.AdditiveBlending });
     var bolts = []; for (var bo = 0; bo < 4; bo++) { var bg = new T.BufferGeometry(); bg.setAttribute("position", new T.BufferAttribute(new Float32Array(14 * 3), 3)); var bl2 = new T.Line(bg, boltMat.clone()); bl2.frustumCulled = false; core.add(bl2); bolts.push(bl2); }
@@ -603,7 +621,7 @@ a{color:inherit}
       P += (targetP - P) * (auto ? .2 : .08);
       var u = Math.min(.999, Math.max(0, P));
       path.getPointAt(u, camPos); path.getPointAt(Math.min(1, u + .02), lookAhead);
-      if (u > .97) lookAhead.set(0, 1, -142);
+      if (u > .97) lookAhead.set(0, innerWidth < innerHeight ? -3.4 : 1, -142);   /* on a phone the face sits high, clear of the Call panel */
       /* tip the nose down over the Zeus chip, so you look straight at it as you pass */
       var dz = camPos.z + 38; lookAhead.y -= 3.2 * Math.exp(-dz * dz / 60);
       lx += (tx - lx) * .06; ly += (ty - ly) * .06;
@@ -633,8 +651,18 @@ a{color:inherit}
       var hb = Math.max(Math.exp(-Math.pow(((t % .91) / .91 - .06) / .045, 2)), .6 * Math.exp(-Math.pow(((t % .91) / .91 - .25) / .05, 2)));
       cg2.scale.setScalar(2.6 + hb * 1.6); cg.material.opacity = .7 + hb * .3;
       var cv = Math.max(0, Math.min(1, (P - .84) / .1));              /* Zeus materializes as you reach the core */
-      croninMat.opacity = cv * (Math.random() < .04 ? .55 : .96); cronLbl.material.opacity = cv * .95;
-      cronin.scale.setScalar(4.6 + hb * .12); cronin.position.y = Math.sin(t * 1.3) * .12;
+      /* Lewis, 11/21: the heartbeat and the face take turns in the middle of the core, fading in and out */
+      var cyc = (t % 8) / 8, fade = function (x) { return Math.max(0, Math.min(1, x)); };
+      var faceA = fade(Math.min((cyc - .02) / .1, (.48 - cyc) / .1)), heartA = fade(Math.min((cyc - .52) / .1, (.98 - cyc) / .1));
+      croninMat.opacity = cv * faceA * (Math.random() < .04 ? .6 : 1); cronLbl.material.opacity = cv * faceA * .95;
+      var fs = innerWidth < innerHeight ? 3.9 : 4.6;
+      cronin.scale.setScalar(fs * (.94 + faceA * .06)); cronin.position.set(0, Math.sin(t * 1.3) * .1, 1);
+      cronLbl.scale.set(fs * 1.2, fs * 1.2 * 160 / 1024, 1); cronLbl.position.set(0, fs * .6 + .2, 1);
+      heart.material.opacity = heartA; ripple.visible = heartA > .05;
+      var hs = 2.2 + hb * .7; heart.scale.set(hs, hs, 1);
+      heartGlow.material.opacity = (.2 + hb * .8) * heartA; heartGlow.scale.setScalar(3 + hb * 2.2);
+      var rp = (t % .91) / .91; ripple.scale.setScalar(.8 + rp * 3.2); ripple.material.opacity = Math.max(0, .6 * (1 - rp / .7)) * heartA; ripple.quaternion.copy(cam.quaternion);
+      ico2.scale.setScalar(1 + hb * .07);
       rings.forEach(function (r, i) { r.rotation.x += dt * (.2 + i * .1); r.rotation.y += dt * (.15 - i * .05); });
       if (P > .8 && t - lastZap > 1.2 + Math.random() * 1.5) { lastZap = t; zap(); }
       bolts.forEach(function (b) { b.material.opacity *= .86; });
