@@ -270,6 +270,22 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
    05 — WHAT YOU SEE (centerpiece)
    ============================================================ */
 #s05.step{min-height:72svh}
+/* border crossing section (Lewis, 11/26) — not a walkthrough step, no narration */
+.border-x{padding:90px clamp(20px,5vw,60px);padding-left:max(clamp(20px,5vw,60px),var(--rail-w));position:relative}
+@media(max-width:900px){.border-x{padding-left:clamp(20px,5vw,60px)}}
+.border-x .bx-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,380px);gap:clamp(28px,5vw,64px);align-items:center;max-width:1100px}
+.border-x h2{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:900;margin:10px 0 16px;color:#fff;max-width:18ch}
+.border-x .lede{color:rgba(255,255,255,.85);font-size:clamp(1.05rem,1.6vw,1.22rem);max-width:54ch}
+.bx-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}
+.bx-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;overflow:hidden}
+.bx-card .bar{display:flex;height:8px}.bx-card .bar i{flex:1}
+.bx-card div{padding:14px 16px}.bx-card small{display:block;font-weight:800;letter-spacing:.18em;font-size:.72rem;color:#9fc6ff}
+.bx-card b{display:block;font-size:1.35rem;font-weight:900;color:#fff;margin:2px 0 4px}.bx-card span{font-size:.92rem;color:rgba(255,255,255,.78)}
+.bx-ticks{list-style:none;padding:0;margin:0 0 26px;display:grid;gap:8px;color:#fff;font-weight:700}
+.bx-ticks li:before{content:"✓";display:inline-flex;width:1.4em;height:1.4em;border-radius:50%;background:#0e80d4;align-items:center;justify-content:center;font-size:.8em;margin-right:.6em}
+.bx-video{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.18);background:#000;aspect-ratio:9/16}
+.bx-video video{width:100%;height:100%;display:block;object-fit:cover}
+@media(max-width:820px){.border-x .bx-grid{grid-template-columns:1fr}.bx-video{max-width:380px;margin:0 auto;width:100%}.bx-cards{grid-template-columns:1fr 1fr}}
 #s05 h2{max-width:20ch}
 .flowstep{min-height:96svh}
 .flowstep .fs-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,4.5vw,64px);align-items:center}
@@ -375,7 +391,7 @@ section.step{min-height:100svh;display:flex;align-items:center;position:relative
 #s06{flex-direction:column;justify-content:center;padding-bottom:0}
 #s06 .wrap{text-align:center;display:flex;flex-direction:column;align-items:center}
 #s06 h2{max-width:22ch;margin-left:auto;margin-right:auto;font-size:clamp(2.3rem,5.6vw,4.2rem)}
-#s06 h2 em{font-style:normal;background:linear-gradient(120deg,#4db2f2,var(--amber));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#s06 h2 em,.border-x h2 em{font-style:normal;background:linear-gradient(120deg,#4db2f2,var(--amber));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 #s06 .lede{margin:0 auto 42px}
 #s06 .eyebrow{justify-content:center}
 #s06 .eyebrow::after{display:none}
@@ -723,6 +739,33 @@ body.vo-playing section.step{padding-bottom:110px}
   </div>
 </section>
 
+<!-- ============ BORDER CROSSING (Lewis, 11/26: "Add a border crossing section") ============ -->
+<section class="border-x dark" id="border-crossing" aria-labelledby="bxTitle">
+  <div class="bx-grid">
+    <div>
+      <span class="eyebrow">Cross-border freight</span>
+      <h2 id="bxTitle">One truck. Two borders. <em>Zero drama.</em></h2>
+      <p class="lede">Heading north into Canada or south into Mexico, your freight rolls up ready and gets waved right on through, on Landstar's network.</p>
+      <div class="bx-cards">
+        <div class="bx-card"><span class="bar"><i style="background:#d52b1e"></i><i style="background:#fff"></i><i style="background:#d52b1e"></i></span><div><small>NORTHBOUND</small><b>Canada</b><span>U.S. to Canada and back.</span></div></div>
+        <div class="bx-card"><span class="bar"><i style="background:#006847"></i><i style="background:#fff"></i><i style="background:#ce1126"></i></span><div><small>SOUTHBOUND</small><b>México</b><span>U.S. to Mexico and back.</span></div></div>
+      </div>
+      <ul class="bx-ticks">
+        <li>Canada &amp; Mexico, both directions</li>
+        <li>Paperwork lined up before the border</li>
+        <li>Tracked every mile</li>
+      </ul>
+      <div class="payoff-ctas">
+        <a class="btn-solid green" href="/truckload">Request a cross-border truck 🚛</a>
+        <a class="btn-solid" href="tel:+17064179097">📞 Call the team</a>
+      </div>
+    </div>
+    <div class="bx-video">
+      <video src="/assets/videos/landstar-border-crossing.mp4" poster="/assets/videos/landstar-border-crossing.jpg" controls playsinline preload="metadata" aria-label="Landstar truck crossing into Canada and into Mexico, waved through by the border officers"></video>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 05 · WHAT YOU SEE ============ -->
 <section class="step soft" id="s05" data-narr="Now the part that matters. Here's exactly what you get — one screen at a time, from first click to confirmation.">
   <span class="ghost" aria-hidden="true">05</span>
@@ -946,6 +989,7 @@ body.vo-playing section.step{padding-bottom:110px}
         <a href="/truckload">Get a quote</a>
         <a href="/truckload">Request a truck</a>
         <a href="/fireworks-import">Fireworks import</a>
+        <a href="#border-crossing">Canada &amp; Mexico crossings</a>
         <a href="/customs-bond">Customs bonds</a>
         <a href="portal.html">Client portal</a>
         <a href="/partner">3PL &amp; forwarder portal</a>
