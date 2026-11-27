@@ -256,7 +256,7 @@
   // TRUESHIPPING.US, on the freight pages (Lewis, 11/17: "i want to start pushing
   // Trueshipping.us"). The agency's own address, which forwards to Request a Truck, drawn as a
   // gold pill beside the Facebook button. Not on the store, the bath page or Surrogate Funding.
-  if (/^\/(index|home|home-classic|truckload|quote|fireworks-import|customs-bond|BCOonboarding|2seats|loads|trucks|week|bco-dispatch|videos)?(\.html)?\/?$/i.test(location.pathname)) {
+  if (/^\/(index|home|home-classic|truckload|quote|fireworks-import|customs-bond|cross-border|BCOonboarding|2seats|loads|trucks|week|bco-dispatch|videos)?(\.html)?\/?$/i.test(location.pathname)) {
     var fbs = document.querySelectorAll(".fbbtn,.fb-link");
     var at = fbs.length ? fbs[fbs.length - 1] : null;
     if (at && at.parentNode) {

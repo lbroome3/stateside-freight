@@ -189,6 +189,14 @@
       "destination": "/fireworks-import.html"
     },
     {
+      "source": "/cross-border",
+      "destination": "/cross-border.html"
+    },
+    {
+      "source": "/cross-border/",
+      "destination": "/cross-border.html"
+    },
+    {
       "source": "/customs-bond",
       "destination": "/customs-bond.html"
     },
@@ -833,6 +841,28 @@
         }
       ],
       "destination": "https://www.trueshipping.us/fireworks-import",
+      "permanent": true
+    },
+    {
+      "source": "/cross-border",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/cross-border",
+      "permanent": true
+    },
+    {
+      "source": "/cross-border.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lewisbroome.com"
+        }
+      ],
+      "destination": "https://www.trueshipping.us/cross-border",
       "permanent": true
     },
     {

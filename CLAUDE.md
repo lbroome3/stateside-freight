@@ -70,6 +70,7 @@ shows live freight.
 | `truckload.html` | `/truckload` | Request a Truck — the form every social post sends shippers to. |
 | `quote.html` | `/quote` | Container quote. |
 | `fireworks-import.html` | `/fireworks-import` | Importers, dock to dock. Wednesday's post. |
+| `cross-border.html` | `/cross-border` | Canada and Mexico freight, door to door (Muse's request, built on Lewis's word 11/27): crossings, how it works, paperwork, quote form (source "Cross-Border (Website)"). Customs clearance is the customer's broker; never say we clear customs. The push Muse's videos point at. |
 | `customs-bond.html` | `/customs-bond` | Continuous and single-entry bonds through partners. |
 | `BCOonboarding.html` | `/BCOonboarding` | Lease on with Landstar. Tuesday's post. |
 | `2seats.html` | `/2seats` | Two company trucks, two seats. Driver application. |
@@ -125,7 +126,7 @@ don't have access to anymore, I don't want to get blocked"). The Amazon store pa
 **TrueShipping.us is the trucking site's address** (Lewis, 11/17: "i want to start pushing Trueshipping.us" /
 "Everything trucking related to trueshipping.us"). Since 11/18 it is a real host on this project (GoDaddy DNS
 points at Vercel; `trueshipping.us` forwards to `www.trueshipping.us`). The trucking pages (home, truckload, quote,
-fireworks-import, customs-bond, BCOonboarding, 2seats, loads, trucks, week, videos, bco-dispatch) carry
+fireworks-import, cross-border, customs-bond, BCOonboarding, 2seats, loads, trucks, week, videos, bco-dispatch) carry
 `https://www.trueshipping.us/...` in their canonical, og:url and structured data, and are listed in
 `sitemap-trucking.xml`. In `vercel.json`, host rules do the rest: on `www.lewisbroome.com` those paths 301 to the
 same path on TrueShipping.us and `/` opens Lewis's own page (`/lewis-broome`); on `www.trueshipping.us` `/` is
