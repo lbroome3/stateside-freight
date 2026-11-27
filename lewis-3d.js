@@ -102,11 +102,13 @@
       return Math.max(a, b);
     }
 
-    /* four orbits, one business on each */
+    /* five orbits, one business on each */
     var ORBITS = [
       { label: "Freight", sub: "Landstar Agency LBR", href: "https://www.trueshipping.us/", logo: "/assets/logos/landstar-star.png", r: 4.2, tilt: [1.15, 0.2], speed: 0.32, color: BLUE, rgb: "124,196,255", phase: 0 },
       { label: "GPT Marketing", sub: "Websites & AI", href: "https://gptmarketing.us/", logo: "/assets/logos/gpt-marketing.png", r: 5.4, tilt: [1.35, -0.6], speed: -0.22, color: 0x9fd3ff, rgb: "159,211,255", phase: 2.1 },
       { label: "Surrogate Funding", sub: "Foundation", href: "/surrogate-funding", logo: "/assets/logos/surrogate-funding.png", r: 6.5, tilt: [1.0, 0.9], speed: 0.16, color: GOLD, rgb: "201,162,74", phase: 4.2 },
+      /* Lewis, 11/27: "Add the store to the globe too" */
+      { label: "Amazon Store", sub: "Gidgets & Gadgets", href: "/az", logo: "/az-media/app/icon-192.png", r: 5.95, tilt: [0.8, -0.25], speed: 0.19, color: 0xff9f2e, rgb: "255,159,46", phase: 3.2 },
       /* Lewis, 11/21: "add the war room to the world in the cube" */
       { label: "Zeus War Room", sub: "SPY · live 9:30 ET", href: "/zeus", logo: "/assets/logos/zeus-war-room.png", zeus: true, r: 7.5, tilt: [1.25, -1.1], speed: -0.13, color: 0x8b7bff, rgb: "150,130,255", phase: 1.0 },
     ];
